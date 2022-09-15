@@ -1,0 +1,59 @@
+/* 전역 레이아웃 설정입니다. Don't touch plz :) */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  width: 100vw;
+  grid-template-areas: "side main_container";
+  background-color: aliceblue;
+}
+
+.side {
+  grid-area: side;
+}
+
+.main_container {
+  grid-area: main_container;
+  display: grid;
+  grid-template-columns: 330px;
+  grid-template-rows: 50px 1fr;
+  grid-template-areas: "header" "main";
+  justify-content: center;
+  width: 100%;
+}
+
+.header {
+  grid-area: header;
+  border: 0.5px solid;
+  width: 100%;
+  background-color: lavenderblush;
+}
+
+.main {
+  grid-area: main;
+  border: 0.5px solid;
+  display: flex;
+  width: 100%;
+  background-color: lemonchiffon;
+}
+
+@media only screen and (max-width: 960px) {
+  .container {
+    display: grid;
+    grid-template-columns: 1fr;
+    height: 100vh;
+    width: 100vw;
+    grid-template-areas: "main_container";
+  }
+
+  .side {
+    display: none;
+  }
+}
