@@ -22,15 +22,15 @@ function HealthCheck() {
   return (
     <div>
       <form onSubmit={(e) => e.preventDefault()}>
-        <label>request</label>
+        <label>서버 건강 검진</label>{" "}
         <input
           type="text"
           value={test}
-          placeholder="Outgoing message"
+          placeholder="Health Check!"
           onChange={(e) => setTest(e.target.value)}
           autoFocus
           required
-        />
+        />{" "}
         <button onClick={handlePostData}>POST</button>
       </form>
     </div>
