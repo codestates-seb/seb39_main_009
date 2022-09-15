@@ -3,10 +3,7 @@ package teamparkinglot.parkinggo.member.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.member.dto.MemberJoinDto;
 import teamparkinglot.parkinggo.member.dto.MemberLoginDto;
 import teamparkinglot.parkinggo.member.entity.Member;
@@ -33,6 +30,24 @@ public class MemberController {
 
     @PostMapping("/login")
     public ResponseEntity loginUser(@RequestBody MemberLoginDto memberLoginDto) {
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/resetpwd")
+    public ResponseEntity resetPwdSendEmail(String email) {
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/resetpwd/{UUID}")
+    public ResponseEntity resetPwdCheck(@PathVariable String UUID) {
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/resetpwd/{UUID}")
+    public ResponseEntity putResetPwd(@PathVariable String UUID, String password) {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
