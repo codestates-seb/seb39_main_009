@@ -40,6 +40,9 @@ dependencies {
 
 	// gson
 	implementation 'com.google.code.gson:gson:2.9.0'
+
+	// jwt
+	implementation 'com.auth0:java-jwt:3.19.2'
 }
 
 tasks.named('test') {

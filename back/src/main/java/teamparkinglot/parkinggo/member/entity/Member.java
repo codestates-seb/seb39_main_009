@@ -16,10 +16,10 @@ public class Member {
     private Long id;
     private String email;
     private String password;
-    private String name;
+    private String nickname;
 
     @Enumerated(value = EnumType.STRING)
-    private UserRole role;
+    private MemberRole role;
     private String carNumber;
     private String phone;
     private Long point;
@@ -32,10 +32,10 @@ public class Member {
     private String refreshToken;
 
     @Builder
-    public Member(String email, String password, String name, UserRole role, String carNumber, String phone, Long point, Boolean psInfoAgmt, Boolean svcUseAgmt, Boolean eventAgmt, String provider, String providerId, String refreshToken) {
+    public Member(String email, String password, String name, MemberRole role, String carNumber, String phone, Long point, Boolean psInfoAgmt, Boolean svcUseAgmt, Boolean eventAgmt, String provider, String providerId, String refreshToken) {
         this.email = email;
         this.password = password;
-        this.name = name;
+        this.nickname = name;
         this.role = role;
         this.carNumber = carNumber;
         this.phone = phone;
@@ -48,9 +48,19 @@ public class Member {
         this.refreshToken = refreshToken;
     }
 
-    private enum UserRole {
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-        USER, ADMIN, OWNER
+    public void setNickname(String name) {
+        this.nickname = name;
+    }
 
+    public void setRole(MemberRole role) {
+        this.role = role;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }
