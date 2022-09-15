@@ -20,7 +20,11 @@ const Header = () => {
       <FiMenu className="openbtn" size={22} onClick={handleSideOpen} />
       <p>This is header</p>
       <div className={show ? "active" : "hide"}>
-        <SideBar handleSideClose={handleSideClose} />
+        <SideBar
+          show={show}
+          setShow={setShow}
+          handleSideClose={handleSideClose}
+        />
       </div>
     </div>
   );

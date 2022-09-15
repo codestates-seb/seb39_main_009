@@ -2,11 +2,10 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 300px;
+  width: 250px;
   height: 100vh;
   background-color: #fff;
   padding: 15px;
-  box-shadow: 10px 0 30px 0 rgba(0, 0, 0, 0.3);
 }
 
 .sidebar_back {
@@ -17,7 +16,7 @@
   height: 100vh;
   background-color: rgb(164, 164, 164);
   padding: 15px;
-  opacity: 40%;
+  opacity: 20%;
 }
 
 .sidebar_header {
