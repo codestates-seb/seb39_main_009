@@ -21,7 +21,7 @@ const SideBar = ({ show, setShow, handleSideClose }) => {
           />
           <div className="sidebar">
             <div className="sidebar_header">
-              <p>SideBar</p>
+              <p>This is SideBar</p>
               <GrClose
                 className="closebtn"
                 size={22}

@@ -6,9 +6,9 @@ import Header from "./component/Header/Header";
 function App() {
   return (
     <div className="container">
-      <div className="item side">프로젝트 소개 구역</div>
-      <div className="item main_container">
-        <div className="item header">
+      <div className="side">프로젝트 소개 구역</div>
+      <div className="main_container">
+        <div className="header">
           <Header />
         </div>
         <div className="main">

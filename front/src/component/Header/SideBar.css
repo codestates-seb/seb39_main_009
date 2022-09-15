@@ -6,8 +6,8 @@
   height: 100vh;
   background-color: #fff;
   padding: 15px;
+  box-shadow: 10px 0 5px -10px rgb(198, 198, 198);
 }
-
 .sidebar_back {
   position: absolute;
   top: 0;
