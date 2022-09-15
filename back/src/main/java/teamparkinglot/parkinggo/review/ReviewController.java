@@ -3,10 +3,7 @@ package teamparkinglot.parkinggo.review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
@@ -14,8 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReviewController {
 
     @GetMapping("/parking/{id}/review")
-    public ResponseEntity viewReview(@PathVariable long id) {
+    public ResponseEntity viewReviews(@PathVariable long id) {
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/parking/{id}/review")
+    public ResponseEntity postReview(@PathVariable long id, ReviewPostDto reviewPostDto) {
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }
