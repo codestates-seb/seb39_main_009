@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import teamparkinglot.parkinggo.member.dto.MemberJoinDto;
+import teamparkinglot.parkinggo.member.dto.MemberLoginDto;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.mapper.MemberMapper;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
@@ -28,6 +29,12 @@ public class MemberController {
         memberService.memberCreate(member);
 
         return new ResponseEntity(HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity loginUser(@RequestBody MemberLoginDto memberLoginDto) {
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
