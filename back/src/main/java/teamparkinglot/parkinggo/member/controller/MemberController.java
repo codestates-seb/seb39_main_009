@@ -11,6 +11,8 @@ import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.mapper.MemberMapper;
 import teamparkinglot.parkinggo.member.service.MemberService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class MemberController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/join")
-    public ResponseEntity joinUser(@RequestBody MemberJoinDto memberJoinDto) {
+    public ResponseEntity joinUser(@Valid @RequestBody MemberJoinDto memberJoinDto) {
 
         Member member = mapper.memberJoinDtoToMember(memberJoinDto);
         member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));

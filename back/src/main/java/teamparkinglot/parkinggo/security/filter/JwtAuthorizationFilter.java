@@ -3,7 +3,6 @@ package teamparkinglot.parkinggo.security.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,8 +29,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private MemberRepository memberRepository;
     private SecretCode secretCode;
 
-
-
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager, MemberRepository memberRepository, SecretCode secretCode) {
         super(authenticationManager);
         this.memberRepository = memberRepository;
@@ -45,8 +42,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         String header = request.getHeader("Authorization");
         log.info("header 잘 들어 오능가? = {}", header);
-
-
 
         if (header == null || !header.startsWith("Bearer")) {
             log.info("토큰이 안들어왔어요!");
@@ -74,8 +69,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
             chain.doFilter(request, response);
         }
-
-
     }
 
     private Member findVerifyMember(String email) {
@@ -83,28 +76,5 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                 () -> new BusinessException(ExceptionCode.MEMBER_NOT_EXISTS)
         );
         return member;
-    }
-
-    private static String getRefreshToken(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        Cookie refresh = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("Refresh")) {
-                refresh = cookie;
-                break;
-            }
-        }
-
-        String refreshToken = refresh.getValue();
-        return refreshToken;
-    }
-
-    private String recreationAccessToken(String email) {
-        // 액세스 토큰 발급
-        return JWT.create()
-                .withSubject("AccessToken")
-                .withExpiresAt(new Date(System.currentTimeMillis() + secretCode.getAccessTokenExpireTime()))
-                .withClaim("email", email)
-                .sign(Algorithm.HMAC512(secretCode.getTokenSecurityKey()));
     }
 }

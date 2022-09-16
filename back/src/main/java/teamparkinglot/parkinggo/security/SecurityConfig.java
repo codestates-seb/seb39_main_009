@@ -11,12 +11,14 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.member.service.MemberService;
 import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.security.filter.ExceptionHandlerFilter;
 import teamparkinglot.parkinggo.security.filter.JwtAuthenticationFilter;
 import teamparkinglot.parkinggo.security.filter.JwtAuthorizationFilter;
 
@@ -28,28 +30,35 @@ public class SecurityConfig {
 
     private final MemberService memberService;
     private final MemberRepository memberRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final SecretCode secretCode;
+    private final ExceptionHandlerFilter exceptionHandlerFilter;
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                    .cors().configurationSource(corsConfig())
-                .and()
-                    .formLogin().disable()
-                    .httpBasic().disable()
-                    .apply(new CustomDsl())
-                .and()
-                    .authorizeRequests()
-                    .anyRequest().permitAll();
+        http
+                .csrf().disable()
+                .formLogin().disable()
+                .httpBasic().disable()
+                .apply(new CustomDsl());
+
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        http
+                .addFilter(corsConfig())
+                .authorizeRequests()
+                .antMatchers("/api/join").permitAll()
+                .antMatchers("/api/test").authenticated()
+                .anyRequest().permitAll();
 
         return http.build();
     }
 
-    private CorsConfigurationSource corsConfig() {
+    private CorsFilter corsConfig() {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.addAllowedOriginPattern("*");
@@ -61,7 +70,7 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
 
-        return source;
+        return new CorsFilter(source);
     }
 
     private class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {
@@ -70,12 +79,16 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, memberRepository, memberService, bCryptPasswordEncoder, secretCode);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, memberRepository, memberService, bCryptPasswordEncoder(), secretCode);
             jwtAuthenticationFilter.setFilterProcessesUrl("/api/login");
 
             builder
+                    .addFilter(new JwtAuthorizationFilter(authenticationManager, memberRepository, secretCode))
                     .addFilter(jwtAuthenticationFilter)
-                    .addFilter(new JwtAuthorizationFilter(authenticationManager, memberRepository, secretCode));
+                    .addFilterBefore(exceptionHandlerFilter, JwtAuthorizationFilter.class)
+                    .addFilterBefore(exceptionHandlerFilter, UsernamePasswordAuthenticationFilter.class);
+
+
             super.configure(builder);
         }
     }
