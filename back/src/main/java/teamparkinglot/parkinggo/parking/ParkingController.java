@@ -5,6 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -36,6 +38,12 @@ public class ParkingController {
 
     @GetMapping("/find")
     public ResponseEntity searchHistory() {
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/find")
+    public ResponseEntity searchParking(ParkingCond parkingCond) {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
