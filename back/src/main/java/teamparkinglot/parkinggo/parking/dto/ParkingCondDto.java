@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.parking;
+package teamparkinglot.parkinggo.parking.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParkingCond {
+public class ParkingCondDto {
 
     private String region;
     private LocalDateTime parking_start_time;

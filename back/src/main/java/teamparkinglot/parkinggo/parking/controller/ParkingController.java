@@ -1,11 +1,10 @@
-package teamparkinglot.parkinggo.parking;
+package teamparkinglot.parkinggo.parking.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
+import teamparkinglot.parkinggo.parking.dto.ParkingCondDto;
 
 @RestController
 @RequestMapping("/api")
@@ -36,14 +35,14 @@ public class ParkingController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/parking/find")
     public ResponseEntity searchHistory() {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/find")
-    public ResponseEntity searchParking(ParkingCond parkingCond) {
+    @PostMapping("/parking/find")
+    public ResponseEntity searchParking(ParkingCondDto parkingCondDto) {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
