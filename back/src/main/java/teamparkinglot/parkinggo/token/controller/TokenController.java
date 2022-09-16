@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.security.controller;
+package teamparkinglot.parkinggo.token.controller;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -12,6 +12,7 @@ import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.token.repository.TokenRepository;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,7 @@ import java.util.Date;
 public class TokenController {
 
     private final SecretCode secretCode;
-    private final MemberRepository memberRepository;
+    private final TokenRepository tokenRepository;
 
     @PostMapping("/oauth/token")
     public ResponseEntity recreationAccessToken(HttpServletRequest request, HttpServletResponse response) {
@@ -40,8 +41,8 @@ public class TokenController {
 
         String email = JWT.require(Algorithm.HMAC512(secretCode.getTokenSecurityKey())).build().verify(refreshToken).getClaim("email").asString();
 
-        memberRepository.findByEmail(email).orElseThrow(
-                () -> new BusinessException(ExceptionCode.MEMBER_NOT_EXISTS)
+        tokenRepository.findByEmail(email).orElseThrow(
+                () -> new BusinessException(ExceptionCode.REFRESH_TOKEN_NOT_EXISTS)
         );
 
         String accessToken = recreationAccessToken(email);

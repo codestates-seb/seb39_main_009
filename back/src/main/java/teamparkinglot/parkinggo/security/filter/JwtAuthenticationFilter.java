@@ -16,9 +16,9 @@ import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.member.dto.MemberLoginDto;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
-import teamparkinglot.parkinggo.member.service.MemberService;
 import teamparkinglot.parkinggo.secret.SecretCode;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
+import teamparkinglot.parkinggo.token.service.TokenService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -34,7 +34,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final AuthenticationManager authenticationManager;
     private final MemberRepository memberRepository;
-    private final MemberService memberService;
+    private final TokenService tokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final SecretCode secretCode;
@@ -82,13 +82,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader("Authorization", "Bearer " + accessToken);
 
         // 리프레시 토큰 발급
-        String refreshToken = getToken("RefreshToken", secretCode.getRefreshTokenExpireTime(), email);
+        String refreshToken = getToken("RefreshToken", secretCode.getRefreshTokenExpireTime());
         Cookie cookie = new Cookie("Refresh", refreshToken);
         cookie.setHttpOnly(true);
 
         response.addCookie(cookie);
-        memberService.setRefreshToken(refreshToken, email);
-
+        tokenService.createRefreshToken(refreshToken, email);
     }
 
     private String getToken(String tokenKind, Long accessTokenExpireTime, String email) {
@@ -96,6 +95,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject(tokenKind)
                 .withExpiresAt(new Date(System.currentTimeMillis() + accessTokenExpireTime))
                 .withClaim("email", email)
+                .sign(Algorithm.HMAC512(secretCode.getTokenSecurityKey()));
+        return accessToken;
+    }
+
+    private String getToken(String tokenKind, Long accessTokenExpireTime) {
+        String accessToken = JWT.create()
+                .withSubject(tokenKind)
+                .withExpiresAt(new Date(System.currentTimeMillis() + accessTokenExpireTime))
                 .sign(Algorithm.HMAC512(secretCode.getTokenSecurityKey()));
         return accessToken;
     }

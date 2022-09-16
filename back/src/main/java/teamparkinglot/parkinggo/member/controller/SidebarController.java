@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.sidebar;
+package teamparkinglot.parkinggo.member.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
