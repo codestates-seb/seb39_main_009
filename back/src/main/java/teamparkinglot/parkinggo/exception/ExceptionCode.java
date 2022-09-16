@@ -8,7 +8,8 @@ public enum ExceptionCode {
     MEMBER_NOT_EXISTS(404, "회원이 없습니다."),
     PASSWORD_NOT_MATCH(401, "비밀번호가 맞지 않아요"),
     REFRESH_TOKEN_EXPIRED(401, "로그인 다시 하세요."),
-    REFRESH_TOKEN_NOT_EXISTS(404, "리프레시 토큰이 없습니다.");
+    REFRESH_TOKEN_NOT_EXISTS(404, "리프레시 토큰이 없습니다."),
+    ACCESS_TOKEN_EXPIRED(401, "Access Token expired");
 
     @Getter
     private int status;

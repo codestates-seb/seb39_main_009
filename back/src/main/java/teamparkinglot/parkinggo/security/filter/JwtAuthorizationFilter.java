@@ -46,6 +46,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String header = request.getHeader("Authorization");
         log.info("header 잘 들어 오능가? = {}", header);
 
+
+
         if (header == null || !header.startsWith("Bearer")) {
             log.info("토큰이 안들어왔어요!");
             chain.doFilter(request, response);
@@ -58,27 +60,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         Date now = new Date(System.currentTimeMillis());
 
         if (expiresAt.before(now)) {
-            log.info("=== 토큰 시간 만료 ===");
-            //리프레시 토큰 까는 로직 시작
-            String refreshToken = getRefreshToken(request);
-
-            if (refreshToken != null) {
-                String email = JWT.require(Algorithm.HMAC512(secretCode.getTokenSecurityKey())).build().verify(refreshToken).getClaim("email").asString();
-                Member member = findVerifyMember(email);
-                String dbToken = member.getRefreshToken();
-
-                if (dbToken.equals(refreshToken)) {
-                    token = recreationAccessToken(email);
-                    response.addHeader("Authorization", "Bearer " + token);
-                } else {
-                    throw new BusinessException(ExceptionCode.REFRESH_TOKEN_EXPIRED);
-                }
-            } else {
-                throw new BusinessException(ExceptionCode.REFRESH_TOKEN_NOT_EXISTS);
-            }
+            log.info("=== 액세스 토큰 시간 만료 ===");
+            throw new BusinessException(ExceptionCode.ACCESS_TOKEN_EXPIRED);
         }
-
-        log.info("시크릿 키 잘 오니? = {}", secretCode.getTokenSecurityKey());
 
         String email = JWT.require(Algorithm.HMAC512(secretCode.getTokenSecurityKey())).build().verify(token).getClaim("email").asString();
 

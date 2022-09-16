@@ -77,7 +77,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // 액세스 토큰 발급
         String email = principalDetails.getUsername();
 
-        log.info("잘 되나? = {}", secretCode.getAccessTokenExpireTime());
         String accessToken = getToken("AccessToken", secretCode.getAccessTokenExpireTime(), email);
 
         response.addHeader("Authorization", "Bearer " + accessToken);
@@ -85,7 +84,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // 리프레시 토큰 발급
         String refreshToken = getToken("RefreshToken", secretCode.getRefreshTokenExpireTime(), email);
         Cookie cookie = new Cookie("Refresh", refreshToken);
-        log.info("쿠키값 = {}", refreshToken);
+        cookie.setHttpOnly(true);
 
         response.addCookie(cookie);
         memberService.setRefreshToken(refreshToken, email);
