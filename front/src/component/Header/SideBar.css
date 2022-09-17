@@ -1,0 +1,30 @@
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100vh;
+  background-color: #fff;
+  padding: 15px;
+  box-shadow: 10px 0 5px -10px rgb(198, 198, 198);
+}
+.sidebar_back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 470px;
+  height: 100vh;
+  background-color: rgb(164, 164, 164);
+  padding: 15px;
+  opacity: 20%;
+}
+
+.sidebar_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.closebtn:hover {
+  cursor: pointer;
+}
