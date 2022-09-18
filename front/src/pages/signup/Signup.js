@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import axios from "axios";
 import JoinPresenter from "./JoinPresenter";
+import { AiOutlineLeft } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+
 
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const [usernameinput, setUsernameinput] = useState("");
   const [emailinput, setEmailinput] = useState("");
+  const [passwordinput, setPasswordinput] = useState("")
   const [checkpassword, setCheckpassword] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [carnumber, setCarnumber] = useState("");
+
 
 
 
@@ -28,6 +35,10 @@ const SignUp = () => {
       .then((response) => {
         console.log(response);
         alert("회원가입성공");
+        if(checkpassword === passwordinput && response.status ===404){
+            return navigate('/welcome')
+        }
+    
       }).catch((err)=>{
         console.log(err);
       })
@@ -36,6 +47,12 @@ const SignUp = () => {
 
   return (
     <div className="signup">
+       <AiOutlineLeft
+          size={24}
+          onClick={() => {
+            navigate(-1);
+          }}
+        />
       <div className="signup_input">
       <label>Name</label>
       <br/>
@@ -58,12 +75,15 @@ const SignUp = () => {
         }}
       />
       </div>
-      <div className="signup_input">
+        <div className="signup_input">
       <label>비밀번호</label>
       <br/>
       <input
         type="password"
         placeholder="password..."
+        onChange={(e) => {
+          setPasswordinput(e.target.value);
+        }}
       />
       </div>
       <div className="signup_input">
