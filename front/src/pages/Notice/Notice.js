@@ -1,7 +1,84 @@
-import React from "react";
+import React, { useState } from "react";
+import "./Notice.css";
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
+import { GrClose } from "react-icons/gr";
+import { useNavigate } from "react-router-dom";
 
 const Notice = () => {
-  return <div>Notice</div>;
+  const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(null);
+
+  const toggle = (i) => {
+    console.log(i);
+    if (isOpen === i) {
+      return setIsOpen(null);
+    }
+    setIsOpen(i);
+  };
+
+  return (
+    <div className="notice_container">
+      <div className="notice_header">
+        <p>공지사항</p>
+        <GrClose className="closebtn" size={24} onClick={() => navigate(-1)} />
+      </div>
+      <div className="notice_main">
+        {data &&
+          data.map((notice, i) => (
+            <div className="notice" key={i}>
+              <div
+                className={
+                  isOpen === i ? `notice_title active` : `notice_title`
+                }
+                onClick={() => toggle(i)}
+              >
+                <div className="title">{`[${notice.type}] ${notice.title}`}</div>
+                <div className="date">{notice.created_date.substr(0, 10)}</div>
+                <div className="arrowicon">
+                  {isOpen === i ? (
+                    <AiOutlineUp size={20} />
+                  ) : (
+                    <AiOutlineDown size={20} />
+                  )}
+                </div>
+              </div>
+              <div
+                className={
+                  isOpen === i ? `notice_content` : "notice_content hide"
+                }
+              >
+                {notice.content}
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
+  );
 };
 
 export default Notice;
+
+const data = [
+  {
+    type: "EVENT",
+    title:
+      "공지사항Elit do dolore qui consectetur est commodo proident quis voluptate qui ullamco.",
+    created_date: "2022-09-15T15:36:58",
+    content:
+      "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. Duis dolore minim magna minim enim nisi voluptate id. Minim cupidatat exercitation esse eiusmod nulla veniam do aliquip culpa. Nostrud labore do ea aliqua incididunt mollit incididunt ullamco et. Laborum incididunt anim eiusmod eu consectetur proident velit. Dolore cupidatat consectetur veniam pariatur officia tempor exercitation.",
+  },
+  {
+    type: "NORMAL",
+    title: "이벤트",
+    created_date: "2022-09-15T15:36:58",
+    content:
+      "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. ",
+  },
+  {
+    type: "EMERGENCY",
+    title: "긴급공지사항",
+    created_date: "2022-09-15T15:36:58",
+    content:
+      "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. Duis dolore minim magna minim enim nisi voluptate id. Minim cupidatat exercitation esse eiusmod nulla veniam do aliquip culpa. Nostrud labore do ea aliqua incididunt mollit incididunt ullamco et.",
+  },
+];

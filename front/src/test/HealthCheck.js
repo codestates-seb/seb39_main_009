@@ -13,7 +13,7 @@ function HealthCheck() {
       .post(`${process.env.REACT_APP_BASE_URL}/api/test`, inputData)
       .then((res) => {
         console.log(res);
-        
+
         alert(`post 성공!`);
       })
       .catch((err) => {
@@ -41,9 +41,19 @@ function HealthCheck() {
         페이지 체크용 연결 버튼
         <br />
         <button onClick={() => navigate(`/loading`)}>로딩컴포넌트</button>
-        <button onClick={()=> navigate('/join')}>회원가입</button>
-        <button onClick={()=> navigate('/login')}>로그인</button>
-        <button onClick={()=> navigate('/welcome')}>환영창</button>
+        <button onClick={() => navigate("/join")}>회원가입</button>
+        <button onClick={() => navigate("/login")}>로그인</button>
+        <button onClick={() => navigate("/welcome")}>환영창</button>
+        <button onClick={() => navigate(`/agmtconf/service`)}>
+          서비스이용약관
+        </button>
+        <button onClick={() => navigate(`/agmtconf/psinfo`)}>
+          개인정보처리방침
+        </button>
+        <button onClick={() => navigate(`/agmtconf/event`)}>
+          마케팅정보수신동의
+        </button>
+        <button onClick={() => navigate(`/notice`)}>공지사항</button>
       </div>
       <div>
         <br />( p.s 효영님! 화면 점검용으로 만들어 놓은 임의페이지 & 버튼입니다.

@@ -10,6 +10,7 @@ import EventTerm from "./pages/Terms/EventTerm";
 import SignUp from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Welcome from "./pages/signup/Welcome";
+import Notice from "./pages/Notice/Notice";
 
 function App() {
   return (
@@ -28,7 +29,6 @@ function App() {
               <Route path="/join" element={<SignUp />} />
               {/* welcome창 */}
               <Route path="/welcome" element={<Welcome />} />
-
               {/* 로그인창 */}
               <Route path="/login" element={<Login />} />
               {/* 로딩창 */}
@@ -39,6 +39,8 @@ function App() {
               <Route path="/agmtconf/psinfo" element={<PsInfoTerm />} />
               {/* 마케팅 이벤트 정보 동의 약관 */}
               <Route path="/agmtconf/event" element={<EventTerm />} />
+              {/* 공지사항 */}
+              <Route path="/notice" element={<Notice />} />
             </Routes>
           </div>
         </div>

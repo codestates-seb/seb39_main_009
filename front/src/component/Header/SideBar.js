@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./SideBar.css";
 import { GrClose } from "react-icons/gr";
 import { AiOutlineRight } from "react-icons/ai";
@@ -8,7 +8,7 @@ import { BiLogOut } from "react-icons/bi";
 
 const SideBar = ({ show, setShow, handleSideClose }) => {
   const sidebarBackRef = useRef();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -60,7 +60,14 @@ const SideBar = ({ show, setShow, handleSideClose }) => {
             </div>
 
             <div className="subMenu">
-              <p>공지사항</p>
+              <p
+                onClick={() => {
+                  navigate(`/notice`);
+                  setShow(!show);
+                }}
+              >
+                공지사항
+              </p>
               <p>제휴 문의</p>
               <p>1:1 문의</p>
               <div className="side_logout">

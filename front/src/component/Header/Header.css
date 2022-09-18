@@ -12,6 +12,10 @@ p {
   font-size: larger;
 }
 
+p:hover {
+  cursor: pointer;
+}
+
 .active {
   visibility: visible;
 }

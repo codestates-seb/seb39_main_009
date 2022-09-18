@@ -20,25 +20,15 @@ const ServiceTerm = () => {
         <div className="main_title">
           <h3>주차GO 서비스 약관</h3>
         </div>
-        <div className="main_content">
-          Sint dolor consectetur cillum nostrud proident minim voluptate duis
-          duis commodo ipsum ipsum ex esse. Dolor sint aliqua qui duis labore
-          excepteur commodo adipisicing eiusmod. Duis ipsum fugiat proident
-          tempor cupidatat ad veniam nostrud dolore ea voluptate minim
-          reprehenderit ex. Ullamco consectetur cillum quis nisi exercitation
-          ea. Lorem in ut consequat commodo consequat consectetur non nulla eu.
-          Adipisicing sunt nulla adipisicing occaecat. Minim proident proident
-          Lorem ex. Voluptate et tempor amet veniam et culpa aute aute cupidatat
-          in. Lorem aliquip do amet duis exercitation id. Quis velit qui duis
-          labore occaecat sint. Nostrud qui dolor elit Lorem minim adipisicing
-          qui culpa in veniam consequat nostrud. Ipsum nostrud ea voluptate duis
-          id. Adipisicing esse velit tempor in duis ipsum deserunt ut duis ad.
-          In ipsum deserunt reprehenderit adipisicing tempor fugiat nulla amet
-          eu ea aliquip. Eu ullamco aliqua deserunt non ad incididunt.
-        </div>
+        <div className="main_content">{data.content}</div>
       </div>
     </div>
   );
 };
 
 export default ServiceTerm;
+
+const data = {
+  content:
+    "Aliqua aute velit duis in est occaecat velit velit velit ea ipsum Lorem non. Exercitation non dolor exercitation aliqua ipsum nostrud reprehenderit aute dolore ex consequat. Amet aute cupidatat pariatur Lorem est dolore esse minim occaecat eu aute. Aliquip duis nulla occaecat exercitation nostrud duis sit nostrud. Exercitation consectetur sint aute in amet irure voluptate Lorem magna consequat amet aute eiusmod eiusmod. Pariatur ad enim anim adipisicing laborum eiusmod reprehenderit tempor ea culpa ea incididunt exercitation sint. Aute sint sint exercitation qui duis ea ex. Adipisicing ea consequat cillum adipisicing ad id quis ullamco ad eiusmod sint. Nisi ex consectetur dolor ea ipsum nulla Lorem non excepteur quis cillum officia Lorem sint. Non sint veniam aliqua proident occaecat non. Fugiat nisi commodo officia reprehenderit nulla sunt excepteur proident anim minim deserunt ad. Tempor sunt laboris et duis laboris ex laborum fugiat sunt eu velit commodo. Elit laborum sit incididunt cillum dolore mollit minim quis irure ut. Officia pariatur cupidatat velit pariatur eiusmod quis commodo velit sunt. Do excepteur aliquip consequat dolor Lorem ipsum sint laboris. Incididunt culpa aliqua exercitation exercitation consequat aliqua laborum. Pariatur aliqua aliquip enim mollit incididunt laboris mollit Lorem eiusmod commodo sint minim. Nisi amet adipisicing veniam ex aliquip officia officia nostrud nostrud duis ullamco Lorem occaecat aliquip. Dolore aliqua magna excepteur laborum consequat. Duis consequat mollit do elit qui velit commodo ex exercitation magna sit do veniam. Anim velit nostrud tempor et incididunt. Anim ullamco nostrud commodo minim culpa aliquip fugiat labore culpa labore voluptate aute irure aute. Dolor esse dolore proident ex excepteur quis labore ullamco. Laboris eu esse culpa minim magna ullamco. Ad consectetur Lorem aute laborum enim amet.",
+};
