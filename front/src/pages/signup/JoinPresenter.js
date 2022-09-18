@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { FaAngleRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function JoinPresenter() {
+  const navigate = useNavigate();
+
   const [allCheck, setAllCheck] = useState(false);
   const [ageCheck, setAgeCheck] = useState(false);
   const [useCheck, setUseCheck] = useState(false);
@@ -75,7 +78,9 @@ function JoinPresenter() {
               onChange={ageBtnEvent}
             />
             <label for="check1">서비스 이용약관 (필수)</label>
-            <FaAngleRight />
+            <FaAngleRight 
+            onClick={()=> navigate('/agmtconf/service')}
+            />
           </div>
           <div>
             <input
@@ -85,7 +90,8 @@ function JoinPresenter() {
               onChange={useBtnEvent}
             />
             <label for="check2">개인정보 처리방침 (필수)</label>
-            <FaAngleRight />
+            <FaAngleRight 
+            onClick={()=> navigate('/agmtconf/psinfo')}/>
           </div>
           <div>
             <input
@@ -95,7 +101,8 @@ function JoinPresenter() {
               onChange={marketingBtnEvent}
             />
             <label for="check3">이벤트/마케팅 수신동의 (선택)</label>
-            <FaAngleRight />
+            <FaAngleRight 
+            onClick={()=> navigate('/agmtconf/event')}/>
           </div>
         </div>
       </div>

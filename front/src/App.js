@@ -7,6 +7,9 @@ import Loading from "./component/Loading/Loading";
 import ServiceTerm from "./pages/Terms/ServiceTerm";
 import PsInfoTerm from "./pages/Terms/PsInfoTerm";
 import EventTerm from "./pages/Terms/EventTerm";
+import SignUp from "./pages/signup/Signup";
+import Login from "./pages/login/Login";
+import Welcome from "./pages/signup/Welcome";
 
 function App() {
   return (
@@ -21,6 +24,14 @@ function App() {
             {/* ↓ 아래 main div 안에 페이지 추가해주시면 됩니다. */}
             <Routes>
               <Route path="/" element={<HealthCheck />} />
+              {/* 회원가입창 */}
+              <Route path="/join" element={<SignUp />} />
+              {/* welcome창 */}
+              <Route path="/welcome" element={<Welcome />} />
+
+              {/* 로그인창 */}
+              <Route path="/login" element={<Login />} />
+              {/* 로딩창 */}
               <Route path="/loading" element={<Loading />} />
               {/* 서비스 이용약관 */}
               <Route path="/agmtconf/service" element={<ServiceTerm />} />
