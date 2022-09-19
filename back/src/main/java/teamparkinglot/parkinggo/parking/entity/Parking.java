@@ -16,15 +16,15 @@ public class Parking {
     private String name;
     @Embedded
     private Address address;
-    private LocalDateTime weekday_open;
-    private LocalDateTime weekday_close;
+    private String weekday_open;
+    private String weekday_close;
     private String tel;
     private int price;
     private int capacity;
-    private LocalDateTime sat_open;
-    private LocalDateTime sat_close;
-    private LocalDateTime sun_open;
-    private LocalDateTime sun_close;
+    private String sat_open;
+    private String sat_close;
+    private String sun_open;
+    private String sun_close;
     private boolean partnership;
     private String type;
     private int day_max;

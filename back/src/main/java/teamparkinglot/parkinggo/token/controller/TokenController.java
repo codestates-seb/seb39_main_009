@@ -5,13 +5,11 @@ import com.auth0.jwt.algorithms.Algorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
-import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.token.dto.TokenDto;
 import teamparkinglot.parkinggo.token.repository.TokenRepository;
 
 import javax.servlet.http.Cookie;
@@ -28,25 +26,33 @@ public class TokenController {
     private final TokenRepository tokenRepository;
 
     @PostMapping("/oauth/token")
-    public ResponseEntity recreationAccessToken(HttpServletRequest request, HttpServletResponse response) {
+    public ResponseEntity recreationAccessToken(HttpServletRequest request, HttpServletResponse response, @RequestBody TokenDto tokenDto) {
 
-        String refreshToken = getRefreshToken(request);
+//        String refreshToken = getRefreshToken(request);
+
+        String refreshToken = tokenDto.getRefreshToken();
+        System.out.println("tokenDto = " + tokenDto.getRefreshToken());
 
         refreshTokenNotExistsException(refreshToken);
 
         Date expiresAt = JWT.decode(refreshToken).getExpiresAt();
         Date now = new Date();
 
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                System.out.println("cookie = " + cookie.getValue());
+            }
+        }
+
         expiredRefreshTokenException(expiresAt, now);
 
-        String email = JWT.require(Algorithm.HMAC512(secretCode.getTokenSecurityKey())).build().verify(refreshToken).getClaim("email").asString();
-
-        tokenRepository.findByEmail(email).orElseThrow(
+        tokenRepository.findByToken(refreshToken).orElseThrow(
                 () -> new BusinessException(ExceptionCode.REFRESH_TOKEN_NOT_EXISTS)
         );
 
-        String accessToken = recreationAccessToken(email);
-
+        String accessToken = recreationAccessToken();
         response.addHeader("Authorization", "Bearer " + accessToken);
 
         return new ResponseEntity(HttpStatus.OK);
@@ -79,12 +85,11 @@ public class TokenController {
         return refreshToken;
     }
 
-    private String recreationAccessToken(String email) {
+    private String recreationAccessToken() {
         // 액세스 토큰 발급
         return JWT.create()
                 .withSubject("AccessToken")
                 .withExpiresAt(new Date(System.currentTimeMillis() + secretCode.getAccessTokenExpireTime()))
-                .withClaim("email", email)
                 .sign(Algorithm.HMAC512(secretCode.getTokenSecurityKey()));
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
@@ -21,6 +22,7 @@ import teamparkinglot.parkinggo.secret.SecretCode;
 import teamparkinglot.parkinggo.security.filter.ExceptionHandlerFilter;
 import teamparkinglot.parkinggo.security.filter.JwtAuthenticationFilter;
 import teamparkinglot.parkinggo.security.filter.JwtAuthorizationFilter;
+import teamparkinglot.parkinggo.token.service.TokenService;
 
 @Configuration
 @EnableWebSecurity
@@ -28,7 +30,8 @@ import teamparkinglot.parkinggo.security.filter.JwtAuthorizationFilter;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final MemberService memberService;
+
+    private final TokenService tokenService;
     private final MemberRepository memberRepository;
     private final SecretCode secretCode;
     private final ExceptionHandlerFilter exceptionHandlerFilter;
@@ -46,10 +49,11 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .apply(new CustomDsl());
 
+        http.cors().configurationSource(corsConfig());
+
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http
-                .addFilter(corsConfig())
                 .authorizeRequests()
                 .antMatchers("/api/join").permitAll()
                 .antMatchers("/api/test").authenticated()
@@ -58,7 +62,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    private CorsFilter corsConfig() {
+    private CorsConfigurationSource corsConfig() {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.addAllowedOriginPattern("*");
@@ -66,11 +70,13 @@ public class SecurityConfig {
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
         configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader("RefreshToken");
+        configuration.addExposedHeader("Set-Cookie");
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
 
-        return new CorsFilter(source);
+        return source;
     }
 
     private class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity> {
@@ -79,7 +85,7 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, memberRepository, memberService, bCryptPasswordEncoder(), secretCode);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, memberRepository, tokenService, bCryptPasswordEncoder(), secretCode);
             jwtAuthenticationFilter.setFilterProcessesUrl("/api/login");
 
             builder

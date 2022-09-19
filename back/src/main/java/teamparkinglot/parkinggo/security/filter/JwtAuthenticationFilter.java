@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -70,8 +71,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         log.info("===== 인증 성공 =====");
 
-        Date now = new Date();
-
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
 
         // 액세스 토큰 발급
@@ -83,10 +82,20 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // 리프레시 토큰 발급
         String refreshToken = getToken("RefreshToken", secretCode.getRefreshTokenExpireTime());
-        Cookie cookie = new Cookie("Refresh", refreshToken);
-        cookie.setHttpOnly(true);
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
+                .httpOnly(true)
+                .sameSite("none")
+                .path("/")
+                .build();
+//        Cookie cookie = new Cookie("Refresh", refreshToken);
+//        cookie.setHttpOnly(true);
+//        cookie.setPath("/");
+//        cookie.setDomain("localhost");
 
-        response.addCookie(cookie);
+        response.setHeader("RefreshToken", refreshToken);
+        System.out.println("refreshToken = " + refreshToken);
+        response.setHeader("Set-Cookie", cookie.toString());
+//        response.addCookie(cookie);
         tokenService.createRefreshToken(refreshToken, email);
     }
 
