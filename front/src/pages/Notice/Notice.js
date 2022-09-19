@@ -19,7 +19,7 @@ const Notice = () => {
     <div className="notice_container">
       <div className="notice_header">
         <p>공지사항</p>
-        <GrClose className="closebtn" size={24} onClick={() => navigate(-1)} />
+        <GrClose className="closebtn" size={22} onClick={() => navigate(-1)} />
       </div>
       <div className="notice_main">
         {data &&

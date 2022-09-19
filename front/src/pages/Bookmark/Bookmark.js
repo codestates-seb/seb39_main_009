@@ -25,7 +25,7 @@ const Bookmark = () => {
             <p>즐겨찾기</p>
             <GrClose
               className="closebtn"
-              size={24}
+              size={22}
               onClick={() => navigate(-1)}
             />
           </div>
