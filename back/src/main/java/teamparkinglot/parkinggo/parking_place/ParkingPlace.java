@@ -1,11 +1,9 @@
 package teamparkinglot.parkinggo.parking_place;
 
 import lombok.NoArgsConstructor;
+import teamparkinglot.parkinggo.parking.entity.Parking;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -17,6 +15,6 @@ public class ParkingPlace {
     private String sector;
     private Integer number;
 
-//    @ManyToOne
-//    private Parking parking;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Parking parking;
 }

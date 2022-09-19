@@ -1,5 +1,6 @@
 package teamparkinglot.parkinggo.reservation.entity;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import teamparkinglot.parkinggo.member.entity.Member;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
 @NoArgsConstructor
 public class Reservation {
 
@@ -22,11 +24,16 @@ public class Reservation {
     private LocalDateTime parkingStartTime;
     private LocalDateTime parkingEndTime;
     private Boolean refundAgmt;
+    private Long price;
+    private Boolean payOrNot;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ParkingPlace parkingPlace;
 
+    public void setPayOrNot(Boolean payOrNot) {
+        this.payOrNot = payOrNot;
+    }
 }

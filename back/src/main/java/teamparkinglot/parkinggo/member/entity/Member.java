@@ -60,6 +60,10 @@ public class Member {
         this.role = role;
     }
 
+    public void setPoint(Long point) {
+        this.point = point;
+    }
+
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
