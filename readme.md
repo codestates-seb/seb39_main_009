@@ -1,4 +1,4 @@
-# seb39_main_009 repository
+# Team 009 Main Project Repository
 
 ## Contributors
 
