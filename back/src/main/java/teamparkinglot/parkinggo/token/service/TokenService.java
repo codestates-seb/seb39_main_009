@@ -7,6 +7,8 @@ import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.token.entity.RefreshToken;
 import teamparkinglot.parkinggo.token.repository.TokenRepository;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class TokenService {
@@ -26,5 +28,14 @@ public class TokenService {
         tokenRepository.findByEmail(email).ifPresent(
                 e -> new BusinessException(ExceptionCode.REFRESH_TOKEN_EXISTS)
         );
+    }
+
+    public void deleteIfTokenExsist(String email) {
+        Optional<RefreshToken> refreshToken = tokenRepository.findByEmail(email);
+
+        if (refreshToken.isPresent()) {
+            tokenRepository.delete(refreshToken.get());
+        }
+
     }
 }

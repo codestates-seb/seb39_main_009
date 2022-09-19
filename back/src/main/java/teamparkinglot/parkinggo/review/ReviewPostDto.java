@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewPostDto {
-    private Long star;
+    private Double star;
     private String body;
 }

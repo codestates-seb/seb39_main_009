@@ -14,6 +14,8 @@ public class Member {
 
     @Id @GeneratedValue
     private Long id;
+
+    @Column(unique = true)
     private String email;
     private String password;
     private String nickname;
@@ -66,5 +68,13 @@ public class Member {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
     }
 }

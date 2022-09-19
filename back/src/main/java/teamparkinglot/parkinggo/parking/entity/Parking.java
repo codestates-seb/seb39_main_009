@@ -2,9 +2,11 @@ package teamparkinglot.parkinggo.parking.entity;
 
 import lombok.Getter;
 import teamparkinglot.parkinggo.member.entity.Member;
+import teamparkinglot.parkinggo.review.entity.Review;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,25 +18,25 @@ public class Parking {
     private String name;
     @Embedded
     private Address address;
-    private String weekday_open;
-    private String weekday_close;
+    private String weekdayOpen;
+    private String weekdayClose;
     private String tel;
     private int price;
     private int capacity;
-    private String sat_open;
-    private String sat_close;
-    private String sun_open;
-    private String sun_close;
+    private String satOpen;
+    private String satClose;
+    private String sunOpen;
+    private String sunClose;
     private boolean partnership;
     private String type;
-    private int day_max;
+    private int dayMax;
     private double LAT;
     private double LNG;
-    private String parking_map;
+    private String parkingMap;
     @OneToOne(fetch = FetchType.LAZY)
     private Member member;
 //    @OneToMany
 //    private Bookmark bookmark;
-//    @OneToMany
-//    private Review review;
+    @OneToMany(mappedBy = "parking")
+    private List<Review> reviews;
 }

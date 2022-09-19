@@ -11,10 +11,11 @@ public enum ExceptionCode {
     REFRESH_TOKEN_NOT_EXISTS(404, "리프레시 토큰이 없습니다."),
     ACCESS_TOKEN_EXPIRED(401, "Access Token expired"),
     REFRESH_TOKEN_EXISTS(409, "토큰이 이미 있는디?"),
-
     RESERVATION_NOT_EXISTS(404, "예약이 존재하지 않습니다."),
-
-    POINT_NOT_ENOUGH(404, "포인트가 부족합니다");
+    POINT_NOT_ENOUGH(404, "포인트가 부족합니다"),
+    PARKING_NOT_EXISTS(404, "주차장이 없어요!"),
+    NEED_LOGIN(403, "로그인 후에 가능한 기능입니다."),
+    INPUT_ERROR(400, "비밀번호를 다시 입력해주세요.");
 
     @Getter
     private int status;

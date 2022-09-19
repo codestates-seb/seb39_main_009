@@ -23,7 +23,6 @@ import teamparkinglot.parkinggo.token.service.TokenService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -81,7 +80,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.addHeader("Authorization", "Bearer " + accessToken);
 
         // 리프레시 토큰 발급
+        tokenService.deleteIfTokenExsist(email);
+
         String refreshToken = getToken("RefreshToken", secretCode.getRefreshTokenExpireTime());
+
         ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
                 .httpOnly(true)
                 .sameSite("none")

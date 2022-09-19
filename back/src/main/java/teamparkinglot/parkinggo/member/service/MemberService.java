@@ -1,12 +1,17 @@
 package teamparkinglot.parkinggo.member.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
+import teamparkinglot.parkinggo.member.dto.MyPagePutDto;
+import teamparkinglot.parkinggo.member.dto.MyPageResDto;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -14,6 +19,7 @@ import teamparkinglot.parkinggo.member.repository.MemberRepository;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     public Member memberCreate(Member member) {
@@ -23,18 +29,11 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    @Transactional
-    public void setRefreshToken(String refreshToken, String email) {
-
-        Member member = findVerifiedMember(email);
-        member.setRefreshToken(refreshToken);
-
-    }
-
     private void verifyMember(Member member) {
-        memberRepository.findByEmail(member.getEmail()).ifPresent(
-                e -> new BusinessException(ExceptionCode.MEMBER_EXISTS)
-        );
+        Optional<Member> find = memberRepository.findByEmail(member.getEmail());
+        if (find.isPresent()) {
+            throw new BusinessException(ExceptionCode.MEMBER_EXISTS);
+        }
     }
 
     private Member findVerifiedMember(String email) {
@@ -43,4 +42,30 @@ public class MemberService {
         );
     }
 
+    public MyPageResDto findMyPage(String email) {
+        return memberRepository.findMyPage(email);
+    }
+
+    @Transactional
+    public void myPageModify(MyPagePutDto myPagePutDto, String email) {
+
+        Member findMember = findVerifiedMember(email);
+
+        String password = myPagePutDto.getPassword();
+        String phoneNum = myPagePutDto.getPhoneNum();
+        String carNumber = myPagePutDto.getCarNumber();
+
+        if (password != null) {
+            findMember.setPassword(bCryptPasswordEncoder.encode(password));
+            System.out.println("carNumber = " + password);
+        }
+
+        if (phoneNum != null) {
+            findMember.setPhone(phoneNum);
+        }
+
+        if (carNumber != null) {
+            findMember.setCarNumber(carNumber);
+        }
+    }
 }
