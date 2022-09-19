@@ -7,20 +7,15 @@
   position: relative;
 }
 
-p {
-  margin-left: 20px;
-  font-size: larger;
-}
-
-p:hover {
+.logo:hover {
   cursor: pointer;
 }
 
-.active {
+.side_active {
   visibility: visible;
 }
 
-.hide {
+.side_hide {
   display: none;
 }
 

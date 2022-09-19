@@ -19,7 +19,7 @@ const Notice = () => {
     <div className="notice_container">
       <div className="notice_header">
         <p>공지사항</p>
-        <GrClose className="closebtn" size={22} onClick={() => navigate(-1)} />
+        <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
       </div>
       <div className="notice_main">
         {data &&
@@ -27,7 +27,7 @@ const Notice = () => {
             <div className="notice" key={i}>
               <div
                 className={
-                  isOpen === i ? `notice_title active` : `notice_title`
+                  isOpen === i ? `notice_title n_active` : `notice_title`
                 }
                 onClick={() => toggle(i)}
               >
@@ -49,7 +49,7 @@ const Notice = () => {
               </div>
               <div
                 className={
-                  isOpen === i ? `notice_content` : "notice_content hide"
+                  isOpen === i ? `notice_content` : "notice_content n_hide"
                 }
               >
                 {notice.body}

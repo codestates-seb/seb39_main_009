@@ -38,12 +38,18 @@ function HealthCheck() {
       </form>
       <div>
         <br />
-        페이지 체크용 연결 버튼
+        페이지 체크용 연결 버튼 (효영)
         <br />
-        <button onClick={() => navigate(`/loading`)}>로딩컴포넌트</button>
         <button onClick={() => navigate("/join")}>회원가입</button>
         <button onClick={() => navigate("/login")}>로그인</button>
         <button onClick={() => navigate("/welcome")}>환영창</button>
+      </div>
+      <br />
+      <div>
+        <br />
+        페이지 체크용 연결 버튼 (안나)
+        <br />
+        <button onClick={() => navigate(`/loading`)}>로딩컴포넌트</button>
         <button onClick={() => navigate(`/agmtconf/service`)}>
           서비스이용약관
         </button>
