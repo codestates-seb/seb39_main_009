@@ -4,14 +4,12 @@ import { FaCar } from "react-icons/fa";
 
 const Loading = () => {
   return (
-    <>
-      <div className="loading_container">
-        <div className="car">
-          <div class="circle"></div>
-          <FaCar className="carfront" size={50} />
-        </div>
+    <div className="loading_container">
+      <div className="car">
+        <div className="circle"></div>
+        <FaCar className="carfront" size={50} />
       </div>
-    </>
+    </div>
   );
 };
 

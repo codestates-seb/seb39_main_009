@@ -53,12 +53,18 @@ const SideBar = ({ show, setShow, handleSideClose }) => {
                   <p>원</p>
                 </div>
               </div>
-              <div className="bookmark">
+              <div className="side_bookmark">
                 <BsFillBookmarkStarFill className="icons" size={22} />
-                <p>즐겨찾기</p>
+                <p
+                  onClick={() => {
+                    navigate(`/bookmark`);
+                    setShow(!show);
+                  }}
+                >
+                  즐겨찾기
+                </p>
               </div>
             </div>
-
             <div className="subMenu">
               <p
                 onClick={() => {

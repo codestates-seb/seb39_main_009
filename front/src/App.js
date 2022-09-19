@@ -11,6 +11,7 @@ import SignUp from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Welcome from "./pages/signup/Welcome";
 import Notice from "./pages/Notice/Notice";
+import Bookmark from "./pages/Bookmark/Bookmark";
 
 function App() {
   return (
@@ -41,6 +42,8 @@ function App() {
               <Route path="/agmtconf/event" element={<EventTerm />} />
               {/* 공지사항 */}
               <Route path="/notice" element={<Notice />} />
+              {/* 즐겨찾기 */}
+              <Route path="/bookmark" element={<Bookmark />} />
             </Routes>
           </div>
         </div>

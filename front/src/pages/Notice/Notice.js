@@ -9,7 +9,6 @@ const Notice = () => {
   const [isOpen, setIsOpen] = useState(null);
 
   const toggle = (i) => {
-    console.log(i);
     if (isOpen === i) {
       return setIsOpen(null);
     }
@@ -32,7 +31,13 @@ const Notice = () => {
                 }
                 onClick={() => toggle(i)}
               >
-                <div className="title">{`[${notice.type}] ${notice.title}`}</div>
+                <div className="title">{`[${
+                  notice.type === `NORMAL`
+                    ? `공지`
+                    : notice.type === `EMERGENCY`
+                    ? `긴급공지`
+                    : `이벤트`
+                }] ${notice.title}`}</div>
                 <div className="date">{notice.created_date.substr(0, 10)}</div>
                 <div className="arrowicon">
                   {isOpen === i ? (
@@ -47,7 +52,7 @@ const Notice = () => {
                   isOpen === i ? `notice_content` : "notice_content hide"
                 }
               >
-                {notice.content}
+                {notice.body}
               </div>
             </div>
           ))}
@@ -62,23 +67,20 @@ const data = [
   {
     type: "EVENT",
     title:
-      "공지사항Elit do dolore qui consectetur est commodo proident quis voluptate qui ullamco.",
+      "이벤트 Elit do dolore qui consectetur est commodo proident quis voluptate qui ullamco.",
     created_date: "2022-09-15T15:36:58",
-    content:
-      "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. Duis dolore minim magna minim enim nisi voluptate id. Minim cupidatat exercitation esse eiusmod nulla veniam do aliquip culpa. Nostrud labore do ea aliqua incididunt mollit incididunt ullamco et. Laborum incididunt anim eiusmod eu consectetur proident velit. Dolore cupidatat consectetur veniam pariatur officia tempor exercitation.",
+    body: "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. Duis dolore minim magna minim enim nisi voluptate id. Minim cupidatat exercitation esse eiusmod nulla veniam do aliquip culpa. Nostrud labore do ea aliqua incididunt mollit incididunt ullamco et. Laborum incididunt anim eiusmod eu consectetur proident velit. Dolore cupidatat consectetur veniam pariatur officia tempor exercitation.",
   },
   {
     type: "NORMAL",
-    title: "이벤트",
+    title: "공지사항",
     created_date: "2022-09-15T15:36:58",
-    content:
-      "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. ",
+    body: "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. ",
   },
   {
     type: "EMERGENCY",
     title: "긴급공지사항",
     created_date: "2022-09-15T15:36:58",
-    content:
-      "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. Duis dolore minim magna minim enim nisi voluptate id. Minim cupidatat exercitation esse eiusmod nulla veniam do aliquip culpa. Nostrud labore do ea aliqua incididunt mollit incididunt ullamco et.",
+    body: "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. Duis dolore minim magna minim enim nisi voluptate id. Minim cupidatat exercitation esse eiusmod nulla veniam do aliquip culpa. Nostrud labore do ea aliqua incididunt mollit incididunt ullamco et.",
   },
 ];

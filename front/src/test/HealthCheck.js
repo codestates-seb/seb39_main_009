@@ -54,6 +54,7 @@ function HealthCheck() {
           마케팅정보수신동의
         </button>
         <button onClick={() => navigate(`/notice`)}>공지사항</button>
+        <button onClick={() => navigate(`/bookmark`)}>즐겨찾기</button>
       </div>
       <div>
         <br />( p.s 효영님! 화면 점검용으로 만들어 놓은 임의페이지 & 버튼입니다.
