@@ -26,6 +26,8 @@ public class QBookmark extends EntityPathBase<Bookmark> {
 
     public final teamparkinglot.parkinggo.member.entity.QMember member;
 
+    public final teamparkinglot.parkinggo.parking.entity.QParking parking;
+
     public QBookmark(String variable) {
         this(Bookmark.class, forVariable(variable), INITS);
     }
@@ -45,6 +47,7 @@ public class QBookmark extends EntityPathBase<Bookmark> {
     public QBookmark(Class<? extends Bookmark> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new teamparkinglot.parkinggo.member.entity.QMember(forProperty("member")) : null;
+        this.parking = inits.isInitialized("parking") ? new teamparkinglot.parkinggo.parking.entity.QParking(forProperty("parking"), inits.get("parking")) : null;
     }
 
 }

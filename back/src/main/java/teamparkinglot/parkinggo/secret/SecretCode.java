@@ -20,4 +20,7 @@ public class SecretCode {
     @Value("${openApi.EncodingKey}")
     private String parkingOpenApiEncodingKey;
 
+    @Value("${client.url}")
+    private String clientUrl;
+
 }

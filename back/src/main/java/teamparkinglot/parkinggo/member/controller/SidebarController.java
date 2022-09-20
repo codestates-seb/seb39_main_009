@@ -23,10 +23,4 @@ public class SidebarController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    @GetMapping("/sidebar/bookmark")
-    public ResponseEntity bookmarkList() {
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }

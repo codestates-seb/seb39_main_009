@@ -7,6 +7,6 @@ import lombok.Getter;
 public class TokenDto {
 
     String test;
-    String refreshToken;
+    String refreshtoken;
 
 }

@@ -14,6 +14,7 @@ import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.repository.ParkingRepository;
 import teamparkinglot.parkinggo.parking.service.ParkingService;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -54,5 +55,10 @@ public class BookmarkService {
         if (find.isPresent()) {
             throw new BusinessException(ExceptionCode.ALREADY_EXISTS_BOOKMARK);
         }
+    }
+
+    public List<Bookmark> getBookmarkList(String email) {
+
+        return bookmarkRepository.findByEmail(email);
     }
 }

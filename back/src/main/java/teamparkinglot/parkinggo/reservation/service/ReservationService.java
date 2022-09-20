@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class ReservationService {
     private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;

@@ -1,17 +1,17 @@
-package teamparkinglot.parkinggo.bookmark;
+package teamparkinglot.parkinggo.bookmark.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
 import teamparkinglot.parkinggo.bookmark.service.BookmarkService;
 import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -44,6 +44,16 @@ public class BookmarkController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/sidebar/bookmark")
+    public ResponseEntity getBookmarkList(Authentication authentication) {
+
+        loginCheck(authentication);
+        PrincipalDetails principalDetails = getPrincipalDetails(authentication);
+
+        List<Bookmark> bookmarkList = bookmarkService.getBookmarkList(principalDetails.getUsername());
+
+        return new ResponseEntity(bookmarkList, HttpStatus.OK);
+    }
 
     private PrincipalDetails getPrincipalDetails(Authentication authentication) {
         return (PrincipalDetails) authentication.getPrincipal();

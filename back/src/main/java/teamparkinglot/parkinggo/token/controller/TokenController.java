@@ -26,25 +26,14 @@ public class TokenController {
     private final TokenRepository tokenRepository;
 
     @PostMapping("/oauth/token")
-    public ResponseEntity recreationAccessToken(HttpServletRequest request, HttpServletResponse response, @RequestBody TokenDto tokenDto) {
+    public ResponseEntity recreationAccessToken(HttpServletResponse response, @RequestBody TokenDto tokenDto) {
 
-//        String refreshToken = getRefreshToken(request);
-
-        String refreshToken = tokenDto.getRefreshToken();
-        System.out.println("tokenDto = " + tokenDto.getRefreshToken());
+        String refreshToken = tokenDto.getRefreshtoken();
 
         refreshTokenNotExistsException(refreshToken);
 
         Date expiresAt = JWT.decode(refreshToken).getExpiresAt();
         Date now = new Date();
-
-
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                System.out.println("cookie = " + cookie.getValue());
-            }
-        }
 
         expiredRefreshTokenException(expiresAt, now);
 
@@ -68,21 +57,6 @@ public class TokenController {
         if (refreshToken == null) {
             throw new BusinessException(ExceptionCode.REFRESH_TOKEN_NOT_EXISTS);
         }
-    }
-
-
-    private static String getRefreshToken(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        Cookie refresh = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("Refresh")) {
-                refresh = cookie;
-                break;
-            }
-        }
-
-        String refreshToken = refresh.getValue();
-        return refreshToken;
     }
 
     private String recreationAccessToken() {
