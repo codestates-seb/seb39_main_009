@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const navigate = useNavigate();
 
+  const url = ""
+
   const [usernameinput, setUsernameinput] = useState("");
   const [emailinput, setEmailinput] = useState("");
   const [passwordinput, setPasswordinput] = useState("")
@@ -15,13 +17,9 @@ const SignUp = () => {
   const [phonenumber, setPhonenumber] = useState("");
   const [carnumber, setCarnumber] = useState("");
 
-
-
-
-
   const registeraxios = () => {
     axios
-      .post("/api/join", {
+      .post(url+"/api/join", {
         name: usernameinput,
         email: emailinput,
         password: checkpassword,
@@ -35,7 +33,7 @@ const SignUp = () => {
       .then((response) => {
         console.log(response);
         alert("회원가입성공");
-        if(checkpassword === passwordinput && response.status ===404){
+        if(checkpassword === passwordinput && response.status ===200){
             return navigate('/welcome')
         }
     

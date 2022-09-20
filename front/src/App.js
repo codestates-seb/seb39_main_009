@@ -15,6 +15,8 @@ import Notice from "./pages/Notice/Notice";
 import Bookmark from "./pages/Bookmark/Bookmark";
 import ReservationsList from "./pages/Reservation/ReservtionsList";
 import Reservation from "./pages/Reservation/Reservation";
+import Mypage from "./pages/mypage/Mypage";
+import Editmypage from "./pages/mypage/Editmypage";
 
 function App() {
   // 로딩 컴포넌트 세팅
@@ -52,6 +54,8 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   {/* 회원가입창 */}
                   <Route path="/join" element={<SignUp />} />
+                  {/* welcome창 */}
+                  <Route path="/welcome" element={<Welcome />} />
                   {/* 서비스 이용약관 */}
                   <Route path="/agmtconf/service" element={<ServiceTerm />} />
                   {/* 개인정보 이용 동의 약관 */}
@@ -61,13 +65,17 @@ function App() {
                   {/* welcome창 */}
                   <Route path="/welcome" element={<Welcome />} />
                   {/* 나의 예약 목록*/}
-                  <Route path="/reservations" element={<ReservationsList />} />
-                  {/* 예약 상세 조회 */}
-                  <Route path="/reservation" element={<Reservation />} />
+                  <Route path="/reservation" element={<ReservationsList />} />
+                  {/* 예약 상세 조회 테스트 이후 id -> :id 바꿀 예정 */}
+                  <Route path="/reservation/id" element={<Reservation />} />
                   {/* 공지사항 */}
                   <Route path="/notice" element={<Notice />} />
                   {/* 즐겨찾기 */}
                   <Route path="/bookmark" element={<Bookmark />} />
+                  {/* 마이페이지 */}
+                  <Route path="/mypage/{id}" element={<Mypage />} />
+                  {/* 개인정보수정페이지 */}
+                  <Route path="/mypage/{id}/edit" element={<Editmypage />} />
                 </Routes>
               </>
             )}
