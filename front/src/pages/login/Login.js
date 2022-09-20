@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
 
@@ -24,7 +24,7 @@ const Login = () => {
         console.log(res);
         localStorage.setItem("authorization", res.headers.authorization);
         localStorage.setItem("refreshtoken", res.headers.refreshtoken);
-        // setTimeout(onSilentRefresh,20000);
+        setInterval(onSilentRefresh, 60000);
       })
       .catch((Error) => {
         console.log(Error)
@@ -40,18 +40,12 @@ const Login = () => {
           console.log(response);
           console.log("연장됨")
           localStorage.setItem("authorization",response.headers.authorization);
-
         })
         .catch(error => {
           alert("연장실패.");
             // ... 로그인 실패 처리
         });
 }
-
-useEffect(()=>{
-  setInterval(onSilentRefresh,20000);
-},[])
-
 
   // if (performance.navigation.type===1){
   //   //새로고침하면 바로 로그인 연장(토큰 갱신)
