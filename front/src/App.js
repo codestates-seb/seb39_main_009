@@ -28,7 +28,9 @@ function App() {
 
   // 로그아웃
   const handlelogOut = () => {
-    localStorage.removeItem("Token");
+    localStorage.removeItem("authorization");
+    localStorage.removeItem("refreshtoken");
+
   };
 
   return (
