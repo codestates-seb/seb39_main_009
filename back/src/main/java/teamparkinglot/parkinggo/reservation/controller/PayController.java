@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.reservation.service.ReservationService;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -23,6 +26,18 @@ public class PayController {
         String email = principal.getUsername();
 
         reservationService.finalPayment(id, email);
+
+        // 일정시간 후 checkPayment 1번만 실행
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            int count = 0;
+            @Override
+            public void run() {
+                if(count++ < 1) reservationService.checkPayment(id);
+                else timer.cancel();
+            }
+        };
+        timer.schedule(timerTask, 10000, 1000);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
