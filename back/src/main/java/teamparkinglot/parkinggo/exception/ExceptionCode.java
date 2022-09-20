@@ -15,7 +15,9 @@ public enum ExceptionCode {
     POINT_NOT_ENOUGH(404, "포인트가 부족합니다"),
     PARKING_NOT_EXISTS(404, "주차장이 없어요!"),
     NEED_LOGIN(403, "로그인 후에 가능한 기능입니다."),
-    INPUT_ERROR(400, "비밀번호를 다시 입력해주세요.");
+    INPUT_ERROR(400, "비밀번호를 다시 입력해주세요."),
+    ALREADY_EXISTS_BOOKMARK(409, "이미 생성된 즐겨찾기 입니다."),
+    BOOKMARK_NOT_EXISTS(404, "즐겨찾기가 없어요");
 
     @Getter
     private int status;

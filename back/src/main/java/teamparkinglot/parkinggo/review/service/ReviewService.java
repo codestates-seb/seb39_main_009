@@ -2,13 +2,14 @@ package teamparkinglot.parkinggo.review.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.repository.ParkingRepository;
-import teamparkinglot.parkinggo.review.ReviewPostDto;
+import teamparkinglot.parkinggo.review.dto.ReviewPostDto;
 import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.review.repository.ReviewRepository;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
@@ -26,6 +28,7 @@ public class ReviewService {
         return reviewRepository.findReviewsByParkingOrderByCreatedDateDesc(id);
     }
 
+    @Transactional
     public Review createReview(long id, ReviewPostDto reviewPostDto, String email) {
 
         Member member = memberRepository.findByEmail(email).orElseThrow(
@@ -42,8 +45,6 @@ public class ReviewService {
                 .member(member)
                 .parking(parking)
                 .build();
-
-        System.out.println("review = " + review.getBody());
 
         return reviewRepository.save(review);
     }

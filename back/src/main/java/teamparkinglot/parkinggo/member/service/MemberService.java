@@ -36,7 +36,7 @@ public class MemberService {
         }
     }
 
-    private Member findVerifiedMember(String email) {
+    public Member findVerifiedMember(String email) {
         return memberRepository.findByEmail(email).orElseThrow(
                 () -> new BusinessException(ExceptionCode.MEMBER_NOT_EXISTS)
         );

@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.review;
+package teamparkinglot.parkinggo.review.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

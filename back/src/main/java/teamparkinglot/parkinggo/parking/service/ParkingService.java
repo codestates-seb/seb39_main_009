@@ -56,4 +56,10 @@ public class ParkingService {
                 () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
         );
     }
+
+    public Parking findVerifiedParking(long id) {
+        return parkingRepository.findById(id).orElseThrow(
+                () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
+        );
+    }
 }
