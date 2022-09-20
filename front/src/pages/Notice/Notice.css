@@ -25,7 +25,8 @@
 
 .notice_main {
   width: 100%;
-  height: 90%;
+  height: 85vh;
+  overflow: auto;
   padding: 20px;
   padding-top: 15px;
   display: flex;
@@ -38,14 +39,15 @@
 }
 
 .notice_title {
-  border-bottom: 1px solid rgb(204, 204, 204);
   border-top: 0.5px solid rgb(204, 204, 204);
   position: relative;
   font-weight: 500;
 }
 
-.active {
+.n_active {
+  visibility: visible;
   background-color: rgb(234, 241, 255);
+  color: rgb(0, 56, 152);
   font-weight: 600;
 }
 
@@ -75,9 +77,11 @@
   padding: 15px;
   height: auto;
   max-height: 100%;
+  background-color: rgb(251, 251, 251);
   transition: all 0.5s cubic-bezier(1, 0, 1, 0);
 }
 
-.hide {
+.n_hide {
+  display: none;
   transition: all 0.5s cubic-bezier(0, 1, 0, 1);
 }

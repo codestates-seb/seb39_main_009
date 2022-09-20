@@ -1,55 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Bookmark.css";
 import RandomImg from "../../assets/parkinglot/RandomImg";
-import Loading from "../../component/Loading/Loading";
 import { GrClose } from "react-icons/gr";
 import { FaTrashAlt } from "react-icons/fa";
 
-const Bookmark = () => {
+const Bookmark = ({ loading }) => {
   const navigate = useNavigate();
-
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    setLoading(false);
-  }, []);
 
   return (
     <div className="bookmark_container">
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          <div className="bookmark_header">
-            <p>즐겨찾기</p>
-            <GrClose
-              className="closebtn"
-              size={22}
-              onClick={() => navigate(-1)}
-            />
-          </div>
-          <div className="bookmark_main">
-            {data &&
-              data.map((bookmark) => (
-                <div className="bookmark" key={bookmark.id}>
-                  <RandomImg size={"bookmark_size"} />
-                  <div>
-                    <p onClick={() => navigate(`/parking/${bookmark.id}`)}>
-                      {bookmark.name}
-                    </p>
-                    <p>{bookmark.address}</p>
-                  </div>
-                  <FaTrashAlt
-                    className="delbtn"
-                    size={19}
-                    onClick={() => console.log(`delete`)}
-                  />
-                </div>
-              ))}
-          </div>
-        </>
-      )}
+      <div className="bookmark_header">
+        <p>즐겨찾기</p>
+        <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
+      </div>
+      <div className="bookmark_main">
+        {data &&
+          data.map((bookmark) => (
+            <div className="bookmark" key={bookmark.id}>
+              <RandomImg size={"bookmark_size"} />
+              <div>
+                <p onClick={() => navigate(`/parking/${bookmark.id}`)}>
+                  {bookmark.name}
+                </p>
+                <p>{bookmark.address}</p>
+              </div>
+              <FaTrashAlt
+                className="delbtn"
+                size={19}
+                onClick={() => console.log(`delete`)}
+              />
+            </div>
+          ))}
+      </div>
     </div>
   );
 };

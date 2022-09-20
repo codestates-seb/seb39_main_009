@@ -5,7 +5,7 @@ import SideBar from "./SideBar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ handlelogOut }) => {
   const navigate = useNavigate();
 
   const [show, setShow] = useState(false);
@@ -21,12 +21,15 @@ const Header = () => {
   return (
     <div className="header_container">
       <FiMenu className="openbtn" size={22} onClick={handleSideOpen} />
-      <p onClick={() => navigate(`/`)}>This is Header(Home)</p>
-      <div className={show ? "active" : "hide"}>
+      <p className="logo" onClick={() => navigate(`/`)}>
+        This is Header(Home)
+      </p>
+      <div className={show ? "side_active" : "side_hide"}>
         <SideBar
           show={show}
           setShow={setShow}
           handleSideClose={handleSideClose}
+          handlelogOut={handlelogOut}
         />
       </div>
     </div>

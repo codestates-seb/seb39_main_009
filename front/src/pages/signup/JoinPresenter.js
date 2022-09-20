@@ -68,7 +68,7 @@ function JoinPresenter() {
               checked={allCheck}
               onChange={allBtnEvent}
             />
-            <label for="all-check">전체동의하기</label>
+            <label htmlFor="all-check">전체동의하기</label>
           </div>
           <div>
             <input
@@ -77,10 +77,8 @@ function JoinPresenter() {
               checked={ageCheck}
               onChange={ageBtnEvent}
             />
-            <label for="check1">서비스 이용약관 (필수)</label>
-            <FaAngleRight 
-            onClick={()=> navigate('/agmtconf/service')}
-            />
+            <label htmlFor="check1">서비스 이용약관 (필수)</label>
+            <FaAngleRight onClick={() => navigate("/agmtconf/service")} />
           </div>
           <div>
             <input
@@ -89,9 +87,8 @@ function JoinPresenter() {
               checked={useCheck}
               onChange={useBtnEvent}
             />
-            <label for="check2">개인정보 처리방침 (필수)</label>
-            <FaAngleRight 
-            onClick={()=> navigate('/agmtconf/psinfo')}/>
+            <label htmlFor="check2">개인정보 처리방침 (필수)</label>
+            <FaAngleRight onClick={() => navigate("/agmtconf/psinfo")} />
           </div>
           <div>
             <input
@@ -100,9 +97,8 @@ function JoinPresenter() {
               checked={marketingCheck}
               onChange={marketingBtnEvent}
             />
-            <label for="check3">이벤트/마케팅 수신동의 (선택)</label>
-            <FaAngleRight 
-            onClick={()=> navigate('/agmtconf/event')}/>
+            <label htmlFor="check3">이벤트/마케팅 수신동의 (선택)</label>
+            <FaAngleRight onClick={() => navigate("/agmtconf/event")} />
           </div>
         </div>
       </div>

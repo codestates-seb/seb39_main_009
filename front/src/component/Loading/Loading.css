@@ -11,38 +11,6 @@
   position: relative;
 }
 
-.carIcon {
-  position: absolute;
-  bottom: 0px;
-  left: 85px;
-  animation-name: carIcon;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-  animation-fill-mode: backwards;
-}
-
-hr {
-  position: absolute;
-  bottom: 4.5px;
-  left: 80px;
-  width: 250px;
-  height: 5px;
-  background-color: rgb(182, 182, 182);
-  border: none;
-  opacity: 60%;
-}
-
-@keyframes carIcon {
-  0% {
-    left: 85px;
-  }
-  100% {
-    left: 280px;
-    color: white;
-  }
-}
-
 .circle {
   position: absolute;
   left: 50%;
