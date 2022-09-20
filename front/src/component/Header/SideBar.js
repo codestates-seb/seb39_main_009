@@ -67,7 +67,10 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                     <div>
                       <p>{data.NumOfReserv}</p>
                       <p>건</p>
-                      <AiOutlineRight className="icons icon-href" size={22} />
+                      <AiOutlineRight
+                        className="side_icons icon-href"
+                        size={22}
+                      />
                     </div>
                   </div>
                   <div className="check_point">
@@ -85,7 +88,10 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                     <div>
                       <p>0</p>
                       <p>건</p>
-                      <AiOutlineRight className="icons icon-href" size={22} />
+                      <AiOutlineRight
+                        className="side_icons icon-href"
+                        size={22}
+                      />
                     </div>
                   </div>
                   <div className="check_point">
@@ -98,7 +104,7 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                 </>
               )}
               <div className="side_bookmark">
-                <BsFillBookmarkStarFill className="icons" size={22} />
+                <BsFillBookmarkStarFill className="side_icons" size={22} />
                 <p
                   onClick={() => {
                     navigate(`/bookmark`);
@@ -123,7 +129,7 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
               {localStorage.Token ? (
                 <>
                   <div className="side_logout" onClick={sideLogout}>
-                    <BiLogOut className="icons" size={22} />
+                    <BiLogOut className="side_icons" size={22} />
                     <p>로그아웃</p>
                   </div>
                 </>

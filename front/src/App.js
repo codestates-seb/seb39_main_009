@@ -13,6 +13,8 @@ import Login from "./pages/login/Login";
 import Welcome from "./pages/signup/Welcome";
 import Notice from "./pages/Notice/Notice";
 import Bookmark from "./pages/Bookmark/Bookmark";
+import ReservationsList from "./pages/Reservation/ReservtionsList";
+import Reservation from "./pages/Reservation/Reservation";
 
 function App() {
   // 로딩 컴포넌트 세팅
@@ -42,21 +44,26 @@ function App() {
               <>
                 {/* ↓ 아래 main div 안에 페이지 추가해주시면 됩니다. */}
                 <Routes>
+                  {/* 로딩컴포넌트 */}
+                  <Route path="/loading" element={<Loading />} />
+                  {/* 로딩컴포넌트 - 임시 메인 */}
                   <Route path="/" element={<HealthCheck />} />
-                  {/* 회원가입창 */}
-                  <Route path="/join" element={<SignUp />} />
-                  {/* welcome창 */}
-                  <Route path="/welcome" element={<Welcome />} />
                   {/* 로그인창 */}
                   <Route path="/login" element={<Login />} />
-                  {/* 로딩창 */}
-                  <Route path="/loading" element={<Loading />} />
+                  {/* 회원가입창 */}
+                  <Route path="/join" element={<SignUp />} />
                   {/* 서비스 이용약관 */}
                   <Route path="/agmtconf/service" element={<ServiceTerm />} />
                   {/* 개인정보 이용 동의 약관 */}
                   <Route path="/agmtconf/psinfo" element={<PsInfoTerm />} />
                   {/* 마케팅 이벤트 정보 동의 약관 */}
                   <Route path="/agmtconf/event" element={<EventTerm />} />
+                  {/* welcome창 */}
+                  <Route path="/welcome" element={<Welcome />} />
+                  {/* 나의 예약 목록*/}
+                  <Route path="/reservations" element={<ReservationsList />} />
+                  {/* 예약 상세 조회 */}
+                  <Route path="/reservation" element={<Reservation />} />
                   {/* 공지사항 */}
                   <Route path="/notice" element={<Notice />} />
                   {/* 즐겨찾기 */}

@@ -25,7 +25,8 @@
 
 .notice_main {
   width: 100%;
-  height: 90%;
+  height: 85vh;
+  overflow: auto;
   padding: 20px;
   padding-top: 15px;
   display: flex;

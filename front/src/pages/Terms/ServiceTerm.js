@@ -17,10 +17,10 @@ const ServiceTerm = () => {
         <p>서비스 이용약관</p>
       </div>
       <div className="term_main">
-        <div className="main_title">
+        <div className="term_main_title">
           <h3>주차GO 서비스 약관</h3>
         </div>
-        <div className="main_content">{data.content}</div>
+        <div className="term_main_content">{data.content}</div>
       </div>
     </div>
   );

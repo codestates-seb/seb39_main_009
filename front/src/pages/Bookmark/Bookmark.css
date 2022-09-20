@@ -24,7 +24,8 @@
 
 .bookmark_main {
   width: 100%;
-  height: 90%;
+  height: 85vh;
+  overflow: auto;
   padding: 40px 20px 20px 20px;
   display: flex;
   flex-direction: column;
