@@ -4,8 +4,10 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import teamparkinglot.parkinggo.reservation.entity.Reservation;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +24,9 @@ public class Member {
 
     @Enumerated(value = EnumType.STRING)
     private MemberRole role;
+
+    @OneToMany(mappedBy = "member")
+    private List<Reservation> reservation;
     private String carNumber;
     private String phone;
     private Long point;
