@@ -8,12 +8,16 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import teamparkinglot.parkinggo.exception.BusinessException;
+import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.member.dto.MemberJoinDto;
 import teamparkinglot.parkinggo.member.dto.ResetPwdDto;
+import teamparkinglot.parkinggo.member.dto.ResetPwdDtoForEmail;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.mapper.MemberMapper;
 import teamparkinglot.parkinggo.member.service.MemberService;
 import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.uuid.UUIDService;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -30,7 +34,7 @@ public class MemberController {
     private final MemberMapper mapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JavaMailSender javaMailSender;
-
+    private final UUIDService uuidService;
     private final SecretCode secretCode;
     private String from = "kwj1830@gmail.com";
 
@@ -45,9 +49,11 @@ public class MemberController {
     }
 
     @PostMapping("/resetpwd")
-    public ResponseEntity resetPwdSendEmail(@RequestBody ResetPwdDto email) throws MessagingException {
+    public ResponseEntity resetPwdSendEmail(@RequestBody ResetPwdDtoForEmail email) throws MessagingException {
 
         UUID uuid = UUID.randomUUID();
+        uuidService.saveUUID(email.getEmail(), uuid);
+
         log.info("비밀번호 재설정을 위한 메일 발송 로직 진입");
         log.info("보낼 메일 주소 : {}", email);
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
@@ -70,12 +76,18 @@ public class MemberController {
 
     @GetMapping("/resetpwd/{UUID}")
     public ResponseEntity resetPwdCheck(@PathVariable String UUID) {
-
+        uuidService.verifyUuid(UUID);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/resetpwd/{UUID}")
-    public ResponseEntity putResetPwd(@PathVariable String UUID, String password) {
+    public ResponseEntity putResetPwd(@PathVariable String UUID, @RequestBody ResetPwdDto resetPwdDto) {
+
+        if (resetPwdDto.getPassword() != resetPwdDto.getPasswordRe()) {
+            throw new BusinessException(ExceptionCode.INPUT_ERROR);
+        }
+
+        uuidService.putPwd(UUID, resetPwdDto.getPassword());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
