@@ -37,11 +37,17 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                 onClick={handleSideClose}
               />
             </div>
-
             <div className="userInfo">
-              {localStorage.Token ? (
+              {localStorage.authorization ? (
                 <>
-                  <p>{data.nickname}</p>
+                  <p
+                    onClick={() => {
+                      navigate(`/mypage/{id}`);
+                      setShow(!show);
+                    }}
+                  >
+                    {data.nickname}
+                  </p>
                   <p>{data.email}</p>
                 </>
               ) : (
@@ -60,7 +66,7 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
             </div>
             <div className="mainMenu_back" />
             <div className="mainMenu">
-              {localStorage.Token ? (
+              {localStorage.authorization ? (
                 <>
                   <div className="check_reservation">
                     <p>예약 내역</p>
@@ -68,6 +74,10 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                       <p>{data.NumOfReserv}</p>
                       <p>건</p>
                       <AiOutlineRight
+                        onClick={() => {
+                          navigate(`/reservation`);
+                          setShow(!show);
+                        }}
                         className="side_icons icon-href"
                         size={22}
                       />
@@ -80,6 +90,17 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                       <p>원</p>
                     </div>
                   </div>
+                  <div className="side_bookmark">
+                    <BsFillBookmarkStarFill className="side_icons" size={22} />
+                    <p
+                      onClick={() => {
+                        navigate(`/bookmark`);
+                        setShow(!show);
+                      }}
+                    >
+                      즐겨찾기
+                    </p>
+                  </div>
                 </>
               ) : (
                 <>
@@ -89,6 +110,11 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                       <p>0</p>
                       <p>건</p>
                       <AiOutlineRight
+                        onClick={() => {
+                          alert("로그인이 필요합니다.");
+                          navigate(`/login`);
+                          setShow(!show);
+                        }}
                         className="side_icons icon-href"
                         size={22}
                       />
@@ -101,19 +127,20 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                       <p>원</p>
                     </div>
                   </div>
+                  <div className="side_bookmark">
+                    <BsFillBookmarkStarFill className="side_icons" size={22} />
+                    <p
+                      onClick={() => {
+                        alert("로그인이 필요합니다.");
+                        navigate(`/login`);
+                        setShow(!show);
+                      }}
+                    >
+                      즐겨찾기
+                    </p>
+                  </div>
                 </>
               )}
-              <div className="side_bookmark">
-                <BsFillBookmarkStarFill className="side_icons" size={22} />
-                <p
-                  onClick={() => {
-                    navigate(`/bookmark`);
-                    setShow(!show);
-                  }}
-                >
-                  즐겨찾기
-                </p>
-              </div>
             </div>
             <div className="subMenu">
               <p
@@ -126,7 +153,7 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
               </p>
               <p>제휴 문의</p>
               <p>1:1 문의</p>
-              {localStorage.Token ? (
+              {localStorage.authorization ? (
                 <>
                   <div className="side_logout" onClick={sideLogout}>
                     <BiLogOut className="side_icons" size={22} />

@@ -3,15 +3,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
 
-
 const Login = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const url = ""
-
+  const url = "";
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -27,66 +25,69 @@ const Login = () => {
         setTimeout(onSilentRefresh, 60000);
       })
       .catch((Error) => {
-        console.log(Error)
+        console.log(Error);
         alert("일치하는 회원 정보가 없습니다.");
       });
   };
-  
+
   const onSilentRefresh = () => {
-    axios.post(url+"/api/oauth/token", {
-      refreshtoken: localStorage.getItem("refreshtoken")
-    })
-        .then((response)=>{
-          console.log(response);
-          console.log("연장됨")
-          localStorage.setItem("authorization",response.headers.authorization);
-        })
-        .catch(error => {
-          alert("연장실패.");
-            // ... 로그인 실패 처리
-        });
-}
+    axios
+      .post(url + "/api/oauth/token", {
+        refreshtoken: localStorage.getItem("refreshtoken"),
+      })
+      .then((response) => {
+        console.log(response);
+        console.log("연장됨");
+        localStorage.setItem("authorization", response.headers.authorization);
+      })
+      .catch((error) => {
+        alert("연장실패.");
+        // ... 로그인 실패 처리
+      });
+  };
 
-useEffect(()=>{
-  setInterval(onSilentRefresh, 60000);
-},[])
+  useEffect(() => {
+    setInterval(onSilentRefresh, 60000);
+  }, []);
 
-    return  (
-        <div >
-          <div className="Login">
-          <AiOutlineLeft
+  return (
+    <div>
+      <div className="Login">
+        <AiOutlineLeft
           size={24}
           onClick={() => {
             navigate(-1);
           }}
         />
-            <div className="inputemail">
-              <label>Email</label>
-              <br/>
-              <input
-                type="text"
-                onChange={(e) => {
-                setEmail(e.target.value);
-               }}
-                placeholder="email..."
-              />
-            </div>
-            <div  className="inputpassword">
-              <label>password</label>
-              <br/>
-              <input
-                type="password"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-                placeholder="password..."
-              />
-             </div>
-            <button className="buttonlogin" onClick={onSubmit}>Login</button>
-          </div>
-            <button onClick={()=>navigate('/join')}>회원가입하기</button>
+        <div className="inputemail">
+          <label>Email</label>
+          <br />
+          <input
+            type="text"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            placeholder="email..."
+          />
         </div>
-      );
-}
+        <div className="inputpassword">
+          <label>password</label>
+          <br />
+          <input
+            type="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            placeholder="password..."
+          />
+        </div>
+        <button className="buttonlogin" onClick={onSubmit}>
+          Login
+        </button>
+      </div>
+      <button onClick={() => navigate("/join")}>회원가입하기</button>
+    </div>
+  );
+};
 
 export default Login;
