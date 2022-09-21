@@ -42,7 +42,7 @@ public class PayController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/pay{id}")
+    @DeleteMapping("/pay/{id}")
     public ResponseEntity cancelPay(@PathVariable Long id) {
 
         reservationService.cancelPayment(id);

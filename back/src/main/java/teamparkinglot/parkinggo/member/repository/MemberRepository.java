@@ -17,7 +17,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select m from Member m")
     List<Long> findRecentParkingByEmail(String email);
 
-    @Query("select new teamparkinglot.parkinggo.member.dto.MyPageResDto(m.email, m.phone, m.carNumber) from Member m where m.email = :email")
+    @Query("select new teamparkinglot.parkinggo.member.dto.MyPageResDto(m.id, m.email, m.phone, m.carNumber) from Member m where m.email = :email")
     MyPageResDto findMyPage(@Param("email") String email);
 
     @Query("select new teamparkinglot.parkinggo.member.dto.SidebarDto(m.nickname, m.id, m.email, m.reservation.size ,m.point) from Member m where m.email = :email")

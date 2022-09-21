@@ -1,6 +1,7 @@
 package teamparkinglot.parkinggo.uuid;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,15 +22,16 @@ public class UUIDService {
     private final MemberService memberService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public void saveUUID(String email, UUID UUID) {
+    @Transactional
+    public Uuid saveUUID(String email, UUID UUID) {
 
         alreadyUuidExistsCheck(email);
 
         Member member = memberService.findVerifiedMember(email);
-
         Uuid uuid = new Uuid(member, UUID.toString());
 
-        uuidRepository.save(uuid);
+
+        return uuidRepository.save(uuid);
     }
 
     private void alreadyUuidExistsCheck(String email) {
@@ -52,5 +54,10 @@ public class UUIDService {
 
         Member member = findUuid.getMember();
         member.setPassword(bCryptPasswordEncoder.encode(password));
+    }
+
+    @Async
+    public void delete(Uuid saveUUID) {
+        uuidRepository.delete(saveUUID);
     }
 }
