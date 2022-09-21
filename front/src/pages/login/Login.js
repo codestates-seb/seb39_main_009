@@ -46,18 +46,14 @@ const Login = () => {
       });
   };
 
+useEffect(()=>{
+  setInterval(onSilentRefresh, 60000);
+},[])
 
-
-
-useEffect(() => {
-  setInterval(onSilentRefresh, 20000);
-}, []);
-
-
-  return (
-    <div>
-      <div className="Login">
-        <AiOutlineLeft
+    return  (
+        <div >
+          <div className="Login">
+          <AiOutlineLeft
           size={24}
           onClick={() => {
             navigate(-1);
