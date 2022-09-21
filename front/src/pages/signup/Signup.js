@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
-import JoinPresenter from "./JoinPresenter";
 import { AiOutlineLeft } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation} from "react-router-dom";
+import JoinPresenter from "./JoinPresenter";
 
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.state);
+    // const svcUseAgmt = location.state.ageCheck ;
+    // const psInfoAgmt = location.state.useCheck;
+    // const eventAgmt = location.state.marketingCheck;
+    // console.log(svcUseAgmt,psInfoAgmt,eventAgmt)
 
   const url = ""
+
+  const [massage,setMassage] = useState("");
 
   const [usernameinput, setUsernameinput] = useState("");
   const [emailinput, setEmailinput] = useState("");
@@ -16,6 +24,9 @@ const SignUp = () => {
   const [checkpassword, setCheckpassword] = useState("");
   const [phonenumber, setPhonenumber] = useState("");
   const [carnumber, setCarnumber] = useState("");
+  const [svcUseAgmt, setSvcUseAgmt] = useState(false);
+  const [psInfoAgmt, setPsInfoAgmt] = useState(false);
+  const [eventAgmt, setEventAgmt] = useState(false);
 
   const registeraxios = () => {
     axios
@@ -25,9 +36,9 @@ const SignUp = () => {
         password: checkpassword,
         carNumber : carnumber,
         phoneNum : phonenumber,
-        svcUseAgmt : true,
-        psInfoAgmt: true,
-        eventAgmt: true,
+        svcUseAgmt : svcUseAgmt,
+        psInfoAgmt: psInfoAgmt,
+        eventAgmt: eventAgmt ,
         
     },{withCredentials: true} )
       .then((response) => {
@@ -39,18 +50,36 @@ const SignUp = () => {
     
       }).catch((err)=>{
         console.log(err);
+        setMassage(err.response.data.massage);
       })
       ;
   };
 
+
+    const changeSearch = (value) => {
+      setSvcUseAgmt(value);
+    };
+
+    const changeSearch2=(value)=>{
+      setPsInfoAgmt(value)
+    }
+ 
+    const changeSearch3=(value)=>{
+      setEventAgmt(value)
+    }
+
+
+
   return (
     <div className="signup">
+      <div>
        <AiOutlineLeft
           size={24}
           onClick={() => {
             navigate(-1);
           }}
         />
+        <div>{massage}</div>
       <div className="signup_input">
       <label>Name</label>
       <br/>
@@ -117,10 +146,15 @@ const SignUp = () => {
         }}
       />
       </div>
-      <br />
-      <JoinPresenter/>
-      <br />
-      <button onClick={registeraxios}>회원가입</button>
+      <dr />
+      <JoinPresenter 
+      changeSearch={changeSearch}
+      changeSearch2={changeSearch2}
+      changeSearch3={changeSearch3}
+
+      />
+         <button onClick={registeraxios}>회원가입</button>
+      </div>
     </div>
   );
 };

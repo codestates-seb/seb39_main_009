@@ -1,26 +1,34 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link  } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
+import axios from "axios";
+import { useParams } from 'react-router-dom';
+import { useEffect, useState, } from "react";
+
 
 const Mypage = () => {
-
-  // const [myemail, setMyemail] = useNavigate()
+  const navigate = useNavigate();
+  const [myInfo, setMyInfo] = useState([]);
+  const { id } = useParams();
 
 const handlelogOut = () => {
         localStorage.removeItem("authorization");
+        localStorage.removeItem("refreshtoken");
         navigate('/')
       } 
-  const navigate = useNavigate();
 
-  // const url = ""
 
-  // async function getUser() {
-  //   try {
-  //     const response = await axios.get(url + '/api/mypage');
-  //     setMessage(response.email)
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
+  const url = ""
+
+    useEffect(()=>{
+      axios.get(url+`/api/mypage?id=${id}`)
+      .then((res)=>res.json())
+      .then(data=>{
+        setMyInfo(data)
+      })
+
+      .catch((err)=>
+      console.log(err))
+    },[id])
 
 
     return <div>
@@ -32,23 +40,26 @@ const handlelogOut = () => {
         />
         <div>
             <label>가입정보</label>
-            <p>email</p>
+            <div>{myInfo.email}</div>
         </div>
         <div>
             <label>휴대폰 번호</label>
-            <p>phoneNum</p>
+            <p>{myInfo.phoneNum}</p>
         </div>
         <div>
             <label>차량번호</label>
-            <p>carNumber</p>
+            <p>{myInfo.carNumber}</p>
         </div>
-        <button
-        onClick={()=>{navigate('/mypage/{id}/edit')}}
-        >개인정보수정</button>
+        <Link to = {`/mypage/${id}/edit`}
+        state={{myInfo:myInfo}}>개인정보수정</Link>
+        {/* <button
+        onClick={()=>{navigate(`/mypage/${id}/edit`)}}
+        >개인정보수정</button> */}
         <button
         onClick={handlelogOut}
         >로그아웃</button>
     </div>
 }
+
 
 export default Mypage;

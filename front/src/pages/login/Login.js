@@ -22,7 +22,7 @@ const Login = () => {
         console.log(res);
         localStorage.setItem("authorization", res.headers.authorization);
         localStorage.setItem("refreshtoken", res.headers.refreshtoken);
-        setTimeout(onSilentRefresh, 60000);
+        setTimeout(onSilentRefresh, 20000);
       })
       .catch((Error) => {
         console.log(Error);
@@ -46,9 +46,13 @@ const Login = () => {
       });
   };
 
-  useEffect(() => {
-    setInterval(onSilentRefresh, 60000);
-  }, []);
+
+
+
+useEffect(() => {
+  setInterval(onSilentRefresh, 20000);
+}, []);
+
 
   return (
     <div>

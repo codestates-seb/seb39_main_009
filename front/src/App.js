@@ -17,6 +17,7 @@ import Mypage from "./pages/mypage/Mypage";
 import Editmypage from "./pages/mypage/Editmypage";
 import ReservationsList from "./pages/ReservationsList/ReservtionsList";
 import Reservation from "./pages/ReservationsList/Reservation";
+import JoinPresenter from "./pages/signup/JoinPresenter";
 
 function App() {
   // 로딩 컴포넌트 세팅
@@ -74,9 +75,11 @@ function App() {
                   {/* 즐겨찾기 */}
                   <Route path="/bookmark" element={<Bookmark />} />
                   {/* 마이페이지 */}
-                  <Route path="/mypage/{id}" element={<Mypage />} />
+                  <Route path="/mypage/:id" element={<Mypage />} />
                   {/* 개인정보수정페이지 */}
                   <Route path="/mypage/{id}/edit" element={<Editmypage />} />
+                  {/* 정보동의페이지 */}
+                  <Route path="/agmtconf" element={<JoinPresenter />} />
                 </Routes>
               </>
             )}
