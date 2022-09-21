@@ -30,9 +30,9 @@ public class QParking extends EntityPathBase<Parking> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final NumberPath<Double> LAT = createNumber("LAT", Double.class);
+    public final NumberPath<Double> lat = createNumber("lat", Double.class);
 
-    public final NumberPath<Double> LNG = createNumber("LNG", Double.class);
+    public final NumberPath<Double> lng = createNumber("lng", Double.class);
 
     public final teamparkinglot.parkinggo.member.entity.QMember member;
 

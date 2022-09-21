@@ -22,8 +22,8 @@ public class Reservation {
     @Column(updatable = false)
     private LocalDateTime reservationDate;
 
-    private LocalDateTime parkingStartTime;
-    private LocalDateTime parkingEndTime;
+    private LocalDateTime parkingStartDateTime;
+    private LocalDateTime parkingEndDateTime;
     private Boolean refundAgmt;
     private Long price;
     private Boolean payOrNot;

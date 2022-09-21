@@ -22,8 +22,8 @@ public class ParkingMapper {
                 .partnership(parking.isPartnership())
                 .type(parking.getType())
                 .dayMax(parking.getDayMax())
-                .LAT(parking.getLAT())
-                .LNG(parking.getLNG())
+                .LAT(parking.getLat())
+                .LNG(parking.getLng())
                 .parkingMap(parking.getParkingMap())
         .build();
     }

@@ -30,8 +30,8 @@ public class Parking {
     private boolean partnership;
     private String type;
     private int dayMax;
-    private double LAT;
-    private double LNG;
+    private double lat;
+    private double lng;
     private String parkingMap;
     @OneToOne(fetch = FetchType.LAZY)
     private Member member;

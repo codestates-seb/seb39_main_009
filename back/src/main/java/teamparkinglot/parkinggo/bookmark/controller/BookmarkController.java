@@ -36,8 +36,8 @@ public class BookmarkController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/bookmark")
-    public ResponseEntity deleteBookmark(long id,
+    @DeleteMapping("/bookmark/{id}")
+    public ResponseEntity deleteBookmark(@PathVariable long id,
                                          Authentication authentication) {
 
         loginCheck(authentication);
