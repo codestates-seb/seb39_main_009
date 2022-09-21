@@ -13,10 +13,10 @@ import Login from "./pages/login/Login";
 import Welcome from "./pages/signup/Welcome";
 import Notice from "./pages/Notice/Notice";
 import Bookmark from "./pages/Bookmark/Bookmark";
-import ReservationsList from "./pages/Reservation/ReservtionsList";
-import Reservation from "./pages/Reservation/Reservation";
 import Mypage from "./pages/mypage/Mypage";
 import Editmypage from "./pages/mypage/Editmypage";
+import ReservationsList from "./pages/ReservationsList/ReservtionsList";
+import Reservation from "./pages/ReservationsList/Reservation";
 
 function App() {
   // 로딩 컴포넌트 세팅
@@ -30,7 +30,6 @@ function App() {
   const handlelogOut = () => {
     localStorage.removeItem("authorization");
     localStorage.removeItem("refreshtoken");
-
   };
 
   return (

@@ -42,7 +42,7 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                 <>
                   <p
                     onClick={() => {
-                      navigate(`/mypage/{id}`);
+                      navigate(`/mypage/${data.id}`);
                       setShow(!show);
                     }}
                   >
@@ -172,7 +172,8 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
 export default SideBar;
 
 const data = {
-  nickname: "김파킹",
+  id: "1",
+  name: "김파킹",
   email: "aaa@aaa.com",
   NumOfReserv: 1,
   point: 25000,

@@ -15,6 +15,11 @@
   padding: 20px;
 }
 
+.notice_header p {
+  margin-left: 20px;
+  font-size: 20px;
+}
+
 .closebtn {
   margin-left: 30%;
 }

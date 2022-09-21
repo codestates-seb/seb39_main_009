@@ -7,6 +7,11 @@
   position: relative;
 }
 
+.logo {
+  margin-left: 20px;
+  font-size: 20px;
+}
+
 .logo:hover {
   cursor: pointer;
 }

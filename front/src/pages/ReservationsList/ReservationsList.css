@@ -1,0 +1,134 @@
+.rezlist_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.rezlist_header {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  border-bottom: 0.5px solid rgb(204, 204, 204);
+  padding: 20px 20px 35px 20px;
+}
+
+.rezlist_header p {
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+.closebtn {
+  margin-left: 30%;
+}
+
+.closebtn:hover {
+  cursor: pointer;
+}
+
+.rezlist_main {
+  width: 100%;
+  height: 85vh;
+  overflow: auto;
+  padding: 20px;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.single_rez {
+  width: 100%;
+  background-color: rgb(253, 253, 253);
+  border: 0.5px solid rgb(235, 235, 235);
+  border-radius: 20px;
+  box-shadow: 2px 3px 5px rgb(235, 235, 235);
+  padding: 10px 15px 10px 15px;
+  margin-bottom: 25px;
+}
+
+.single_rez > div {
+  display: flex;
+}
+
+.single_rez > div:nth-child(1) {
+  justify-content: space-between;
+}
+
+.single_rez_header {
+  border-bottom: 1px solid rgb(204, 204, 204);
+  padding: 5px 15px 10px 15px;
+  margin-top: 5px;
+}
+
+.single_rez_header > p {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.single_rez_header > div {
+  display: flex;
+}
+
+.rez_icons {
+  margin-left: 5px;
+}
+
+.single_rez_main {
+  display: flex;
+  flex-direction: column;
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+
+.single_rez_main p {
+  font-size: 16px;
+}
+
+.single_rez_main > div > p:nth-child(1) {
+  margin-left: 23px;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.single_rez_main > div {
+  display: flex;
+}
+
+.single_rez_main > div > p:nth-child(2) {
+  margin-left: 15px;
+}
+
+.rez_time {
+  margin: auto;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px;
+  /* border: 1px solid; */
+  border-radius: 10px;
+  background-color: rgb(235, 235, 235);
+  width: 90%;
+}
+
+.rez_time p {
+  font-size: 15px;
+}
+
+.rez_time > div > p:nth-child(1) {
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.rez_time > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px;
+}

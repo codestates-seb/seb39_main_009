@@ -16,6 +16,11 @@
   margin-bottom: 10px;
 }
 
+.term_header p {
+  margin-left: 20px;
+  font-size: 20px;
+}
+
 .term_header:nth-child(1) {
   cursor: pointer;
 }
