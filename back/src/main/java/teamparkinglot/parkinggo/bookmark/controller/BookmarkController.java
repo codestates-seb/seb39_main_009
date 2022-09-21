@@ -48,7 +48,7 @@ public class BookmarkController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/sidebar/bookmark")
+    @GetMapping("/bookmark")
     public ResponseEntity getBookmarkList(Authentication authentication) {
 
         loginCheck(authentication);

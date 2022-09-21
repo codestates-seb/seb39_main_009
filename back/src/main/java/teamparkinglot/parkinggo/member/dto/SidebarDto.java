@@ -14,4 +14,6 @@ public class SidebarDto {
     private String email;
     private int NumOfReserv;
     private Long point;
+    private String phoneNum;
+    private String carNumber;
 }

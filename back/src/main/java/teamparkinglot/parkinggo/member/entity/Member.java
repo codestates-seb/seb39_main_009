@@ -25,7 +25,7 @@ public class Member {
     @Enumerated(value = EnumType.STRING)
     private MemberRole role;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Reservation> reservation;
     private String carNumber;
     private String phone;

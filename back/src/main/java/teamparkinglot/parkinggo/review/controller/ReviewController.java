@@ -24,7 +24,7 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final ReviewMapper mapper;
 
-    @GetMapping("/parking/{id}/review")
+    @GetMapping("/reviews/{id}")
     public ResponseEntity viewReviews(@PathVariable long id) {
 
         List<Review> reviews = reviewService.findReviewsByParkingOrderByCreatedDateDesc(id);
@@ -35,7 +35,7 @@ public class ReviewController {
         return new ResponseEntity<>(new MultiRes<>(collect), HttpStatus.OK);
     }
 
-    @PostMapping("/parking/{id}/review")
+    @PostMapping("/reviews/{id}")
     public ResponseEntity postReview(@PathVariable long id,
                                      @RequestBody ReviewPostDto reviewPostDto,
                                      Authentication authentication) {

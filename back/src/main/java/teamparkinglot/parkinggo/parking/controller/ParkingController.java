@@ -56,7 +56,7 @@ public class ParkingController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/find")
+    @GetMapping("/history")
     public ResponseEntity searchHistory(Authentication authentication) {
 
         String email = null;
@@ -72,15 +72,16 @@ public class ParkingController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/find")
+    @GetMapping("/parking")
     public ResponseEntity searchParking(Authentication authentication,
-                                        @RequestBody ParkingCondDto parkingCondDto) {
+                                        @RequestParam("region") String region,
+                                        @RequestParam("parkingStartDateTime") String parkingStartDateTime,
+                                        @RequestParam("parkingEndDateTime") String parkingEndDateTime,
+                                        @RequestParam("sort") String sort,
+                                        @RequestParam("crtLocation") String crtLocation) {
 
-//        PrincipalDetails principalDetails = null;
-//
-//        if (authentication != null) {
-//            principalDetails = (PrincipalDetails) authentication.getPrincipal();
-//        }
+        ParkingCondDto parkingCondDto = new ParkingCondDto(region, parkingStartDateTime, parkingEndDateTime, sort, crtLocation);
+        System.out.println("parkingCondDto = " + parkingCondDto.getRegion());
 
         List<Parking> byCond = parkingService.findByCond(parkingCondDto);
         List<ParkingResDto> collect = byCond.stream()

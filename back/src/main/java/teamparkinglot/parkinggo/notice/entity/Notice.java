@@ -1,5 +1,6 @@
 package teamparkinglot.parkinggo.notice.entity;
 
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,14 +11,13 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Notice extends Auditable {
 
     @Id @GeneratedValue
     private Long id;
     private String title;
 
-    @Column(columnDefinition = "TEXT")
     private String body;
 
     private Boolean use;

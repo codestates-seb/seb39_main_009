@@ -37,6 +37,6 @@ public class Parking {
     private Member member;
 //    @OneToMany
 //    private Bookmark bookmark;
-    @OneToMany(mappedBy = "parking")
+    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY)
     private List<Review> reviews;
 }

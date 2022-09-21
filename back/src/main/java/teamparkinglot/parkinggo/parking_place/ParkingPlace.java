@@ -1,5 +1,6 @@
 package teamparkinglot.parkinggo.parking_place;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import teamparkinglot.parkinggo.parking.entity.Parking;
@@ -7,7 +8,7 @@ import teamparkinglot.parkinggo.parking.entity.Parking;
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class ParkingPlace {
 

@@ -9,10 +9,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class ParkingCondDto {
 
     private String region;
@@ -26,4 +26,15 @@ public class ParkingCondDto {
     private LocalDateTime parkingEndTime;
     private String sort;
     private String crtLocation;
+
+    public ParkingCondDto(String region, String parkingStartDateTime, String parkingEndDateTime, String sort, String crtLocation) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        this.region = region;
+        this.parkingStartTime = LocalDateTime.parse(parkingStartDateTime, formatter);
+        this.parkingEndTime = LocalDateTime.parse(parkingEndDateTime, formatter);
+        this.sort = sort;
+        this.crtLocation = crtLocation;
+    }
 }

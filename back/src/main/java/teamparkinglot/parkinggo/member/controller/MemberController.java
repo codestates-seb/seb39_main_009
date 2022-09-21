@@ -4,27 +4,23 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.mail.MailService;
-import teamparkinglot.parkinggo.member.dto.MemberJoinDto;
-import teamparkinglot.parkinggo.member.dto.ResetPwdDto;
-import teamparkinglot.parkinggo.member.dto.ResetPwdDtoForEmail;
+import teamparkinglot.parkinggo.member.dto.*;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.mapper.MemberMapper;
 import teamparkinglot.parkinggo.member.service.MemberService;
-import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 import teamparkinglot.parkinggo.uuid.UUIDService;
 import teamparkinglot.parkinggo.uuid.Uuid;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
@@ -51,7 +47,7 @@ public class MemberController {
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @PostMapping("/resetpwd")
+    @PostMapping("/reset-password")
     public ResponseEntity resetPwdSendEmail(@RequestBody @Valid ResetPwdDtoForEmail email) throws MessagingException {
 
         UUID uuid = UUID.randomUUID();
@@ -80,13 +76,13 @@ public class MemberController {
         timer.schedule(timerTask, 600000);
     }
 
-    @GetMapping("/resetpwd/{UUID}")
+    @GetMapping("/reset-password/{UUID}")
     public ResponseEntity resetPwdCheck(@PathVariable String UUID) {
         uuidService.verifyUuid(UUID);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/resetpwd/{UUID}")
+    @PatchMapping("/reset-password/{UUID}")
     public ResponseEntity putResetPwd(@PathVariable String UUID, @RequestBody ResetPwdDto resetPwdDto) {
 
         if (resetPwdDto.getPassword() != resetPwdDto.getPasswordRe()) {
@@ -96,6 +92,62 @@ public class MemberController {
         uuidService.putPwd(UUID, resetPwdDto.getPassword());
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/member")
+    public ResponseEntity getSidebar(Authentication authentication) {
+        loginCheck(authentication);
+
+        String email = getEmail(authentication);
+
+        SidebarDto sidebarDto = memberService.viewSidebar(email);
+
+        return new ResponseEntity<>(sidebarDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/member/reservation")
+    public ResponseEntity reservationList(Authentication authentication) {
+        loginCheck(authentication);
+
+        String email = getEmail(authentication);
+
+        List<ReservationListDto> reservationListDto = memberService.viewReservations(email);
+
+        return new ResponseEntity<>(reservationListDto, HttpStatus.OK);
+    }
+
+    @PatchMapping("/member")
+    public ResponseEntity edit(@RequestBody MyPagePutDto myPagePutDto,
+                               Authentication authentication) {
+
+        loginCheck(authentication);
+        passwordCheck(myPagePutDto);
+
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        String email = principalDetails.getUsername();
+
+        memberService.myPageModify(myPagePutDto, email);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private static void passwordCheck(MyPagePutDto myPagePutDto) {
+        String password = myPagePutDto.getPassword();
+        String passwordRe = myPagePutDto.getPasswordRe();
+        if (!passwordRe.equals(password)) {
+            throw new BusinessException(ExceptionCode.INPUT_ERROR);
+        }
+    }
+
+    private void loginCheck(Authentication authentication) {
+        if (authentication == null) {
+            throw new BusinessException(ExceptionCode.NEED_LOGIN);
+        }
+    }
+
+    private static String getEmail(Authentication authentication) {
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        return principalDetails.getUsername();
     }
 
 }

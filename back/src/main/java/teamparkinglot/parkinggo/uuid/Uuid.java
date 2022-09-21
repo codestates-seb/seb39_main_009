@@ -1,5 +1,6 @@
 package teamparkinglot.parkinggo.uuid;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import teamparkinglot.parkinggo.member.entity.Member;
@@ -7,7 +8,7 @@ import teamparkinglot.parkinggo.member.entity.Member;
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Uuid {
 
@@ -16,7 +17,6 @@ public class Uuid {
 
     @OneToOne(fetch = FetchType.LAZY)
     private Member member;
-
     private String uuid;
 
     public Uuid(Member member, String uuid) {
