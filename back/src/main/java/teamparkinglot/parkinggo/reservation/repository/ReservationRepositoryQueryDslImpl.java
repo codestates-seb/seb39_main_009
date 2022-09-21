@@ -39,8 +39,8 @@ public class ReservationRepositoryQueryDslImpl implements ReservationRepositoryQ
     @Override
     public List<ReservationListDto> findReservationList(String email) {
         return queryFactory
-                .select(Projections.bean(ReservationListDto.class,
-                                reservation.parkingPlace.parking.name, reservation.parkingPlace.number, reservation.id,
+                .select(Projections.fields(ReservationListDto.class,
+                                reservation.parkingPlace.parking.name, reservation.parkingPlace.number, reservation.id.as("reservNum"),
                                 reservation.parkingStartTime, reservation.parkingEndTime))
                 .from(reservation)
                 .where(reservation.member.email.eq(email))

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class SidebarDto {
 
     private String name;
+    private Long memberId;
     private String email;
     private int NumOfReserv;
     private Long point;

@@ -20,7 +20,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("select new teamparkinglot.parkinggo.member.dto.MyPageResDto(m.email, m.phone, m.carNumber) from Member m where m.email = :email")
     MyPageResDto findMyPage(@Param("email") String email);
 
-    @Query("select new teamparkinglot.parkinggo.member.dto.SidebarDto(m.nickname, m.email, m.reservation.size ,m.point) from Member m where m.email = :email")
+    @Query("select new teamparkinglot.parkinggo.member.dto.SidebarDto(m.nickname, m.id, m.email, m.reservation.size ,m.point) from Member m where m.email = :email")
     SidebarDto findSidebar(@Param("email") String email);
 
 }
