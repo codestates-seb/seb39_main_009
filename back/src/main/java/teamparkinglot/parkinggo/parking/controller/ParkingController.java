@@ -6,10 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
-import teamparkinglot.parkinggo.parking.dto.ParkingCondDto;
-import teamparkinglot.parkinggo.parking.dto.ParkingMapDto;
-import teamparkinglot.parkinggo.parking.dto.ParkingRecentDto;
-import teamparkinglot.parkinggo.parking.dto.ParkingResDto;
+import teamparkinglot.parkinggo.parking.dto.*;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.mapper.ParkingMapper;
 import teamparkinglot.parkinggo.parking.service.ParkingService;
@@ -51,7 +48,10 @@ public class ParkingController {
     }
 
     @PostMapping("/parking/{id}/reservation")
-    public ResponseEntity payButton(@PathVariable long id) {
+    public ResponseEntity payButton(@PathVariable long id, @RequestBody ParkingDateTimeDto parkingDateTimeDto,
+                                    Authentication authentication) {
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        String email = principalDetails.getUsername();
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

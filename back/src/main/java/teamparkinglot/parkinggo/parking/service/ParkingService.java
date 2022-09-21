@@ -6,19 +6,27 @@ import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.history.History;
 import teamparkinglot.parkinggo.history.HistoryRepository;
+import teamparkinglot.parkinggo.member.entity.Member;
+import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.member.service.MemberService;
 import teamparkinglot.parkinggo.parking.dto.*;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.repository.ParkingQueryDsl;
 import teamparkinglot.parkinggo.parking.repository.ParkingRepository;
+import teamparkinglot.parkinggo.parking_place.ParkingPlace;
+import teamparkinglot.parkinggo.parking_place.ParkingPlaceRepository;
 import teamparkinglot.parkinggo.reservation.entity.Reservation;
+import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
 import teamparkinglot.parkinggo.reservation.service.ReservationService;
 import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.review.repository.ReviewRepository;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,6 +39,9 @@ public class ParkingService {
     private final HistoryRepository historyRepository;
     private final MemberService memberService;
     private final ReviewRepository reviewRepository;
+    private final MemberRepository memberRepository;
+    private final ReservationRepository reservationRepository;
+    private final ParkingPlaceRepository parkingPlaceRepository;
 
     public List<Parking> findByCond(ParkingCondDto parkingCondDto) {
 
@@ -51,8 +62,8 @@ public class ParkingService {
             List<Reservation> reservations = parkingReserv.getReservations();
 
             for (Reservation reservation : reservations) {
-                LocalDateTime reservStart = reservation.getParkingStartTime();
-                LocalDateTime reservEndTime = reservation.getParkingEndTime();
+                LocalDateTime reservStart = reservation.getParkingStartDateTime();
+                LocalDateTime reservEndTime = reservation.getParkingEndDateTime();
 
                 if (!(dtoStartTime.isBefore(reservStart) || dtoStartTime.isAfter(reservEndTime) || dtoStartTime.isEqual(reservEndTime))
                 && !(dtoEndTime.isBefore(reservStart) || dtoEndTime.isAfter(reservEndTime) || dtoEndTime.isEqual(reservStart))) {
@@ -112,4 +123,29 @@ public class ParkingService {
 
         return new ParkingMapDto(parking.getParkingMap(), validNums);
     }
+
+//    public CreateReservDto createReservation(Long id, ParkingDateTimeDto parkingDateTimeDto, String email) {
+//        Parking parking = parkingRepository.findById(id).orElseThrow(
+//                () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
+//        );
+//        Member member = memberRepository.findByEmail(email).orElseThrow(
+//                () -> new BusinessException(ExceptionCode.MEMBER_NOT_EXISTS)
+//        );
+//        ParkingPlace parkingPlace = parkingPlaceRepository.findParkingPlace(id, parkingDateTimeDto.getNumber());
+//
+//        long time = ChronoUnit.MINUTES.between(parkingDateTimeDto.getParkingStartTime(), parkingDateTimeDto.getParkingEndDateTime());
+//        int price = (int) ((time / 30) * parking.getPrice());
+//        if(price >= parking.getDayMax()) price = parking.getDayMax();
+//
+//        Reservation reservation = Reservation.builder()
+//                .parkingStartDateTime(parkingDateTimeDto.getParkingStartTime())
+//                .parkingEndDateTime(parkingDateTimeDto.getParkingEndDateTime())
+//                .member(member)
+//                .parkingPlace(parkingPlace)
+//                .payOrNot(false)
+//                .price(price)
+//                .refundAgmt(true)
+//                .build();
+//        reservationRepository.save(reservation);
+//    }
 }
