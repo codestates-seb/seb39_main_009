@@ -27,8 +27,8 @@ public class ApiExplorer {
         urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
         urlBuilder.append("&" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
 //        urlBuilder.append("&" + URLEncoder.encode("prkplceNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*주차장관리번호*/
-//        urlBuilder.append("&" + URLEncoder.encode("prkplceNm","UTF-8") + "=" + URLEncoder.encode(where, "UTF-8")); /*주차장명*/
-//        urlBuilder.append("&" + URLEncoder.encode("prkplceSe","UTF-8") + "=" + URLEncoder.encode("공영", "UTF-8")); /*주차장구분*/
+        urlBuilder.append("&" + URLEncoder.encode("prkplceNm","UTF-8") + "=" + URLEncoder.encode(where, "UTF-8")); /*주차장명*/
+//        urlBuilder.append("&" + URLEncoder.encode("prkplceSe","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*주차장구분*/
 //        urlBuilder.append("&" + URLEncoder.encode("prkplceType","UTF-8") + "=" + URLEncoder.encode("노상", "UTF-8")); /*주차장유형*/
 //        urlBuilder.append("&" + URLEncoder.encode("rdnmadr","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*소재지도로명주소*/
 //        urlBuilder.append("&" + URLEncoder.encode("lnmadr","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*소재지지번주소*/
@@ -57,7 +57,7 @@ public class ApiExplorer {
 //        urlBuilder.append("&" + URLEncoder.encode("latitude","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*위도*/
 //        urlBuilder.append("&" + URLEncoder.encode("longitude","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*경도*/
 //        urlBuilder.append("&" + URLEncoder.encode("referenceDate","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*데이터기준일자*/
-        urlBuilder.append("&" + URLEncoder.encode("instt_code","UTF-8") + "=" + URLEncoder.encode(where, "UTF-8")); /*제공기관코드*/
+//        urlBuilder.append("&" + URLEncoder.encode("instt_code","UTF-8") + "=" + URLEncoder.encode(where, "UTF-8")); /*제공기관코드*/
         URL url = new URL(urlBuilder.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");

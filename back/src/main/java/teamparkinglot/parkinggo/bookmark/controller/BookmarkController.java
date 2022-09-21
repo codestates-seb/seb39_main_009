@@ -5,13 +5,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import teamparkinglot.parkinggo.bookmark.dto.BookmarkResDto;
 import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
+import teamparkinglot.parkinggo.bookmark.mapper.BookmarkMapper;
 import teamparkinglot.parkinggo.bookmark.service.BookmarkService;
 import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -19,6 +22,7 @@ import java.util.List;
 public class BookmarkController {
 
     private final BookmarkService bookmarkService;
+    private final BookmarkMapper mapper;
 
     @PostMapping("/bookmark")
     public ResponseEntity postBookmark(long id,
@@ -50,7 +54,10 @@ public class BookmarkController {
         loginCheck(authentication);
         PrincipalDetails principalDetails = getPrincipalDetails(authentication);
 
-        List<Bookmark> bookmarkList = bookmarkService.getBookmarkList(principalDetails.getUsername());
+        List<BookmarkResDto> bookmarkList = bookmarkService.getBookmarkList(principalDetails.getUsername()).stream()
+                .map(e -> mapper.BookmarkToBookmarkResDto(e))
+                .collect(Collectors.toList());
+
 
         return new ResponseEntity(bookmarkList, HttpStatus.OK);
     }

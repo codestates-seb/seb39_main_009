@@ -29,8 +29,6 @@ public class ParkingQueryDsl {
 
         return query.select(parking)
                 .from(parking)
-                .fetchJoin()
-                .leftJoin(parking.reviews)
                 .where(builder)
                 .fetch();
     }

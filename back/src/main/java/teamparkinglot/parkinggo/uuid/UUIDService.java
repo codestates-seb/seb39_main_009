@@ -57,6 +57,7 @@ public class UUIDService {
     }
 
     @Async
+    @Transactional
     public void delete(Uuid saveUUID) {
         uuidRepository.delete(saveUUID);
     }

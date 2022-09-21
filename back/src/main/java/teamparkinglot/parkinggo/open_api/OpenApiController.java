@@ -22,10 +22,12 @@ public class OpenApiController {
 
 
         try {
-            apiExplorer.searchFromApi(hi.test);
+            apiExplorer.searchFromApi(hi.get하이하이());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        System.out.println("hi = " + hi.get하이하이());
 
         return new ResponseEntity<>("되긴 되냐", HttpStatus.OK);
     }

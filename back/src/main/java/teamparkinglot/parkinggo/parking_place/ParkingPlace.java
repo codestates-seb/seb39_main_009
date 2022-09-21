@@ -1,5 +1,6 @@
 package teamparkinglot.parkinggo.parking_place;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 
@@ -7,6 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@Getter
 public class ParkingPlace {
 
     @Id @GeneratedValue

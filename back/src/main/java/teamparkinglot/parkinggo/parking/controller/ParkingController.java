@@ -7,6 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.parking.dto.ParkingCondDto;
+import teamparkinglot.parkinggo.parking.dto.ParkingMapDto;
+import teamparkinglot.parkinggo.parking.dto.ParkingRecentDto;
 import teamparkinglot.parkinggo.parking.dto.ParkingResDto;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.mapper.ParkingMapper;
@@ -15,6 +17,7 @@ import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -36,7 +39,9 @@ public class ParkingController {
     @GetMapping("/parking/{id}/reservation")
     public ResponseEntity parkingMap(@PathVariable long id) {
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        ParkingMapDto map = parkingService.findMap(id);
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @GetMapping("/parking/{id}/reservation/{number}")
@@ -61,7 +66,7 @@ public class ParkingController {
             email = principalDetails.getUsername();
         }
 
-        List<Parking> recentSearches = parkingService.findRecentSearches(email);
+        List<ParkingRecentDto> recentSearches = parkingService.findRecentSearches(email);
 
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -71,14 +76,17 @@ public class ParkingController {
     public ResponseEntity searchParking(Authentication authentication,
                                         @RequestBody ParkingCondDto parkingCondDto) {
 
-        PrincipalDetails principalDetails = null;
+//        PrincipalDetails principalDetails = null;
+//
+//        if (authentication != null) {
+//            principalDetails = (PrincipalDetails) authentication.getPrincipal();
+//        }
 
-        if (authentication != null) {
-            principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        }
+        List<Parking> byCond = parkingService.findByCond(parkingCondDto);
+        List<ParkingResDto> collect = byCond.stream()
+                .map(e -> mapper.parkingToParkingResDto(e))
+                .collect(Collectors.toList());
 
-        parkingService.findByCond(parkingCondDto, principalDetails.getUsername());
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(collect, HttpStatus.OK);
     }
 }

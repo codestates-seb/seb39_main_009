@@ -10,6 +10,7 @@ import teamparkinglot.parkinggo.reservation.entity.Reservation;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepositoryQueryDsl;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,5 +57,10 @@ public class ReservationService {
                 reservation.orElseThrow(() -> new BusinessException(ExceptionCode.RESERVATION_NOT_EXISTS));
 
         return findReservation;
+    }
+
+    public List<Reservation> findByParkingId(long parkingId) {
+
+        return reservationRepository.findByParkingId(parkingId);
     }
 }

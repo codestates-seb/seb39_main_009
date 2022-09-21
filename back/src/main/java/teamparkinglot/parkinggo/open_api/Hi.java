@@ -5,5 +5,5 @@ import lombok.Getter;
 @Getter
 public class Hi {
 
-    String test;
+    String 하이하이;
 }
