@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaAngleRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function JoinPresenter(props) {
   const navigate = useNavigate();
@@ -9,7 +10,47 @@ function JoinPresenter(props) {
   const [ageCheck, setAgeCheck] = useState(false);
   const [useCheck, setUseCheck] = useState(false);
   const [marketingCheck, setMarketingCheck] = useState(false);
+
+  const name = props.usernameinput;
+  const email = props.emailinput;
+  const password = props.checkpassword;
+  const carNumber = props.carnumber;
+  const phoneNum = props.phonenumber;
  
+
+  const [massage,setMassage] = useState("");
+
+  const url = ""
+
+  const registeraxios = (event) => {
+    event.preventDefault();
+    axios
+      .post(url+"/api/join", {
+        name: name,
+        email: email,
+        password: password,
+        carNumber : carNumber,
+        phoneNum : phoneNum,
+        // 비밀번호 재확인이 안들어가 있음 
+        svcUseAgmt : ageCheck,
+        psInfoAgmt: useCheck,
+        eventAgmt: marketingCheck ,
+        
+    },{withCredentials: true} )
+      .then((response) => {
+        console.log(response);
+        alert("회원가입성공");
+        if(response.status ===201){
+            return navigate('/welcome')
+        }
+    
+      }).catch((err)=>{
+        console.log(err);
+        setMassage(err.response.data.massage);
+      })
+      ;
+  };
+
 
   const allBtnEvent = () => {
     if (allCheck === false) {
@@ -50,13 +91,7 @@ function JoinPresenter(props) {
   };
 
 
-  const handleClick = () => {
-    navigate('/join',{
-      stats : 
-      {
-        ageCheck, 
-        useCheck, 
-        marketingCheck}})};
+
 // 새로고침시에도 자료 유지 
 //   let [name, setName] = useState();
 // const inputValue = navigate.location.state;
@@ -99,7 +134,7 @@ function JoinPresenter(props) {
               type="checkbox"
               id="check1"
               checked={ageCheck}
-              onChange={()=>props.changeSearch(ageBtnEvent)}
+              onChange={ageBtnEvent}
             />
             <label htmlFor="check1">서비스 이용약관 (필수)</label>
             <FaAngleRight onClick={() => navigate("/agmtconf/service")} />
@@ -109,7 +144,7 @@ function JoinPresenter(props) {
               type="checkbox"
               id="check2"
               checked={useCheck}
-              onChange={()=>props.changeSearch2(useBtnEvent)}
+              onChange={useBtnEvent}
             />
             <label htmlFor="check2">개인정보 처리방침 (필수)</label>
             <FaAngleRight onClick={() => navigate("/agmtconf/psinfo")} />
@@ -119,13 +154,14 @@ function JoinPresenter(props) {
               type="checkbox"
               id="check3"
               checked={marketingCheck}
-              onChange={()=>props.changeSearch3(marketingBtnEvent)}
+              onChange={marketingBtnEvent}
             />
             <label htmlFor="check3">이벤트/마케팅 수신동의 (선택)</label>
             <FaAngleRight onClick={() => navigate("/agmtconf/event")} />
           </div>
-          <button onClick={handleClick}>
-            다음으로 넘어가기
+          <p>{massage}</p>
+          <button onClick={registeraxios}>
+            회원가입
           </button>
         </div>
       </div>
