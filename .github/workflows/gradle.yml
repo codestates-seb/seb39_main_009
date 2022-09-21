@@ -43,7 +43,8 @@ jobs:
       working-directory: ./back/
     
     - name: Build with Gradle
-      run: ./back/gradlew build
+      run: ./gradlew build
+      working-directory: ./back/
         
     - name: Setup Node.js environment
       uses: actions/setup-node@v3.4.1
