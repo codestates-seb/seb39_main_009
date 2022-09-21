@@ -50,11 +50,11 @@ jobs:
         node-version: '14'
         
     - name: npm install, build
-    - run: npm install
+      run: npm install
       working-directory: ./front/
     
     - name: npm build
-    - run: npm run build
+      run: npm run build
       working-directory: ./front/
     
     - name: Make zip file
