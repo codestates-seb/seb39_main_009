@@ -88,7 +88,7 @@ public class MemberController {
     @PatchMapping("/reset-password/{UUID}")
     public ResponseEntity putResetPwd(@PathVariable String UUID, @RequestBody ResetPwdDto resetPwdDto) {
 
-        if (resetPwdDto.getPassword() != resetPwdDto.getPasswordRe()) {
+        if (!resetPwdDto.getPassword().equals(resetPwdDto.getPasswordRe())) {
             throw new BusinessException(ExceptionCode.INPUT_ERROR);
         }
 

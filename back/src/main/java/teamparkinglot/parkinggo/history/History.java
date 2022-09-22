@@ -21,4 +21,9 @@ public class History {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Parking parking;
+
+    public History(Member member, Parking parking) {
+        this.member = member;
+        this.parking = parking;
+    }
 }

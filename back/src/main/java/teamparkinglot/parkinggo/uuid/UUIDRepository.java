@@ -12,5 +12,5 @@ public interface UUIDRepository extends JpaRepository<Uuid, Long> {
     Optional<Uuid> findByEmail(@Param("email") String email);
 
     @Query("select u from Uuid u join fetch u.member where u.uuid = :uuid")
-    Optional<Uuid> findByUuid(String uuid);
+    Optional<Uuid> findByUuid(@Param("uuid") String uuid);
 }

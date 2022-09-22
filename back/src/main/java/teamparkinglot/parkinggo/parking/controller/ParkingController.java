@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+import teamparkinglot.parkinggo.history.service.HistoryService;
 import teamparkinglot.parkinggo.parking.dto.*;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.mapper.ParkingMapper;
@@ -24,11 +25,19 @@ public class ParkingController {
     private final ParkingService parkingService;
     private final ParkingMapper mapper;
 
+    private final HistoryService historyService;
+
     @GetMapping("/parking/{id}")
-    public ResponseEntity viewParking(@PathVariable long id) {
+    public ResponseEntity viewParking(@PathVariable long id,
+                                      Authentication authentication) {
 
         Parking parking = parkingService.findById(id);
         ParkingResDto parkingResDto = mapper.parkingToParkingResDto(parking);
+
+        if (authentication != null) {
+            PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+            historyService.saveHistory(id, principal.getUsername());
+        }
 
         return new ResponseEntity<>(parkingResDto, HttpStatus.OK);
     }
@@ -70,8 +79,7 @@ public class ParkingController {
 
         List<ParkingRecentDto> recentSearches = parkingService.findRecentSearches(email);
 
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(recentSearches, HttpStatus.OK);
     }
 
     @GetMapping("/parking")

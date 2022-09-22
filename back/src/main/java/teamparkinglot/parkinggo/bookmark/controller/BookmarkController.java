@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import teamparkinglot.parkinggo.bookmark.dto.BookmarkIdDto;
 import teamparkinglot.parkinggo.bookmark.dto.BookmarkResDto;
 import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
 import teamparkinglot.parkinggo.bookmark.mapper.BookmarkMapper;
@@ -25,13 +26,13 @@ public class BookmarkController {
     private final BookmarkMapper mapper;
 
     @PostMapping("/bookmark")
-    public ResponseEntity postBookmark(long id,
+    public ResponseEntity postBookmark(@RequestBody BookmarkIdDto bookmarkIdDto,
                                        Authentication authentication) {
 
         loginCheck(authentication);
         PrincipalDetails principalDetails = getPrincipalDetails(authentication);
 
-        bookmarkService.saveBookmark(principalDetails.getUsername(), id);
+        bookmarkService.saveBookmark(principalDetails.getUsername(), bookmarkIdDto.getId());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
