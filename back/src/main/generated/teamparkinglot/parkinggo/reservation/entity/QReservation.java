@@ -26,11 +26,11 @@ public class QReservation extends EntityPathBase<Reservation> {
 
     public final teamparkinglot.parkinggo.member.entity.QMember member;
 
-    public final DateTimePath<java.time.LocalDateTime> parkingEndTime = createDateTime("parkingEndTime", java.time.LocalDateTime.class);
+    public final DateTimePath<java.time.LocalDateTime> parkingEndDateTime = createDateTime("parkingEndDateTime", java.time.LocalDateTime.class);
 
     public final teamparkinglot.parkinggo.parking_place.QParkingPlace parkingPlace;
 
-    public final DateTimePath<java.time.LocalDateTime> parkingStartTime = createDateTime("parkingStartTime", java.time.LocalDateTime.class);
+    public final DateTimePath<java.time.LocalDateTime> parkingStartDateTime = createDateTime("parkingStartDateTime", java.time.LocalDateTime.class);
 
     public final BooleanPath payOrNot = createBoolean("payOrNot");
 

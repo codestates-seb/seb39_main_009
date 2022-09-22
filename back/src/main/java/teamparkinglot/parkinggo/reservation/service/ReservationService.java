@@ -6,7 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
+import teamparkinglot.parkinggo.reservation.dto.ReservationResponseDto;
 import teamparkinglot.parkinggo.reservation.entity.Reservation;
+import teamparkinglot.parkinggo.reservation.mapper.ReservationMapper;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepositoryQueryDsl;
 
@@ -20,6 +22,8 @@ public class ReservationService {
     private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
     private final ReservationRepositoryQueryDsl reservationRepositoryCustom;
+
+    private final ReservationMapper mapper;
 
     @Transactional
     public void finalPayment(Long id, String email) {
@@ -62,5 +66,14 @@ public class ReservationService {
     public List<Reservation> findByParkingId(long parkingId) {
 
         return reservationRepository.findByParkingId(parkingId);
+    }
+
+    public ReservationResponseDto findByIdForReservationDto(Long id) {
+
+        Reservation reservation = reservationRepository.findById(id).orElseThrow(
+                () -> new BusinessException(ExceptionCode.RESERVATION_NOT_EXISTS)
+        );
+
+        return mapper.reservationToReservationResponseDto(reservation);
     }
 }

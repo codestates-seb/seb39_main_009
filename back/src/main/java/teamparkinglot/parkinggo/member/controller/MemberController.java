@@ -14,6 +14,8 @@ import teamparkinglot.parkinggo.member.dto.*;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.mapper.MemberMapper;
 import teamparkinglot.parkinggo.member.service.MemberService;
+import teamparkinglot.parkinggo.reservation.dto.ReservationResponseDto;
+import teamparkinglot.parkinggo.reservation.service.ReservationService;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 import teamparkinglot.parkinggo.uuid.UUIDService;
 import teamparkinglot.parkinggo.uuid.Uuid;
@@ -36,6 +38,7 @@ public class MemberController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MailService mailService;
     private final UUIDService uuidService;
+    private final ReservationService reservationService;
 
     @PostMapping("/join")
     public ResponseEntity joinUser(@Valid @RequestBody MemberJoinDto memberJoinDto) {
@@ -114,6 +117,14 @@ public class MemberController {
         List<ReservationListDto> reservationListDto = memberService.viewReservations(email);
 
         return new ResponseEntity<>(reservationListDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/member/reservation/{id}")
+    public ResponseEntity viewReservation(@PathVariable Long id) {
+
+        ReservationResponseDto reservationResponseDto = reservationService.findByIdForReservationDto(id);
+
+        return new ResponseEntity<>(reservationResponseDto, HttpStatus.OK);
     }
 
     @PatchMapping("/member")

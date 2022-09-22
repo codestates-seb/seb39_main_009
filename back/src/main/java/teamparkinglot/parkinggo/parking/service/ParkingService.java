@@ -44,7 +44,7 @@ public class ParkingService {
     private final ReservationRepository reservationRepository;
     private final ParkingPlaceRepository parkingPlaceRepository;
 
-    private ParkingMapper parkingMapper;
+    private final ParkingMapper parkingMapper;
 
     public List<Parking> findByCond(ParkingCondDto parkingCondDto) {
 
@@ -158,6 +158,6 @@ public class ParkingService {
 
         reservationRepository.save(reservation);
 
-        parkingMapper.reservationToCreateReservDto(reservation, member);
+        return parkingMapper.reservationToCreateReservDto(reservation, member);
     }
 }
