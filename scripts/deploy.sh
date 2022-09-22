@@ -43,4 +43,4 @@ fi
 echo "> npm install " >> /home/ubuntu/action/deploy.log
 npm install
 echo "> 프론트 서버 배포" >> /home/ubuntu/action/deploy.log
-sudo pm2 serve -s /$BUILD_FRONT/build >> /home/ubuntu/deployFe.log 2> /home/ubuntu/action/deploy_err.log &
+nohup serve -s /$BUILD_FRONT/build >> /home/ubuntu/deployFe.log 2> /home/ubuntu/action/deploy_err.log &
