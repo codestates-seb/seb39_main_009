@@ -31,7 +31,7 @@ BUILD_FRONT=$(ls /home/ubuntu/action/front)
 echo "> 현재 실행중인 리액트 pid 확인" >> /home/ubuntu/action/deploy.log
 REACT_PID=$(pgrep -f node)
 
-if [ -z REACT_PID ]
+if [ -z $REACT_PID ]
 then
   echo "> 현재 구동중인 노드가 없으므로 종료하지 않습니다." >> /home/ubuntu/action/deploy.log
 else
