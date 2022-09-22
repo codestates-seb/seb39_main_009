@@ -1,0 +1,34 @@
+.pakinglot_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.pakinglot_header {
+  /* border: 1px solid; */
+  width: 68%;
+  height: 30px;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.pakinglot_header p {
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+.pakinglot_header:nth-child(1) {
+  cursor: pointer;
+}
+
+.pakinglot_main {
+  width: 100%;
+  height: 85vh;
+  overflow: auto;
+  padding: 20px;
+  padding-top: 30px;
+}

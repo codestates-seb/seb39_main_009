@@ -25,9 +25,8 @@ function HealthCheck() {
   const handlelogOut = () => {
     localStorage.removeItem("authorization");
     localStorage.removeItem("refreshtoken");
-    alert("로그아웃")
-  } 
-
+    alert("로그아웃");
+  };
 
   return (
     <div>
@@ -52,8 +51,7 @@ function HealthCheck() {
         <button onClick={() => navigate("/welcome")}>환영창</button>
         <button onClick={() => navigate("/mypage/{id}")}>마이페이지</button>
         <button onClick={handlelogOut}>로그아웃</button>
-        <button onClick={()=>navigate('/agmtconf')}>정보동의페이지</button>
-
+        <button onClick={() => navigate("/agmtconf")}>정보동의페이지</button>
       </div>
       <br />
       <div>

@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../../useFetch";
 import "./SideBar.css";
 import { GrClose } from "react-icons/gr";
 import { AiOutlineRight } from "react-icons/ai";
@@ -14,6 +15,8 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
     handlelogOut();
     navigate(`/`);
   };
+
+  const { data } = useFetch(`/api/member`);
 
   return (
     <>
@@ -30,7 +33,7 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
           />
           <div className="sidebar">
             <div className="sidebar_header">
-              <p>This is SideBar</p>
+              <p>주 차 G O</p>
               <GrClose
                 className="closebtn"
                 size={22}
@@ -46,7 +49,7 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                       setShow(!show);
                     }}
                   >
-                    {data.nickname}
+                    {data.name}
                   </p>
                   <p>{data.email}</p>
                 </>
@@ -71,7 +74,7 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                   <div className="check_reservation">
                     <p>예약 내역</p>
                     <div>
-                      <p>{data.NumOfReserv}</p>
+                      <p>{data.numOfReserv}</p>
                       <p>건</p>
                       <AiOutlineRight
                         onClick={() => {
@@ -86,7 +89,7 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
                   <div className="check_point">
                     <p>충전금</p>
                     <div>
-                      <p>{data.point}</p>
+                      <p>{data.point === null ? 0 : data.point}</p>
                       <p>원</p>
                     </div>
                   </div>
@@ -151,8 +154,22 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
               >
                 공지사항
               </p>
-              <p>제휴 문의</p>
-              <p>1:1 문의</p>
+              <p
+                onClick={() => {
+                  navigate(`/partnership`);
+                  setShow(!show);
+                }}
+              >
+                제휴 문의
+              </p>
+              <p
+                onClick={() => {
+                  navigate(`/question`);
+                  setShow(!show);
+                }}
+              >
+                1:1 문의
+              </p>
               {localStorage.authorization ? (
                 <>
                   <div className="side_logout" onClick={sideLogout}>
@@ -171,10 +188,10 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
 
 export default SideBar;
 
-const data = {
-  id: "1",
-  name: "김파킹",
-  email: "aaa@aaa.com",
-  NumOfReserv: 1,
-  point: 25000,
-};
+// const data = {
+//   id: "1",
+//   name: "김파킹",
+//   email: "aaa@aaa.com",
+//   NumOfReserv: 1,
+//   point: 25000,
+// };
