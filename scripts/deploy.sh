@@ -43,4 +43,6 @@ fi
 echo "> npm install " >> /home/ubuntu/action/deploy.log
 npm install
 echo "> 프론트 서버 배포" >> /home/ubuntu/action/deploy.log
+sudo ln -s ~/.nvm/versions/node/v16.17.0/bin/node /usr/bin/node
+sudo ln -s ~/.nvm/versions/node/v16.17.0/bin/npm /usr/bin/npm
 sudo nohup /home/ec2-user/.nvm/versions/node/v16.17.0/bin/serve -s /$BUILD_FRONT/build >> /home/ubuntu/deployFe.log 2> /home/ubuntu/action/deploy_err.log &
