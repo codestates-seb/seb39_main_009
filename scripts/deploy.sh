@@ -44,4 +44,4 @@ echo "> npm install " >> /home/ubuntu/action/deploy.log
 npm install
 echo "> 프론트 서버 배포" >> /home/ubuntu/action/deploy.log
 chmod 755 /home/ubuntu/action/scripts/deploy.sh
-sudo nohup serve -s /$BUILD_FRONT/build >> /home/ubuntu/deployFe.log 2> /home/ubuntu/action/deploy_err.log &
+sudo nohup ~/.nvm/versions/node/v16.17.0/bin/serve -s /$BUILD_FRONT/build >> /home/ubuntu/deployFe.log 2> /home/ubuntu/action/deploy_err.log &
