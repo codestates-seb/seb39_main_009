@@ -1,20 +1,28 @@
 package teamparkinglot.parkinggo.parking.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
+import teamparkinglot.parkinggo.exception.BusinessException;
+import teamparkinglot.parkinggo.exception.ExceptionCode;
+import teamparkinglot.parkinggo.history.History;
+import teamparkinglot.parkinggo.history.HistoryRepository;
 import teamparkinglot.parkinggo.history.service.HistoryService;
 import teamparkinglot.parkinggo.parking.dto.*;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.mapper.ParkingMapper;
 import teamparkinglot.parkinggo.parking.service.ParkingService;
+import teamparkinglot.parkinggo.reservation.service.ReservationService;
 import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 @RestController
@@ -26,6 +34,10 @@ public class ParkingController {
     private final ParkingMapper mapper;
 
     private final HistoryService historyService;
+
+    private final ReservationService reservationService;
+
+    private final HistoryRepository historyRepository;
 
     @GetMapping("/parking/{id}")
     public ResponseEntity viewParking(@PathVariable long id,
@@ -63,6 +75,18 @@ public class ParkingController {
         String email = principalDetails.getUsername();
 
         CreateReservDto reservation = parkingService.createReservation(id, parkingDateTimeDto, email);
+
+        // 일정시간 후 checkPayment 1번만 실행
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            int count = 0;
+            @Override
+            public void run() {
+                if(count++ < 1) reservationService.checkPayment(id);
+                else timer.cancel();
+            }
+        };
+        timer.schedule(timerTask, 600000, 1000);
 
         return new ResponseEntity<>(reservation, HttpStatus.CREATED);
     }

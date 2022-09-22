@@ -31,7 +31,8 @@ public class HistoryService {
 
         Optional<History> historyIsThere = historyRepository.findByMemberEmailAndParkingId(email, parkingId);
         if (historyIsThere.isPresent()) {
-            return;
+            History history = historyIsThere.orElseThrow(() -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS));
+            historyRepository.delete(history);
         }
 
         History history = new History(member, parking);

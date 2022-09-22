@@ -1,11 +1,16 @@
 package teamparkinglot.parkinggo.parking.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.history.History;
 import teamparkinglot.parkinggo.history.HistoryRepository;
+import teamparkinglot.parkinggo.history.HistoryRepositoryQueryDsl;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.member.service.MemberService;
@@ -40,6 +45,7 @@ public class ParkingService {
     private final HistoryRepository historyRepository;
     private final MemberService memberService;
     private final ReviewRepository reviewRepository;
+    private final HistoryRepositoryQueryDsl historyRepositoryQueryDsl;
     private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
     private final ParkingPlaceRepository parkingPlaceRepository;
@@ -94,11 +100,22 @@ public class ParkingService {
             return new ArrayList<>();
         }
 
-        List<History> histories = historyRepository.findByMemberEmail(email);
+        return historyRepositoryQueryDsl.findRecentSearch(email);
 
-        return histories.stream()
-                .map(e -> new ParkingRecentDto(e.getParking().getName(), e.getParking().getAddress().getParcel()))
-                .collect(Collectors.toList());
+//        Pageable pageable = PageRequest.of(1, 5, Sort.by("id").descending());
+//
+//        Page<History> histories = historyRepository.findByMemberEmail(email, pageable);
+//
+//        Page<ParkingRecentDto> parkingRecent = histories.map(h ->
+//                ParkingRecentDto.builder()
+//                        .parkingName(h.getParking().getName())
+//                        .address(h.getParking().getAddress().getParcel())
+//                        .build());
+
+//        return histories.stream()
+//                .map(e -> new ParkingRecentDto(e.getParking().getName(), e.getParking().getAddress().getParcel()))
+//                .collect(Collectors.toList());
+
     }
 
     /**
@@ -136,10 +153,7 @@ public class ParkingService {
         );
         ParkingPlace parkingPlace = parkingPlaceRepository.findParkingPlace(id, parkingDateTimeDto.getNumber());
 
-        long time = ((parkingDateTimeDto.getParkingEndDateTime().getHour() * 60) + parkingDateTimeDto.getParkingEndDateTime().getMinute())
-                        -((parkingDateTimeDto.getParkingStartDateTime().getHour() * 60) + parkingDateTimeDto.getParkingStartDateTime().getMinute());
-
-//        long time = ChronoUnit.MINUTES.between(parkingDateTimeDto.getParkingStartDateTime(), parkingDateTimeDto.getParkingEndDateTime());
+        long time = ChronoUnit.MINUTES.between(parkingDateTimeDto.getParkingStartDateTime(), parkingDateTimeDto.getParkingEndDateTime());
 
         long price = ((time / 30) * parking.getPrice());
 

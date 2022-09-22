@@ -9,7 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ParkingRecentDto {
 
-    private String ParkingName;
+    private String parkingName;
     private String address;
 
+//    @Builder
+//    public ParkingRecentDto(String parkingName, String address) {
+//        this.parkingName = parkingName;
+//        this.address = address;
+//    }
 }
