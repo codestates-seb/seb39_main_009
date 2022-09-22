@@ -15,7 +15,7 @@ const useFetch = (url) => {
     axios
       .get(url, {
         // headers: { Authorization: localStorage.getItem("authorization") },
-        withCredentials: false,
+        withCredentials: true,
       })
       .then((response) => {
         setData(response.data);

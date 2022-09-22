@@ -1,13 +1,12 @@
-.pakinglot_container {
+.parkinglot_container {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.pakinglot_header {
-  /* border: 1px solid; */
-  width: 68%;
+.parkinglot_header {
+  width: 60%;
   height: 30px;
   padding-left: 15px;
   display: flex;
@@ -16,19 +15,58 @@
   margin-bottom: 10px;
 }
 
-.pakinglot_header p {
+.parkinglot_header p {
   margin-left: 20px;
   font-size: 20px;
 }
 
-.pakinglot_header:nth-child(1) {
+.parkinglot_header:nth-child(1) {
   cursor: pointer;
 }
 
-.pakinglot_main {
+.parkinglot_main {
   width: 100%;
   height: 85vh;
   overflow: auto;
   padding: 20px;
   padding-top: 30px;
+  border-top: 0.5px solid rgb(204, 204, 204);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.starIcon {
+  width: 90%;
+  margin: 10px;
+  text-align: left;
+}
+
+.parkingmap_main {
+  width: 100%;
+  height: 85vh;
+  overflow: auto;
+  padding: 20px;
+  padding-top: 30px;
+  border-top: 0.5px solid rgb(204, 204, 204);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.parkingmap_main > div:nth-child(1) {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
+  margin-left: 10px;
+}
+
+.parkingmap_main > div:nth-child(1) > p {
+  font-size: 18px;
+  margin-bottom: 3px;
+}
+
+.parkingmap_main > div:nth-child(1) > p:nth-child(1) {
+  font-weight: 700;
 }

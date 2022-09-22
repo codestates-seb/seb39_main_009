@@ -23,10 +23,11 @@ const Login = () => {
         localStorage.setItem("authorization", res.headers.authorization);
         localStorage.setItem("refreshtoken", res.headers.refreshtoken);
         setTimeout(onSilentRefresh, 600000);
+        navigate(`/`);
       })
       .catch((Error) => {
         console.log(Error);
-        alert("일치하는 회원 정보가 없습니다.");
+        // alert("일치하는 회원 정보가 없습니다.");
       });
   };
 

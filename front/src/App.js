@@ -19,6 +19,8 @@ import Reservation from "./pages/ReservationsList/Reservation";
 import JoinPresenter from "./pages/signup/JoinPresenter";
 import Partnership from "./pages/Partnership/Partnership";
 import Question from "./pages/Question/Question";
+import Parkinglot from "./pages/Parkinglot/Parkinglot";
+import ParkingMap from "./pages/Parkinglot/ParkingMap";
 
 function App() {
   // 로그아웃
@@ -61,8 +63,10 @@ function App() {
                 <Route path="/welcome" element={<Welcome />} />
                 {/* 마이페이지 */}
                 <Route path="/mypage/:id" element={<Mypage />} />
-                {/* 주차장 정보 조회 테스트 후 id -> :id 수정 예정*/}
-                <Route path="/parking/id" element={<ReservationsList />} />
+                {/* 주차장 정보 조회*/}
+                <Route path="/parking/:pkId" element={<Parkinglot />} />
+                {/* 주차장 지도*/}
+                <Route path="/parking/:pkId/map" element={<ParkingMap />} />
                 {/* 나의 예약 목록*/}
                 <Route path="/reservation" element={<ReservationsList />} />
                 {/* 예약 상세 조회 */}

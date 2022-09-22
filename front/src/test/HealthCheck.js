@@ -74,6 +74,9 @@ function HealthCheck() {
         <button onClick={() => navigate(`/reservation/id`)}>
           예약상세조회
         </button>
+        <button onClick={() => navigate(`/parking/1`)}>
+          주차장정보(지도구현)
+        </button>
       </div>
       <div>
         <br />( p.s 효영님! 화면 점검용으로 만들어 놓은 임의페이지 & 버튼입니다.
