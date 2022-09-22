@@ -24,21 +24,23 @@ fi
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포"    >> /home/ubuntu/action/deploy.log
-sudo nohup java -jar $DEPLOY_JAR >> /home/ubuntu/deploy.log 2>/home/ubuntu/action/deploy_err.log &
+sudo nohup java -jar $DEPLOY_JAR >> /home/ubuntu/deployBe.log 2>/home/ubuntu/action/deploy_err.log &
 
-#BUILD_FRONT=$(ls /home/ubuntu/action/front)
-#
-#echo "> 현재 실행중인 리액트 pid 확인" >> /home/ubuntu/action/deploy.log
-#REACT_PID=$(pgrep -f node)
-#
-#if [ -z REACT_PID ]
-#then
-#  echo "> 현재 구동중인 노드가 없으므로 종료하지 않습니다." >> /home/ubuntu/action/deploy.log
-#else
-#  echo "> kill -15 $REACT_PID" >> /home/ubuntu/action/deploy.log
-#  sudo kill -15 $REACT_PID
-#  sleep 5
-#fi
-#
-#echo "> 프론트 서버를 가동합니다." >> /home/ubuntu/action/deploy.log
-#sudo nohup npx serve -s /$BUILD_FRONT/build >> /home/ubuntu/deploy.log 2> /home/ubuntu/action/deploy_err.log &
+BUILD_FRONT=$(ls /home/ubuntu/action/front)
+
+echo "> 현재 실행중인 리액트 pid 확인" >> /home/ubuntu/action/deploy.log
+REACT_PID=$(pgrep -f node)
+
+if [ -z REACT_PID ]
+then
+  echo "> 현재 구동중인 노드가 없으므로 종료하지 않습니다." >> /home/ubuntu/action/deploy.log
+else
+  echo "> kill -15 $REACT_PID" >> /home/ubuntu/action/deploy.log
+  sudo kill -15 $REACT_PID
+  sleep 5
+fi
+
+echo "> npm install " >> /home/ubuntu/action/deploy.log
+npm install
+echo "> 프론트 서버 배포" >> /home/ubuntu/action/deploy.log
+sudo pm2 serve -s /$BUILD_FRONT/build >> /home/ubuntu/deployFe.log 2> /home/ubuntu/action/deploy_err.log &
