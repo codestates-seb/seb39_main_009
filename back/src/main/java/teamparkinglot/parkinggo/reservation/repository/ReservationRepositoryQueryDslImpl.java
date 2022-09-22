@@ -41,7 +41,7 @@ public class ReservationRepositoryQueryDslImpl implements ReservationRepositoryQ
         return queryFactory
                 .select(Projections.fields(ReservationListDto.class,
                                 reservation.parkingPlace.parking.name, reservation.parkingPlace.number, reservation.id.as("reservNum"),
-                                reservation.parkingStartTime, reservation.parkingEndTime))
+                                reservation.parkingStartDateTime, reservation.parkingEndDateTime))
                 .from(reservation)
                 .where(reservation.member.email.eq(email))
                 .fetch();

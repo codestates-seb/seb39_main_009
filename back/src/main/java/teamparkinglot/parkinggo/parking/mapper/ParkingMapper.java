@@ -1,8 +1,11 @@
 package teamparkinglot.parkinggo.parking.mapper;
 
 import org.springframework.stereotype.Component;
+import teamparkinglot.parkinggo.member.entity.Member;
+import teamparkinglot.parkinggo.parking.dto.CreateReservDto;
 import teamparkinglot.parkinggo.parking.dto.ParkingResDto;
 import teamparkinglot.parkinggo.parking.entity.Parking;
+import teamparkinglot.parkinggo.reservation.entity.Reservation;
 
 @Component
 public class ParkingMapper {
@@ -26,5 +29,14 @@ public class ParkingMapper {
                 .LNG(parking.getLng())
                 .parkingMap(parking.getParkingMap())
         .build();
+    }
+
+    public CreateReservDto reservationToCreateReservDto(Reservation reservation, Member member) {
+        return CreateReservDto.builder()
+                .reservationDate(reservation.getReservationDate())
+                .parkingStartTime(reservation.getParkingStartDateTime())
+                .reservNum(reservation.getId())
+                .carNumber(member.getCarNumber())
+                .build();
     }
 }

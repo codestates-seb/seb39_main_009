@@ -27,7 +27,7 @@ public class Reservation {
     private LocalDateTime parkingStartDateTime;
     private LocalDateTime parkingEndDateTime;
     private Boolean refundAgmt;
-    private int price;
+    private Long price;
     private Boolean payOrNot;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -41,7 +41,8 @@ public class Reservation {
     }
 
     @Builder
-    public Reservation(LocalDateTime parkingStartDateTime, LocalDateTime parkingEndDateTime, Boolean refundAgmt, int price, Boolean payOrNot, Member member, ParkingPlace parkingPlace) {
+    public Reservation(LocalDateTime reservationDate, LocalDateTime parkingStartDateTime, LocalDateTime parkingEndDateTime, Boolean refundAgmt, Long price, Boolean payOrNot, Member member, ParkingPlace parkingPlace) {
+        this.reservationDate = reservationDate;
         this.parkingStartDateTime = parkingStartDateTime;
         this.parkingEndDateTime = parkingEndDateTime;
         this.refundAgmt = refundAgmt;

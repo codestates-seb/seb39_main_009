@@ -11,6 +11,7 @@ import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.member.service.MemberService;
 import teamparkinglot.parkinggo.parking.dto.*;
 import teamparkinglot.parkinggo.parking.entity.Parking;
+import teamparkinglot.parkinggo.parking.mapper.ParkingMapper;
 import teamparkinglot.parkinggo.parking.repository.ParkingQueryDsl;
 import teamparkinglot.parkinggo.parking.repository.ParkingRepository;
 import teamparkinglot.parkinggo.parking_place.ParkingPlace;
@@ -42,6 +43,8 @@ public class ParkingService {
     private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
     private final ParkingPlaceRepository parkingPlaceRepository;
+
+    private ParkingMapper parkingMapper;
 
     public List<Parking> findByCond(ParkingCondDto parkingCondDto) {
 
@@ -124,28 +127,37 @@ public class ParkingService {
         return new ParkingMapDto(parking.getParkingMap(), validNums);
     }
 
-//    public CreateReservDto createReservation(Long id, ParkingDateTimeDto parkingDateTimeDto, String email) {
-//        Parking parking = parkingRepository.findById(id).orElseThrow(
-//                () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
-//        );
-//        Member member = memberRepository.findByEmail(email).orElseThrow(
-//                () -> new BusinessException(ExceptionCode.MEMBER_NOT_EXISTS)
-//        );
-//        ParkingPlace parkingPlace = parkingPlaceRepository.findParkingPlace(id, parkingDateTimeDto.getNumber());
-//
-//        long time = ChronoUnit.MINUTES.between(parkingDateTimeDto.getParkingStartTime(), parkingDateTimeDto.getParkingEndDateTime());
-//        int price = (int) ((time / 30) * parking.getPrice());
-//        if(price >= parking.getDayMax()) price = parking.getDayMax();
-//
-//        Reservation reservation = Reservation.builder()
-//                .parkingStartDateTime(parkingDateTimeDto.getParkingStartTime())
-//                .parkingEndDateTime(parkingDateTimeDto.getParkingEndDateTime())
-//                .member(member)
-//                .parkingPlace(parkingPlace)
-//                .payOrNot(false)
-//                .price(price)
-//                .refundAgmt(true)
-//                .build();
-//        reservationRepository.save(reservation);
-//    }
+    public CreateReservDto createReservation(Long id, ParkingDateTimeDto parkingDateTimeDto, String email) {
+        Parking parking = parkingRepository.findById(id).orElseThrow(
+                () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
+        );
+        Member member = memberRepository.findByEmail(email).orElseThrow(
+                () -> new BusinessException(ExceptionCode.MEMBER_NOT_EXISTS)
+        );
+        ParkingPlace parkingPlace = parkingPlaceRepository.findParkingPlace(id, parkingDateTimeDto.getNumber());
+
+        long time = ((parkingDateTimeDto.getParkingEndDateTime().getHour() * 60) + parkingDateTimeDto.getParkingEndDateTime().getMinute())
+                        -((parkingDateTimeDto.getParkingStartDateTime().getHour() * 60) + parkingDateTimeDto.getParkingStartDateTime().getMinute());
+
+//        long time = ChronoUnit.MINUTES.between(parkingDateTimeDto.getParkingStartDateTime(), parkingDateTimeDto.getParkingEndDateTime());
+
+        long price = ((time / 30) * parking.getPrice());
+
+        if(price >= parking.getDayMax()) price = parking.getDayMax();
+
+        Reservation reservation = Reservation.builder()
+                .reservationDate(LocalDateTime.now())
+                .parkingStartDateTime(parkingDateTimeDto.getParkingStartDateTime())
+                .parkingEndDateTime(parkingDateTimeDto.getParkingEndDateTime())
+                .member(member)
+                .parkingPlace(parkingPlace)
+                .payOrNot(false)
+                .price(price)
+                .refundAgmt(true)
+                .build();
+
+        reservationRepository.save(reservation);
+
+        parkingMapper.reservationToCreateReservDto(reservation, member);
+    }
 }

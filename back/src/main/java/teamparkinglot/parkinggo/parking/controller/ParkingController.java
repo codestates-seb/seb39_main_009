@@ -53,7 +53,9 @@ public class ParkingController {
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         String email = principalDetails.getUsername();
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        CreateReservDto reservation = parkingService.createReservation(id, parkingDateTimeDto, email);
+
+        return new ResponseEntity<>(reservation, HttpStatus.CREATED);
     }
 
     @GetMapping("/history")
