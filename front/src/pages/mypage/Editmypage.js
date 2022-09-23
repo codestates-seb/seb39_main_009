@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useNavigate} from "react-router-dom";
+// import { useNavigate} from "react-router-dom";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const Editmypage = () => {
 
-  const navigate = useNavigate();
+//   const navigate = useNavigate();
 
   const location = useLocation();
   const data = location.state.data;
@@ -19,16 +19,23 @@ const Editmypage = () => {
 
 
   const clickInfo = () => {
-    axios.put("/api/mypage",{
+    axios.patch("/api/mypage",{
         password: pwdInfo,
         passwordRe : passwordRe,
         phoneNum: phoneNum,
         carNumber: carNumber
-    })
+    }, {
+        withCredentials: true,
+      })
     .then((res)=>{
-        if(res.status===200){
-         navigate('/mypage/{id}')
-        }
+        console.log('수정완료')
+        console.log(res)
+        // if(res.status===200){
+        //  navigate('/mypage/{id}')
+        // }
+    }).catch((err)=>{
+        console.log('수정안됨')
+        console.log(err)
     })
   }
 

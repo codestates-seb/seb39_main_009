@@ -39,9 +39,6 @@ const handlelogOut = () => {
         <Link to = {`/mypage/${id}/edit`}
         state ={{data:data}}
         >개인정보수정</Link>
-        {/* <button
-        onClick={()=>{navigate(`/mypage/${id}/edit`)}}
-        >개인정보수정</button> */}
         <button
         onClick={handlelogOut}
         >로그아웃</button>
