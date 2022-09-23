@@ -16,22 +16,19 @@ function JoinPresenter(props) {
   const password = props.checkpassword;
   const carNumber = props.carnumber;
   const phoneNum = props.phonenumber;
- 
 
   const [massage,setMassage] = useState("");
 
-  const url = ""
 
   const registeraxios = (event) => {
     event.preventDefault();
     axios
-      .post(url+"/api/join", {
+      .post("/api/join", {
         name: name,
         email: email,
         password: password,
         carNumber : carNumber,
         phoneNum : phoneNum,
-        // 비밀번호 재확인이 안들어가 있음 
         svcUseAgmt : ageCheck,
         psInfoAgmt: useCheck,
         eventAgmt: marketingCheck ,
@@ -92,21 +89,6 @@ function JoinPresenter(props) {
 
 
 
-// 새로고침시에도 자료 유지 
-//   let [name, setName] = useState();
-// const inputValue = navigate.location.state;
-
-//   localStorage.setItem(name, JSON.stringify(inputValue));
-
-//   useEffect(() => {
-//     const saved = localStorage.getItem("id");
-//     if (saved !== null) {
-//       setName(saved);
-//     }
-//   }, [inputValue]);
-
-
-
   useEffect(() => {
     if (ageCheck === true && useCheck === true && marketingCheck === true) {
       setAllCheck(true);
@@ -160,7 +142,9 @@ function JoinPresenter(props) {
             <FaAngleRight onClick={() => navigate("/agmtconf/event")} />
           </div>
           <p>{massage}</p>
-          <button onClick={registeraxios}>
+          <button onClick={registeraxios}
+          disabled={!(ageCheck &&useCheck)}
+          >
             회원가입
           </button>
         </div>

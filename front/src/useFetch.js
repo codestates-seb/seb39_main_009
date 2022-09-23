@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-axios.defaults.baseURL = ``;
+axios.defaults.baseURL = "";
 axios.defaults.headers.common[`Authorization`] =
   localStorage.getItem("authorization");
 

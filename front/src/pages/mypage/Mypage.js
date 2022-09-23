@@ -1,14 +1,10 @@
-import { useNavigate,Link  } from "react-router-dom";
+import { useNavigate,Link, useParams  } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
-import axios from "axios";
-import { useParams } from 'react-router-dom';
-import { useEffect, useState, } from "react";
-
+import useFetch from "../../useFetch";
 
 const Mypage = () => {
   const navigate = useNavigate();
-  const [myInfo, setMyInfo] = useState([]);
-  const { id } = useParams();
+  const {id} = useParams();
 
 const handlelogOut = () => {
         localStorage.removeItem("authorization");
@@ -16,19 +12,9 @@ const handlelogOut = () => {
         navigate('/')
       } 
 
+  const { data } = useFetch(`/api/member`);
 
-  const url = ""
 
-    useEffect(()=>{
-      axios.get(url+`/api/mypage?id=${id}`)
-      .then((res)=>res.json())
-      .then(data=>{
-        setMyInfo(data)
-      })
-
-      .catch((err)=>
-      console.log(err))
-    },[id])
 
 
     return <div>
@@ -40,18 +26,19 @@ const handlelogOut = () => {
         />
         <div>
             <label>가입정보</label>
-            <div>{myInfo.email}</div>
+            <div>{data.email}</div>
         </div>
         <div>
             <label>휴대폰 번호</label>
-            <p>{myInfo.phoneNum}</p>
+            <p>{data.phoneNum}</p>
         </div>
         <div>
             <label>차량번호</label>
-            <p>{myInfo.carNumber}</p>
+            <p>{data.carNumber}</p>
         </div>
         <Link to = {`/mypage/${id}/edit`}
-        state={{myInfo:myInfo}}>개인정보수정</Link>
+        state ={{data:data}}
+        >개인정보수정</Link>
         {/* <button
         onClick={()=>{navigate(`/mypage/${id}/edit`)}}
         >개인정보수정</button> */}
