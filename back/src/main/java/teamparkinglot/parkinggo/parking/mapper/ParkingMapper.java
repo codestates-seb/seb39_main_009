@@ -11,12 +11,15 @@ import teamparkinglot.parkinggo.reservation.entity.Reservation;
 public class ParkingMapper {
     public ParkingResDto parkingToParkingResDto(Parking parking) {
         return ParkingResDto.builder()
-                .name(parking.getName())
+                .name(parking.getParkingName())
                 .address(parking.getAddress().getStreet())
                 .weekdayOpen(parking.getWeekdayOpen())
                 .weekdayClose(parking.getWeekdayClose())
                 .tel(parking.getTel())
-                .price(parking.getPrice())
+                .basicTime(parking.getBasicTime())
+                .basicCharge(parking.getBasicCharge())
+                .addUnitTime(parking.getAddUnitTime())
+                .addUnitCharge(parking.getAddUnitCharge())
                 .capacity(parking.getCapacity())
                 .satOpen(parking.getSatOpen())
                 .satClose(parking.getSatClose())
@@ -24,9 +27,9 @@ public class ParkingMapper {
                 .sunClose(parking.getSunClose())
                 .partnership(parking.isPartnership())
                 .type(parking.getType())
-                .dayMax(parking.getDayMax())
-                .LAT(parking.getLat())
-                .LNG(parking.getLng())
+                .dayMaxPrice(parking.getDayMaxPrice())
+                .latitude(parking.getLatitude())
+                .longitude(parking.getLongitude())
                 .parkingMap(parking.getParkingMap())
         .build();
     }

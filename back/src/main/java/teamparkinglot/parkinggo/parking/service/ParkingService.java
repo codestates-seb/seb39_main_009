@@ -15,6 +15,7 @@ import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.member.service.MemberService;
 import teamparkinglot.parkinggo.parking.dto.*;
+import teamparkinglot.parkinggo.parking.entity.Address;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.mapper.ParkingMapper;
 import teamparkinglot.parkinggo.parking.repository.ParkingQueryDsl;
@@ -24,15 +25,13 @@ import teamparkinglot.parkinggo.parking_place.ParkingPlaceRepository;
 import teamparkinglot.parkinggo.reservation.entity.Reservation;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
 import teamparkinglot.parkinggo.reservation.service.ReservationService;
-import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.review.repository.ReviewRepository;
+import teamparkinglot.parkinggo.test.DbDto;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -115,7 +114,6 @@ public class ParkingService {
 //        return histories.stream()
 //                .map(e -> new ParkingRecentDto(e.getParking().getName(), e.getParking().getAddress().getParcel()))
 //                .collect(Collectors.toList());
-
     }
 
     /**
@@ -155,9 +153,9 @@ public class ParkingService {
 
         long time = ChronoUnit.MINUTES.between(parkingDateTimeDto.getParkingStartDateTime(), parkingDateTimeDto.getParkingEndDateTime());
 
-        long price = ((time / 30) * parking.getPrice());
+        long price = parking.getBasicCharge() + ((time - parking.getBasicTime()) / parking.getAddUnitTime()) * parking.getAddUnitCharge();
 
-        if(price >= parking.getDayMax()) price = parking.getDayMax();
+        if(price >= parking.getDayMaxPrice()) price = parking.getDayMaxPrice();
 
         Reservation reservation = Reservation.builder()
                 .reservationDate(LocalDateTime.now())
@@ -173,5 +171,40 @@ public class ParkingService {
         reservationRepository.save(reservation);
 
         return parkingMapper.reservationToCreateReservDto(reservation, member);
+    }
+
+    public void saveAllItem(DbDto dbDto) {
+
+        Member member = memberService.findVerifiedMember("kwj1830@naver.com");
+
+        dbDto.getRecords().stream()
+                .forEach(e -> {
+                    Parking parking = Parking.builder()
+                            .parkingManagementNumber(e.getPrkplceNo())
+                            .parkingName(e.getPrkplceNm())
+                            .type(e.getPrkplceSe())
+                            .address(new Address("", e.getRdnmadr(), e.getLnmadr()))
+                            .capacity(e.getPrkcmprt())
+                            .weekdayOpen(e.getWeekdayOperOpenHhmm())
+                            .weekdayClose(e.getWeekdayOperColseHhmm())
+                            .satClose(e.getSatOperOperOpenHhmm())
+                            .satOpen(e.getSatOperCloseHhmm())
+                            .sunOpen(e.getHolidayOperOpenHhmm())
+                            .sunClose(e.getHolidayCloseOpenHhmm())
+                            .basicTime(e.getBasicTime())
+                            .basicCharge(e.getBasicCharge())
+                            .addUnitTime(e.getAddUnitTime())
+                            .addUnitCharge(e.getAddUnitCharge())
+                            .dayMaxPrice(e.getDayCmmtkt())
+                            .latitude(e.getLatitude())
+                            .longitude(e.getLongitude())
+                            .member(member)
+                            .phoneNumber(e.getPhoneNumber())
+                            .partnership(false)
+                            .build();
+
+                    parkingRepository.save(parking);
+
+                });
     }
 }

@@ -12,7 +12,7 @@ public class ReservationMapper {
                 .email(reservation.getMember().getEmail())
                 .phoneNumber(reservation.getMember().getPhone())
                 .reservationNumber(reservation.getId().toString())
-                .parkingName(reservation.getParkingPlace().getParking().getName())
+                .parkingName(reservation.getParkingPlace().getParking().getParkingName())
                 .parkingPlaceNumber(reservation.getParkingPlace().getSector() + " " + reservation.getParkingPlace().getNumber())
                 .parkingStartDateTime(reservation.getParkingStartDateTime())
                 .parkingEndDateTime(reservation.getParkingEndDateTime())

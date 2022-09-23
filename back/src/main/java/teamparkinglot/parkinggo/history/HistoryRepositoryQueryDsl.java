@@ -22,7 +22,7 @@ public class HistoryRepositoryQueryDsl {
     public List<ParkingRecentDto> findRecentSearch(String email) {
         return queryFactory
                 .select(Projections.fields(ParkingRecentDto.class,
-                        history.parking.name.as("parkingName"), history.parking.address.parcel.as("address")))
+                        history.parking.parkingName.as("parkingName"), history.parking.address.parcel.as("address")))
                 .from(history)
                 .where(history.member.email.eq(email))
                 .orderBy(history.id.desc())

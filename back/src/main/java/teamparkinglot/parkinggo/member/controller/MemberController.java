@@ -63,7 +63,7 @@ public class MemberController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private void timerForDeleteIn10Min(Uuid saveUUID) {
+    private void timerForDeleteIn10Min(Uuid saveUuid) {
         log.info("타이머 시작");
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -72,27 +72,27 @@ public class MemberController {
             @Override
             public void run() {
                 log.info("삭제 로직 시작");
-                if (count++ < 1) uuidService.delete(saveUUID);
+                if (count++ < 1) uuidService.delete(saveUuid);
                 else timer.cancel();
             }
         };
         timer.schedule(timerTask, 600000);
     }
 
-    @GetMapping("/reset-password/{UUID}")
-    public ResponseEntity resetPwdCheck(@PathVariable String UUID) {
-        uuidService.verifyUuid(UUID);
+    @GetMapping("/reset-password/{uuid}")
+    public ResponseEntity resetPwdCheck(@PathVariable String uuid) {
+        uuidService.verifyUuid(uuid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/reset-password/{UUID}")
-    public ResponseEntity putResetPwd(@PathVariable String UUID, @RequestBody ResetPwdDto resetPwdDto) {
+    @PatchMapping("/reset-password/{uuid}")
+    public ResponseEntity putResetPwd(@PathVariable String uuid, @RequestBody ResetPwdDto resetPwdDto) {
 
         if (!resetPwdDto.getPassword().equals(resetPwdDto.getPasswordRe())) {
             throw new BusinessException(ExceptionCode.INPUT_ERROR);
         }
 
-        uuidService.putPwd(UUID, resetPwdDto.getPassword());
+        uuidService.putPwd(uuid, resetPwdDto.getPassword());
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

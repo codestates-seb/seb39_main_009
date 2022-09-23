@@ -24,27 +24,35 @@ public class QParking extends EntityPathBase<Parking> {
 
     public final QAddress address;
 
+    public final NumberPath<Integer> addUnitCharge = createNumber("addUnitCharge", Integer.class);
+
+    public final NumberPath<Integer> addUnitTime = createNumber("addUnitTime", Integer.class);
+
+    public final NumberPath<Integer> basicCharge = createNumber("basicCharge", Integer.class);
+
+    public final NumberPath<Integer> basicTime = createNumber("basicTime", Integer.class);
+
     public final NumberPath<Integer> capacity = createNumber("capacity", Integer.class);
 
-    public final NumberPath<Integer> dayMax = createNumber("dayMax", Integer.class);
+    public final NumberPath<Integer> dayMaxPrice = createNumber("dayMaxPrice", Integer.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final NumberPath<Double> lat = createNumber("lat", Double.class);
+    public final NumberPath<Double> latitude = createNumber("latitude", Double.class);
 
-    public final NumberPath<Double> lng = createNumber("lng", Double.class);
+    public final NumberPath<Double> longitude = createNumber("longitude", Double.class);
 
     public final teamparkinglot.parkinggo.member.entity.QMember member;
 
-    public final StringPath name = createString("name");
+    public final StringPath parkingManagementNumber = createString("parkingManagementNumber");
 
     public final StringPath parkingMap = createString("parkingMap");
 
+    public final StringPath parkingName = createString("parkingName");
+
     public final BooleanPath partnership = createBoolean("partnership");
 
-    public final NumberPath<Integer> price = createNumber("price", Integer.class);
-
-    public final ListPath<teamparkinglot.parkinggo.review.entity.Review, teamparkinglot.parkinggo.review.entity.QReview> reviews = this.<teamparkinglot.parkinggo.review.entity.Review, teamparkinglot.parkinggo.review.entity.QReview>createList("reviews", teamparkinglot.parkinggo.review.entity.Review.class, teamparkinglot.parkinggo.review.entity.QReview.class, PathInits.DIRECT2);
+    public final StringPath phoneNumber = createString("phoneNumber");
 
     public final StringPath satClose = createString("satClose");
 

@@ -1,6 +1,5 @@
 package teamparkinglot.parkinggo.parking.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,10 @@ public class ParkingResDto {
     String weekdayOpen;
     String weekdayClose;
     String tel;
-    int price;
+    int basicTime;
+    int basicCharge;
+    int addUnitTime;
+    int addUnitCharge;
     int capacity;
     String satOpen;
     String satClose;
@@ -22,19 +24,23 @@ public class ParkingResDto {
     String sunClose;
     Boolean partnership;
     String type;
-    int dayMax;
-    double LAT;
-    double LNG;
+    int dayMaxPrice;
+    Double latitude;
+    Double longitude;
     String parkingMap;
 
     @Builder
-    public ParkingResDto(String name, String address, String weekdayOpen, String weekdayClose, String tel, int price, int capacity, String satOpen, String satClose, String sunOpen, String sunClose, Boolean partnership, String type, int dayMax, double LAT, double LNG, String parkingMap) {
+
+    public ParkingResDto(String name, String address, String weekdayOpen, String weekdayClose, String tel, int basicTime, int basicCharge, int addUnitTime, int addUnitCharge, int capacity, String satOpen, String satClose, String sunOpen, String sunClose, Boolean partnership, String type, int dayMaxPrice, Double latitude, Double longitude, String parkingMap) {
         this.name = name;
         this.address = address;
         this.weekdayOpen = weekdayOpen;
         this.weekdayClose = weekdayClose;
         this.tel = tel;
-        this.price = price;
+        this.basicTime = basicTime;
+        this.basicCharge = basicCharge;
+        this.addUnitTime = addUnitTime;
+        this.addUnitCharge = addUnitCharge;
         this.capacity = capacity;
         this.satOpen = satOpen;
         this.satClose = satClose;
@@ -42,9 +48,9 @@ public class ParkingResDto {
         this.sunClose = sunClose;
         this.partnership = partnership;
         this.type = type;
-        this.dayMax = dayMax;
-        this.LAT = LAT;
-        this.LNG = LNG;
+        this.dayMaxPrice = dayMaxPrice;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.parkingMap = parkingMap;
     }
 }
