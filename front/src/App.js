@@ -23,6 +23,7 @@ import Parkinglot from "./pages/Parkinglot/Parkinglot";
 import ParkingMap from "./pages/Parkinglot/ParkingMap";
 
 function App() {
+
   // 로그아웃
   const handlelogOut = () => {
     localStorage.removeItem("authorization");

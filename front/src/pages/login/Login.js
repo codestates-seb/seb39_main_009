@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
 
@@ -9,12 +10,11 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const url = "";
 
   const onSubmit = (event) => {
     event.preventDefault();
     axios
-      .post(url + "/api/login", {
+      .post("/api/login", {
         email: email,
         password: password,
       })
@@ -22,34 +22,71 @@ const Login = () => {
         console.log(res);
         localStorage.setItem("authorization", res.headers.authorization);
         localStorage.setItem("refreshtoken", res.headers.refreshtoken);
-        setTimeout(onSilentRefresh, 600000);
-        navigate(`/`);
+        console.log('로그인 성공')
+
+
+        // const stoplogin = setInterval(mmm,20000);
+        // function mmm (){
+        //   if(localStorage.getItem("authorization")){
+        //     return (onSilentRefresh)
+        //   }else{
+        //     clearInterval(stoplogin)
+        //   }
+        // }
+
+        // const stoplogin = setInterval(function() {
+        //   if(localStorage.getItem("authorization")){
+        //     onSilentRefresh
+        //   }else{
+        //     clearInterval(stoplogin)
+        //   },20000)
+
+        // if(localStorage.getItem('authorization')){
+        //   return setInterval(onSilentRefresh, 20000);
+        // }
+        // navigate(`/`);
+
+        setTimeout(OnSilentRefresh, 20000);
       })
       .catch((Error) => {
         console.log(Error);
-        // alert("일치하는 회원 정보가 없습니다.");
+        console.log("일치하는 회원 정보가 없습니다.");
       });
   };
 
-  const onSilentRefresh = () => {
+  const OnSilentRefresh = () => {
     axios
-      .post(url + "/api/oauth/token", {
+      .post("/api/oauth/token", {
         refreshtoken: localStorage.getItem("refreshtoken"),
       })
       .then((response) => {
         console.log(response);
-        console.log("연장됨");
         localStorage.setItem("authorization", response.headers.authorization);
+        console.log("연장됨");
       })
       .catch((error) => {
-        alert("연장실패.");
-        // ... 로그인 실패 처리
+        console.log(error)
+        console.log("연장실패")
+        // if(!localStorage.getItem("authorization")){
+        // return navigate(`/join`);
+        // }
+        // ... 이 if문을 쓰면 useEffect가 안됨. 아니씨발
+
       });
   };
 
   useEffect(() => {
-    setInterval(onSilentRefresh, 600000);
+    setInterval(OnSilentRefresh, 20000);
+    // const stoplogin = setInterval(OnSilentRefresh, 20000);
+    // if(!localStorage.authorization) return
+    // return clearInterval(stoplogin);
   }, []);
+
+
+  // useEffect(() => {
+  //   setInterval(OnSilentRefresh, 20000);
+  // }, []);
+
 
   return (
     <div>

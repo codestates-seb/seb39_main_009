@@ -1,24 +1,25 @@
 import axios from "axios";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const Editmypage = () => {
 
   const navigate = useNavigate();
 
-  const myInfo = useLocation();
+  const location = useLocation();
+  const data = location.state.data;
 
-  let url = ""
 
   const [pwdInfo, setPwdInfo] = useState("");
   const [passwordRe, setPasswordRe] = useState("");
-  const [phoneNum,setPhoneNum] = useState(myInfo.phoneNum);
-  const [carNumber,setCarNumber] = useState(myInfo.carNumber);
+  const [phoneNum,setPhoneNum] = useState(data.phoneNum);
+  const [carNumber,setCarNumber] = useState(data.carNumber);
 
 
 
   const clickInfo = () => {
-    axios.put(url+"/api/mypage",{
+    axios.put("/api/mypage",{
         password: pwdInfo,
         passwordRe : passwordRe,
         phoneNum: phoneNum,
@@ -34,7 +35,7 @@ const Editmypage = () => {
     return <div>
         <div>
             <label>가입정보</label>
-            <p>{myInfo.email}</p>
+            <p>{data.email}</p>
         </div>
         <div>
             <label>비밀번호</label>
@@ -51,7 +52,7 @@ const Editmypage = () => {
             type="password"
             placeholder="checkpassword..."
             onChange={(e) => {
-                setPhoneNum(e.target.value);
+                setPasswordRe(e.target.value);
               }}/>
         </div>
         <div>
@@ -60,7 +61,7 @@ const Editmypage = () => {
             type="txt"
             value = {phoneNum}
             onChange={(e) => {
-                setPasswordRe(e.target.value);
+                setPhoneNum(e.target.value);
               }}/>
         </div>
         <div>
