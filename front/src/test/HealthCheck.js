@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
 
 function HealthCheck() {
   const navigate = useNavigate();
   const [test, setTest] = useState("");
+  const {id} = useParams()
+
 
   const inputData = { test: test };
 
@@ -51,7 +54,13 @@ function HealthCheck() {
         <button onClick={() => navigate("/welcome")}>환영창</button>
         <button onClick={() => navigate("/mypage/{id}")}>마이페이지</button>
         <button onClick={handlelogOut}>로그아웃</button>
-        <button onClick={() => navigate("/agmtconf")}>정보동의페이지</button>
+        <button onClick={()=>navigate(`/parking/${id}/review`)}>리뷰페이지</button>
+        <button onClick={()=>navigate(`/parking/${id}/review/write`)}>리뷰작성페이지</button>
+        {/* 이거 왜 안되지? */}
+        <Link to = {`/mypage/${id}/edit`}><button>개인정보수정/안나님 이거 안돼요ㅜ</button></Link> 
+        
+
+
       </div>
       <br />
       <div>

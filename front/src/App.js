@@ -21,6 +21,8 @@ import Partnership from "./pages/Partnership/Partnership";
 import Question from "./pages/Question/Question";
 import Parkinglot from "./pages/Parkinglot/Parkinglot";
 import ParkingMap from "./pages/Parkinglot/ParkingMap";
+import Review from "./pages/Review/Review";
+import Editreview from "./pages/Review/Editreview";
 
 function App() {
 
@@ -80,6 +82,12 @@ function App() {
                 <Route path="/partnership" element={<Partnership />} />
                 {/* 1:1문의 */}
                 <Route path="/question" element={<Question />} />
+                {/* 리뷰페이지 */}
+                <Route path='/parking/:id/review' element={<Review />} />
+                {/* 리뷰작성페이지 */}
+                <Route path='/parking/:id/review/write' element={<Editreview/>} />
+                {/* 개인정보수정페이지 */}
+                <Route path="/mypage/:id/edit" element={<Editmypage />} />
               </Routes>
             </>
           </div>
