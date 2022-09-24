@@ -1,10 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { FaAngleRight } from "react-icons/fa";
+import { AiOutlineRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import ServiceTermModal from "../../component/Modal/Term/ServiceTermModal";
+import PsInfoTermModal from "../../component/Modal/Term/PsInfoTermModal";
+import EventTermModal from "../../component/Modal/Term/EventTermModal";
 
 function JoinPresenter(props) {
   const navigate = useNavigate();
+
+  const [serviceModal, setServiceModal] = useState(false);
+  const [psInfoModal, setPsInfoModal] = useState(false);
+  const [eventModal, setEventModal] = useState(false);
+
+  const serviceToggleModal = () => {
+    setServiceModal(!serviceModal);
+  };
+
+  const psInfoToggleModal = () => {
+    setPsInfoModal(!psInfoModal);
+  };
+
+  const eventToggleModal = () => {
+    setEventModal(!eventModal);
+  };
 
   const [allCheck, setAllCheck] = useState(false);
   const [ageCheck, setAgeCheck] = useState(false);
@@ -17,37 +36,37 @@ function JoinPresenter(props) {
   const carNumber = props.carnumber;
   const phoneNum = props.phonenumber;
 
-  const [massage,setMassage] = useState("");
-
+  const [massage, setMassage] = useState("");
 
   const registeraxios = (event) => {
     event.preventDefault();
     axios
-      .post("/api/join", {
-        name: name,
-        email: email,
-        password: password,
-        carNumber : carNumber,
-        phoneNum : phoneNum,
-        svcUseAgmt : ageCheck,
-        psInfoAgmt: useCheck,
-        eventAgmt: marketingCheck ,
-        
-    },{withCredentials: true} )
+      .post(
+        "/api/join",
+        {
+          name: name,
+          email: email,
+          password: password,
+          carNumber: carNumber,
+          phoneNum: phoneNum,
+          svcUseAgmt: ageCheck,
+          psInfoAgmt: useCheck,
+          eventAgmt: marketingCheck,
+        },
+        { withCredentials: true }
+      )
       .then((response) => {
         console.log(response);
         alert("회원가입성공");
-        if(response.status ===201){
-            return navigate('/welcome')
+        if (response.status === 201) {
+          return navigate("/welcome");
         }
-    
-      }).catch((err)=>{
+      })
+      .catch((err) => {
         console.log(err);
         setMassage(err.response.data.massage);
-      })
-      ;
+      });
   };
-
 
   const allBtnEvent = () => {
     if (allCheck === false) {
@@ -87,8 +106,6 @@ function JoinPresenter(props) {
     }
   };
 
-
-
   useEffect(() => {
     if (ageCheck === true && useCheck === true && marketingCheck === true) {
       setAllCheck(true);
@@ -98,11 +115,11 @@ function JoinPresenter(props) {
   }, [ageCheck, useCheck, marketingCheck]);
 
   return (
-    <form method="post" action="">
-      <div>
+    <div className="joinpresent">
+      <form method="post" action="">
         <label>가입약관을 읽고 동의를 해주세요.</label>
-        <div>
-          <div>
+        <div className="joinpresent_inner">
+          <div className="joinpresent_term">
             <input
               type="checkbox"
               id="all-check"
@@ -111,7 +128,7 @@ function JoinPresenter(props) {
             />
             <label htmlFor="all-check">전체동의하기</label>
           </div>
-          <div>
+          <div className="joinpresent_term">
             <input
               type="checkbox"
               id="check1"
@@ -119,37 +136,65 @@ function JoinPresenter(props) {
               onChange={ageBtnEvent}
             />
             <label htmlFor="check1">서비스 이용약관 (필수)</label>
-            <FaAngleRight onClick={() => navigate("/agmtconf/service")} />
+            <AiOutlineRight
+              className="rbt"
+              size={18}
+              onClick={serviceToggleModal}
+            />
+            <ServiceTermModal
+              serviceModal={serviceModal}
+              serviceToggleModal={serviceToggleModal}
+            />
           </div>
-          <div>
+          <div className="joinpresent_term">
             <input
               type="checkbox"
               id="check2"
               checked={useCheck}
               onChange={useBtnEvent}
             />
-            <label htmlFor="check2">개인정보 처리방침 (필수)</label>
-            <FaAngleRight onClick={() => navigate("/agmtconf/psinfo")} />
+            <label htmlFor="check2">개인 정보 수집 및 이용약관 (필수)</label>
+            <AiOutlineRight
+              className="rbt"
+              size={18}
+              onClick={psInfoToggleModal}
+            />
+            <PsInfoTermModal
+              psInfoModal={psInfoModal}
+              psInfoToggleModal={psInfoToggleModal}
+            />
           </div>
-          <div>
+          <div className="joinpresent_term">
             <input
               type="checkbox"
               id="check3"
               checked={marketingCheck}
               onChange={marketingBtnEvent}
             />
-            <label htmlFor="check3">이벤트/마케팅 수신동의 (선택)</label>
-            <FaAngleRight onClick={() => navigate("/agmtconf/event")} />
+            <label htmlFor="check3">이벤트 / 마케팅 수신동의 (선택)</label>
+            <AiOutlineRight
+              className="rbt"
+              size={18}
+              onClick={eventToggleModal}
+            />
+            <EventTermModal
+              eventModal={eventModal}
+              eventToggleModal={eventToggleModal}
+            />
           </div>
           <p>{massage}</p>
-          <button onClick={registeraxios}
-          disabled={!(ageCheck &&useCheck)}
+          <button
+            className={
+              !(ageCheck && useCheck) ? "submit_bt btgrey" : "submit_bt"
+            }
+            onClick={registeraxios}
+            disabled={!(ageCheck && useCheck) ? true : false}
           >
             회원가입
           </button>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
 

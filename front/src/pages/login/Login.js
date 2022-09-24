@@ -10,8 +10,6 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
-  // 로그인하는 함수
   const onSubmit = (event) => {
     event.preventDefault();
     axios
@@ -21,10 +19,16 @@ const Login = () => {
       })
       .then((res) => {
         console.log(res);
-        const token1 = localStorage.setItem("authorization", res.headers.authorization);
-        const token2 = localStorage.setItem("refreshtoken", res.headers.refreshtoken);
-        console.log('로그인 성공');
-        console.log(token1,token2)
+        const token1 = localStorage.setItem(
+          "authorization",
+          res.headers.authorization
+        );
+        const token2 = localStorage.setItem(
+          "refreshtoken",
+          res.headers.refreshtoken
+        );
+        console.log("로그인 성공");
+        console.log(token1, token2);
         setTimeout(OnSilentRefresh, 20000);
       })
       .catch((Error) => {
@@ -33,7 +37,7 @@ const Login = () => {
       });
   };
 
-  // refreshtoken으로 accesstoken(authorization)받아오는 함수 
+  // refreshtoken으로 accesstoken(authorization)받아오는 함수
   const OnSilentRefresh = () => {
     axios
       .post("/api/oauth/token", {
@@ -41,35 +45,33 @@ const Login = () => {
       })
       .then((response) => {
         console.log(response);
-        const token3 = localStorage.setItem("authorization", response.headers.authorization);
+        const token3 = localStorage.setItem(
+          "authorization",
+          response.headers.authorization
+        );
         console.log("연장됨");
         console.log(token3);
       })
       .catch((error) => {
-        console.log(error)
-        console.log("연장실패")
+        console.log(error);
+        console.log("연장실패");
         // 로컬스토리지에 토큰이 없으면 다른 페이지로 이동하는 조건문
-        if(!localStorage.getItem("authorization")){
-        return navigate(`/join`);
+        if (!localStorage.getItem("authorization")) {
+          return navigate(`/join`);
         }
-        //음?? 이거 되네? warning이 나오긴 하지만 브라우저상에서 잘 돌아감 
-
+        //음?? 이거 되네? warning이 나오긴 하지만 브라우저상에서 잘 돌아감
       });
   };
 
-  // 새로고침시에도 OnSilentRefresh함수가 작동할 수 있게 만드는 것 
+  // 새로고침시에도 OnSilentRefresh함수가 작동할 수 있게 만드는 것
   useEffect(() => {
-
-    // 로컬스토리지에 토큰이 없으면 OnSilentRefresh함수를 계속 실행시키던 
+    // 로컬스토리지에 토큰이 없으면 OnSilentRefresh함수를 계속 실행시키던
     // setInterva함수를 멈추게하려고한 나의 로직 -> 하지만 안됨(함수가 계속 반복됨)
-    
+
     const stoplogin = setInterval(OnSilentRefresh, 20000);
-    if(!localStorage.authorization) return
+    if (!localStorage.authorization) return;
     return clearInterval(stoplogin);
   }, []);
-
-
-
 
   return (
     <div>

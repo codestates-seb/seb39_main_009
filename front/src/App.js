@@ -4,9 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./component/Header/Header";
 import HealthCheck from "./test/HealthCheck";
 import Loading from "./component/Loading/Loading";
-import ServiceTerm from "./pages/Terms/ServiceTerm";
-import PsInfoTerm from "./pages/Terms/PsInfoTerm";
-import EventTerm from "./pages/Terms/EventTerm";
 import SignUp from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Welcome from "./pages/signup/Welcome";
@@ -16,7 +13,6 @@ import Mypage from "./pages/mypage/Mypage";
 import Editmypage from "./pages/mypage/Editmypage";
 import ReservationsList from "./pages/ReservationsList/ReservtionsList";
 import Reservation from "./pages/ReservationsList/Reservation";
-import JoinPresenter from "./pages/signup/JoinPresenter";
 import Partnership from "./pages/Partnership/Partnership";
 import Question from "./pages/Question/Question";
 import Parkinglot from "./pages/Parkinglot/Parkinglot";
@@ -25,7 +21,6 @@ import Review from "./pages/Review/Review";
 import Editreview from "./pages/Review/Editreview";
 
 function App() {
-
   // 로그아웃
   const handlelogOut = () => {
     localStorage.removeItem("authorization");
@@ -54,14 +49,6 @@ function App() {
                 <Route path="/join" element={<SignUp />} />
                 {/* 개인정보수정페이지 */}
                 <Route path="/mypage/{id}/edit" element={<Editmypage />} />
-                {/* 정보동의페이지 */}
-                <Route path="/agmtconf" element={<JoinPresenter />} />
-                {/* 서비스 이용약관 */}
-                <Route path="/agmtconf/service" element={<ServiceTerm />} />
-                {/* 개인정보 이용 동의 약관 */}
-                <Route path="/agmtconf/psinfo" element={<PsInfoTerm />} />
-                {/* 마케팅 이벤트 정보 동의 약관 */}
-                <Route path="/agmtconf/event" element={<EventTerm />} />
                 {/* welcome창 */}
                 <Route path="/welcome" element={<Welcome />} />
                 {/* 마이페이지 */}
@@ -83,9 +70,12 @@ function App() {
                 {/* 1:1문의 */}
                 <Route path="/question" element={<Question />} />
                 {/* 리뷰페이지 */}
-                <Route path='/parking/:id/review' element={<Review />} />
+                <Route path="/parking/:id/review" element={<Review />} />
                 {/* 리뷰작성페이지 */}
-                <Route path='/parking/:id/review/write' element={<Editreview/>} />
+                <Route
+                  path="/parking/:id/review/write"
+                  element={<Editreview />}
+                />
                 {/* 개인정보수정페이지 */}
                 <Route path="/mypage/:id/edit" element={<Editmypage />} />
               </Routes>
