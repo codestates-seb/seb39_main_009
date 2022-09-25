@@ -1,8 +1,8 @@
 import axios from "axios";
-import { useState } from "react";
-import { useEffect } from "react";
+import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
+import {useEffect } from "react"
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,16 +19,15 @@ const Login = () => {
       })
       .then((res) => {
         console.log(res);
-        const token1 = localStorage.setItem(
+        localStorage.setItem(
           "authorization",
           res.headers.authorization
         );
-        const token2 = localStorage.setItem(
+         localStorage.setItem(
           "refreshtoken",
           res.headers.refreshtoken
         );
         console.log("로그인 성공");
-        console.log(token1, token2);
         setTimeout(OnSilentRefresh, 20000);
       })
       .catch((Error) => {
@@ -40,43 +39,38 @@ const Login = () => {
   // refreshtoken으로 accesstoken(authorization)받아오는 함수
   const OnSilentRefresh = () => {
     axios
-      .post("/api/oauth/token", {
+      .post( "/api/oauth/token", {
         refreshtoken: localStorage.getItem("refreshtoken"),
       })
       .then((response) => {
         console.log(response);
-        const token3 = localStorage.setItem(
+        localStorage.setItem(
           "authorization",
           response.headers.authorization
         );
         console.log("연장됨");
-        console.log(token3);
       })
       .catch((error) => {
         console.log(error);
         console.log("연장실패");
-        // 로컬스토리지에 토큰이 없으면 다른 페이지로 이동하는 조건문
-        if (!localStorage.getItem("authorization")) {
-          return navigate(`/join`);
-        }
-        //음?? 이거 되네? warning이 나오긴 하지만 브라우저상에서 잘 돌아감
+
       });
   };
 
+
   // 새로고침시에도 OnSilentRefresh함수가 작동할 수 있게 만드는 것
   useEffect(() => {
-    // 로컬스토리지에 토큰이 없으면 OnSilentRefresh함수를 계속 실행시키던
-    // setInterva함수를 멈추게하려고한 나의 로직 -> 하지만 안됨(함수가 계속 반복됨)
+         setInterval(OnSilentRefresh, 20000);
+  },[]);
 
-    const stoplogin = setInterval(OnSilentRefresh, 20000);
-    if (!localStorage.authorization) return;
-    return clearInterval(stoplogin);
-  }, []);
 
-  return (
-    <div>
-      <div className="Login">
-        <AiOutlineLeft
+
+
+
+    return  (
+        <div >
+          <div className="Login">
+          <AiOutlineLeft
           size={24}
           onClick={() => {
             navigate(-1);

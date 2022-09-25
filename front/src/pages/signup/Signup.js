@@ -6,22 +6,96 @@ import JoinPresenter from "./JoinPresenter";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  
+//이름, 이메일, 비밀번호, 비밀번호 확인, 핸드폰 번호, 차번호
+const [usernameinput, setUsernameinput] = useState("");
+const [emailinput, setEmailinput] = useState("");
+const [passwordinput, setPasswordinput] = useState("")
+const [checkpassword, setCheckpassword] = useState("");
+const [phonenumber, setPhonenumber] = useState("");
+const [carnumber, setCarnumber] = useState("");
 
-  const [usernameinput, setUsernameinput] = useState("");
-  const [emailinput, setEmailinput] = useState("");
-  const [passwordinput, setPasswordinput] = useState("");
-  const [checkpassword, setCheckpassword] = useState("");
-  const [phonenumber, setPhonenumber] = useState("");
-  const [carnumber, setCarnumber] = useState("");
+ //오류메시지 상태저장
+ const [nameMessage, setNameMessage] = useState('')
+ const [passwordMessage, setPasswordMessage] = useState('')
+ const [passwordConfirmMessage, setPasswordConfirmMessage] = useState('')
+ const [phonenumberMessage, setPhonenumberMessage] = useState("");
+ const [carnumberMessage, setCarnumberMessage] = useState("");
 
-  const isMatch = (e) => {
-    if (passwordinput !== checkpassword) {
-      setCheckpassword("");
-      alert(
-        "비밀번호와 비밀번호 확인이 일치하지 않습니다. \n다시 입력해주세요."
-      );
+ // 유효성 검사
+ const [isName, setIsName] = useState(false)
+ const [isPassword, setIsPassword] = useState(false)
+ const [isPasswordConfirm, setIsPasswordConfirm] = useState(false)
+ const [isphonenumber, setIsPhonenumber] = useState(false);
+ const [iscarnumber, setIsCarnumber] = useState(false);
+ 
+   // 이름
+const onChangeName = (e) => {
+  if (usernameinput.length < 2 || usernameinput.length > 5) {
+    setNameMessage('2글자 이상 5글자 미만으로 입력해주세요.')
+    setIsName(false)
+  } else {
+    setNameMessage('올바른 이름 형식입니다 :)')
+    setIsName(true)
+  }
+}
+
+  // 비밀번호
+  const onChangePassword = (e) => {
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/
+    setPasswordinput(passwordinput)
+
+    if (!passwordRegex.test(passwordinput)) {
+      setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요!')
+      setIsPassword(false)
+    } else {
+      setPasswordMessage('안전한 비밀번호에요 : )')
+      setIsPassword(true)
     }
-  };
+  }
+    // 비밀번호 확인
+const onChangePasswordConfirm = (e) => {
+    if (passwordinput === checkpassword) {
+      setPasswordConfirmMessage('비밀번호를 똑같이 입력했어요 : )')
+      setIsPasswordConfirm(true)
+    } else {
+      setPasswordConfirmMessage('비밀번호가 틀려요. 다시 확인해주세요 ㅜ ㅜ')
+      setIsPasswordConfirm(false)
+    }
+  }
+
+//휴대폰 번호 
+
+  const onChangephonenumber = (e)=>{
+   const regex = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+   if(regex.test(phonenumber)){
+    setIsPhonenumber(true);
+    setPhonenumberMessage("올바른 전화번호입니다.")
+   }else
+   setPhonenumberMessage("올바른 전화번호가 아닙니다.")
+   setIsPhonenumber(false);
+  }
+
+  const onChangecarnumber =(e)=>{
+    const pattern1 = /\d{2}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g; // 12저1234
+    const pattern2 = /[가-힣ㄱ-ㅎㅏ-ㅣ\x20]{2}\d{2}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g; // 서울12치1233
+    if (!pattern1.test(carnumber)) {
+      if (!pattern2.test(carnumber)) {
+        setCarnumberMessage("올바른 차량번호가 아닙니다.")
+        setIsCarnumber(false)
+      }
+      else {
+        setCarnumberMessage("올바른 차량번호입니다.")
+        setIsCarnumber(true)
+      }
+  }
+  else {
+    setCarnumberMessage("올바른 차량번호입니다.")
+    setIsCarnumber(true)
+  }
+
+  }
+
 
   return (
     <div className="signup_container">
@@ -42,7 +116,11 @@ const SignUp = () => {
             onChange={(e) => {
               setUsernameinput(e.target.value);
             }}
+            onBlur={() => {
+              onChangeName(usernameinput);
+            }}
           />
+          {usernameinput.length > 0 && <span className={`message ${isName ? 'success' : 'error'}`}>{nameMessage}</span>}
         </div>
         <div className="signup_input">
           <div className="signup_label">
@@ -68,7 +146,13 @@ const SignUp = () => {
             onChange={(e) => {
               setPasswordinput(e.target.value);
             }}
+            onBlur={() => {
+              onChangePassword(passwordinput);
+            }}
           />
+          {passwordinput.length > 0 && (
+          <span className={`message ${isPassword ? 'success' : 'error'}`}>{passwordMessage}</span>
+          )}
         </div>
         <div className="signup_input">
           <div className="signup_label">
@@ -82,9 +166,12 @@ const SignUp = () => {
               setCheckpassword(e.target.value);
             }}
             onBlur={() => {
-              isMatch(checkpassword);
+              onChangePasswordConfirm(checkpassword);
             }}
           />
+          {checkpassword.length > 0 && (
+        <span className={`message ${isPasswordConfirm ? 'success' : 'error'}`}>{passwordConfirmMessage}</span>
+      )}
         </div>
         <div className="signup_input">
           <div className="signup_label">
@@ -97,7 +184,13 @@ const SignUp = () => {
             onChange={(e) => {
               setPhonenumber(e.target.value);
             }}
+            onBlur={() => {
+              onChangephonenumber(phonenumber);
+            }}
           />
+        {phonenumber.length > 0 && (
+      <span className={`message ${isphonenumber ? 'success' : 'error'}`}>{phonenumberMessage}</span>
+      )}
         </div>
         <div className="signup_input">
           <p>차량번호</p>
@@ -107,7 +200,13 @@ const SignUp = () => {
             onChange={(e) => {
               setCarnumber(e.target.value);
             }}
+            onBlur={() => {
+              onChangecarnumber(carnumber);
+            }}
           />
+        {carnumber.length > 0 && (
+      <span className={`message ${iscarnumber ? 'success' : 'error'}`}>{carnumberMessage}</span>
+      )}
         </div>
         <JoinPresenter
           usernameinput={usernameinput}
@@ -116,6 +215,9 @@ const SignUp = () => {
           checkpassword={checkpassword}
           phonenumber={phonenumber}
           carnumber={carnumber}
+          isName = {isName}
+          isPassword ={isPassword}
+          isPasswordConfirm ={isPasswordConfirm}
         />
       </div>
     </div>
