@@ -52,7 +52,13 @@ function HealthCheck() {
         <button onClick={() => navigate("/join")}>회원가입</button>
         <button onClick={() => navigate("/login")}>로그인</button>
         <button onClick={() => navigate("/welcome")}>환영창</button>
-        <button onClick={() => navigate("/mypage/{id}")}>마이페이지</button>
+
+        {/* <button onClick={() => navigate("/mypage/{id}")}>마이페이지</button> */}
+
+        <button onClick={(localStorage.getItem("authorization"))?
+        () => navigate("/mypage/{id}"):
+        () => navigate("/join")}>마이페이지</button>
+
         <button onClick={handlelogOut}>로그아웃</button>
         <button onClick={()=>navigate(`/parking/${id}/review`)}>리뷰페이지</button>
         <button onClick={()=>navigate(`/parking/${id}/review/write`)}>리뷰작성페이지</button>

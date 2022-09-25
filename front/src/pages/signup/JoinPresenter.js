@@ -35,6 +35,9 @@ function JoinPresenter(props) {
   const password = props.checkpassword;
   const carNumber = props.carnumber;
   const phoneNum = props.phonenumber;
+  const isName = props.isName
+  const isPassword = props.isPassword
+  const isPasswordConfirm =props.isPasswordConfirm
 
   const [massage, setMassage] = useState("");
 
@@ -188,7 +191,7 @@ function JoinPresenter(props) {
               !(ageCheck && useCheck) ? "submit_bt btgrey" : "submit_bt"
             }
             onClick={registeraxios}
-            disabled={!(ageCheck && useCheck) ? true : false}
+            disabled={!(isName && isPassword && isPasswordConfirm && ageCheck &&useCheck) ? true : false}
           >
             회원가입
           </button>
