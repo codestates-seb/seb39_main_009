@@ -3,6 +3,7 @@ package teamparkinglot.parkinggo.security.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
@@ -15,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.member.dto.MemberLoginDto;
+import teamparkinglot.parkinggo.member.dto.ResetPwdDtoForEmail;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.secret.SecretCode;
@@ -76,7 +78,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String email = principalDetails.getUsername();
 
         String accessToken = getToken("AccessToken", secretCode.getAccessTokenExpireTime(), email);
-
         response.addHeader("Authorization", "Bearer " + accessToken);
 
         // 리프레시 토큰 발급
@@ -99,6 +100,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Set-Cookie", cookie.toString());
 //        response.addCookie(cookie);
         tokenService.createRefreshToken(refreshToken, email);
+        ResetPwdDtoForEmail email1 = new ResetPwdDtoForEmail(email);
+        Gson gson = new Gson();
+        gson.toJson(email1);
+        response.getWriter().write(email);
     }
 
     private String getToken(String tokenKind, Long accessTokenExpireTime, String email) {

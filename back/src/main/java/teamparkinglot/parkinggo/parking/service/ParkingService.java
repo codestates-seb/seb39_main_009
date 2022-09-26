@@ -32,6 +32,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -56,41 +57,38 @@ public class ParkingService {
         LocalDateTime dtoStartTime = parkingCondDto.getParkingStartTime();
         LocalDateTime dtoEndTime = parkingCondDto.getParkingEndTime();
 
-        List<Parking> byRegion = parkingQueryDsl.findByRegion(parkingCondDto.getRegion());
+//        List<Parking> byRegion = parkingQueryDsl.findByRegion(parkingCondDto.getRegion());
+        List<Parking> parkings = parkingRepository.testMethod(parkingCondDto.getRegion(), parkingCondDto.getParkingStartTime(), parkingCondDto.getParkingEndTime());
 
-        List<ParkingReserv> reservationList = byRegion.stream()
-                .map(e -> new ParkingReserv(e.getId(), reservationService.findByParkingId(e.getId())))
-                .collect(Collectors.toList());
+//        List<ParkingReserv> reservationList = byRegion.stream()
+//                .map(e -> new ParkingReserv(e.getId(), reservationService.findByParkingId(e.getId())))
+//                .collect(Collectors.toList());
+//
+//        List<Long> realParking = new ArrayList();
+//
+//        for (ParkingReserv parkingReserv : reservationList) {
+//            boolean flag = true;
+//
+//            List<Reservation> reservations = parkingReserv.getReservations();
+//
+//            for (Reservation reservation : reservations) {
+//                LocalDateTime reservStart = reservation.getParkingStartDateTime();
+//                LocalDateTime reservEndTime = reservation.getParkingEndDateTime();
+//
+//                if (!(dtoStartTime.isBefore(reservStart) || dtoStartTime.isAfter(reservEndTime) || dtoStartTime.isEqual(reservEndTime))
+//                && !(dtoEndTime.isBefore(reservStart) || dtoEndTime.isAfter(reservEndTime) || dtoEndTime.isEqual(reservStart))) {
+//                    flag = false;
+//                    break;
+//                }
+//            }
+//            if (flag) {
+//                realParking.add(parkingReserv.getParkingId());
+//            }
+//        }
+//
+//        parkingRepository.findAllByid(realParking);
 
-        List<Long> realParking = new ArrayList();
-
-        for (ParkingReserv parkingReserv : reservationList) {
-            boolean flag = true;
-
-            List<Reservation> reservations = parkingReserv.getReservations();
-
-            for (Reservation reservation : reservations) {
-                LocalDateTime reservStart = reservation.getParkingStartDateTime();
-                LocalDateTime reservEndTime = reservation.getParkingEndDateTime();
-
-                if (!(dtoStartTime.isBefore(reservStart) || dtoStartTime.isAfter(reservEndTime) || dtoStartTime.isEqual(reservEndTime))
-                && !(dtoEndTime.isBefore(reservStart) || dtoEndTime.isAfter(reservEndTime) || dtoEndTime.isEqual(reservStart))) {
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag) {
-                realParking.add(parkingReserv.getParkingId());
-            }
-        }
-
-        parkingRepository.findAllByid(realParking);
-
-        return realParking.stream()
-                .map(e -> parkingRepository.findById(e).orElseThrow(
-                        () -> new BusinessException(ExceptionCode.SEARCH_ERROR)
-                ))
-                .collect(Collectors.toList());
+        return parkings;
     }
 
     public List<ParkingRecentDto> findRecentSearches(String email) {
@@ -203,8 +201,11 @@ public class ParkingService {
                             .partnership(false)
                             .build();
 
-                    parkingRepository.save(parking);
+                    Optional<Parking> find = parkingRepository.findByParkingManagementNumber(parking.getParkingManagementNumber());
 
+                    if (find.isEmpty()) {
+                        parkingRepository.save(parking);
+                    }
                 });
     }
 }

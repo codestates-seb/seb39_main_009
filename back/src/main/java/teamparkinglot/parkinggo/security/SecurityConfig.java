@@ -56,7 +56,6 @@ public class SecurityConfig {
         http
                 .authorizeRequests()
                 .antMatchers("/api/join").permitAll()
-                .antMatchers("/api/test").authenticated()
                 .anyRequest().permitAll();
 
         return http.build();

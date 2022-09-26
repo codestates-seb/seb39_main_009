@@ -28,8 +28,6 @@ public class QParkingPlace extends EntityPathBase<ParkingPlace> {
 
     public final teamparkinglot.parkinggo.parking.entity.QParking parking;
 
-    public final StringPath sector = createString("sector");
-
     public QParkingPlace(String variable) {
         this(ParkingPlace.class, forVariable(variable), INITS);
     }
