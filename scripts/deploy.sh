@@ -26,8 +26,7 @@ DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포"    >> /home/ubuntu/action/deploy.log
 sudo nohup java -jar $DEPLOY_JAR >> /home/ubuntu/deployBe.log 2>/home/ubuntu/action/deploy_err.log &
 
-BUILD_FRONT=$(ls /home/ubuntu/action/front)
-
+BUILD_FRONT=$(ls /home/ubuntu/action/front/build)
 echo "> 현재 실행중인 리액트 pid 확인" >> /home/ubuntu/action/deploy.log
 REACT_PID=$(pgrep -f node)
 
@@ -40,9 +39,7 @@ else
   sleep 5
 fi
 
-echo "> npm install " >> /home/ubuntu/action/deploy.log
-npm install --prefix $BUILD_FRONT
 echo "> 프론트 서버 배포" >> /home/ubuntu/action/deploy.log
 sudo ln -s /home/ubuntu/.nvm/versions/node/v16.17.1/bin/node /usr/bin/node
 sudo ln -s /home/ubuntu/.nvm/versions/node/v16.17.1/bin/npm /usr/bin/npm
-sudo nohup /home/ubuntu/.nvm/versions/node/v16.17.1/bin/serve -s /$BUILD_FRONT/build >> /home/ubuntu/deployFe.log 2> /home/ubuntu/deploy_Fe_err.log &
+sudo nohup /home/ubuntu/.nvm/versions/node/v16.17.1/bin/serve -s /$BUILD_FRONT >> /home/ubuntu/deployFe.log 2> /home/ubuntu/deploy_Fe_err.log &
