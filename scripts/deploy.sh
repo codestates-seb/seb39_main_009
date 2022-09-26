@@ -43,8 +43,7 @@ fi
 echo "> npm install " >> /home/ubuntu/action/deploy.log
 npm install --prefix $BUILD_FRONT
 echo "> 프론트 서버 배포" >> /home/ubuntu/action/deploy.log
-#sudo ln -s /home/ubuntu/.nvm/versions/node/v16.17.1/bin/node /usr/bin/node
-sudo ln -s /usr/bin/nodejs /usr/bin/node
-sudo ln -s /home/ubuntu/.nvm/versions/node/v16.17.1/bin/npm /usr/bin/npm
+sudo ln -s /home/ubuntu/.nvm/versions/node/v16.17.1/bin/node /usr/bin/local/node
+sudo ln -s /home/ubuntu/.nvm/versions/node/v16.17.1/bin/npm /usr/bin/local/npm
 sudo nohup /home/ubuntu/.nvm/versions/node/v16.17.1/bin/serve -s /$BUILD_FRONT/build/ >> /home/ubuntu/deployFe.log 2> /home/ubuntu/action/deploy_err.log &
 #sudo nohup ~/.nvm/versions/node/v16.17.0/bin/npm start --prefix /$BUILD_FRONT/ >> /home/ubuntu/deployFe.log 2> /home/ubuntu/action/deploy_err.log &
