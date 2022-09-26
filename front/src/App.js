@@ -48,7 +48,7 @@ function App() {
                 {/* 회원가입창 */}
                 <Route path="/join" element={<SignUp />} />
                 {/* 개인정보수정페이지 */}
-                <Route path="/mypage/{id}/edit" element={<Editmypage />} />
+                <Route path="/mypage/:id/edit" element={<Editmypage />} />
                 {/* welcome창 */}
                 <Route path="/welcome" element={<Welcome />} />
                 {/* 마이페이지 */}
@@ -70,10 +70,10 @@ function App() {
                 {/* 1:1문의 */}
                 <Route path="/question" element={<Question />} />
                 {/* 리뷰페이지 */}
-                <Route path="/parking/:id/review" element={<Review />} />
+                <Route path="/parking/:pkId/review" element={<Review />} />
                 {/* 리뷰작성페이지 */}
                 <Route
-                  path="/parking/:id/review/write"
+                  path="/parking/:pkId/review/write"
                   element={<Editreview />}
                 />
                 {/* 개인정보수정페이지 */}

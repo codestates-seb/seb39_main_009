@@ -29,7 +29,10 @@ const Login = () => {
         );
         console.log("로그인 성공");
         setTimeout(OnSilentRefresh, 20000);
+        console.log(res.headers.authorization)
+
       })
+
       .catch((Error) => {
         console.log(Error);
         console.log("일치하는 회원 정보가 없습니다.");

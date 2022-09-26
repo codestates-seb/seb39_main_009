@@ -60,8 +60,8 @@ function HealthCheck() {
         () => navigate("/join")}>마이페이지</button>
 
         <button onClick={handlelogOut}>로그아웃</button>
-        <button onClick={()=>navigate(`/parking/${id}/review`)}>리뷰페이지</button>
-        <button onClick={()=>navigate(`/parking/${id}/review/write`)}>리뷰작성페이지</button>
+        <button onClick={()=>navigate(`/parking/{pkId}/review`)}>리뷰페이지</button>
+        <button onClick={()=>navigate(`/parking/{pkId}/review/write`)}>리뷰작성페이지</button>
         {/* 이거 왜 안되지? */}
         <Link to = {`/mypage/${id}/edit`}><button>개인정보수정/안나님 이거 안돼요ㅜ</button></Link> 
         
