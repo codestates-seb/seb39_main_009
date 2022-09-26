@@ -42,6 +42,6 @@ fi
 echo "> 프론트 서버 배포" >> /home/ubuntu/action/deploy.log
 sudo ln -s /home/ubuntu/.nvm/versions/node/v16.17.1/bin/node /usr/bin/node
 sudo ln -s /home/ubuntu/.nvm/versions/node/v16.17.1/bin/npm /usr/bin/npm
-sudo nohup /home/ubuntu/.nvm/versions/node/v16.17.1/bin/serve -s /$BUILD_FRONT >> /home/ubuntu/deployFe.log 2> /home/ubuntu/deploy_Fe_err.log &
+sudo nohup /home/ubuntu/.nvm/versions/node/v16.17.1/bin/serve -s $BUILD_FRONT >> /home/ubuntu/deployFe.log 2> /home/ubuntu/deploy_Fe_err.log &
 
 echo "> ============== 끝 ==============" >> /home/ubuntu/action/deploy.log
