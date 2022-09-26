@@ -3,6 +3,8 @@ import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
 import {useEffect } from "react"
+import { GrClose } from "react-icons/gr";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -71,7 +73,11 @@ const Login = () => {
 
 
     return  (
-        <div >
+      <div >
+          <div className="signup_header">
+          <p>로그인</p>
+          <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
+         </div>
           <div className="Login">
           <AiOutlineLeft
           size={24}

@@ -1,9 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import RandomImg2 from "../../assets/profileimg/RandomImg2";
+
 
 
 const Listreview =(props) =>{
-    const [review, setReview] = useState(props.data)
+    const [review, setReview] = useState(props.data);
+    // const navigate = useNavigate();
 
 
 
@@ -28,6 +31,7 @@ const Listreview =(props) =>{
     return(
         <div>
             <div key={review.id}>
+                <RandomImg2 size={"reviewImg_size"} />
                 <div>닉네임 : {review.nickName}</div>
                 <div>{review.body}</div>
                 <button>수정</button>

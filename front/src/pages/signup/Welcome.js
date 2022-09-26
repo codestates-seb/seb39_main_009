@@ -1,11 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
+import { GrClose } from "react-icons/gr";
+
 
 const Welcome = () => {
   const navigate = useNavigate();
 
   return (
     <div>
+        <div className="signup_header">
+          <p>로그인</p>
+          <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
+       </div>
       <AiOutlineLeft
         size={24}
         onClick={() => {

@@ -1,14 +1,16 @@
 import axios from "axios";
 import { useRef } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import useFetch from "../../useFetch";
 // import { useParams } from "react-router-dom";
 // import { useEffect} from "react";
+import { GrClose } from "react-icons/gr";
+
 
 
 
 const Editreview =() =>{
-    // const navigate=useNavigate();
+    const navigate=useNavigate();
 
     // const { data } = useFetch(`/api/member`);
 
@@ -43,6 +45,10 @@ const onSubmit=(e)=>{
 
 return (
     <form onSubmit={onSubmit}>
+        <div className="signup_header">
+          <p>리뷰작성페이지</p>
+          <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
+        </div>
         <h2>상품은 만족하셨나요?</h2>
         <div>별점표시</div>
         <h2>어떤 점이 좋았나요?</h2>
