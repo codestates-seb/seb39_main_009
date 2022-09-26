@@ -1,6 +1,10 @@
 import { useNavigate,Link, useParams  } from "react-router-dom";
 import { AiOutlineLeft } from "react-icons/ai";
 import useFetch from "../../useFetch";
+import RandomImg2 from "../../assets/profileimg/RandomImg2";
+import { GrClose } from "react-icons/gr";
+
+
 
 const Mypage = () => {
   const navigate = useNavigate();
@@ -18,13 +22,19 @@ const handlelogOut = () => {
 
 
 
-    return <div>
+    return (
+    <div>
+        <div className="signup_header">
+          <p>마이페이지</p>
+          <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
+        </div>
         <AiOutlineLeft
           size={24}
           onClick={() => {
             navigate(-1);
           }}
         />
+        <RandomImg2 size={"reviewImg_size"} />
         <div>
             <label>가입정보</label>
             <div>{data.email}</div>
@@ -44,7 +54,7 @@ const handlelogOut = () => {
         onClick={handlelogOut}
         >로그아웃</button>
     </div>
-}
+)}
 
 
 export default Mypage;

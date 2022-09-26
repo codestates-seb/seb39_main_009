@@ -1,11 +1,13 @@
 import axios from "axios";
-// import { useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { GrClose } from "react-icons/gr";
+
 
 const Editmypage = () => {
 
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const location = useLocation();
   const data = location.state.data;
@@ -39,7 +41,12 @@ const Editmypage = () => {
     })
   }
 
-    return <div>
+    return (
+    <div>
+        <div className="signup_header">
+          <p>개인정보수정</p>
+          <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
+        </div>
         <div>
             <label>가입정보</label>
             <p>{data.email}</p>
@@ -84,6 +91,6 @@ const Editmypage = () => {
         onClick ={clickInfo}
         >수정</button>
     </div>
-}
+)}
 
 export default Editmypage;

@@ -1,12 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Listreview from "./LIstreview";
 import { useEffect, useState } from "react";
+import { GrClose } from "react-icons/gr";
+
 
 
 
 const Review =() =>{
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   const {pkId} = useParams();
 
@@ -33,10 +36,15 @@ const Review =() =>{
 
  return (
     <div>
+        <div className="signup_header">
+          <p>리뷰페이지</p>
+          <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
+         </div>
         <Link to ={`/parking/${pkId}/review/write`}><button>리뷰작성</button></Link>
         <br />
           <div>
           {data.data &&data.data.map(data => (
+                  
                   <Listreview data={data}/>
            ))}
           </div>
