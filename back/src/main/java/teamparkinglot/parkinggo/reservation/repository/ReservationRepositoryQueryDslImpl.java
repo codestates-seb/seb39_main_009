@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 import teamparkinglot.parkinggo.member.dto.ReservationListDto;
 import teamparkinglot.parkinggo.parking_place.QParkingPlace;
+import teamparkinglot.parkinggo.reservation.dto.ReservationResponseDto;
 import teamparkinglot.parkinggo.reservation.entity.Reservation;
 
 import javax.persistence.EntityManager;
@@ -40,12 +41,22 @@ public class ReservationRepositoryQueryDslImpl implements ReservationRepositoryQ
     public List<ReservationListDto> findReservationList(String email) {
         return queryFactory
                 .select(Projections.fields(ReservationListDto.class,
-                                reservation.parkingPlace.parking.parkingName, reservation.parkingPlace.number, reservation.id.as("reservNum"),
-                                reservation.parkingStartDateTime, reservation.parkingEndDateTime))
+                                reservation.parkingPlace.parking.parkingName.as("name"), reservation.parkingPlace.number, reservation.id.as("reservNum"),
+                                reservation.parkingStartDateTime.as("parkingStartTime"), reservation.parkingEndDateTime.as("parkingEndTime")))
                 .from(reservation)
                 .where(reservation.member.email.eq(email))
                 .fetch();
+    }
 
-
+    @Override
+    public ReservationResponseDto findByReservId(Long id) {
+        return queryFactory
+                .select(Projections.fields(ReservationResponseDto.class,
+                        reservation.member.email, reservation.member.phone.as("phoneNumber"), reservation.id.as("reservationNumber"),
+                        reservation.parkingPlace.parking.parkingName, reservation.parkingPlace.number.as("parkingPlaceNumber"),
+                        reservation.parkingStartDateTime, reservation.parkingEndDateTime, reservation.price))
+                .from(reservation)
+                .where(reservation.id.eq(id))
+                .fetchOne();
     }
 }

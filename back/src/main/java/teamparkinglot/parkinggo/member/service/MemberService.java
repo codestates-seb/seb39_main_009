@@ -14,6 +14,7 @@ import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepositoryQueryDsl;
+import teamparkinglot.parkinggo.reservation.repository.ReservationRepositoryQueryDslImpl;
 
 import java.util.List;
 import java.util.Optional;

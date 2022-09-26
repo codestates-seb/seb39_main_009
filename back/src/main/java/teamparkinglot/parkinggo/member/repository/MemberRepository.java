@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import teamparkinglot.parkinggo.member.dto.MyPageResDto;
 import teamparkinglot.parkinggo.member.dto.SidebarDto;
 import teamparkinglot.parkinggo.member.entity.Member;
+import teamparkinglot.parkinggo.reservation.dto.ReservationResponseDto;
 
 import java.util.List;
 import java.util.Optional;

@@ -14,6 +14,7 @@ import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.review.repository.ReviewRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +40,8 @@ public class ReviewService {
                 () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
         );
 
+        checkExistReview(member.getId(), parking.getId());
+
         Review review = Review.builder()
                 .star(reviewPostDto.getStar())
                 .body(reviewPostDto.getBody())
@@ -47,5 +50,10 @@ public class ReviewService {
                 .build();
 
         return reviewRepository.save(review);
+    }
+
+    private void checkExistReview(Long memberId, Long parkingId) {
+        Optional<Review> review = reviewRepository.findByMemberIdAndParkingId(memberId, parkingId);
+        if (review.isPresent()) throw new BusinessException(ExceptionCode.REVIEW_EXISTS);
     }
 }

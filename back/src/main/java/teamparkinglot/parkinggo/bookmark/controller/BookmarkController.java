@@ -37,14 +37,14 @@ public class BookmarkController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/bookmark/{id}")
-    public ResponseEntity deleteBookmark(@PathVariable long id,
+    @DeleteMapping("/bookmark/{parkingId}")
+    public ResponseEntity deleteBookmark(@PathVariable long parkingId,
                                          Authentication authentication) {
 
         loginCheck(authentication);
         PrincipalDetails principalDetails = getPrincipalDetails(authentication);
 
-        bookmarkService.deleteBookmark(principalDetails.getUsername(), id);
+        bookmarkService.deleteBookmark(principalDetails.getUsername(), parkingId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -54,10 +54,9 @@ public class BookmarkController {
 
         loginCheck(authentication);
         PrincipalDetails principalDetails = getPrincipalDetails(authentication);
+        String email = principalDetails.getUsername();
 
-        List<BookmarkResDto> bookmarkList = bookmarkService.getBookmarkList(principalDetails.getUsername()).stream()
-                .map(e -> mapper.BookmarkToBookmarkResDto(e))
-                .collect(Collectors.toList());
+        List<BookmarkResDto> bookmarkList = bookmarkService.getBookmarkList(email);
 
 
         return new ResponseEntity(bookmarkList, HttpStatus.OK);

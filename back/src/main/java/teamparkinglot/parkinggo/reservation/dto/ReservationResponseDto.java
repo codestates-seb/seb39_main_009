@@ -12,22 +12,22 @@ public class ReservationResponseDto {
 
     String email;
     String phoneNumber;
-    String reservationNumber;
+    Long reservationNumber;
     String parkingName;
-    String parkingPlaceNumber;
-    LocalDateTime ParkingStartDateTime;
-    LocalDateTime ParkingEndDateTime;
-    long price;
+    Integer parkingPlaceNumber;
+    LocalDateTime parkingStartDateTime;
+    LocalDateTime parkingEndDateTime;
+    Long price;
 
     @Builder
-    public ReservationResponseDto(String email, String phoneNumber, String reservationNumber, String parkingName, String parkingPlaceNumber, LocalDateTime parkingStartDateTime, LocalDateTime parkingEndDateTime, long price) {
+    public ReservationResponseDto(String email, String phoneNumber, Long reservationNumber, String parkingName, Integer parkingPlaceNumber, LocalDateTime parkingStartDateTime, LocalDateTime parkingEndDateTime, Long price) {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.reservationNumber = reservationNumber;
         this.parkingName = parkingName;
         this.parkingPlaceNumber = parkingPlaceNumber;
-        ParkingStartDateTime = parkingStartDateTime;
-        ParkingEndDateTime = parkingEndDateTime;
+        this.parkingStartDateTime = parkingStartDateTime;
+        this.parkingEndDateTime = parkingEndDateTime;
         this.price = price;
     }
 }

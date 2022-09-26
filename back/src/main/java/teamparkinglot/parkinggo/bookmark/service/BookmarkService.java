@@ -3,6 +3,7 @@ package teamparkinglot.parkinggo.bookmark.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import teamparkinglot.parkinggo.bookmark.dto.BookmarkResDto;
 import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
 import teamparkinglot.parkinggo.bookmark.repository.BookmarkRepository;
 import teamparkinglot.parkinggo.exception.BusinessException;
@@ -40,9 +41,9 @@ public class BookmarkService {
     }
 
     @Transactional
-    public void deleteBookmark(String email, long id) {
+    public void deleteBookmark(String email, long parkingId) {
 
-        Bookmark bookmark = bookmarkRepository.findByEmailAndParking(email, id).orElseThrow(
+        Bookmark bookmark = bookmarkRepository.findByEmailAndParking(email, parkingId).orElseThrow(
                 () -> new BusinessException(ExceptionCode.BOOKMARK_NOT_EXISTS)
         );
 
@@ -57,8 +58,8 @@ public class BookmarkService {
         }
     }
 
-    public List<Bookmark> getBookmarkList(String email) {
+    public List<BookmarkResDto> getBookmarkList(String email) {
 
-        return bookmarkRepository.findByEmail(email);
+        return bookmarkRepository.findMyBookmarkListByEmail(email);
     }
 }

@@ -120,6 +120,7 @@ public class ParkingController {
         List<Parking> byCond = parkingService.findByCond(parkingCondDto);
         List<ParkingResDto> collect = byCond.stream()
                 .map(e -> mapper.parkingToParkingResDto(e))
+                .limit(10)
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(collect, HttpStatus.OK);

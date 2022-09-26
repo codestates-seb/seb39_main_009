@@ -3,6 +3,7 @@ package teamparkinglot.parkinggo.bookmark.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import teamparkinglot.parkinggo.bookmark.dto.BookmarkResDto;
 import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
 
 import java.util.List;
@@ -16,4 +17,7 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
 
     @Query("select b from Bookmark b where b.member.email = :email")
     List<Bookmark> findByEmail(@Param("email") String email);
+
+    @Query("select new teamparkinglot.parkinggo.bookmark.dto.BookmarkResDto(b.id, b.parking.parkingName, b.parking.address.parcel) from Bookmark b where b.member.email = :email")
+    List<BookmarkResDto> findMyBookmarkListByEmail(@Param("email") String email);
 }

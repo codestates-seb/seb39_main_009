@@ -15,7 +15,6 @@ public class ParkingPlace {
     @Id @GeneratedValue
     private Long id;
 
-    private String sector;
     private Integer number;
 
     @ManyToOne(fetch = FetchType.LAZY)
