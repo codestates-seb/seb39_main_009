@@ -37,6 +37,7 @@ function HealthCheck() {
     <div>
       <form onSubmit={(e) => e.preventDefault()}>
         <label>서버 건강 검진</label>{" "}
+        <p>과연되었을까요??</p>
         <input
           type="text"
           value={test}
