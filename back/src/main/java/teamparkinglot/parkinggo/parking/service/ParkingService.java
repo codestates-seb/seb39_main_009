@@ -62,7 +62,7 @@ public class ParkingService {
         if (email == null) {
             return new ArrayList<>();
         }
-        
+
         return historyRepositoryQueryDsl.findRecentSearch(email);
     }
 
@@ -85,8 +85,9 @@ public class ParkingService {
     public ParkingMapDto findMap(long id) {
 
         Parking parking = findVerifiedParking(id);
-        List<ValidNum> validNums = reservationService.findByParkingId(id).stream()
-                .map(e -> new ValidNum(e.getParkingPlace().getNumber()))
+
+        List<ValidNum> validNums = parkingPlaceRepository.findByParkingId(parking.getId()).stream()
+                .map(e -> new ValidNum(e.getNumber()))
                 .collect(Collectors.toList());
 
         return new ParkingMapDto(parking.getParkingMap(), validNums);
