@@ -22,7 +22,7 @@ const Mypage = () => {
   // const { data } = useFetch(`/api/member`);
   
   useEffect(()=>{
-    fetch('/api/member',{
+    fetch(`${process.env.REACT_APP_BASE_URL}/api/member`,{
         headers : {
           authorization : localStorage.getItem("authorization")
      }

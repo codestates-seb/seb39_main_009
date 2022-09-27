@@ -21,7 +21,7 @@ const Editmypage = () => {
 
 
 const clickInfo = ()=>{
-  fetch('/api/member', {
+  fetch(`${process.env.REACT_APP_BASE_URL}/api/member`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',

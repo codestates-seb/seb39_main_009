@@ -16,7 +16,7 @@ const Review =() =>{
   const {pkId} = useParams();
 
   useEffect(()=>{
-      fetch('/api/reviews/1',{
+      fetch(`${process.env.REACT_APP_BASE_URL}/api/reviews/1`,{
           withCredentials: true,
         })
       .then(response =>{
