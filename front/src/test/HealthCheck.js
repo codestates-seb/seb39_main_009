@@ -28,6 +28,8 @@ function HealthCheck() {
   const handlelogOut = () => {
     localStorage.removeItem("authorization");
     localStorage.removeItem("refreshtoken");
+    axios.defaults.headers.common[`Authorization`] =
+    localStorage.getItem("authorization");
     alert("로그아웃");
   };
 

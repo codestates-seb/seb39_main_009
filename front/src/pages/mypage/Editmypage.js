@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate} from "react-router-dom";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -20,26 +20,38 @@ const Editmypage = () => {
 
 
 
-  const clickInfo = () => {
-    axios.patch("/api/mypage",{
-        password: pwdInfo,
-        passwordRe : passwordRe,
-        phoneNum: phoneNum,
-        carNumber: carNumber
-    }, {
-        withCredentials: true,
-      })
-    .then((res)=>{
-        console.log('수정완료')
-        console.log(res)
-        // if(res.status===200){
-        //  navigate('/mypage/{id}')
-        // }
-    }).catch((err)=>{
-        console.log('수정안됨')
-        console.log(err)
+const clickInfo = ()=>{
+  fetch('/api/member', {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+        authorization: localStorage.getItem("authorization"),
+
+    },
+    body: JSON.stringify({
+      password: pwdInfo,
+      phoneNum: phoneNum,
+      carNumber: carNumber
     })
-  }
+  })
+    .then((json) => {
+    console.log('수정됨')
+    console.log(json)})
+    .catch((err)=> {
+      console.log(err)
+      console.log('수정안됨')
+    })
+}
+
+
+  const isMatch = (e) => {
+    if (pwdInfo !== passwordRe) {
+      setPasswordRe("");
+      alert(
+        "비밀번호와 비밀번호 확인이 일치하지 않습니다. \n다시 입력해주세요."
+      );
+    }
+  };
 
     return (
     <div>
@@ -67,6 +79,9 @@ const Editmypage = () => {
             placeholder="checkpassword..."
             onChange={(e) => {
                 setPasswordRe(e.target.value);
+              }}
+              onBlur={() => {
+                isMatch(passwordRe);
               }}/>
         </div>
         <div>

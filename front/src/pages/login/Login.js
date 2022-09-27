@@ -30,7 +30,8 @@ const Login = () => {
           res.headers.refreshtoken
         );
         console.log("로그인 성공");
-        setTimeout(OnSilentRefresh, 20000);
+        // window.location.reload();
+        setTimeout(OnSilentRefresh, 600000);
         console.log(res.headers.authorization)
 
       })
@@ -65,7 +66,7 @@ const Login = () => {
 
   // 새로고침시에도 OnSilentRefresh함수가 작동할 수 있게 만드는 것
   useEffect(() => {
-         setInterval(OnSilentRefresh, 20000);
+         setInterval(OnSilentRefresh, 600000);
   },[]);
 
 
