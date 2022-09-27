@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import Listreview from "./LIstreview";
 import { useEffect, useState } from "react";
 import { GrClose } from "react-icons/gr";
+import Loading from "../../component/Loading/Loading";
+
 
 
 
@@ -10,9 +12,8 @@ import { GrClose } from "react-icons/gr";
 const Review =() =>{
   const [data, setData] = useState([]);
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(true);
   const {pkId} = useParams();
-
 
   useEffect(()=>{
       fetch('/api/reviews/1',{
@@ -29,13 +30,19 @@ const Review =() =>{
       .catch(err=>{
           console.log(err);
           console.log('리스트 불러오기 실패');
-      })
+      }).finally(() => {
+        setLoading(false);
+        // fetch 이후 로딩 해제
+      }, 1000);
   }, [])
 
 
 
- return (
-    <div>
+ return (<>
+      {loading ? (
+        <Loading />
+        ) : (
+      <div>
         <div className="signup_header">
           <p>리뷰페이지</p>
           <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
@@ -51,6 +58,8 @@ const Review =() =>{
           <br/>
         <Link to={'#'}><button>예약하기</button></Link>
     </div>
+        )}
+    </>
  )
 }
 
