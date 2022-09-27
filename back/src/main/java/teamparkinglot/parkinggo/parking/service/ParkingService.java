@@ -42,9 +42,7 @@ public class ParkingService {
     private final ParkingRepository parkingRepository;
     private final ParkingQueryDsl parkingQueryDsl;
     private final ReservationService reservationService;
-    private final HistoryRepository historyRepository;
     private final MemberService memberService;
-    private final ReviewRepository reviewRepository;
     private final HistoryRepositoryQueryDsl historyRepositoryQueryDsl;
     private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
@@ -54,39 +52,7 @@ public class ParkingService {
 
     public List<Parking> findByCond(ParkingCondDto parkingCondDto) {
 
-        LocalDateTime dtoStartTime = parkingCondDto.getParkingStartTime();
-        LocalDateTime dtoEndTime = parkingCondDto.getParkingEndTime();
-
-//        List<Parking> byRegion = parkingQueryDsl.findByRegion(parkingCondDto.getRegion());
         List<Parking> parkings = parkingRepository.testMethod(parkingCondDto.getRegion(), parkingCondDto.getParkingStartTime(), parkingCondDto.getParkingEndTime());
-
-//        List<ParkingReserv> reservationList = byRegion.stream()
-//                .map(e -> new ParkingReserv(e.getId(), reservationService.findByParkingId(e.getId())))
-//                .collect(Collectors.toList());
-//
-//        List<Long> realParking = new ArrayList();
-//
-//        for (ParkingReserv parkingReserv : reservationList) {
-//            boolean flag = true;
-//
-//            List<Reservation> reservations = parkingReserv.getReservations();
-//
-//            for (Reservation reservation : reservations) {
-//                LocalDateTime reservStart = reservation.getParkingStartDateTime();
-//                LocalDateTime reservEndTime = reservation.getParkingEndDateTime();
-//
-//                if (!(dtoStartTime.isBefore(reservStart) || dtoStartTime.isAfter(reservEndTime) || dtoStartTime.isEqual(reservEndTime))
-//                && !(dtoEndTime.isBefore(reservStart) || dtoEndTime.isAfter(reservEndTime) || dtoEndTime.isEqual(reservStart))) {
-//                    flag = false;
-//                    break;
-//                }
-//            }
-//            if (flag) {
-//                realParking.add(parkingReserv.getParkingId());
-//            }
-//        }
-//
-//        parkingRepository.findAllByid(realParking);
 
         return parkings;
     }
@@ -96,22 +62,8 @@ public class ParkingService {
         if (email == null) {
             return new ArrayList<>();
         }
-
+        
         return historyRepositoryQueryDsl.findRecentSearch(email);
-
-//        Pageable pageable = PageRequest.of(1, 5, Sort.by("id").descending());
-//
-//        Page<History> histories = historyRepository.findByMemberEmail(email, pageable);
-//
-//        Page<ParkingRecentDto> parkingRecent = histories.map(h ->
-//                ParkingRecentDto.builder()
-//                        .parkingName(h.getParking().getName())
-//                        .address(h.getParking().getAddress().getParcel())
-//                        .build());
-
-//        return histories.stream()
-//                .map(e -> new ParkingRecentDto(e.getParking().getName(), e.getParking().getAddress().getParcel()))
-//                .collect(Collectors.toList());
     }
 
     /**

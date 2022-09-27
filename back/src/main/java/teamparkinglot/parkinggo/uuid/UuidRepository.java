@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface UUIDRepository extends JpaRepository<Uuid, Long> {
+public interface UuidRepository extends JpaRepository<Uuid, Long> {
 
     @Query("select u from Uuid u where u.member.email = :email")
     Optional<Uuid> findByEmail(@Param("email") String email);

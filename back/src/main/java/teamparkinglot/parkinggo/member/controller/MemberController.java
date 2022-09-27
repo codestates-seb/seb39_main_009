@@ -17,14 +17,12 @@ import teamparkinglot.parkinggo.member.service.MemberService;
 import teamparkinglot.parkinggo.reservation.dto.ReservationResponseDto;
 import teamparkinglot.parkinggo.reservation.service.ReservationService;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
-import teamparkinglot.parkinggo.uuid.UUIDService;
+import teamparkinglot.parkinggo.uuid.UuidService;
 import teamparkinglot.parkinggo.uuid.Uuid;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.UUID;
 
 @RestController
@@ -37,7 +35,7 @@ public class MemberController {
     private final MemberMapper mapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MailService mailService;
-    private final UUIDService uuidService;
+    private final UuidService uuidService;
     private final ReservationService reservationService;
 
     @PostMapping("/join")
@@ -57,26 +55,9 @@ public class MemberController {
         Uuid saveUUID = uuidService.saveUUID(email.getEmail(), uuid);
 
         mailService.mailSend(email, uuid);
-
-        timerForDeleteIn10Min(saveUUID);
+        uuidService.timerForDeleteIn10Min(saveUUID);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private void timerForDeleteIn10Min(Uuid saveUuid) {
-        log.info("타이머 시작");
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-
-            int count = 0;
-            @Override
-            public void run() {
-                log.info("삭제 로직 시작");
-                if (count++ < 1) uuidService.delete(saveUuid);
-                else timer.cancel();
-            }
-        };
-        timer.schedule(timerTask, 600000);
     }
 
     @GetMapping("/reset-password/{uuid}")

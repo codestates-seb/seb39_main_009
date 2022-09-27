@@ -3,6 +3,7 @@ package teamparkinglot.parkinggo.token.controller;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,15 +13,14 @@ import teamparkinglot.parkinggo.secret.SecretCode;
 import teamparkinglot.parkinggo.token.dto.TokenDto;
 import teamparkinglot.parkinggo.token.repository.TokenRepository;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class TokenController {
+@Slf4j
+public class RefreshTokenController {
 
     private final SecretCode secretCode;
     private final TokenRepository tokenRepository;
@@ -31,11 +31,8 @@ public class TokenController {
         String refreshToken = tokenDto.getRefreshtoken();
 
         refreshTokenNotExistsException(refreshToken);
-
         Date expiresAt = JWT.decode(refreshToken).getExpiresAt();
-        Date now = new Date();
-
-        expiredRefreshTokenException(expiresAt, now);
+        expiredRefreshTokenException(expiresAt, new Date());
 
         tokenRepository.findByToken(refreshToken).orElseThrow(
                 () -> new BusinessException(ExceptionCode.REFRESH_TOKEN_NOT_EXISTS)

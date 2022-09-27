@@ -11,14 +11,16 @@ import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.service.MemberService;
 
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class UUIDService {
+public class UuidService {
 
-    private final UUIDRepository uuidRepository;
+    private final UuidRepository uuidRepository;
     private final MemberService memberService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -32,6 +34,22 @@ public class UUIDService {
 
 
         return uuidRepository.save(uuid);
+    }
+
+    @Async
+    @Transactional
+    public void timerForDeleteIn10Min(Uuid saveUuid) {
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+
+            int count = 0;
+            @Override
+            public void run() {
+                if (count++ < 1) uuidRepository.delete(saveUuid);
+                else timer.cancel();
+            }
+        };
+        timer.schedule(timerTask, 600000);
     }
 
     private void alreadyUuidExistsCheck(String email) {
@@ -54,11 +72,5 @@ public class UUIDService {
 
         Member member = findUuid.getMember();
         member.setPassword(bCryptPasswordEncoder.encode(password));
-    }
-
-    @Async
-    @Transactional
-    public void delete(Uuid saveUUID) {
-        uuidRepository.delete(saveUUID);
     }
 }

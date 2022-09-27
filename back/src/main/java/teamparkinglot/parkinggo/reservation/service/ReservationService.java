@@ -1,6 +1,7 @@
 package teamparkinglot.parkinggo.reservation.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.exception.BusinessException;
@@ -14,6 +15,8 @@ import teamparkinglot.parkinggo.reservation.repository.ReservationRepositoryQuer
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @Service
 @RequiredArgsConstructor
@@ -48,12 +51,6 @@ public class ReservationService {
 
         reservationRepository.delete(reservation);
     }
-    @Transactional
-    public void checkPayment(Long id)  {
-        Reservation reservation = findVerifiedReservation(id);
-        if(!reservation.getPayOrNot()) reservationRepository.delete(reservation);
-    }
-
     public Reservation findVerifiedReservation(Long id) {
         Optional<Reservation> reservation = reservationRepository.findById(id);
 
@@ -71,5 +68,25 @@ public class ReservationService {
     public ReservationResponseDto findByIdForReservationDto(Long id) {
 
         return reservationRepositoryCustom.findByReservId(id);
+    }
+
+    @Async
+    public void reservationPaymentCheck(long id) {
+        Timer timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            int count = 0;
+            @Override
+            public void run() {
+                if(count++ < 1) checkPayment(id);
+                else timer.cancel();
+            }
+        };
+        timer.schedule(timerTask, 600000, 1000);
+    }
+
+    @Transactional
+    public void checkPayment(Long id)  {
+        Reservation reservation = findVerifiedReservation(id);
+        if(!reservation.getPayOrNot()) reservationRepository.delete(reservation);
     }
 }

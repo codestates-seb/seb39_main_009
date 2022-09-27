@@ -42,8 +42,6 @@ public class QMember extends EntityPathBase<Member> {
 
     public final BooleanPath psInfoAgmt = createBoolean("psInfoAgmt");
 
-    public final StringPath refreshToken = createString("refreshToken");
-
     public final ListPath<teamparkinglot.parkinggo.reservation.entity.Reservation, teamparkinglot.parkinggo.reservation.entity.QReservation> reservation = this.<teamparkinglot.parkinggo.reservation.entity.Reservation, teamparkinglot.parkinggo.reservation.entity.QReservation>createList("reservation", teamparkinglot.parkinggo.reservation.entity.Reservation.class, teamparkinglot.parkinggo.reservation.entity.QReservation.class, PathInits.DIRECT2);
 
     public final EnumPath<MemberRole> role = createEnum("role", MemberRole.class);

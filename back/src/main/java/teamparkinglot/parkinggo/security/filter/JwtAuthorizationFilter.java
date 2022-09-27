@@ -56,7 +56,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         if (expiresAt.before(now)) {
             log.info("=== 액세스 토큰 시간 만료 ===");
-//            throw new BusinessException(ExceptionCode.ACCESS_TOKEN_EXPIRED);
+            chain.doFilter(request, response);
             return;
         }
 

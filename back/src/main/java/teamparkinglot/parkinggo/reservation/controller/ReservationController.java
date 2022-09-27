@@ -8,13 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.reservation.service.ReservationService;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-public class PayController {
+public class ReservationController {
 
     private final ReservationService reservationService;
 

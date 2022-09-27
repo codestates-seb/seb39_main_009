@@ -12,16 +12,11 @@ import java.util.Optional;
 
 public interface ParkingRepository extends JpaRepository<Parking, Long> {
 
-    List<Parking> findTop10ByOrderById();
-
-    @Query("select p from Parking p where p.id IN (:ids)")
-    List<Parking> findAllByid(@Param("ids") List<Long> ids);
-
     @Query("select p from Parking p where p.parkingManagementNumber = :parkingManagementNumber")
     Optional<Parking> findByParkingManagementNumber(@Param("parkingManagementNumber") String parkingManagementNumber);
 
-    @Query("select distinct p from Parking p left outer join ParkingPlace pp on p.id = pp.parking.id inner join Reservation r on r.parkingPlace.id = pp.id" +
-            " where (p.address.parcel like %:region% or p.address.street like %:region%) or " +
-            "((r.parkingStartDateTime not between :parkingStartTime and :parkingEndTime) and (r.parkingEndDateTime not between :parkingStartTime and :parkingEndTime))")
+    @Query("select distinct p from Parking p left outer join Reservation r on r.parkingPlace.id = p.id" +
+            " where ((p.address.parcel like %:region% or p.address.street like %:region%) and (r.parkingStartDateTime not between :parkingStartTime and :parkingEndTime) and (r.parkingEndDateTime not between :parkingStartTime and :parkingEndTime)) or " +
+            "(p.address.parcel like %:region% or p.address.street like %:region%) order by p.partnership desc")
     List<Parking> testMethod(@Param("region") String region, @Param("parkingStartTime") LocalDateTime parkingStartTime, @Param("parkingEndTime") LocalDateTime parkingEndTime);
 }

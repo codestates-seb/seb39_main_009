@@ -32,12 +32,8 @@ public class ParkingController {
 
     private final ParkingService parkingService;
     private final ParkingMapper mapper;
-
     private final HistoryService historyService;
-
     private final ReservationService reservationService;
-
-    private final HistoryRepository historyRepository;
 
     @GetMapping("/parking/{id}")
     public ResponseEntity viewParking(@PathVariable long id,
@@ -76,17 +72,8 @@ public class ParkingController {
 
         CreateReservDto reservation = parkingService.createReservation(id, parkingDateTimeDto, email);
 
-        // 일정시간 후 checkPayment 1번만 실행
-        Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            int count = 0;
-            @Override
-            public void run() {
-                if(count++ < 1) reservationService.checkPayment(id);
-                else timer.cancel();
-            }
-        };
-        timer.schedule(timerTask, 600000, 1000);
+        // 일정시간 후 checkPayment 1번만 실행, 비동기
+        reservationService.reservationPaymentCheck(id);
 
         return new ResponseEntity<>(reservation, HttpStatus.CREATED);
     }
@@ -125,4 +112,6 @@ public class ParkingController {
 
         return new ResponseEntity<>(collect, HttpStatus.OK);
     }
+
+
 }
