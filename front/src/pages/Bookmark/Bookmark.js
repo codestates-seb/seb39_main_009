@@ -10,7 +10,7 @@ import Loading from "../../component/Loading/Loading";
 const Bookmark = () => {
   const navigate = useNavigate();
 
-  const { data, loading } = useFetch(`/api/bookmark`);
+  const { data, loading } = useFetch(`/bookmark`);
   console.log(data);
 
   return (

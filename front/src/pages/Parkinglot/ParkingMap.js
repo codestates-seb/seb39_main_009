@@ -9,7 +9,7 @@ import Loading from "../../component/Loading/Loading";
 const ParkingMap = () => {
   const navigate = useNavigate();
   const { pkId } = useParams();
-  const { data, loading } = useFetch(`/api/parking/${pkId}`);
+  const { data, loading } = useFetch(`/parking/${pkId}`);
 
   return (
     <>

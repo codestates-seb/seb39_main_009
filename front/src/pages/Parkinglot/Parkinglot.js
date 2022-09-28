@@ -12,7 +12,7 @@ const Parkinglot = () => {
 
   // useParam 사용하여 주차장id를 얻어 api 호출 후 데이터 받아오기.
   const { pkId } = useParams();
-  const { data, loading } = useFetch(`/api/parking/${pkId}`);
+  const { data, loading } = useFetch(`/parking/${pkId}`);
 
   const [bookmark, setBookmark] = useState(false);
 
