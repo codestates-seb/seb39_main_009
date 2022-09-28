@@ -8,26 +8,31 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ParkingResDto {
 
-    String name;
-    String address;
-    String weekdayOpen;
-    String weekdayClose;
-    String tel;
-    int basicTime;
-    int basicCharge;
-    int addUnitTime;
-    int addUnitCharge;
-    int capacity;
-    String satOpen;
-    String satClose;
-    String sunOpen;
-    String sunClose;
-    Boolean partnership;
-    String type;
-    int dayMaxPrice;
-    Double latitude;
-    Double longitude;
-    String parkingMap;
+    private long parkingId;
+    private String name;
+    private String address;
+    private String weekdayOpen;
+    private String weekdayClose;
+    private String tel;
+    private int basicTime;
+    private int basicCharge;
+    private int addUnitTime;
+    private int addUnitCharge;
+    private int capacity;
+    private String satOpen;
+    private String satClose;
+    private String sunOpen;
+    private String sunClose;
+    private Boolean partnership;
+    private String parkingSeparation;
+    private String parkingType;
+    private String spacial_management;
+    private String parkingChargeInfo;
+    private String methodPay;
+    private int dayMaxPrice;
+    private Double latitude;
+    private Double longitude;
+    private String parkingMap;
     boolean bookmark;
 
     public void setBookmark(Boolean bookmark) {
@@ -35,8 +40,8 @@ public class ParkingResDto {
     }
 
     @Builder
-
-    public ParkingResDto(String name, String address, String weekdayOpen, String weekdayClose, String tel, int basicTime, int basicCharge, int addUnitTime, int addUnitCharge, int capacity, String satOpen, String satClose, String sunOpen, String sunClose, Boolean partnership, String type, int dayMaxPrice, Double latitude, Double longitude, String parkingMap) {
+    public ParkingResDto(long parkingId, String name, String address, String weekdayOpen, String weekdayClose, String tel, int basicTime, int basicCharge, int addUnitTime, int addUnitCharge, int capacity, String satOpen, String satClose, String sunOpen, String sunClose, Boolean partnership, String parkingSeparation, String parkingType, String spacial_management, String parkingChargeInfo, String methodPay, int dayMaxPrice, Double latitude, Double longitude, String parkingMap) {
+        this.parkingId = parkingId;
         this.name = name;
         this.address = address;
         this.weekdayOpen = weekdayOpen;
@@ -52,7 +57,11 @@ public class ParkingResDto {
         this.sunOpen = sunOpen;
         this.sunClose = sunClose;
         this.partnership = partnership;
-        this.type = type;
+        this.parkingSeparation = parkingSeparation;
+        this.parkingType = parkingType;
+        this.spacial_management = spacial_management;
+        this.parkingChargeInfo = parkingChargeInfo;
+        this.methodPay = methodPay;
         this.dayMaxPrice = dayMaxPrice;
         this.latitude = latitude;
         this.longitude = longitude;

@@ -90,10 +90,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .sameSite("none")
                 .path("/")
                 .build();
-//        Cookie cookie = new Cookie("Refresh", refreshToken);
-//        cookie.setHttpOnly(true);
-//        cookie.setPath("/");
-//        cookie.setDomain("localhost");
 
         response.setHeader("RefreshToken", refreshToken);
         System.out.println("refreshToken = " + refreshToken);

@@ -25,18 +25,18 @@ public class ReviewService {
     private final MemberRepository memberRepository;
     private final ParkingRepository parkingRepository;
 
-    public List<Review> findReviewsByParkingOrderByCreatedDateDesc(long id) {
-        return reviewRepository.findReviewsByParkingOrderByCreatedDateDesc(id);
+    public List<Review> findReviewsByParkingOrderByCreatedDateDesc(long parkingId) {
+        return reviewRepository.findReviewsByParkingOrderByCreatedDateDesc(parkingId);
     }
 
     @Transactional
-    public Review createReview(long id, ReviewPostDto reviewPostDto, String email) {
+    public Review createReview(long parkingId, ReviewPostDto reviewPostDto, String email) {
 
         Member member = memberRepository.findByEmail(email).orElseThrow(
                 () -> new BusinessException(ExceptionCode.MEMBER_NOT_EXISTS)
         );
 
-        Parking parking = parkingRepository.findById(id).orElseThrow(
+        Parking parking = parkingRepository.findById(parkingId).orElseThrow(
                 () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
         );
 

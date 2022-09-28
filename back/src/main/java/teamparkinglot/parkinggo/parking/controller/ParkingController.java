@@ -39,7 +39,7 @@ public class ParkingController {
     public ResponseEntity viewParking(@PathVariable long id,
                                       Authentication authentication) {
 
-        Parking parking = parkingService.findById(id);
+        Parking parking = parkingService.findVerifiedParking(id);
         ParkingResDto parkingResDto = mapper.parkingToParkingResDto(parking);
 
         if (authentication != null) {

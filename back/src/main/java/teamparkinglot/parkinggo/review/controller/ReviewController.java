@@ -24,10 +24,12 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final ReviewMapper mapper;
 
-    @GetMapping("/reviews/{id}")
-    public ResponseEntity viewReviews(@PathVariable long id) {
+    @GetMapping("/reviews/{parkingId}")
+    public ResponseEntity viewReviews(@PathVariable long parkingId) {
 
-        List<Review> reviews = reviewService.findReviewsByParkingOrderByCreatedDateDesc(id);
+        System.out.println("리뷰 조회!!!!!!!!!!!" );
+
+        List<Review> reviews = reviewService.findReviewsByParkingOrderByCreatedDateDesc(parkingId);
         List<ReviewResDto> collect = reviews.stream()
                 .map(e -> mapper.reviewsToReviewsResDto(e))
                 .collect(Collectors.toList());
@@ -35,13 +37,14 @@ public class ReviewController {
         return new ResponseEntity<>(new MultiRes<>(collect), HttpStatus.OK);
     }
 
-    @PostMapping("/reviews/{id}")
-    public ResponseEntity postReview(@PathVariable long id,
+    @PostMapping("/reviews/{parkingId}")
+    public ResponseEntity postReview(@PathVariable long parkingId,
                                      @RequestBody ReviewPostDto reviewPostDto,
                                      Authentication authentication) {
 
+        System.out.println("리뷰 작성!!!!!!!!");
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-        reviewService.createReview(id, reviewPostDto, principal.getUsername());
+        reviewService.createReview(parkingId, reviewPostDto, principal.getUsername());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

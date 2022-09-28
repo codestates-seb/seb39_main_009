@@ -7,26 +7,29 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Items {
 
-    String prkplceNo;
-    String prkplceNm;
-    String prkplceSe;
-    String prkplceType;
-    String rdnmadr;
-    String lnmadr;
-    int prkcmprt;
-    String weekdayOperOpenHhmm;
-    String weekdayOperColseHhmm;
-    String satOperOperOpenHhmm;
-    String satOperCloseHhmm;
-    String holidayOperOpenHhmm;
-    String holidayCloseOpenHhmm;
-    int basicTime;
-    int basicCharge;
-    int addUnitTime;
-    int addUnitCharge;
-    int dayCmmtkt;
-    String phoneNumber;
-    Double latitude;
-    Double longitude;
+    private String prkplceNo;
+    private String prkplceNm;
+    private String prkplceSe;
+    private String prkplceType;
+    private String parkingChargeInfo;
+    private String spacialManagement;
+    private String metpay;
+    private String rdnmadr;
+    private String lnmadr;
+    private int prkcmprt;
+    private String weekdayOperOpenHhmm;
+    private String weekdayOperColseHhmm;
+    private String satOperOperOpenHhmm;
+    private String satOperCloseHhmm;
+    private String holidayOperOpenHhmm;
+    private String holidayCloseOpenHhmm;
+    private int basicTime;
+    private int basicCharge;
+    private int addUnitTime;
+    private int addUnitCharge;
+    private int dayCmmtkt;
+    private String phoneNumber;
+    private Double latitude;
+    private Double longitude;
 
 }

@@ -11,6 +11,7 @@ import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.secret.SecretCode;
 import teamparkinglot.parkinggo.token.dto.TokenDto;
+import teamparkinglot.parkinggo.token.entity.RefreshToken;
 import teamparkinglot.parkinggo.token.repository.TokenRepository;
 
 import javax.servlet.http.HttpServletResponse;
@@ -34,11 +35,12 @@ public class RefreshTokenController {
         Date expiresAt = JWT.decode(refreshToken).getExpiresAt();
         expiredRefreshTokenException(expiresAt, new Date());
 
-        tokenRepository.findByToken(refreshToken).orElseThrow(
+        log.info("리프레시 토큰 들어오는 값 = {}", refreshToken);
+        RefreshToken findRefreshToken = tokenRepository.findByToken(refreshToken).orElseThrow(
                 () -> new BusinessException(ExceptionCode.REFRESH_TOKEN_NOT_EXISTS)
         );
 
-        String accessToken = recreationAccessToken();
+        String accessToken = recreationAccessToken(findRefreshToken.getEmail());
         response.addHeader("Authorization", "Bearer " + accessToken);
 
         return new ResponseEntity(HttpStatus.OK);
@@ -56,11 +58,12 @@ public class RefreshTokenController {
         }
     }
 
-    private String recreationAccessToken() {
+    private String recreationAccessToken(String email) {
         // 액세스 토큰 발급
         return JWT.create()
                 .withSubject("AccessToken")
                 .withExpiresAt(new Date(System.currentTimeMillis() + secretCode.getAccessTokenExpireTime()))
+                .withClaim("email", email)
                 .sign(Algorithm.HMAC512(secretCode.getTokenSecurityKey()));
     }
 }

@@ -44,11 +44,19 @@ public class QParking extends EntityPathBase<Parking> {
 
     public final teamparkinglot.parkinggo.member.entity.QMember member;
 
+    public final StringPath methodPay = createString("methodPay");
+
+    public final StringPath parkingChargeInfo = createString("parkingChargeInfo");
+
     public final StringPath parkingManagementNumber = createString("parkingManagementNumber");
 
     public final StringPath parkingMap = createString("parkingMap");
 
     public final StringPath parkingName = createString("parkingName");
+
+    public final StringPath parkingSeparation = createString("parkingSeparation");
+
+    public final StringPath parkingType = createString("parkingType");
 
     public final BooleanPath partnership = createBoolean("partnership");
 
@@ -58,13 +66,13 @@ public class QParking extends EntityPathBase<Parking> {
 
     public final StringPath satOpen = createString("satOpen");
 
+    public final StringPath spacialManagement = createString("spacialManagement");
+
     public final StringPath sunClose = createString("sunClose");
 
     public final StringPath sunOpen = createString("sunOpen");
 
     public final StringPath tel = createString("tel");
-
-    public final StringPath type = createString("type");
 
     public final StringPath weekdayClose = createString("weekdayClose");
 

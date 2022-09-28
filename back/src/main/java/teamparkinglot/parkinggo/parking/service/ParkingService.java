@@ -70,12 +70,6 @@ public class ParkingService {
      * 주차장 기본 검색
      * @param id
      */
-    public Parking findById(Long id) {
-        return parkingRepository.findById(id).orElseThrow(
-                () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
-        );
-    }
-
     public Parking findVerifiedParking(long id) {
         return parkingRepository.findById(id).orElseThrow(
                 () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
@@ -133,7 +127,11 @@ public class ParkingService {
                     Parking parking = Parking.builder()
                             .parkingManagementNumber(e.getPrkplceNo())
                             .parkingName(e.getPrkplceNm())
-                            .type(e.getPrkplceSe())
+                            .parkingType(e.getPrkplceSe())
+                            .parkingSeparation(e.getPrkplceSe())
+                            .spacialManagement(e.getSpacialManagement())
+                            .parkingChargeInfo(e.getParkingChargeInfo())
+                            .methodPay(methodPayHandle(e.getMetpay()))
                             .address(new Address("", e.getRdnmadr(), e.getLnmadr()))
                             .capacity(e.getPrkcmprt())
                             .weekdayOpen(e.getWeekdayOperOpenHhmm())
@@ -160,5 +158,18 @@ public class ParkingService {
                         parkingRepository.save(parking);
                     }
                 });
+    }
+
+    private String methodPayHandle(String methodPay) {
+        if (methodPay == null) {
+            return null;
+        }
+        if (methodPay.equals("카드") || methodPay.equals("신용카드")) {
+            return "신용카드";
+        }
+        if (methodPay.equals("현금")) {
+            return "현금";
+        }
+        return null;
     }
 }

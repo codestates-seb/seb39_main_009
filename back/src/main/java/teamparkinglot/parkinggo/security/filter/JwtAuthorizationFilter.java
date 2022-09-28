@@ -63,13 +63,13 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String email = JWT.require(Algorithm.HMAC512(secretCode.getTokenSecurityKey())).build().verify(token).getClaim("email").asString();
 
         if (email != null) {
+            System.out.println("email = " + email);
             Member member = findVerifyMember(email);
             PrincipalDetails principalDetails = new PrincipalDetails(member);
             Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
-            chain.doFilter(request, response);
         }
+        chain.doFilter(request, response);
     }
 
     private Member findVerifyMember(String email) {

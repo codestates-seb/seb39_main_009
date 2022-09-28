@@ -33,7 +33,11 @@ public class Parking {
     private String sunOpen;
     private String sunClose;
     private boolean partnership;
-    private String type;
+    private String parkingSeparation;
+    private String parkingType;
+    private String spacialManagement;
+    private String parkingChargeInfo;
+    private String methodPay;
     private int dayMaxPrice;
     private Double latitude;
     private Double longitude;
@@ -43,7 +47,8 @@ public class Parking {
     private Member member;
 
     @Builder
-    public Parking(String parkingManagementNumber, String parkingName, Address address, String weekdayOpen, String weekdayClose, String tel, Integer basicTime, Integer basicCharge, Integer addUnitTime, Integer addUnitCharge, int capacity, String satOpen, String satClose, String sunOpen, String sunClose, boolean partnership, String type, int dayMaxPrice, Double latitude, Double longitude, String parkingMap, String phoneNumber, Member member) {
+
+    public Parking(String parkingManagementNumber, String parkingName, Address address, String weekdayOpen, String weekdayClose, String tel, Integer basicTime, Integer basicCharge, Integer addUnitTime, Integer addUnitCharge, int capacity, String satOpen, String satClose, String sunOpen, String sunClose, boolean partnership, String parkingSeparation, String parkingType, String spacialManagement, String parkingChargeInfo, String methodPay, int dayMaxPrice, Double latitude, Double longitude, String parkingMap, String phoneNumber, Member member) {
         this.parkingManagementNumber = parkingManagementNumber;
         this.parkingName = parkingName;
         this.address = address;
@@ -60,7 +65,11 @@ public class Parking {
         this.sunOpen = sunOpen;
         this.sunClose = sunClose;
         this.partnership = partnership;
-        this.type = type;
+        this.parkingSeparation = parkingSeparation;
+        this.parkingType = parkingType;
+        this.spacialManagement = spacialManagement;
+        this.parkingChargeInfo = parkingChargeInfo;
+        this.methodPay = methodPay;
         this.dayMaxPrice = dayMaxPrice;
         this.latitude = latitude;
         this.longitude = longitude;

@@ -69,10 +69,6 @@ public class MemberController {
     @PatchMapping("/reset-password/{uuid}")
     public ResponseEntity putResetPwd(@PathVariable String uuid, @RequestBody ResetPwdDto resetPwdDto) {
 
-        if (!resetPwdDto.getPassword().equals(resetPwdDto.getPasswordRe())) {
-            throw new BusinessException(ExceptionCode.INPUT_ERROR);
-        }
-
         uuidService.putPwd(uuid, resetPwdDto.getPassword());
 
         return new ResponseEntity<>(HttpStatus.OK);
@@ -113,7 +109,6 @@ public class MemberController {
                                Authentication authentication) {
 
         loginCheck(authentication);
-        passwordCheck(myPagePutDto);
 
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         String email = principalDetails.getUsername();
@@ -121,14 +116,6 @@ public class MemberController {
         memberService.myPageModify(myPagePutDto, email);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private static void passwordCheck(MyPagePutDto myPagePutDto) {
-        String password = myPagePutDto.getPassword();
-        String passwordRe = myPagePutDto.getPasswordRe();
-        if (!passwordRe.equals(password)) {
-            throw new BusinessException(ExceptionCode.INPUT_ERROR);
-        }
     }
 
     private void loginCheck(Authentication authentication) {

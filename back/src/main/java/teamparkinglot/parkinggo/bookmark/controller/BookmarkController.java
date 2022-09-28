@@ -59,7 +59,6 @@ public class BookmarkController {
 
         List<BookmarkResDto> bookmarkList = bookmarkService.getBookmarkList(email);
 
-
         return new ResponseEntity(bookmarkList, HttpStatus.OK);
     }
 
