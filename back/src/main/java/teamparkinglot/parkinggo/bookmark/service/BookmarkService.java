@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.bookmark.dto.BookmarkResDto;
+import teamparkinglot.parkinggo.bookmark.dto.BookmarkStatusDto;
 import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
 import teamparkinglot.parkinggo.bookmark.repository.BookmarkRepository;
 import teamparkinglot.parkinggo.exception.BusinessException;
@@ -61,5 +62,16 @@ public class BookmarkService {
     public List<BookmarkResDto> getBookmarkList(String email) {
 
         return bookmarkRepository.findMyBookmarkListByEmail(email);
+    }
+
+    public BookmarkStatusDto checkBookmarkStatus(String email, long parkingId) {
+        Optional<Bookmark> findBookmark = bookmarkRepository.findByEmailAndParking(email, parkingId);
+        if (findBookmark.isPresent()) {
+            return BookmarkStatusDto.builder()
+                    .bookmark(true)
+                    .build();
+        } else {
+            return new BookmarkStatusDto();
+        }
     }
 }

@@ -28,6 +28,11 @@ public class ParkingResDto {
     Double latitude;
     Double longitude;
     String parkingMap;
+    boolean bookmark;
+
+    public void setBookmark(Boolean bookmark) {
+        this.bookmark = bookmark;
+    }
 
     @Builder
 

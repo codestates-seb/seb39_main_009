@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.bookmark.dto.BookmarkIdDto;
 import teamparkinglot.parkinggo.bookmark.dto.BookmarkResDto;
+import teamparkinglot.parkinggo.bookmark.dto.BookmarkStatusDto;
 import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
 import teamparkinglot.parkinggo.bookmark.mapper.BookmarkMapper;
 import teamparkinglot.parkinggo.bookmark.service.BookmarkService;
@@ -60,6 +61,19 @@ public class BookmarkController {
 
 
         return new ResponseEntity(bookmarkList, HttpStatus.OK);
+    }
+
+    @GetMapping("/bookmarkCheck/{parkingId}")
+    public ResponseEntity getBookmarkStatus(@PathVariable long parkingId,
+                                            Authentication authentication) {
+
+        if (authentication != null) {
+            PrincipalDetails principalDetails = getPrincipalDetails(authentication);
+            BookmarkStatusDto bookmarkStatusDto = bookmarkService.checkBookmarkStatus(principalDetails.getUsername(), parkingId);
+            return new ResponseEntity<>(bookmarkStatusDto, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(new BookmarkStatusDto(), HttpStatus.OK);
     }
 
     private PrincipalDetails getPrincipalDetails(Authentication authentication) {
