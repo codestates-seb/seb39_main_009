@@ -1,0 +1,94 @@
+.reservation_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.reservation_header {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.5px solid rgb(204, 204, 204);
+  padding: 20px 20px 35px 20px;
+}
+
+.reservation_header p {
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+.r_closebtn {
+  margin-left: 20px;
+}
+
+.r_closebtn:hover {
+  cursor: pointer;
+}
+
+.reservation_main {
+  width: 100%;
+  height: 70vh;
+  overflow: auto;
+  padding: 20px;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+
+.reservation_inner > div {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 5px 30px 5px;
+}
+
+.reservation_inner p {
+  font-size: 18px;
+}
+.reservation_inner ul {
+  list-style-type: none;
+}
+
+.reservation_inner ul > li {
+  margin-bottom: 3px;
+}
+
+.reservation_inner > div > p {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.reservation_inner > div > div {
+  display: flex;
+  flex-direction: row;
+  margin: 5px;
+}
+
+.reservation_inner > div:nth-child(3) > div > p:nth-child(1) {
+  width: 180px;
+  margin-right: 30px;
+}
+
+.reservation_inner > div > div > p:nth-child(1) {
+  width: 120px;
+}
+
+.reservation_footer {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reservation_footer > button {
+  width: 60%;
+  height: 50px;
+  font-size: 18px;
+}

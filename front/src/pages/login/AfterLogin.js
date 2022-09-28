@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const AfterLogin = () => {
   const navigate = useNavigate();
+
   return (
     <>
       <h1>You are logged in!</h1>

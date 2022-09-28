@@ -20,7 +20,7 @@ const Bookmark = () => {
       ) : (
         <div className="bookmark_container">
           <div className="bookmark_header">
-            <p>즐겨찾기</p>
+            <h2>즐겨찾기</h2>
             <GrClose
               className="closebtn"
               size={22}

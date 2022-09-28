@@ -13,7 +13,7 @@ import Bookmark from "./pages/Bookmark/Bookmark";
 import Mypage from "./pages/mypage/Mypage";
 import Editmypage from "./pages/mypage/Editmypage";
 import ReservationsList from "./pages/ReservationsList/ReservtionsList";
-import Reservation from "./pages/ReservationsList/Reservation";
+import Reservation from "./pages/Reservation/Reservation";
 import Partnership from "./pages/Partnership/Partnership";
 import Question from "./pages/Question/Question";
 import Parkinglot from "./pages/Parkinglot/Parkinglot";
@@ -21,6 +21,7 @@ import ParkingMap from "./pages/Parkinglot/ParkingMap";
 import Review from "./pages/Review/Review";
 import Editreview from "./pages/Review/Editreview";
 import AfterLogin from "./pages/login/AfterLogin";
+import Error from "./component/Error/Error";
 
 function App() {
   const onSilentRefresh = useRefreshToken();
@@ -48,6 +49,7 @@ function App() {
             <div>
               {/* ↓ 아래 main div 안에 페이지 추가해주시면 됩니다. */}
               <Routes>
+                <Route path="/error" element={<Error />} />
                 {/* 로딩컴포넌트 - 임시 메인 */}
                 <Route path="/" element={<HealthCheck />} />
                 {/* 로그인창 */}

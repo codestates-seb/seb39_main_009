@@ -3,6 +3,7 @@ import "./ReservationsList.css";
 import { useNavigate } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
 import { AiOutlineRight } from "react-icons/ai";
+import useDateFormat from "../../hooks/useDateFormat";
 // api 실행시 필요 import
 // import useFetch from "../../useFetch";
 // import Loading from "../../component/Loading/Loading";
@@ -13,24 +14,7 @@ const ReservationsList = () => {
   // console.log(data);
 
   const navigate = useNavigate();
-
-  const DateFormat = (fulldate) => {
-    const putZero = (d) => {
-      if (d.length === 1) {
-        return `0${d}`;
-      } else {
-        return `${d}`;
-      }
-    };
-
-    let year = String(new Date(fulldate).getFullYear());
-    let month = putZero(String(new Date(fulldate).getMonth()));
-    let date = putZero(String(new Date(fulldate).getDate()));
-    let hours = putZero(String(new Date(fulldate).getHours()));
-    let minutes = putZero(String(new Date(fulldate).getMinutes()));
-
-    return `${year}.${month}.${date} ${hours}:${minutes}`;
-  };
+  const dateFormat = useDateFormat();
 
   return (
     // loading 실행 코드
@@ -40,7 +24,7 @@ const ReservationsList = () => {
     //   ) : (
     <div className="rezlist_container">
       <div className="rezlist_header">
-        <p>나의 예약 내역</p>
+        <h2>나의 예약 내역</h2>
         <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
       </div>
       <div className="rezlist_main">
@@ -72,11 +56,11 @@ const ReservationsList = () => {
                 <div className="rez_time">
                   <div>
                     <p>입 차</p>
-                    <p>{DateFormat(item.parkingStartTime)}</p>
+                    <p>{dateFormat(item.parkingStartTime)}</p>
                   </div>
                   <div>
                     <p>출 차</p>
-                    <p>{DateFormat(item.parkingEndTime)}</p>
+                    <p>{dateFormat(item.parkingEndTime)}</p>
                   </div>
                 </div>
               </div>
