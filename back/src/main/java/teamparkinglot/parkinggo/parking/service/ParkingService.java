@@ -52,7 +52,10 @@ public class ParkingService {
 
     public List<Parking> findByCond(ParkingCondDto parkingCondDto) {
 
-        List<Parking> parkings = parkingRepository.testMethod(parkingCondDto.getRegion(), parkingCondDto.getParkingStartTime(), parkingCondDto.getParkingEndTime());
+//        List<Parking> parkings = parkingRepository.testMethod(parkingCondDto.getRegion(), parkingCondDto.getParkingStartTime(), parkingCondDto.getParkingEndTime());
+//        List<Parking> parkings = parkingRepository.testMethod(parkingCondDto.getRegion());
+        List<Parking> parkings = parkingQueryDsl.findParkingOnRegionAndReservationTime(parkingCondDto.getRegion(), parkingCondDto.getParkingStartTime(), parkingCondDto.getParkingEndTime());
+//        List<Parking> parkings = parkingQueryDsl.findByRegion(parkingCondDto.getRegion());
 
         return parkings;
     }
@@ -66,10 +69,6 @@ public class ParkingService {
         return historyRepositoryQueryDsl.findRecentSearch(email);
     }
 
-    /**
-     * 주차장 기본 검색
-     * @param id
-     */
     public Parking findVerifiedParking(long id) {
         return parkingRepository.findById(id).orElseThrow(
                 () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
