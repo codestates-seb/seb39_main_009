@@ -2,7 +2,7 @@ import "./layout.css"; // 레이아웃 CSS 입니다. Don't touch !
 import "./App.css"; // 비어있으니 레이아웃 외 CSS 추가변경 원하시면 이곳에서 수정해주세요 !
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
-import useRefreshToken from "../../hooks/useRefreshToken";
+import useRefreshToken from "./hooks/useRefreshToken";
 import Header from "./component/Header/Header";
 import HealthCheck from "./test/HealthCheck";
 import Loading from "./component/Loading/Loading";
