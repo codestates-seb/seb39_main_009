@@ -2,12 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
-
 function HealthCheck() {
   const navigate = useNavigate();
   const [test, setTest] = useState("");
-  const {id} = useParams()
-
+  const { id } = useParams();
 
   const inputData = { test: test };
 
@@ -29,7 +27,7 @@ function HealthCheck() {
     localStorage.removeItem("authorization");
     localStorage.removeItem("refreshtoken");
     axios.defaults.headers.common[`Authorization`] =
-    localStorage.getItem("authorization");
+      localStorage.getItem("authorization");
     alert("로그아웃");
   };
 
@@ -54,37 +52,33 @@ function HealthCheck() {
         <button onClick={() => navigate("/join")}>회원가입</button>
         <button onClick={() => navigate("/login")}>로그인</button>
         <button onClick={() => navigate("/welcome")}>환영창</button>
-
         {/* <button onClick={() => navigate("/mypage/{id}")}>마이페이지</button> */}
-
-        <button onClick={(localStorage.getItem("authorization"))?
-        () => navigate("/mypage/{id}"):
-        () => navigate("/join")}>마이페이지</button>
-
+        <button
+          onClick={
+            localStorage.getItem("authorization")
+              ? () => navigate("/mypage/{id}")
+              : () => navigate("/join")
+          }
+        >
+          마이페이지
+        </button>
         <button onClick={handlelogOut}>로그아웃</button>
-        <button onClick={()=>navigate(`/parking/{pkId}/review`)}>리뷰페이지</button>
-        <button onClick={()=>navigate(`/parking/{pkId}/review/write`)}>리뷰작성페이지</button>
+        <button onClick={() => navigate(`/parking/{pkId}/review`)}>
+          리뷰페이지
+        </button>
+        <button onClick={() => navigate(`/parking/{pkId}/review/write`)}>
+          리뷰작성페이지
+        </button>
         {/* 이거 왜 안되지? */}
-        <Link to = {`/mypage/${id}/edit`}><button>개인정보수정/안나님 이거 안돼요ㅜ</button></Link> 
-        
-
-
+        <Link to={`/mypage/${id}/edit`}>
+          <button>개인정보수정/안나님 이거 안돼요ㅜ</button>
+        </Link>
       </div>
       <br />
       <div>
         <br />
         페이지 체크용 연결 버튼 (안나)
         <br />
-        <button onClick={() => navigate(`/loading`)}>로딩컴포넌트</button>
-        <button onClick={() => navigate(`/agmtconf/service`)}>
-          서비스이용약관
-        </button>
-        <button onClick={() => navigate(`/agmtconf/psinfo`)}>
-          개인정보처리방침
-        </button>
-        <button onClick={() => navigate(`/agmtconf/event`)}>
-          마케팅정보수신동의
-        </button>
         <button onClick={() => navigate(`/notice`)}>공지사항</button>
         <button onClick={() => navigate(`/bookmark`)}>즐겨찾기</button>
         <button onClick={() => navigate(`/reservation`)}>예약목록</button>

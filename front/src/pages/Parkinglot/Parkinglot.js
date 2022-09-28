@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "../../apis/axios";
+import { axiosPrivate } from "../../apis/axios";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import "./Parkinglot.css";
@@ -18,14 +18,14 @@ const Parkinglot = () => {
 
   // 즐겨찾기 활성화 : onClick시 즐겨찾기 post요청 + 즐겨찾기 state true
   const handleOnBookmark = () => {
-    axios.post(`/bookmark`, { id: pkId }).catch((err) => {
+    axiosPrivate.post(`/bookmark`, { id: pkId }).catch((err) => {
       console.log(`bookmarkOnErr : ${err}`);
     });
     setBookmark(true);
   };
   // 즐겨찾기 비활성화 : onClick시 즐겨찾기 post요청 + 즐겨찾기 state false
   const handleOffBookmark = () => {
-    axios.delete(`/bookmark/${pkId}`).catch((err) => {
+    axiosPrivate.delete(`/bookmark/${pkId}`).catch((err) => {
       console.log(`bookmarkOffErr : ${err}`);
     });
     setBookmark(false);
