@@ -16,7 +16,7 @@ const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
     navigate(`/`);
   };
 
-  const { data } = useFetch(`/api/member`);
+  const { data } = useFetch(`/member`);
 
   return (
     <>

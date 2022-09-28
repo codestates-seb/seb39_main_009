@@ -50,6 +50,7 @@ const Login = () => {
       setSuccess(true);
       setTimeout(onSilentRefresh, 360000); // 1시간
       navigate("/");
+      window.location.reload();
     } catch (err) {
       console.log(err?.response.data.message);
       setErrMsg(err?.response.data.message);
