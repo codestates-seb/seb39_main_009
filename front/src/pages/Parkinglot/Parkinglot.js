@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import useFetch from "../../useFetch";
+import useFetch from "../../hooks/useFetch";
 import "./Parkinglot.css";
 import RandomImg from "../../assets/parkinglot/RandomImg";
 import { AiOutlineLeft, AiFillStar, AiOutlineStar } from "react-icons/ai";

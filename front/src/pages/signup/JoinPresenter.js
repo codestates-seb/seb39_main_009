@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiOutlineRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../apis/axios";
 import ServiceTermModal from "../../component/Modal/Term/ServiceTermModal";
 import PsInfoTermModal from "../../component/Modal/Term/PsInfoTermModal";
 import EventTermModal from "../../component/Modal/Term/EventTermModal";
@@ -35,9 +35,9 @@ function JoinPresenter(props) {
   const password = props.checkpassword;
   const carNumber = props.carnumber;
   const phoneNum = props.phonenumber;
-  const isName = props.isName
-  const isPassword = props.isPassword
-  const isPasswordConfirm =props.isPasswordConfirm
+  const isName = props.isName;
+  const isPassword = props.isPassword;
+  const isPasswordConfirm = props.isPasswordConfirm;
 
   const [massage, setMassage] = useState("");
 
@@ -191,7 +191,17 @@ function JoinPresenter(props) {
               !(ageCheck && useCheck) ? "submit_bt btgrey" : "submit_bt"
             }
             onClick={registeraxios}
-            disabled={!(isName && isPassword && isPasswordConfirm && ageCheck &&useCheck) ? true : false}
+            disabled={
+              !(
+                isName &&
+                isPassword &&
+                isPasswordConfirm &&
+                ageCheck &&
+                useCheck
+              )
+                ? true
+                : false
+            }
           >
             회원가입
           </button>
