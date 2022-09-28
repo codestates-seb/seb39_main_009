@@ -48,4 +48,23 @@ public class ReviewController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PatchMapping("/reviews/{parkingId}")
+    public ResponseEntity patchReview(@PathVariable long parkingId,
+                                      @RequestBody ReviewPostDto reviewPostDto,
+                                      Authentication authentication) {
+
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        reviewService.editReview(principal.getUsername(), parkingId, reviewPostDto.getStar(), reviewPostDto.getBody());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/reviews/{parkingId}")
+    public ResponseEntity deleteReview(@PathVariable long parkingId,
+                                       Authentication authentication) {
+
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        reviewService.deleteReview(principal.getUsername(), parkingId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

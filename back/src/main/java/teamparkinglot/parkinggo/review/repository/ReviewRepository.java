@@ -14,6 +14,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     @Query("select r from Review r join fetch r.member join fetch r.parking where r.parking.id = :parkingId order by r.createdDate desc")
     List<Review> findReviewsByParkingOrderByCreatedDateDesc(@Param("parkingId") Long parkingId);
 
-    @Query("select r from Review r where r.member.id = :memberId and r.parking.id = :parkingId")
-    Optional<Review> findByMemberIdAndParkingId(@Param("memberId") Long memberId, @Param("parkingId") long parkingId);
+    @Query("select r from Review r where r.member.email = :email and r.parking.id = :parkingId")
+    Optional<Review> findByMemberEmailAndParkingId(@Param("email") String email, @Param("parkingId") long parkingId);
 }

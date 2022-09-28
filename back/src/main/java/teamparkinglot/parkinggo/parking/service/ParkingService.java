@@ -62,11 +62,11 @@ public class ParkingService {
         );
     }
 
-    public ParkingMapDto findMap(long id) {
+    public ParkingMapDto findMap(long id, SelectTimeDto selectTimeDto) {
 
         Parking parking = findVerifiedParking(id);
 
-        List<ValidNum> validNums = parkingPlaceRepository.findByParkingId(parking.getId()).stream()
+        List<ValidNum> validNums = parkingPlaceRepository.findByParkingId(parking.getId(), selectTimeDto.getParkingStartTime(), selectTimeDto.getParkingEndTime()).stream()
                 .map(e -> new ValidNum(e.getNumber()))
                 .collect(Collectors.toList());
 

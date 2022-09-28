@@ -1,6 +1,7 @@
 package teamparkinglot.parkinggo.parking.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Slf4j
 public class ParkingController {
 
     private final ParkingService parkingService;
@@ -42,9 +44,13 @@ public class ParkingController {
     }
 
     @GetMapping("/parking/{id}/reservation")
-    public ResponseEntity parkingMap(@PathVariable long id) {
+    public ResponseEntity parkingMap(@PathVariable long id,
+                                     @RequestParam("parkingStartDateTime") String parkingStartDateTime,
+                                     @RequestParam("parkingEndDateTime") String parkingEndDateTime) {
 
-        ParkingMapDto map = parkingService.findMap(id);
+        SelectTimeDto selectTimeDto = new SelectTimeDto(parkingStartDateTime, parkingEndDateTime);
+
+        ParkingMapDto map = parkingService.findMap(id, selectTimeDto);
 
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
@@ -78,7 +84,7 @@ public class ParkingController {
                                         @RequestParam("crtLocation") String crtLocation) {
 
         ParkingCondDto parkingCondDto = new ParkingCondDto(region, parkingStartDateTime, parkingEndDateTime, sort, crtLocation);
-        System.out.println("parkingCondDto = " + parkingCondDto.getRegion());
+        log.info("parkingCondDto = " + parkingCondDto.getRegion());
 
         List<Parking> byCond = parkingService.findByCond(parkingCondDto);
         List<ParkingResDto> collect = byCond.stream()
