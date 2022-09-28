@@ -6,7 +6,6 @@ import { AiOutlineRight } from "react-icons/ai";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import useFetch from "../../hooks/useFetch";
-useFetch;
 
 const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
   const sidebarBackRef = useRef();

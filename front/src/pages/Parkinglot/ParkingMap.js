@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useFetch from "../../useFetch";
+import useFetch from "../../hooks/useFetch";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import "./Parkinglot.css";
 import { AiOutlineLeft } from "react-icons/ai";
