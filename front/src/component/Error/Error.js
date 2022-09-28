@@ -1,6 +1,8 @@
-import React from "react";
-import "./Error.css";
+// react-icons
 import { BiMessageError } from "react-icons/bi";
+
+import "./Error.css";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Error = () => {

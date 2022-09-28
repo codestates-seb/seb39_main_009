@@ -1,27 +1,29 @@
-import React from "react";
-import "./ReservationsList.css";
-import { useNavigate } from "react-router-dom";
+// react-icons
 import { GrClose } from "react-icons/gr";
 import { AiOutlineRight } from "react-icons/ai";
+
+import "./ReservationsList.css";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import useDateFormat from "../../hooks/useDateFormat";
-// api 실행시 필요 import
-// import useFetch from "../../useFetch";
-// import Loading from "../../component/Loading/Loading";
+import useFetch from "../../hooks/useFetch";
+import Loading from "../../component/Loading/Loading";
+import Error from "../../component/Error/Error";
 
 const ReservationsList = () => {
-  // api 실행 코드
-  // const { data, loading } = useFetch(`/api/member/reservation`);
-  // console.log(data);
-
   const navigate = useNavigate();
   const dateFormat = useDateFormat();
 
+  const { data, loading, error } = useFetch(`/member/reservation`);
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error />;
+  }
+
   return (
-    // loading 실행 코드
-    // <>
-    //   {loading ? (
-    //     <Loading />
-    //   ) : (
     <div className="rezlist_container">
       <div className="rezlist_header">
         <h2>나의 예약 내역</h2>
@@ -30,7 +32,13 @@ const ReservationsList = () => {
       <div className="rezlist_main">
         {data &&
           data.map((item) => (
-            <div className="single_rez" key={item.reservNum}>
+            <div
+              className="single_rez"
+              key={item.reservNum}
+              onClick={() => {
+                navigate(`/reservation/${item.reservNum}`);
+              }}
+            >
               <div className="single_rez_header">
                 <p>{item.name}</p>
                 <div>
@@ -68,27 +76,7 @@ const ReservationsList = () => {
           ))}
       </div>
     </div>
-    //   )}
-    // </>
   );
 };
 
 export default ReservationsList;
-
-// api 실행 후 삭제 필요
-const data = [
-  {
-    name: "안나주차장",
-    number: 2,
-    reservNum: 4,
-    parkingStartTime: "2022-09-25T15:30:00",
-    parkingEndTime: "2022-09-25T17:30:00",
-  },
-  {
-    name: "우종주차장",
-    number: 3,
-    reservNum: 1,
-    parkingStartTime: "2022-09-26T10:00:00",
-    parkingEndTime: "2022-09-26T13:30:00",
-  },
-];

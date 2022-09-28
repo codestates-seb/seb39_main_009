@@ -82,9 +82,6 @@ function HealthCheck() {
         <button onClick={() => navigate(`/notice`)}>공지사항</button>
         <button onClick={() => navigate(`/bookmark`)}>즐겨찾기</button>
         <button onClick={() => navigate(`/reservation`)}>예약목록</button>
-        <button onClick={() => navigate(`/reservation/id`)}>
-          예약상세조회
-        </button>
         <button onClick={() => navigate(`/parking/1`)}>
           주차장정보(지도구현)
         </button>

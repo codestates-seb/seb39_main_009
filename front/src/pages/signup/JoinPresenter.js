@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+// react-icons
 import { AiOutlineRight } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+
+import "./Signup.css";
 import axios from "../../apis/axios";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ServiceTermModal from "../../component/Modal/Term/ServiceTermModal";
 import PsInfoTermModal from "../../component/Modal/Term/PsInfoTermModal";
 import EventTermModal from "../../component/Modal/Term/EventTermModal";
@@ -45,7 +48,7 @@ function JoinPresenter(props) {
     event.preventDefault();
     axios
       .post(
-        "/api/join",
+        "/join",
         {
           name: name,
           email: email,
@@ -59,7 +62,6 @@ function JoinPresenter(props) {
         { withCredentials: true }
       )
       .then((response) => {
-        console.log(response);
         alert("회원가입성공");
         if (response.status === 201) {
           return navigate("/welcome");
@@ -155,6 +157,7 @@ function JoinPresenter(props) {
               id="check2"
               checked={useCheck}
               onChange={useBtnEvent}
+              required
             />
             <label htmlFor="check2">개인 정보 수집 및 이용약관 (필수)</label>
             <AiOutlineRight
@@ -173,6 +176,7 @@ function JoinPresenter(props) {
               id="check3"
               checked={marketingCheck}
               onChange={marketingBtnEvent}
+              required
             />
             <label htmlFor="check3">이벤트 / 마케팅 수신동의 (선택)</label>
             <AiOutlineRight

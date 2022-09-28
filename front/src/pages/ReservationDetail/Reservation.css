@@ -76,6 +76,7 @@
 
 .reservation_inner > div > div > p:nth-child(1) {
   width: 120px;
+  color: rgb(132, 132, 132);
 }
 
 .reservation_footer {

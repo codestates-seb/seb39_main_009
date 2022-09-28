@@ -1,3 +1,4 @@
+import "../../pages/ReservationDetail/Reservation.css";
 import React from "react";
 
 const ReservationCaution = () => {

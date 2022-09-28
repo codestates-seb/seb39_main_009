@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
 import { axiosPrivate } from "../apis/axios";
+import { useEffect, useState } from "react";
 
 const useFetch = (url) => {
   const [data, setData] = useState({});
@@ -12,7 +12,6 @@ const useFetch = (url) => {
       .get(url)
       .then((response) => {
         setData(response.data);
-        console.log("connect!"); // 삭제 필요
       })
       .catch((err) => {
         setError(err);

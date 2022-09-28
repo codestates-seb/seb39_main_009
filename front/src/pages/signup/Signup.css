@@ -42,6 +42,12 @@
   margin-left: 25px;
 }
 
+.signup_main span {
+  margin-top: 5px;
+  font-size: 14px;
+  color: red;
+}
+
 .signup_input {
   /* border: 1px solid black; */
   margin-bottom: 20px;

@@ -1,6 +1,8 @@
-import React from "react";
-import "./Loading.css";
+// react-icons
 import { FaCar } from "react-icons/fa";
+
+import "./Loading.css";
+import React from "react";
 
 const Loading = () => {
   return (

@@ -1,10 +1,12 @@
-import React from "react";
-import "./Header.css";
+// react-icons
 import { FiMenu } from "react-icons/fi";
-import SideBar from "./SideBar";
-import { useState } from "react";
+
+import "./Header.css";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useRefreshToken from "../../hooks/useRefreshToken";
+import SideBarAfter from "./SideBarAfter";
+import SideBarBefore from "./SideBarBefore";
 
 const Header = ({ handlelogOut }) => {
   const navigate = useNavigate();
@@ -27,12 +29,20 @@ const Header = ({ handlelogOut }) => {
         This is Header(Home)
       </p>
       <div className={show ? "side_active" : "side_hide"}>
-        <SideBar
-          show={show}
-          setShow={setShow}
-          handleSideClose={handleSideClose}
-          handlelogOut={handlelogOut}
-        />
+        {localStorage.authorization ? (
+          <SideBarAfter
+            show={show}
+            setShow={setShow}
+            handleSideClose={handleSideClose}
+            handlelogOut={handlelogOut}
+          />
+        ) : (
+          <SideBarBefore
+            show={show}
+            setShow={setShow}
+            handleSideClose={handleSideClose}
+          />
+        )}
       </div>
       <button onClick={() => onSilentRefresh()}>리프레시토큰</button>
     </div>

@@ -15,7 +15,6 @@ const useRefreshToken = () => {
       }
     );
     console.log("리프레시 토큰 연장!"); // 삭제 필요
-    console.log(response); // 삭제 필요
     const newAuthorization = response.headers.authorization;
     localStorage.setItem("authorization", newAuthorization);
     return newAuthorization;

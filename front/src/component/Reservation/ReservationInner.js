@@ -1,9 +1,9 @@
+import "../../pages/ReservationDetail/Reservation.css";
 import React from "react";
 import useGetTime from "../../hooks/useGetTime";
 import useDateFormat from "../../hooks/useDateFormat";
-import "./../../pages/Reservation/Reservation.css";
 
-const ReservationInner = () => {
+const ReservationInner = ({ data }) => {
   const dateFormat = useDateFormat();
   const getTime = useGetTime();
 
@@ -12,7 +12,7 @@ const ReservationInner = () => {
       <div>
         <p>예약자 정보</p>
         <div>
-          <p>예약</p>
+          <p>예약자</p>
           <p>{data.email}</p>
         </div>
         <div>
@@ -57,14 +57,3 @@ const ReservationInner = () => {
 };
 
 export default ReservationInner;
-
-const data = {
-  email: "jomj2214@gmail.com",
-  phoneNumber: "010-8282-8282",
-  reservationNumber: "1",
-  parkingName: "가짜주차장",
-  parkingPlaceNumber: " 1",
-  price: 1000,
-  parkingStartDateTime: "2022-11-09T09:00:00",
-  parkingEndDateTime: "2022-11-09T10:00:00",
-};

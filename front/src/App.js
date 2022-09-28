@@ -13,20 +13,16 @@ import Bookmark from "./pages/Bookmark/Bookmark";
 import Mypage from "./pages/mypage/Mypage";
 import Editmypage from "./pages/mypage/Editmypage";
 import ReservationsList from "./pages/ReservationsList/ReservtionsList";
-import Reservation from "./pages/Reservation/Reservation";
+import Reservation from "./pages/ReservationDetail/Reservation";
 import Partnership from "./pages/Partnership/Partnership";
 import Question from "./pages/Question/Question";
 import Parkinglot from "./pages/Parkinglot/Parkinglot";
 import ParkingMap from "./pages/Parkinglot/ParkingMap";
 import Review from "./pages/Review/Review";
 import Editreview from "./pages/Review/Editreview";
-import AfterLogin from "./pages/login/AfterLogin";
-import Error from "./component/Error/Error";
 
 function App() {
   const onSilentRefresh = useRefreshToken();
-
-  // 새로고침시에도 OnSilentRefresh함수가 작동할 수 있게 만드는 것
   useEffect(() => {
     setInterval(onSilentRefresh, 360000);
   });
@@ -52,19 +48,9 @@ function App() {
                 {/* 로딩컴포넌트 - 임시 메인 */}
                 <Route path="/" element={<HealthCheck />} />
                 {/* 로그인창 */}
-                <Route
-                  path="/login"
-                  element={
-                    !localStorage.authorization ? <Login /> : <AfterLogin />
-                  }
-                />
+                <Route path="/login" element={<Login />} />
                 {/* 회원가입창 */}
-                <Route
-                  path="/join"
-                  element={
-                    !localStorage.authorization ? <SignUp /> : <AfterLogin />
-                  }
-                />
+                <Route path="/join" element={<SignUp />} />
                 {/* 개인정보수정페이지 */}
                 <Route path="/mypage/:id/edit" element={<Editmypage />} />
                 {/* welcome창 */}

@@ -1,10 +1,17 @@
-import React, { useState } from "react";
-import "./Notice.css";
+// react-icons
 import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
+
+import "./Notice.css";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import useDateFormat from "../../hooks/useDateFormat";
+import Loading from "../../component/Loading/Loading";
+import Error from "../../component/Error/Error";
 
 const Notice = () => {
+  const dateFormat = useDateFormat();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(null);
 
@@ -14,6 +21,15 @@ const Notice = () => {
     }
     setIsOpen(i);
   };
+
+  const { data, loading, error } = useFetch(`/notice`);
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <div className="notice_container">
@@ -38,7 +54,7 @@ const Notice = () => {
                     ? `긴급공지`
                     : `이벤트`
                 }] ${notice.title}`}</div>
-                <div className="date">{notice.created_date.substr(0, 10)}</div>
+                <div className="date">{dateFormat(notice.createdDate)}</div>
                 <div className="arrowicon">
                   {isOpen === i ? (
                     <AiOutlineUp size={20} />
@@ -62,25 +78,3 @@ const Notice = () => {
 };
 
 export default Notice;
-
-const data = [
-  {
-    type: "EVENT",
-    title:
-      "이벤트 Elit do dolore qui consectetur est commodo proident quis voluptate qui ullamco.",
-    created_date: "2022-09-15T15:36:58",
-    body: "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. Duis dolore minim magna minim enim nisi voluptate id. Minim cupidatat exercitation esse eiusmod nulla veniam do aliquip culpa. Nostrud labore do ea aliqua incididunt mollit incididunt ullamco et. Laborum incididunt anim eiusmod eu consectetur proident velit. Dolore cupidatat consectetur veniam pariatur officia tempor exercitation.",
-  },
-  {
-    type: "NORMAL",
-    title: "공지사항",
-    created_date: "2022-09-15T15:36:58",
-    body: "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. ",
-  },
-  {
-    type: "EMERGENCY",
-    title: "긴급공지사항",
-    created_date: "2022-09-15T15:36:58",
-    body: "Exercitation non enim veniam eiusmod nostrud ex deserunt dolore non ad esse aliquip. Ullamco labore anim aliqua ipsum. Duis dolore minim magna minim enim nisi voluptate id. Minim cupidatat exercitation esse eiusmod nulla veniam do aliquip culpa. Nostrud labore do ea aliqua incididunt mollit incididunt ullamco et.",
-  },
-];
