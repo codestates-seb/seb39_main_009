@@ -1,29 +1,26 @@
-package teamparkinglot.parkinggo.history;
+package teamparkinglot.parkinggo.member.uuid;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import teamparkinglot.parkinggo.member.entity.Member;
-import teamparkinglot.parkinggo.parking.entity.Parking;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class History {
+public class Uuid {
 
     @Id @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     private Member member;
+    private String uuid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Parking parking;
-
-    public History(Member member, Parking parking) {
+    public Uuid(Member member, String uuid) {
         this.member = member;
-        this.parking = parking;
+        this.uuid = uuid;
     }
 }

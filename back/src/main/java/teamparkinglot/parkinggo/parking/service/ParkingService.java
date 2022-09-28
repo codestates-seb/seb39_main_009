@@ -1,16 +1,10 @@
 package teamparkinglot.parkinggo.parking.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
-import teamparkinglot.parkinggo.history.History;
-import teamparkinglot.parkinggo.history.HistoryRepository;
-import teamparkinglot.parkinggo.history.HistoryRepositoryQueryDsl;
+import teamparkinglot.parkinggo.history.repository.HistoryRepositoryQueryDsl;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.member.service.MemberService;
@@ -25,12 +19,10 @@ import teamparkinglot.parkinggo.parking_place.ParkingPlaceRepository;
 import teamparkinglot.parkinggo.reservation.entity.Reservation;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
 import teamparkinglot.parkinggo.reservation.service.ReservationService;
-import teamparkinglot.parkinggo.review.repository.ReviewRepository;
 import teamparkinglot.parkinggo.test.DbDto;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,22 +44,17 @@ public class ParkingService {
 
     public List<Parking> findByCond(ParkingCondDto parkingCondDto) {
 
-//        List<Parking> parkings = parkingRepository.testMethod(parkingCondDto.getRegion(), parkingCondDto.getParkingStartTime(), parkingCondDto.getParkingEndTime());
-//        List<Parking> parkings = parkingRepository.testMethod(parkingCondDto.getRegion());
         List<Parking> parkings = parkingQueryDsl.findParkingOnRegionAndReservationTime(parkingCondDto.getRegion(), parkingCondDto.getParkingStartTime(), parkingCondDto.getParkingEndTime());
-//        List<Parking> parkings = parkingQueryDsl.findByRegion(parkingCondDto.getRegion());
+
+        if (parkings.size() < 10) {
+            List<Parking> parkingButNotPartnerShip = parkingQueryDsl.findParkingOnRegionButPartnerShipIsNot(parkingCondDto.getRegion());
+            parkings.addAll(parkingButNotPartnerShip);
+        }
 
         return parkings;
     }
 
-    public List<ParkingRecentDto> findRecentSearches(String email) {
 
-        if (email == null) {
-            return new ArrayList<>();
-        }
-
-        return historyRepositoryQueryDsl.findRecentSearch(email);
-    }
 
     public Parking findVerifiedParking(long id) {
         return parkingRepository.findById(id).orElseThrow(

@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.uuid;
+package teamparkinglot.parkinggo.history.entity;
 
 import static com.querydsl.core.types.PathMetadataFactory.*;
 
@@ -11,42 +11,43 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QUuid is a Querydsl query type for Uuid
+ * QHistory is a Querydsl query type for History
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QUuid extends EntityPathBase<Uuid> {
+public class QHistory extends EntityPathBase<History> {
 
-    private static final long serialVersionUID = -1715831512L;
+    private static final long serialVersionUID = 1772505417L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QUuid uuid1 = new QUuid("uuid1");
+    public static final QHistory history = new QHistory("history");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final teamparkinglot.parkinggo.member.entity.QMember member;
 
-    public final StringPath uuid = createString("uuid");
+    public final teamparkinglot.parkinggo.parking.entity.QParking parking;
 
-    public QUuid(String variable) {
-        this(Uuid.class, forVariable(variable), INITS);
+    public QHistory(String variable) {
+        this(History.class, forVariable(variable), INITS);
     }
 
-    public QUuid(Path<? extends Uuid> path) {
+    public QHistory(Path<? extends History> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QUuid(PathMetadata metadata) {
+    public QHistory(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QUuid(PathMetadata metadata, PathInits inits) {
-        this(Uuid.class, metadata, inits);
+    public QHistory(PathMetadata metadata, PathInits inits) {
+        this(History.class, metadata, inits);
     }
 
-    public QUuid(Class<? extends Uuid> type, PathMetadata metadata, PathInits inits) {
+    public QHistory(Class<? extends History> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.member = inits.isInitialized("member") ? new teamparkinglot.parkinggo.member.entity.QMember(forProperty("member")) : null;
+        this.parking = inits.isInitialized("parking") ? new teamparkinglot.parkinggo.parking.entity.QParking(forProperty("parking"), inits.get("parking")) : null;
     }
 
 }

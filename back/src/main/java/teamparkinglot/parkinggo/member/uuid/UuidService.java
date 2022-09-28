@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.uuid;
+package teamparkinglot.parkinggo.member.uuid;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;

@@ -1,6 +1,7 @@
 package teamparkinglot.parkinggo.parking.repository;
 
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 import teamparkinglot.parkinggo.parking.dto.ParkingCondDto;
@@ -26,31 +27,37 @@ public class ParkingQueryDsl {
         this.query = new JPAQueryFactory(em);
     }
 
-    public List<Parking> findByRegion(String region) {
+    public List<Parking> findParkingOnRegionAndReservationTime(String region, LocalDateTime parkingStartTime, LocalDateTime parkingEndTime) {
 
         BooleanBuilder builder = new BooleanBuilder();
 
-        builder.and(parking.address.parcel.like("%" + region + "%"));
+        builder.and(parking.address.parcel.contains(region).or(parking.address.street.contains(region)))
+                .and(parkingPlace.id.notIn(
+                        JPAExpressions
+                                .select(parkingPlace.id).distinct()
+                                .from(reservation)
+                                .rightJoin(reservation.parkingPlace, parkingPlace)
+                                .where(reservation.parkingStartDateTime.between(parkingStartTime, parkingEndTime)
+                                        .or(reservation.parkingEndDateTime.between(parkingStartTime, parkingEndTime)))));
+
+        return query.select(parking).distinct()
+                .from(parkingPlace)
+                .leftJoin(parkingPlace.parking, parking)
+                .where(builder)
+                .orderBy(parking.partnership.desc())
+                .fetch();
+    }
+
+    public List<Parking> findParkingOnRegionButPartnerShipIsNot(String region) {
+
+        BooleanBuilder builder = new BooleanBuilder();
+        builder.and(parking.address.parcel.contains(region).or(parking.address.street.contains(region)))
+                .and(parking.partnership.isFalse());
 
         return query.select(parking)
                 .from(parking)
                 .where(builder)
-                .fetch();
-    }
-
-    public List<Parking> findParkingOnRegionAndReservationTime(String region, LocalDateTime parkingStartTime, LocalDateTime parkingEndTime) {
-
-        BooleanBuilder builder = new BooleanBuilder();
-        builder.and(parking.address.parcel.like("%" + region + "%").or(parking.address.street.like("%" + region + "%")))
-                .and(reservation.isNull().or(reservation.parkingStartDateTime.notBetween(parkingStartTime, parkingEndTime).and(reservation.parkingEndDateTime.notBetween(parkingStartTime, parkingEndTime))));
-
-
-        return query.select(parking).distinct()
-                .from(reservation)
-                .rightJoin(reservation.parkingPlace, parkingPlace)
-                .leftJoin(parkingPlace.parking, parking)
-                .where(builder)
-                .orderBy(parking.partnership.desc())
+                .limit(10)
                 .fetch();
     }
 }

@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.uuid;
+package teamparkinglot.parkinggo.member.uuid;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

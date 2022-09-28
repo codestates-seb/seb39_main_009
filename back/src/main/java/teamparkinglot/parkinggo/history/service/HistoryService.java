@@ -5,13 +5,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
-import teamparkinglot.parkinggo.history.History;
-import teamparkinglot.parkinggo.history.HistoryRepository;
+import teamparkinglot.parkinggo.history.entity.History;
+import teamparkinglot.parkinggo.history.repository.HistoryRepository;
+import teamparkinglot.parkinggo.history.repository.HistoryRepositoryQueryDsl;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.service.MemberService;
+import teamparkinglot.parkinggo.parking.dto.ParkingRecentDto;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.service.ParkingService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,6 +24,7 @@ import java.util.Optional;
 public class HistoryService {
 
     private final HistoryRepository historyRepository;
+    private final HistoryRepositoryQueryDsl historyRepositoryQueryDsl;
     private final MemberService memberService;
     private final ParkingService parkingService;
 
@@ -38,6 +43,15 @@ public class HistoryService {
         History history = new History(member, parking);
 
         historyRepository.save(history);
+    }
+
+    public List<ParkingRecentDto> findRecentSearches(String email) {
+
+        if (email == null) {
+            return new ArrayList<>();
+        }
+
+        return historyRepositoryQueryDsl.findRecentSearch(email);
     }
 
 }

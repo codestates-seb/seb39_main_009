@@ -1,28 +1,19 @@
 package teamparkinglot.parkinggo.parking.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
-import teamparkinglot.parkinggo.exception.BusinessException;
-import teamparkinglot.parkinggo.exception.ExceptionCode;
-import teamparkinglot.parkinggo.history.History;
-import teamparkinglot.parkinggo.history.HistoryRepository;
 import teamparkinglot.parkinggo.history.service.HistoryService;
 import teamparkinglot.parkinggo.parking.dto.*;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.mapper.ParkingMapper;
 import teamparkinglot.parkinggo.parking.service.ParkingService;
 import teamparkinglot.parkinggo.reservation.service.ReservationService;
-import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 @RestController
@@ -76,21 +67,6 @@ public class ParkingController {
         reservationService.reservationPaymentCheck(id);
 
         return new ResponseEntity<>(reservation, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/history")
-    public ResponseEntity searchHistory(Authentication authentication) {
-
-        String email = null;
-
-        if (authentication != null) {
-            PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-            email = principalDetails.getUsername();
-        }
-
-        List<ParkingRecentDto> recentSearches = parkingService.findRecentSearches(email);
-
-        return new ResponseEntity<>(recentSearches, HttpStatus.OK);
     }
 
     @GetMapping("/parking")

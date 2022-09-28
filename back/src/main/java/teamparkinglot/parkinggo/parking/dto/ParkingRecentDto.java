@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ParkingRecentDto {
 
+    private long parkingId;
     private String parkingName;
     private String address;
 
