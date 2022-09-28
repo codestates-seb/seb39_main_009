@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../../useFetch";
+import useFetch from "../../hooks/useFetch";
 import "./Bookmark.css";
 import RandomImg from "../../assets/parkinglot/RandomImg";
 import { GrClose } from "react-icons/gr";

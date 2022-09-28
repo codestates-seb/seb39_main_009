@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../../useFetch";
 import "./SideBar.css";
 import { GrClose } from "react-icons/gr";
 import { AiOutlineRight } from "react-icons/ai";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
+import useFetch from "../../hooks/useFetch";
+useFetch;
 
 const SideBar = ({ show, setShow, handleSideClose, handlelogOut }) => {
   const sidebarBackRef = useRef();

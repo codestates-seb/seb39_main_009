@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-
-axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}`;
-axios.defaults.headers.common[`Authorization`] =
-  localStorage.getItem("authorization");
+import { axiosPrivate } from "../apis/axios";
 
 const useFetch = (url) => {
   const [data, setData] = useState({});
@@ -12,14 +8,11 @@ const useFetch = (url) => {
 
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(url, {
-        // headers: { Authorization: localStorage.getItem("authorization") },
-        withCredentials: true,
-      })
+    axiosPrivate
+      .get(url)
       .then((response) => {
         setData(response.data);
-        console.log("connect!");
+        console.log("connect!"); // 삭제 필요
       })
       .catch((err) => {
         setError(err);

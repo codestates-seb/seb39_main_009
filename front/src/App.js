@@ -1,6 +1,8 @@
 import "./layout.css"; // 레이아웃 CSS 입니다. Don't touch !
 import "./App.css"; // 비어있으니 레이아웃 외 CSS 추가변경 원하시면 이곳에서 수정해주세요 !
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import useRefreshToken from "../../hooks/useRefreshToken";
 import Header from "./component/Header/Header";
 import HealthCheck from "./test/HealthCheck";
 import Loading from "./component/Loading/Loading";
@@ -21,6 +23,13 @@ import Review from "./pages/Review/Review";
 import Editreview from "./pages/Review/Editreview";
 
 function App() {
+  const onSilentRefresh = useRefreshToken();
+
+  // 새로고침시에도 OnSilentRefresh함수가 작동할 수 있게 만드는 것
+  useEffect(() => {
+    setInterval(onSilentRefresh, 360000);
+  });
+
   // 로그아웃
   const handlelogOut = () => {
     localStorage.removeItem("authorization");
