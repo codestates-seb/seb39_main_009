@@ -18,7 +18,6 @@ const Mypage = () => {
     fetch(`${process.env.REACT_APP_BASE_URL}/api/member`, {
       headers: {
         authorization: localStorage.getItem("authorization"),
-        withCredentials: true,
       },
     })
       .then((response) => {
