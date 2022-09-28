@@ -49,7 +49,6 @@ function App() {
             <div>
               {/* ↓ 아래 main div 안에 페이지 추가해주시면 됩니다. */}
               <Routes>
-                <Route path="/error" element={<Error />} />
                 {/* 로딩컴포넌트 - 임시 메인 */}
                 <Route path="/" element={<HealthCheck />} />
                 {/* 로그인창 */}

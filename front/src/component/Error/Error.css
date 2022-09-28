@@ -1,0 +1,32 @@
+.error_container {
+  height: 100vh;
+}
+
+.errorIcon {
+  color: rgb(77, 77, 77);
+  margin-top: 30%;
+}
+
+.error_main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.error_main h1 {
+  color: rgb(77, 77, 77);
+}
+
+.error_main > div {
+  margin-top: 20px;
+}
+
+.gobacklink {
+  color: blue;
+}
+
+.gobacklink:hover {
+  cursor: pointer;
+}
