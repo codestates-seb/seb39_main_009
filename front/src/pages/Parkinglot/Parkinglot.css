@@ -70,3 +70,47 @@
 .parkingmap_main > div:nth-child(1) > p:nth-child(1) {
   font-weight: 700;
 }
+
+.pkIconInfo > p,
+.pkIconDc > p {
+  padding: 5px;
+  margin-top: 10px;
+}
+
+.pkIconInfo_container {
+  border-top: 0.5px solid;
+  width: 320px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+}
+
+.pkIconInfo_container > div {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  text-align: center;
+  color: gray;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.pkIconDc_container {
+  border-top: 0.5px solid;
+  width: 320px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: baseline;
+}
+
+.pkIconDc_container > div {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  text-align: center;
+  color: gray;
+  font-weight: 500;
+  margin-bottom: 10px;
+}

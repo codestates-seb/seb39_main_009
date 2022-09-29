@@ -5,7 +5,7 @@ import "./Parkinglot.css";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { Map, MapMarker } from "react-kakao-maps-sdk"; //카카오 지도 미들웨어
 import Loading from "../../component/Loading/Loading";
 import Error from "../../component/Error/Error";
 
