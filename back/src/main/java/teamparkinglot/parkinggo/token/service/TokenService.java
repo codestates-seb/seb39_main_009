@@ -2,8 +2,8 @@ package teamparkinglot.parkinggo.token.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import teamparkinglot.parkinggo.exception.BusinessException;
-import teamparkinglot.parkinggo.exception.ExceptionCode;
+import teamparkinglot.parkinggo.advice.exception.BusinessException;
+import teamparkinglot.parkinggo.advice.ExceptionCode;
 import teamparkinglot.parkinggo.token.entity.RefreshToken;
 import teamparkinglot.parkinggo.token.repository.TokenRepository;
 

@@ -4,8 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import teamparkinglot.parkinggo.exception.BusinessException;
-import teamparkinglot.parkinggo.exception.ErrorResponse;
+import teamparkinglot.parkinggo.advice.exception.BusinessException;
+import teamparkinglot.parkinggo.advice.response.ErrorResponse;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

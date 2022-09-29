@@ -12,7 +12,7 @@ import teamparkinglot.parkinggo.review.mapper.ReviewMapper;
 import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.review.service.ReviewService;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
-import teamparkinglot.parkinggo.util.MultiRes;
+import teamparkinglot.parkinggo.advice.response.MultiRes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -29,8 +29,6 @@ public class ReviewController {
 
     @GetMapping("/reviews/{parkingId}")
     public ResponseEntity viewReviews(@PathVariable long parkingId) {
-
-        log.info("리뷰 조회!!!!!!!!!!!" );
 
         List<Review> reviews = reviewService.findReviewsByParkingOrderByCreatedDateDesc(parkingId);
         List<ReviewResDto> collect = reviews.stream()

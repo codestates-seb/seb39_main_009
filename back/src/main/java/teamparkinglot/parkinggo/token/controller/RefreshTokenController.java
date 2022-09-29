@@ -7,14 +7,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import teamparkinglot.parkinggo.exception.BusinessException;
-import teamparkinglot.parkinggo.exception.ExceptionCode;
+import teamparkinglot.parkinggo.advice.exception.BusinessException;
+import teamparkinglot.parkinggo.advice.ExceptionCode;
 import teamparkinglot.parkinggo.secret.SecretCode;
 import teamparkinglot.parkinggo.token.dto.TokenDto;
 import teamparkinglot.parkinggo.token.entity.RefreshToken;
 import teamparkinglot.parkinggo.token.repository.TokenRepository;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Date;
 
 @RestController
@@ -27,7 +28,7 @@ public class RefreshTokenController {
     private final TokenRepository tokenRepository;
 
     @PostMapping("/oauth/token")
-    public ResponseEntity recreationAccessToken(HttpServletResponse response, @RequestBody TokenDto tokenDto) {
+    public ResponseEntity recreationAccessToken(HttpServletResponse response, @RequestBody @Valid TokenDto tokenDto) {
 
         String refreshToken = tokenDto.getRefreshtoken();
 

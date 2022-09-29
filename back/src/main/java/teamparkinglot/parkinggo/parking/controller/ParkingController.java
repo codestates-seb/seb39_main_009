@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.history.service.HistoryService;
 import teamparkinglot.parkinggo.parking.dto.*;
@@ -77,15 +78,13 @@ public class ParkingController {
     }
 
     @GetMapping("/parking")
-    public ResponseEntity searchParking(Authentication authentication,
-                                        @RequestParam("region") String region,
+    public ResponseEntity searchParking(@RequestParam("region") String region,
                                         @RequestParam("parkingStartDateTime") String parkingStartDateTime,
                                         @RequestParam("parkingEndDateTime") String parkingEndDateTime,
                                         @RequestParam("sort") String sort,
                                         @RequestParam("crtLocation") String crtLocation) {
 
         ParkingCondDto parkingCondDto = new ParkingCondDto(region, parkingStartDateTime, parkingEndDateTime, sort, crtLocation);
-        log.info("parkingCondDto = " + parkingCondDto.getRegion());
 
         List<Parking> byCond = parkingService.findByCond(parkingCondDto);
         List<ParkingResDto> collect = byCond.stream()

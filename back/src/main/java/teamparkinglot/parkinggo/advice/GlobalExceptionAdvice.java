@@ -1,15 +1,21 @@
-package teamparkinglot.parkinggo.exception;
+package teamparkinglot.parkinggo.advice;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import teamparkinglot.parkinggo.advice.exception.BusinessException;
+import teamparkinglot.parkinggo.advice.exception.CustomAuthenticationEntrypointException;
+import teamparkinglot.parkinggo.advice.response.ErrorResponse;
 
 import javax.validation.ConstraintViolationException;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionAdvice {
 
     // @Valid 에러
@@ -41,5 +47,33 @@ public class GlobalExceptionAdvice {
         return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
                 .getStatus()));
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorResponse handleBusinessLogicException(CustomAuthenticationEntrypointException e) {
+
+        final ErrorResponse response = ErrorResponse.of(HttpStatus.UNAUTHORIZED, "로그인 후 이용해주세요.");
+
+        return response;
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handleBusinessLogicException(AccessDeniedException e) {
+
+        final ErrorResponse response = ErrorResponse.of(HttpStatus.FORBIDDEN, "권한이 없습니다.");
+
+        return response;
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse handleAllException(Exception e) {
+
+        final ErrorResponse response = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+
+        return response;
+    }
+
 
 }

@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.test;
+package teamparkinglot.parkinggo.health_check;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,8 +7,8 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class BodyDto {
+public class DbDto {
 
-    private List<Items> items;
+    private List<Items> records;
 
 }

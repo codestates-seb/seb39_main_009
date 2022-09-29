@@ -1,12 +1,9 @@
-package teamparkinglot.parkinggo.test;
+package teamparkinglot.parkinggo.health_check;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.parking.service.ParkingService;
 
 @RestController
@@ -36,6 +33,11 @@ public class TestController {
         parkingService.saveAllItem(dbDto);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
 
+    @PatchMapping("/db/add")
+    public ResponseEntity dbPatch(@RequestBody DbDto dbDto) {
+        parkingService.updateAllDb(dbDto);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

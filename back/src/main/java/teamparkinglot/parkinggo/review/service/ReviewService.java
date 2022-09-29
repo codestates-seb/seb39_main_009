@@ -1,11 +1,10 @@
 package teamparkinglot.parkinggo.review.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import teamparkinglot.parkinggo.exception.BusinessException;
-import teamparkinglot.parkinggo.exception.ExceptionCode;
+import teamparkinglot.parkinggo.advice.exception.BusinessException;
+import teamparkinglot.parkinggo.advice.ExceptionCode;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.parking.entity.Parking;
@@ -17,8 +16,6 @@ import teamparkinglot.parkinggo.review.repository.ReviewRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
 
 @Service
 @RequiredArgsConstructor

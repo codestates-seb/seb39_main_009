@@ -8,16 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.bookmark.dto.BookmarkIdDto;
 import teamparkinglot.parkinggo.bookmark.dto.BookmarkResDto;
 import teamparkinglot.parkinggo.bookmark.dto.BookmarkStatusDto;
-import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
 import teamparkinglot.parkinggo.bookmark.mapper.BookmarkMapper;
 import teamparkinglot.parkinggo.bookmark.service.BookmarkService;
-import teamparkinglot.parkinggo.exception.BusinessException;
-import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 
-import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -28,7 +23,7 @@ public class BookmarkController {
     private final BookmarkMapper mapper;
 
     @PostMapping("/bookmark")
-    public ResponseEntity postBookmark(@RequestBody @Valid BookmarkIdDto bookmarkIdDto,
+    public ResponseEntity postBookmark(@RequestBody BookmarkIdDto bookmarkIdDto,
                                        Authentication authentication) {
 
         PrincipalDetails principalDetails = getPrincipalDetails(authentication);

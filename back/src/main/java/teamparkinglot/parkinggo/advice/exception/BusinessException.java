@@ -1,6 +1,7 @@
-package teamparkinglot.parkinggo.exception;
+package teamparkinglot.parkinggo.advice.exception;
 
 import lombok.Getter;
+import teamparkinglot.parkinggo.advice.ExceptionCode;
 
 public class BusinessException extends RuntimeException {
 

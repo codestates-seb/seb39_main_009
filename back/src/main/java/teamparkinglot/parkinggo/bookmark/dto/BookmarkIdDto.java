@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 public class BookmarkIdDto {
 
-    @NotBlank
     private long id;
 
 }

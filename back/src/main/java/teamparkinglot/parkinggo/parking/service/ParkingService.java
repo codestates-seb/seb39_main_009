@@ -2,8 +2,9 @@ package teamparkinglot.parkinggo.parking.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import teamparkinglot.parkinggo.exception.BusinessException;
-import teamparkinglot.parkinggo.exception.ExceptionCode;
+import org.springframework.transaction.annotation.Transactional;
+import teamparkinglot.parkinggo.advice.exception.BusinessException;
+import teamparkinglot.parkinggo.advice.ExceptionCode;
 import teamparkinglot.parkinggo.history.repository.HistoryRepositoryQueryDsl;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
@@ -19,7 +20,8 @@ import teamparkinglot.parkinggo.parking_place.ParkingPlaceRepository;
 import teamparkinglot.parkinggo.reservation.entity.Reservation;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
 import teamparkinglot.parkinggo.reservation.service.ReservationService;
-import teamparkinglot.parkinggo.test.DbDto;
+import teamparkinglot.parkinggo.health_check.DbDto;
+import teamparkinglot.parkinggo.health_check.Items;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ParkingService {
 
     private final ParkingRepository parkingRepository;
@@ -73,6 +76,7 @@ public class ParkingService {
         return new ParkingMapDto(parking.getParkingMap(), validNums);
     }
 
+    @Transactional
     public CreateReservDto createReservation(Long id, ParkingDateTimeDto parkingDateTimeDto, String email) {
         Parking parking = parkingRepository.findById(id).orElseThrow(
                 () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
@@ -104,6 +108,7 @@ public class ParkingService {
         return parkingMapper.reservationToCreateReservDto(reservation, member);
     }
 
+    @Transactional
     public void saveAllItem(DbDto dbDto) {
 
         Member member = memberService.findVerifiedMember("kwj1830@naver.com");
@@ -113,7 +118,7 @@ public class ParkingService {
                     Parking parking = Parking.builder()
                             .parkingManagementNumber(e.getPrkplceNo())
                             .parkingName(e.getPrkplceNm())
-                            .parkingType(e.getPrkplceSe())
+                            .parkingType(e.getPrkplceType())
                             .parkingSeparation(e.getPrkplceSe())
                             .spacialManagement(e.getSpacialManagement())
                             .parkingChargeInfo(e.getParkingChargeInfo())
@@ -157,5 +162,23 @@ public class ParkingService {
             return "현금";
         }
         return null;
+    }
+
+    @Transactional
+    public void updateAllDb(DbDto dbDto) {
+        List<Items> records = dbDto.getRecords();
+
+        records.stream()
+                .forEach(e -> {
+
+                    Optional<Parking> findParking = parkingRepository.findByParkingManagementNumber(e.getPrkplceNo());
+                    if (findParking.isEmpty()) {
+                        return;
+                    }
+
+                    Parking parking = findParking.get();
+                    parking.setParkingType(e.getPrkplceType());
+                });
+
     }
 }

@@ -13,8 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import teamparkinglot.parkinggo.exception.BusinessException;
-import teamparkinglot.parkinggo.exception.ExceptionCode;
+import teamparkinglot.parkinggo.advice.exception.BusinessException;
+import teamparkinglot.parkinggo.advice.ExceptionCode;
 import teamparkinglot.parkinggo.member.dto.MemberLoginDto;
 import teamparkinglot.parkinggo.member.dto.ResetPwdDtoForEmail;
 import teamparkinglot.parkinggo.member.entity.Member;
@@ -94,7 +94,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("RefreshToken", refreshToken);
         System.out.println("refreshToken = " + refreshToken);
         response.setHeader("Set-Cookie", cookie.toString());
-//        response.addCookie(cookie);
+
         tokenService.createRefreshToken(refreshToken, email);
         ResetPwdDtoForEmail email1 = new ResetPwdDtoForEmail(email);
         Gson gson = new Gson();

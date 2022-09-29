@@ -1,8 +1,9 @@
-package teamparkinglot.parkinggo.exception;
+package teamparkinglot.parkinggo.advice.response;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
+import teamparkinglot.parkinggo.advice.ExceptionCode;
 
 import javax.validation.ConstraintViolation;
 import java.util.List;

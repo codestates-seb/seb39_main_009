@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.util;
+package teamparkinglot.parkinggo.advice.response;
 
 import lombok.Getter;
 

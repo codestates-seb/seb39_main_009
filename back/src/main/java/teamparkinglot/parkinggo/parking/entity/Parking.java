@@ -77,4 +77,8 @@ public class Parking {
         this.phoneNumber = phoneNumber;
         this.member = member;
     }
+
+    public void setParkingType(String parkingType) {
+        this.parkingType = parkingType;
+    }
 }

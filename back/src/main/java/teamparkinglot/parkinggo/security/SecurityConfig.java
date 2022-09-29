@@ -3,6 +3,7 @@ package teamparkinglot.parkinggo.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,6 +20,8 @@ import org.springframework.web.filter.CorsFilter;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.member.service.MemberService;
 import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.security.entrypoint.CustomAccessDeniedHanler;
+import teamparkinglot.parkinggo.security.entrypoint.CustomAuthenticationEntrypoint;
 import teamparkinglot.parkinggo.security.filter.ExceptionHandlerFilter;
 import teamparkinglot.parkinggo.security.filter.JwtAuthenticationFilter;
 import teamparkinglot.parkinggo.security.filter.JwtAuthorizationFilter;
@@ -61,8 +64,15 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
-                .antMatchers("/api/join").permitAll()
+                .antMatchers("/api/member", "/api/member/*", "/api/bookmark", "/api/bookmark/*", "/api/parking/{id}/reservation", "/api/pay/*").authenticated()
+                .antMatchers(HttpMethod.GET, "/api/reviews/{parkingId}").permitAll()
+                .antMatchers("/api/reviews/{parkingId}").authenticated()
                 .anyRequest().permitAll();
+
+        http
+                .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntrypoint())
+                .and()
+                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHanler());
 
         return http.build();
     }
@@ -98,8 +108,6 @@ public class SecurityConfig {
                     .addFilter(jwtAuthenticationFilter)
                     .addFilterBefore(exceptionHandlerFilter, JwtAuthorizationFilter.class)
                     .addFilterBefore(exceptionHandlerFilter, UsernamePasswordAuthenticationFilter.class);
-
-
             super.configure(builder);
         }
     }

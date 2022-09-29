@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import teamparkinglot.parkinggo.exception.BusinessException;
-import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.member.mail.MailService;
 import teamparkinglot.parkinggo.member.dto.*;
 import teamparkinglot.parkinggo.member.entity.Member;

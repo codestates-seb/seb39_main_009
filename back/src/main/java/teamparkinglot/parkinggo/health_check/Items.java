@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.test;
+package teamparkinglot.parkinggo.health_check;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

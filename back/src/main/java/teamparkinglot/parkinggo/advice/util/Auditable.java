@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.util;
+package teamparkinglot.parkinggo.advice.util;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
