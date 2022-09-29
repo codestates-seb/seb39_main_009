@@ -48,8 +48,9 @@ const Login = () => {
       setEmail("");
       setPassword("");
       setTimeout(onSilentRefresh, 360000); // 1시간
-      navigate("/");
-      window.location.reload();
+      // navigate("/");
+      // window.location.reload();
+
     } catch (err) {
       setErrMsg(err?.response.data.message);
       errRef.current.focus();

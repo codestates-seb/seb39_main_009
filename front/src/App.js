@@ -20,6 +20,8 @@ import Parkinglot from "./pages/Parkinglot/Parkinglot";
 import ParkingMap from "./pages/Parkinglot/ParkingMap";
 import Review from "./pages/Review/Review";
 import Editreview from "./pages/Review/Editreview";
+import ParkSearch from "./pages/ParkSearch/ParkSearch";
+import AreaparkModal from "./component/Modal/ParkSearchModal/AreaparkModal";
 
 function App() {
   const onSilentRefresh = useRefreshToken();
@@ -76,12 +78,13 @@ function App() {
                 {/* 리뷰페이지 */}
                 <Route path="/parking/:pkId/review" element={<Review />} />
                 {/* 리뷰작성페이지 */}
-                <Route
-                  path="/parking/:pkId/review/write"
-                  element={<Editreview />}
-                />
+                <Route path="/parking/:pkId/review/write" element={<Editreview />}/>
                 {/* 개인정보수정페이지 */}
                 <Route path="/mypage/:id/edit" element={<Editmypage />} />
+                {/* 주차장 조건검색 페이지 */}
+                <Route path="/find" element={<ParkSearch />} />
+                {/* 주차장 지역 조건검색페이지 */}
+                <Route path="/find/location" element={<AreaparkModal />} />
               </Routes>
             </div>
           </div>
