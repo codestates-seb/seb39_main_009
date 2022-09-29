@@ -1,0 +1,80 @@
+#parkingSectionIcon {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgb(164, 164, 164, 0.5);
+  border-radius: 50%;
+  margin: 5px 12px;
+  position: relative;
+}
+
+#parkingSectionIcon p {
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  position: absolute;
+  top: 11px;
+  left: 8px;
+}
+
+#circle {
+  top: -13px;
+  left: -13px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(164, 164, 164, 0.5);
+  margin: 15px;
+  position: absolute;
+}
+
+#parkingTypeIcon {
+  width: 48px;
+  height: 48px;
+  background-color: rgb(164, 164, 164, 0.5);
+  border-radius: 50%;
+  margin: 6px 12px;
+
+  position: relative;
+}
+
+#parkingTypeIcon p {
+  color: white;
+  font-size: 14px;
+  font-weight: 800;
+  position: absolute;
+  top: 15px;
+  left: 12px;
+}
+
+.icon_container {
+  margin: 5px;
+}
+
+.pk_icons {
+  margin: 8px 12px;
+}
+
+.icon_container_wheel {
+  margin: 7px 5px 5px 5px;
+}
+
+.icon_container_free,
+.icon_container_card {
+  margin: -6px 5px 5px 0px;
+  position: relative;
+}
+
+#free_icontext {
+  position: absolute;
+  top: 25px;
+  left: 21px;
+  color: rgb(164, 164, 164, 0.5);
+  font-size: 12px;
+  font-weight: 700;
+  transform: rotate(-20deg);
+}
+
+.icon_container_card {
+  margin: -2px 5px 5px 5px;
+  position: relative;
+}

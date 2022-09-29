@@ -115,7 +115,6 @@ const onChangeName = (e) => {
             type="text"
             placeholder="이름을 입력해주세요."
             autoComplete="off"
-            required
             onChange={(e) => {
               setUsernameinput(e.target.value);
             }}

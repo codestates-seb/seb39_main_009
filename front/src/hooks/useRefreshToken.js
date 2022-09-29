@@ -1,10 +1,16 @@
 import axios from "../apis/axios";
-
+// import { useNavigate } from "react-router-dom";
 const REFRESH_URL = `/oauth/token`;
 
 const useRefreshToken = () => {
+    // const navigate = useNavigate();
+
   const onSilentRefresh = async () => {
     const refreshtoken = localStorage.getItem("refreshtoken");
+
+    // if(!localStorage.getItem('authorization')){
+    //   return navigate('/')
+    // }
 
     const response = await axios.post(
       REFRESH_URL,
