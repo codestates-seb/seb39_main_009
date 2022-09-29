@@ -55,6 +55,7 @@ public class ParkingController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    // 아직 사용 안하는 친구
     @GetMapping("/parking/{id}/reservation/{number}")
     public ResponseEntity checkTime(@PathVariable long id, @PathVariable int number) {
 

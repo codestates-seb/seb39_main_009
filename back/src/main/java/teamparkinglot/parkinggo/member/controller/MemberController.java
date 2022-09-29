@@ -67,7 +67,7 @@ public class MemberController {
     }
 
     @PatchMapping("/reset-password/{uuid}")
-    public ResponseEntity putResetPwd(@PathVariable String uuid, @RequestBody ResetPwdDto resetPwdDto) {
+    public ResponseEntity putResetPwd(@PathVariable String uuid, @RequestBody @Valid ResetPwdDto resetPwdDto) {
 
         uuidService.putPwd(uuid, resetPwdDto.getPassword());
 
@@ -76,7 +76,6 @@ public class MemberController {
 
     @GetMapping("/member")
     public ResponseEntity getSidebar(Authentication authentication) {
-        loginCheck(authentication);
 
         String email = getEmail(authentication);
 
@@ -87,7 +86,6 @@ public class MemberController {
 
     @GetMapping("/member/reservation")
     public ResponseEntity reservationList(Authentication authentication) {
-        loginCheck(authentication);
 
         String email = getEmail(authentication);
 
@@ -105,10 +103,8 @@ public class MemberController {
     }
 
     @PatchMapping("/member")
-    public ResponseEntity edit(@RequestBody MyPagePutDto myPagePutDto,
+    public ResponseEntity edit(@RequestBody @Valid MyPagePutDto myPagePutDto,
                                Authentication authentication) {
-
-        loginCheck(authentication);
 
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         String email = principalDetails.getUsername();
@@ -116,12 +112,6 @@ public class MemberController {
         memberService.myPageModify(myPagePutDto, email);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    private void loginCheck(Authentication authentication) {
-        if (authentication == null) {
-            throw new BusinessException(ExceptionCode.NEED_LOGIN);
-        }
     }
 
     private static String getEmail(Authentication authentication) {

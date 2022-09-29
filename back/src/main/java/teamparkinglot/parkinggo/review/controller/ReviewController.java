@@ -13,6 +13,7 @@ import teamparkinglot.parkinggo.review.service.ReviewService;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 import teamparkinglot.parkinggo.util.MultiRes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,7 @@ public class ReviewController {
 
         System.out.println("리뷰 작성!!!!!!!!");
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+
         reviewService.createReview(parkingId, reviewPostDto, principal.getUsername());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -51,7 +53,7 @@ public class ReviewController {
 
     @PatchMapping("/reviews/{parkingId}")
     public ResponseEntity patchReview(@PathVariable long parkingId,
-                                      @RequestBody ReviewPostDto reviewPostDto,
+                                      @RequestBody @Valid ReviewPostDto reviewPostDto,
                                       Authentication authentication) {
 
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();

@@ -15,6 +15,7 @@ import teamparkinglot.parkinggo.exception.BusinessException;
 import teamparkinglot.parkinggo.exception.ExceptionCode;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,10 +28,9 @@ public class BookmarkController {
     private final BookmarkMapper mapper;
 
     @PostMapping("/bookmark")
-    public ResponseEntity postBookmark(@RequestBody BookmarkIdDto bookmarkIdDto,
+    public ResponseEntity postBookmark(@RequestBody @Valid BookmarkIdDto bookmarkIdDto,
                                        Authentication authentication) {
 
-        loginCheck(authentication);
         PrincipalDetails principalDetails = getPrincipalDetails(authentication);
 
         bookmarkService.saveBookmark(principalDetails.getUsername(), bookmarkIdDto.getId());
@@ -42,7 +42,6 @@ public class BookmarkController {
     public ResponseEntity deleteBookmark(@PathVariable long parkingId,
                                          Authentication authentication) {
 
-        loginCheck(authentication);
         PrincipalDetails principalDetails = getPrincipalDetails(authentication);
 
         bookmarkService.deleteBookmark(principalDetails.getUsername(), parkingId);
@@ -53,7 +52,6 @@ public class BookmarkController {
     @GetMapping("/bookmark")
     public ResponseEntity getBookmarkList(Authentication authentication) {
 
-        loginCheck(authentication);
         PrincipalDetails principalDetails = getPrincipalDetails(authentication);
         String email = principalDetails.getUsername();
 
@@ -77,11 +75,5 @@ public class BookmarkController {
 
     private PrincipalDetails getPrincipalDetails(Authentication authentication) {
         return (PrincipalDetails) authentication.getPrincipal();
-    }
-
-    private static void loginCheck(Authentication authentication) {
-        if (authentication == null) {
-            throw new BusinessException(ExceptionCode.NEED_LOGIN);
-        }
     }
 }

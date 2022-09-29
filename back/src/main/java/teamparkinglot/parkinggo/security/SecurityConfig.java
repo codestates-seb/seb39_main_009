@@ -49,6 +49,12 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .apply(new CustomDsl());
 
+        http
+                .headers()
+                        .xssProtection()
+                        .and()
+                        .contentSecurityPolicy("script-src 'self");
+
         http.cors().configurationSource(corsConfig());
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
