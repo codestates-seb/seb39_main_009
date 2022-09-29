@@ -1,6 +1,7 @@
 package teamparkinglot.parkinggo.review.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Slf4j
 public class ReviewController {
 
     private final ReviewService reviewService;
@@ -28,7 +30,7 @@ public class ReviewController {
     @GetMapping("/reviews/{parkingId}")
     public ResponseEntity viewReviews(@PathVariable long parkingId) {
 
-        System.out.println("리뷰 조회!!!!!!!!!!!" );
+        log.info("리뷰 조회!!!!!!!!!!!" );
 
         List<Review> reviews = reviewService.findReviewsByParkingOrderByCreatedDateDesc(parkingId);
         List<ReviewResDto> collect = reviews.stream()
@@ -43,7 +45,7 @@ public class ReviewController {
                                      @RequestBody ReviewPostDto reviewPostDto,
                                      Authentication authentication) {
 
-        System.out.println("리뷰 작성!!!!!!!!");
+        log.info("리뷰 작성!!!!!!!!");
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 
         reviewService.createReview(parkingId, reviewPostDto, principal.getUsername());

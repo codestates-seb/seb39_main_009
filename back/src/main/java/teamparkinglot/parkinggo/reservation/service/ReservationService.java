@@ -13,6 +13,7 @@ import teamparkinglot.parkinggo.reservation.entity.Reservation;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepositoryQueryDsl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
@@ -48,8 +49,17 @@ public class ReservationService {
     @Transactional
     public void cancelPayment(Long id) {
         Reservation reservation = findVerifiedReservation(id);
+        if (LocalDateTime.now().isBefore(reservation.getParkingStartDateTime().minusHours(1))) {
 
-        reservationRepository.delete(reservation);
+            if (reservation.getPayOrNot()) {
+                reservation.getMember().setPoint(reservation.getMember().getPoint() + reservation.getPrice());
+            }
+            reservationRepository.delete(reservation);
+        } else {
+
+            if (reservation.getPayOrNot()) throw new BusinessException(ExceptionCode.NOT_BEFORE_ONE_HOURS);
+            else reservationRepository.delete(reservation);
+        }
     }
     public Reservation findVerifiedReservation(Long id) {
         Optional<Reservation> reservation = reservationRepository.findById(id);

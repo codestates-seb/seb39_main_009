@@ -12,4 +12,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     @Query("select r from Reservation r join fetch r.parkingPlace where r.parkingPlace.parking.id = :parkingId")
     List<Reservation> findByParkingId(@Param("parkingId") long parkingId);
+
+    @Query("select r from Reservation r where r.parkingPlace.parking.id = :parkingId and r.member.id = :memberId")
+    List<Reservation> findByParkingAndMember(@Param("parkingId") long parkingId, @Param("memberId") long memberId);
 }

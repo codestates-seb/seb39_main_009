@@ -27,12 +27,9 @@ public class Review extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Parking parking;
 
-    public void setBody(String body) {
-        this.body = body;
-    }
-
-    public void setStar(Double star) {
+    public void editReview(Double star, String body) {
         this.star = star;
+        this.body = body;
     }
 
     @Builder

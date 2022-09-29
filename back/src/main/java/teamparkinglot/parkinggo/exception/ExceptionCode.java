@@ -21,7 +21,8 @@ public enum ExceptionCode {
     UUID_NOT_MATCH(404, "주소가 잘못된 접근입니다."), SEARCH_ERROR(500, "서버에서 검색 잘못 나갔음 ㅡㅡ"),
 
     REVIEW_EXISTS(409, "이미 리뷰를 작성했습니다."),
-    REVIEW_NOT_EXISTS(404, "존재하지 않는 리뷰입니다.");
+    REVIEW_NOT_EXISTS(404, "존재하지 않는 리뷰입니다."),
+    NOT_BEFORE_ONE_HOURS(404, "예약시간 1시간 전까지만 예약취소 가능합니다");
 
     @Getter
     private int status;
