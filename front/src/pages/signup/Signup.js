@@ -17,6 +17,7 @@ const SignUp = () => {
   const [phonenumber, setPhonenumber] = useState("");
   const [carnumber, setCarnumber] = useState("");
 
+
   //오류메시지 상태저장
   const [nameMessage, setNameMessage] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
@@ -24,23 +25,25 @@ const SignUp = () => {
   const [phonenumberMessage, setPhonenumberMessage] = useState("");
   const [carnumberMessage, setCarnumberMessage] = useState("");
 
-  // 유효성 검사
-  const [isName, setIsName] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
-  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-  const [isphonenumber, setIsPhonenumber] = useState(false);
-  const [iscarnumber, setIsCarnumber] = useState(false);
 
-  // 이름
-  const onChangeName = (e) => {
-    if (usernameinput.length < 2 || usernameinput.length > 5) {
-      setNameMessage("2글자 이상 5글자 미만으로 입력해주세요.");
-      setIsName(false);
-    } else {
-      setNameMessage("올바른 이름 형식입니다 :)");
-      setIsName(true);
-    }
-  };
+ // 유효성 검사
+ const [isName, setIsName] = useState(false)
+ const [isPassword, setIsPassword] = useState(false)
+ const [isPasswordConfirm, setIsPasswordConfirm] = useState(false)
+ const [isphonenumber, setIsPhonenumber] = useState(false);
+ const [iscarnumber, setIsCarnumber] = useState(false);
+ 
+   // 이름
+const onChangeName = (e) => {
+  if (usernameinput.length < 2 || usernameinput.length > 5) {
+    setNameMessage('2글자 이상 5글자 이하로 입력해주세요.')
+    setIsName(false)
+  } else {
+    setNameMessage('올바른 이름 형식입니다 :)')
+    setIsName(true)
+  }
+}
+
 
   // 비밀번호
   const onChangePassword = (e) => {
@@ -78,8 +81,9 @@ const SignUp = () => {
     setIsPhonenumber(false);
   };
 
-  const onChangecarnumber = (e) => {
-    const pattern1 = /\d{2}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g; // 12저1234
+
+  const onChangecarnumber =(e)=>{
+    const pattern1 = /\d{2,3}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g; // 12저1234
     const pattern2 = /[가-힣ㄱ-ㅎㅏ-ㅣ\x20]{2}\d{2}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g; // 서울12치1233
     if (!pattern1.test(carnumber)) {
       if (!pattern2.test(carnumber)) {
@@ -111,6 +115,7 @@ const SignUp = () => {
             type="text"
             placeholder="이름을 입력해주세요."
             autoComplete="off"
+            required
             onChange={(e) => {
               setUsernameinput(e.target.value);
             }}

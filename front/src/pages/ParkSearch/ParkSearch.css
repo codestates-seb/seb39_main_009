@@ -1,0 +1,28 @@
+
+  
+  .dropdown{
+    position: absolute;
+    top : 150px;
+    /* border : solid 1px black; */
+  }
+
+  .dropdownLabel {
+    display: flex;
+    border : solid 1px black;
+
+    justify-content: space-between;
+  }
+
+  .dropdownLabel:hover {
+    cursor: pointer;
+  }
+
+  .caretIcon{
+    margin-left: 50px;
+    /* transition: transform 250ms ease-out; */
+  }
+
+
+  /* .dropdown:checked + label>.caretIcon {
+    transform: rotate(-180deg);
+  } */
