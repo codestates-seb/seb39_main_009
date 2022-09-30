@@ -3,26 +3,28 @@ package teamparkinglot.parkinggo.security.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import teamparkinglot.parkinggo.exception.BusinessException;
-import teamparkinglot.parkinggo.exception.ExceptionCode;
+import teamparkinglot.parkinggo.advice.exception.BusinessException;
+import teamparkinglot.parkinggo.advice.ExceptionCode;
 import teamparkinglot.parkinggo.member.dto.MemberLoginDto;
+import teamparkinglot.parkinggo.member.dto.ResetPwdDtoForEmail;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
-import teamparkinglot.parkinggo.member.service.MemberService;
 import teamparkinglot.parkinggo.secret.SecretCode;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
+import teamparkinglot.parkinggo.token.service.TokenService;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -34,7 +36,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final AuthenticationManager authenticationManager;
     private final MemberRepository memberRepository;
-    private final MemberService memberService;
+    private final TokenService tokenService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final SecretCode secretCode;
@@ -70,26 +72,34 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         log.info("===== 인증 성공 =====");
 
-        Date now = new Date();
-
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
 
         // 액세스 토큰 발급
         String email = principalDetails.getUsername();
 
-        log.info("잘 되나? = {}", secretCode.getAccessTokenExpireTime());
         String accessToken = getToken("AccessToken", secretCode.getAccessTokenExpireTime(), email);
-
         response.addHeader("Authorization", "Bearer " + accessToken);
 
         // 리프레시 토큰 발급
-        String refreshToken = getToken("RefreshToken", secretCode.getRefreshTokenExpireTime(), email);
-        Cookie cookie = new Cookie("Refresh", refreshToken);
-        log.info("쿠키값 = {}", refreshToken);
+        tokenService.deleteIfTokenExsist(email);
 
-        response.addCookie(cookie);
-        memberService.setRefreshToken(refreshToken, email);
+        String refreshToken = getToken("RefreshToken", secretCode.getRefreshTokenExpireTime());
 
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
+                .httpOnly(true)
+                .sameSite("none")
+                .path("/")
+                .build();
+
+        response.setHeader("RefreshToken", refreshToken);
+        System.out.println("refreshToken = " + refreshToken);
+        response.setHeader("Set-Cookie", cookie.toString());
+
+        tokenService.createRefreshToken(refreshToken, email);
+        ResetPwdDtoForEmail email1 = new ResetPwdDtoForEmail(email);
+        Gson gson = new Gson();
+        gson.toJson(email1);
+        response.getWriter().write(email);
     }
 
     private String getToken(String tokenKind, Long accessTokenExpireTime, String email) {
@@ -97,6 +107,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject(tokenKind)
                 .withExpiresAt(new Date(System.currentTimeMillis() + accessTokenExpireTime))
                 .withClaim("email", email)
+                .sign(Algorithm.HMAC512(secretCode.getTokenSecurityKey()));
+        return accessToken;
+    }
+
+    private String getToken(String tokenKind, Long accessTokenExpireTime) {
+        String accessToken = JWT.create()
+                .withSubject(tokenKind)
+                .withExpiresAt(new Date(System.currentTimeMillis() + accessTokenExpireTime))
                 .sign(Algorithm.HMAC512(secretCode.getTokenSecurityKey()));
         return accessToken;
     }

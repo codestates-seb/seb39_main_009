@@ -13,7 +13,7 @@ public class MemberMapper {
                 .email(memberJoinDto.getEmail())
                 .password(memberJoinDto.getPassword())
                 .phone(memberJoinDto.getPhoneNum())
-                .name(memberJoinDto.getName())
+                .nickname(memberJoinDto.getName())
                 .carNumber(memberJoinDto.getCarNumber())
                 .svcUseAgmt(memberJoinDto.isSvcUseAgmt())
                 .psInfoAgmt(memberJoinDto.isPsInfoAgmt())

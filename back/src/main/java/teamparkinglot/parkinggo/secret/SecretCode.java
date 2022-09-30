@@ -17,4 +17,7 @@ public class SecretCode {
     @Value("${jwt.refreshTokenExpireTime}")
     private Long refreshTokenExpireTime;
 
+    @Value("${client.url}")
+    private String clientUrl;
+
 }
