@@ -8,13 +8,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReviewResDto {
 
-    long id;
+    long reviewId;
+    long memberId;
     String nickName;
     String body;
 
     @Builder
-    public ReviewResDto(long id, String nickName, String body) {
-        this.id = id;
+    public ReviewResDto(long reviewId, long memberId, String nickName, String body) {
+        this.reviewId = reviewId;
+        this.memberId = memberId;
         this.nickName = nickName;
         this.body = body;
     }

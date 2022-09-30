@@ -43,7 +43,6 @@ public class ReviewController {
                                      @RequestBody ReviewPostDto reviewPostDto,
                                      Authentication authentication) {
 
-        log.info("리뷰 작성!!!!!!!!");
         PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
 
         reviewService.createReview(parkingId, reviewPostDto, principal.getUsername());
