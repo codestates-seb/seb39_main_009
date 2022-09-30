@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import teamparkinglot.parkinggo.advice.exception.BusinessException;
 import teamparkinglot.parkinggo.advice.ExceptionCode;
 import teamparkinglot.parkinggo.member.dto.MemberLoginDto;
+import teamparkinglot.parkinggo.member.dto.MemberLoginResponseDto;
 import teamparkinglot.parkinggo.member.dto.ResetPwdDtoForEmail;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
@@ -76,6 +77,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         // 액세스 토큰 발급
         String email = principalDetails.getUsername();
+        String name = principalDetails.getNickname();
+        Long memberId = principalDetails.getMember().getId();
 
         String accessToken = getToken("AccessToken", secretCode.getAccessTokenExpireTime(), email);
         response.addHeader("Authorization", "Bearer " + accessToken);
@@ -96,10 +99,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Set-Cookie", cookie.toString());
 
         tokenService.createRefreshToken(refreshToken, email);
-        ResetPwdDtoForEmail email1 = new ResetPwdDtoForEmail(email);
+        MemberLoginResponseDto memberLoginResponseDto = new MemberLoginResponseDto(memberId, email, name);
         Gson gson = new Gson();
-        gson.toJson(email1);
-        response.getWriter().write(email);
+        String content = gson.toJson(memberLoginResponseDto);
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(content);
     }
 
     private String getToken(String tokenKind, Long accessTokenExpireTime, String email) {
