@@ -93,3 +93,7 @@
   height: 50px;
   font-size: 18px;
 }
+
+.parkinglink:hover {
+  cursor: pointer;
+}

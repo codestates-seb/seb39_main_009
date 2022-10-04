@@ -2,8 +2,10 @@ import "../../pages/ReservationDetail/Reservation.css";
 import React from "react";
 import useGetTime from "../../hooks/useGetTime";
 import useDateFormat from "../../hooks/useDateFormat";
+import { useNavigate } from "react-router-dom";
 
 const ReservationInner = ({ data }) => {
+  const navigate = useNavigate();
   const dateFormat = useDateFormat();
   const getTime = useGetTime();
 
@@ -28,7 +30,12 @@ const ReservationInner = ({ data }) => {
         </div>
         <div>
           <p>주차장</p>
-          <p>{data.parkingName}</p>
+          <p
+            className="parkinglink"
+            onClick={() => navigate(`/parking/${data.parkingId}`)}
+          >
+            {data.parkingName}
+          </p>
         </div>
         <div>
           <p>주차면</p>

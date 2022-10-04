@@ -1,19 +1,25 @@
-import { axiosPrivate } from "../apis/axios";
+import { useContext } from "react";
+import axios from "../apis/axios";
+import { AuthContext } from "../context/AuthContext";
 
 // import { useNavigate } from "react-router-dom";
 const REFRESH_URL = `/oauth/token`;
 
 const useRefreshToken = () => {
+  const { auth } = useContext(AuthContext);
   const onSilentRefresh = async () => {
     const refreshtoken = localStorage.getItem("refreshtoken");
 
-    const response = await axiosPrivate.post(
+    const response = await axios.post(
       REFRESH_URL,
       JSON.stringify({ refreshtoken }),
       {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      }
+        headers: {
+          "Content-Type": "application/json",
+          authorization: auth,
+        },
+      },
+      { withCredentials: true }
     );
     console.log("리프레시 토큰 연장!"); // 삭제 필요
     const authorization = response.headers.authorization;

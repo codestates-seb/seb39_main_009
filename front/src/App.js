@@ -1,8 +1,9 @@
 import "./layout.css"; // 레이아웃 CSS 입니다. Don't touch !
 import "./App.css"; // 비어있으니 레이아웃 외 CSS 추가변경 원하시면 이곳에서 수정해주세요 !
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useRefreshToken from "./hooks/useRefreshToken";
+import useLocalStorage from "./hooks/useLocalStorage";
 import { AuthContext } from "./context/AuthContext";
 import { UserIdContext } from "./context/UserIdContext";
 import Header from "./component/Header/Header";
@@ -21,10 +22,10 @@ import Question from "./pages/Question/Question";
 import Parkinglot from "./pages/Parkinglot/Parkinglot";
 import ParkingMap from "./pages/Parkinglot/ParkingMap";
 import Review from "./pages/Review/Review";
-import Editreview from "./pages/Review/Editreview";
 import ParkSearch from "./pages/ParkSearch/ParkSearch";
 import AreaparkModal from "./component/Modal/ParkSearchModal/AreaparkModal";
-import useLocalStorage from "./hooks/useLocalStorage";
+import WriteReview from "./pages/Review/WriteReview";
+import EditReview from "./pages/Review/EditReview";
 
 function App() {
   const [auth, setAuth] = useLocalStorage("auth", "");
@@ -92,7 +93,12 @@ function App() {
                     {/* 리뷰작성페이지 */}
                     <Route
                       path="/parking/:pkId/review/write"
-                      element={<Editreview />}
+                      element={<WriteReview />}
+                    />
+                    {/* 리뷰수정페이지 */}
+                    <Route
+                      path="/parking/:pkId/review/:reviewId"
+                      element={<EditReview />}
                     />
                     {/* 개인정보수정페이지 */}
                     <Route path="/mypage/:id/edit" element={<Editmypage />} />
