@@ -26,13 +26,8 @@ import ParkSearch from "./pages/ParkSearch/ParkSearch";
 import EditReview from "./pages/Review/Editreview";
 import ParkReservation from "./pages/ParkReservation/ParkReservation";
 import WriteReview from "./pages/Review/WriteReview";
-<<<<<<< HEAD
-
-
-=======
-import EditReview from "./pages/Review/EditReview";
 import Pay from "./pages/Pay/Pay";
->>>>>>> 74f2d2a (fix: 주차장 상세정보 css 일부 수정)
+import AreaparkModal from "./component/Modal/ParkSearchModal/AreaparkModal";
 
 function App() {
   const [auth, setAuth] = useLocalStorage("auth", "");
@@ -112,7 +107,10 @@ function App() {
                     {/* 주차장 조건검색 페이지 */}
                     <Route path="/find" element={<ParkSearch />} />
                     {/* 주차장 예약페이지 */}
-                    <Route path="/parking/:id/sector" element={<ParkReservation />} />
+                    <Route
+                      path="/parking/:id/sector"
+                      element={<ParkReservation />}
+                    />
                     {/* 주차장 지역 조건검색페이지 */}
                     <Route path="/find/location" element={<AreaparkModal />} />
                     {/* 결제 페이지 :reservId로 변경예정 */}
