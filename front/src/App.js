@@ -23,9 +23,12 @@ import Parkinglot from "./pages/Parkinglot/Parkinglot";
 import ParkingMap from "./pages/Parkinglot/ParkingMap";
 import Review from "./pages/Review/Review";
 import ParkSearch from "./pages/ParkSearch/ParkSearch";
-import AreaparkModal from "./component/Modal/ParkSearchModal/AreaparkModal";
-import WriteReview from "./pages/Review/WriteReview";
+
 import EditReview from "./pages/Review/EditReview";
+import ParkReservation from "./pages/ParkReservation/ParkReservation";
+import WriteReview from "./pages/Review/WriteReview";
+
+
 
 function App() {
   const [auth, setAuth] = useLocalStorage("auth", "");
@@ -104,8 +107,8 @@ function App() {
                     <Route path="/mypage/:id/edit" element={<Editmypage />} />
                     {/* 주차장 조건검색 페이지 */}
                     <Route path="/find" element={<ParkSearch />} />
-                    {/* 주차장 지역 조건검색페이지 */}
-                    <Route path="/find/location" element={<AreaparkModal />} />
+                    {/* 주차장 예약페이지 */}
+                    <Route path="/parking/:id/sector" element={<ParkReservation />} />
                   </Routes>
                 </div>
               </div>
