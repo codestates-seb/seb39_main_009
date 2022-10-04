@@ -10,9 +10,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class ReservationResponseDto {
 
+    long reservationId;
+    long parkingId;
     String email;
     String phoneNumber;
-    Long reservationNumber;
     String parkingName;
     Integer parkingPlaceNumber;
     LocalDateTime parkingStartDateTime;
@@ -20,14 +21,15 @@ public class ReservationResponseDto {
     Long price;
 
     @Builder
-    public ReservationResponseDto(String email, String phoneNumber, Long reservationNumber, String parkingName, Integer parkingPlaceNumber, LocalDateTime parkingStartDateTime, LocalDateTime parkingEndDateTime, Long price) {
+    public ReservationResponseDto(String email, String phoneNumber, Long reservationNumber, String parkingName, Integer parkingPlaceNumber, LocalDateTime parkingStartDateTime, LocalDateTime parkingEndDateTime, Long price, long parkingId) {
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.reservationNumber = reservationNumber;
+        this.reservationId = reservationNumber;
         this.parkingName = parkingName;
         this.parkingPlaceNumber = parkingPlaceNumber;
         this.parkingStartDateTime = parkingStartDateTime;
         this.parkingEndDateTime = parkingEndDateTime;
         this.price = price;
+        this.parkingId = parkingId;
     }
 }

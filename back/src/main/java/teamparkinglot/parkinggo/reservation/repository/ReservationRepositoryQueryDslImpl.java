@@ -52,9 +52,9 @@ public class ReservationRepositoryQueryDslImpl implements ReservationRepositoryQ
     public ReservationResponseDto findByReservId(Long id) {
         return queryFactory
                 .select(Projections.fields(ReservationResponseDto.class,
-                        reservation.member.email, reservation.member.phone.as("phoneNumber"), reservation.id.as("reservationNumber"),
+                        reservation.member.email, reservation.member.phone.as("phoneNumber"), reservation.id.as("reservationId"),
                         reservation.parkingPlace.parking.parkingName, reservation.parkingPlace.number.as("parkingPlaceNumber"),
-                        reservation.parkingStartDateTime, reservation.parkingEndDateTime, reservation.price))
+                        reservation.parkingStartDateTime, reservation.parkingEndDateTime, reservation.price, reservation.parkingPlace.parking.id.as("parkingId")))
                 .from(reservation)
                 .where(reservation.id.eq(id))
                 .fetchOne();

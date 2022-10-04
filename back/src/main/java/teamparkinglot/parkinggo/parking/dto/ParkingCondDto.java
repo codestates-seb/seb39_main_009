@@ -29,6 +29,8 @@ public class ParkingCondDto {
 
     public ParkingCondDto(String region, String parkingStartDateTime, String parkingEndDateTime, String sort, String crtLocation) {
 
+        parkingStartDateTime += ":00";
+        parkingEndDateTime += ":00";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         this.region = region;
