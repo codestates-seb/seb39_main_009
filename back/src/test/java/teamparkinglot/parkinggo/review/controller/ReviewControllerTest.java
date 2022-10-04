@@ -29,6 +29,7 @@ import teamparkinglot.parkinggo.review.mapper.ReviewMapper;
 import teamparkinglot.parkinggo.review.service.ReviewService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.BDDMockito.given;
@@ -48,7 +49,6 @@ class ReviewControllerTest {
     Member member1;
     Parking parking1;
     Review review1;
-
     Page<ReviewResDto> reviewResDtoPage;
 
 
@@ -67,7 +67,10 @@ class ReviewControllerTest {
         Pageable pageable = PageRequest.of(0, 5);
         ReviewResDto reviewResDto = new ReviewResDto(1L, 1L, 1.0, review1.getMember().getNickname(), review1.getBody());
 
-        reviewResDtoPage = new PageImpl(List.of(reviewResDto), pageable, 1);
+        List<ReviewResDto> reviewList = new ArrayList<>();
+        reviewList.add(reviewResDto);
+
+        reviewResDtoPage = new PageImpl<>(reviewList, pageable, 1);
     }
 
 
@@ -101,7 +104,6 @@ class ReviewControllerTest {
     @WithMockCustomUser
     public void postReview() throws Exception {
         ReviewPostDto reviewPostDto = new ReviewPostDto(1.0, "body1");
-
 
         long parkingId = 1L;
         String content = gson.toJson(reviewPostDto);
