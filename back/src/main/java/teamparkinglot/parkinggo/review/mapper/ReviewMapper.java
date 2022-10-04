@@ -12,6 +12,7 @@ public class ReviewMapper {
         return ReviewResDto.builder()
                 .reviewId(review.getId())
                 .memberId(review.getMember().getId())
+                .star(review.getStar())
                 .nickName(review.getMember().getNickname())
                 .body(review.getBody())
                 .build();

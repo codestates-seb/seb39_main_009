@@ -43,6 +43,7 @@ public class GlobalExceptionAdvice {
     public ResponseEntity handleBusinessLogicException(BusinessException e) {
 
         final ErrorResponse response = ErrorResponse.of(e.getExceptionCode());
+        log.error("비즈니스에러 = {}", e);
 
         return new ResponseEntity<>(response, HttpStatus.valueOf(e.getExceptionCode()
                 .getStatus()));
