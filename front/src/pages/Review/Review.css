@@ -1,0 +1,21 @@
+.ratingStar {
+  display: flex;
+  padding-top: 5px;
+}
+
+.ratingStar svg {
+  color: gray;
+  cursor: pointer;
+}
+
+.ratingStar :hover svg {
+  color: #fcc419;
+}
+
+.ratingStar svg:hover ~ svg {
+  color: gray;
+}
+
+.ratingStar > .yellowStar {
+  color: #fcc419;
+}

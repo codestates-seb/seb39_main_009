@@ -1,5 +1,5 @@
 // react-icons
-import { GiRibbonMedal } from "react-icons/gi";
+import { GiStarMedal } from "react-icons/gi";
 
 import "./ParkingIcon.css";
 import React, { useEffect } from "react";
@@ -19,7 +19,7 @@ const NationalMeritIcon = ({ data, nationalMerit, setNationalMerit }) => {
     <div className="icon_container">
       {nationalMerit ? (
         <div>
-          <GiRibbonMedal
+          <GiStarMedal
             className="pk_icons"
             size={44}
             color={"rgb(164, 164, 164, 0.5)"}

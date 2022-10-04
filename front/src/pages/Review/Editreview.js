@@ -1,27 +1,40 @@
-import axios from "axios";
-import { useRef } from "react";
+//react-icons
+import { GrClose } from "react-icons/gr";
+
+import axios from "../../apis/axios";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { GrClose } from "react-icons/gr";
+import { AuthContext } from "../../context/AuthContext";
+import ReviewStar from "./ReviewStar";
 
 const Editreview = () => {
   const navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
 
   const reviewRef = useRef(null);
   const { pkId } = useParams();
+  const [rating, setRating] = useState(0);
+  const [review, setReview] = useState("");
+
+  const reviewData = {
+    star: rating,
+    body: review,
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
-
     axios
       .post(
-        `/api/reviews/${pkId}`,
+        `/reviews/${pkId}`,
+        reviewData,
         {
-          body: reviewRef.current.value,
+          headers: {
+            "Content-Type": "application/json",
+            authorization: auth,
+          },
         },
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       )
       .then((res) => {
         console.log("리뷰등록");
@@ -34,6 +47,10 @@ const Editreview = () => {
       });
   };
 
+  useEffect(() => {
+    reviewRef.current.focus();
+  }, []);
+
   return (
     <form onSubmit={onSubmit}>
       <div className="signup_header">
@@ -41,12 +58,15 @@ const Editreview = () => {
         <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
       </div>
       <h2>상품은 만족하셨나요?</h2>
-      <div>별점표시</div>
+      <ReviewStar setRating={setRating} />
       <h2>어떤 점이 좋았나요?</h2>
       <textarea
         placeholder="최소 10자 이상은 입력해주세요."
         type="text"
+        value={review}
+        onChange={(e) => setReview(e.target.value)}
         ref={reviewRef}
+        required
       />
       <button>등록</button>
     </form>

@@ -33,7 +33,7 @@ const Listreview = (props) => {
         <RandomImg2 size={"reviewImg_size"} />
         <div>닉네임 : {review.nickName}</div>
         <div>{review.body}</div>
-        {userId === review.writerId ? (
+        {userId === review.memberId ? (
           <>
             <button>수정</button>
             <button onClick={del}>삭제</button>

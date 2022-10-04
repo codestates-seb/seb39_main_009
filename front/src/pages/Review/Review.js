@@ -1,8 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Listreview from "./LIstreview";
 import { useEffect, useState } from "react";
-import { GrClose } from "react-icons/gr";
 import Loading from "../../component/Loading/Loading";
 
 const Review = () => {
@@ -44,8 +43,8 @@ const Review = () => {
         ) : (
           <>
             <div>
-              {data.map((data) => (
-                <Listreview data={data} pkId={pkId} />
+              {data.map((data, i) => (
+                <Listreview key={i} data={data} pkId={pkId} />
               ))}
             </div>
             <br />

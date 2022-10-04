@@ -8,6 +8,9 @@ const ParkingFee = ({ data }) => {
       if (basicTime === 0) {
         setBasicTime = addUnitTime;
       }
+      if (basicTime === 0.5) {
+        setBasicTime = 30;
+      }
       if (setBasicTime)
         if (setBasicTime < 60) {
           return `${setBasicTime}분`;
@@ -47,7 +50,15 @@ const ParkingFee = ({ data }) => {
           <div>
             <p>추가요금</p>
             <p>
-              {data.addUnitTime}분/{data.addUnitCharge.toLocaleString("ko-KR")}
+              {getbasicTime(
+                data.parkingChargeInfo,
+                data.addUnitTime,
+                data.basicTime
+              )}
+              /
+              {data.addUnitCharge === 0
+                ? data.basicCharge.toLocaleString("ko-KR")
+                : data.addUnitCharge.toLocaleString("ko-KR")}
               원
             </p>
           </div>
