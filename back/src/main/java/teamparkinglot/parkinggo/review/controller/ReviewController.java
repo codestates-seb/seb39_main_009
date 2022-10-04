@@ -2,6 +2,7 @@ package teamparkinglot.parkinggo.review.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -28,14 +29,16 @@ public class ReviewController {
     private final ReviewMapper mapper;
 
     @GetMapping("/reviews/{parkingId}")
-    public ResponseEntity viewReviews(@PathVariable long parkingId) {
+    public ResponseEntity viewReviews(@PathVariable long parkingId,
+                                      @RequestParam("page") int page) {
 
-        List<Review> reviews = reviewService.findReviewsByParkingOrderByCreatedDateDesc(parkingId);
-        List<ReviewResDto> collect = reviews.stream()
-                .map(e -> mapper.reviewsToReviewsResDto(e))
-                .collect(Collectors.toList());
+        Page<ReviewResDto> reviewsPage = reviewService.findReviewsByParkingOrderByCreatedDateDesc(parkingId, page);
+//        List<Review> reviews = reviewsPage.getContent();
+//        List<ReviewResDto> collect = reviews.stream()
+//                .map(e -> mapper.reviewsToReviewsResDto(e))
+//                .collect(Collectors.toList());
 
-        return new ResponseEntity<>(new MultiRes<>(collect), HttpStatus.OK);
+        return new ResponseEntity<>(new MultiRes<>(reviewsPage.getContent(), reviewsPage), HttpStatus.OK);
     }
 
     @PostMapping("/reviews/{parkingId}")

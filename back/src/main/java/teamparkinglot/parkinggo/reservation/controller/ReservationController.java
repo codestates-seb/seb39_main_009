@@ -15,22 +15,22 @@ public class ReservationController {
 
     private final ReservationService reservationService;
 
-    @PostMapping("/pay/{id}")
-    public ResponseEntity createReservation(@PathVariable Long id,
+    @PostMapping("/pay/{reservationId}")
+    public ResponseEntity finalPay(@PathVariable Long reservationId,
                                             Authentication authentication) {
 
         UserDetails principal = (UserDetails) authentication.getPrincipal();
         String email = principal.getUsername();
 
-        reservationService.finalPayment(id, email);
+        reservationService.finalPayment(reservationId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping("/pay/{id}")
-    public ResponseEntity cancelPay(@PathVariable Long id) {
+    @DeleteMapping("/pay/{reservationId}")
+    public ResponseEntity cancelPay(@PathVariable Long reservationId) {
 
-        reservationService.cancelPayment(id);
+        reservationService.cancelPayment(reservationId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

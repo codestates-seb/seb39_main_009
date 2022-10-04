@@ -20,7 +20,6 @@ import java.util.List;
 public class BookmarkController {
 
     private final BookmarkService bookmarkService;
-    private final BookmarkMapper mapper;
 
     @PostMapping("/bookmark")
     public ResponseEntity postBookmark(@RequestBody BookmarkIdDto bookmarkIdDto,
