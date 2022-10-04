@@ -63,9 +63,6 @@ function HealthCheck() {
         </button>
         <button onClick={handlelogOut}>로그아웃</button>
         <button onClick={() => navigate(`/find`)}>주차장조건검색페이지</button>
-        <button onClick={() => navigate(`/find/location`)}>
-          주차장지역검색모달창
-        </button>
       </div>
       <br />
       <div>

@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { UserIdContext } from "../../context/UserIdContext";
 
-const LOGIN_URL = `/login`;
+const LOGIN_URL = '/login';
 
 const Login = () => {
   const onSilentRefresh = useRefreshToken();
