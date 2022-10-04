@@ -65,7 +65,7 @@ class ReviewControllerTest {
 
         review1 = new Review("body1", 1.0, member1, parking1);
         Pageable pageable = PageRequest.of(0, 5);
-        ReviewResDto reviewResDto = new ReviewResDto(1L, 1L, review1.getMember().getNickname(), review1.getBody());
+        ReviewResDto reviewResDto = new ReviewResDto(1L, 1L, 1.0, review1.getMember().getNickname(), review1.getBody());
 
         reviewResDtoPage = new PageImpl(List.of(reviewResDto), pageable, 1);
     }
@@ -75,7 +75,7 @@ class ReviewControllerTest {
     @WithMockCustomUser
     public void viewReviews() throws Exception {
 
-        ReviewResDto reviewResDto1 = new ReviewResDto(1L, 1L, "nickname1", "body1");
+        ReviewResDto reviewResDto1 = new ReviewResDto(1L, 1L, 1.0,"nickname1", "body1");
 
         given(reviewService.findReviewsByParkingOrderByCreatedDateDesc(Mockito.anyLong(), Mockito.anyInt())).willReturn(reviewResDtoPage);
         given(reviewMapper.reviewsToReviewsResDto(Mockito.any(Review.class))).willReturn(reviewResDto1);
