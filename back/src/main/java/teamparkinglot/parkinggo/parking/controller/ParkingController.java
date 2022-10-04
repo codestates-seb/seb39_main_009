@@ -13,6 +13,7 @@ import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.mapper.ParkingMapper;
 import teamparkinglot.parkinggo.parking.service.ParkingService;
 import teamparkinglot.parkinggo.reservation.service.ReservationService;
+import teamparkinglot.parkinggo.review.service.ReviewService;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class ParkingController {
     private final ParkingMapper mapper;
     private final HistoryService historyService;
     private final ReservationService reservationService;
+    private final ReviewService reviewService;
 
     @GetMapping("/parking/{id}")
     public ResponseEntity viewParking(@PathVariable long id,
@@ -44,10 +46,19 @@ public class ParkingController {
         return new ResponseEntity<>(parkingResDto, HttpStatus.OK);
     }
 
+    @GetMapping("/parking/{id}/star")
+    public ResponseEntity viewAverageStarInParking(@PathVariable long id) {
+
+        double star = Math.round(reviewService.getAverageStar(id) * 10) / 10.0;
+        ParkingStarResponseDto responseDto = new ParkingStarResponseDto(star);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
     @GetMapping("/parking/{id}/reservation")
     public ResponseEntity parkingMap(@PathVariable long id,
                                      @RequestParam("parkingStartDateTime") String parkingStartDateTime,
-                                     @RequestParam("parkingEndDateTime") String parkingEndDateTime) {
+                                     @RequestParam("parkingEndDateTime") String parkingEndDateTime){
 
         SelectTimeDto selectTimeDto = new SelectTimeDto(parkingStartDateTime, parkingEndDateTime);
 
@@ -84,7 +95,7 @@ public class ParkingController {
                                         @RequestParam("sort") String sort,
                                         @RequestParam("crtLocation") String crtLocation) {
 
-        ParkingCondDto parkingCondDto = new ParkingCondDto(region, parkingStartDateTime, parkingEndDateTime, sort, crtLocation);
+        ParkingCondDto parkingCondDto = new ParkingCondDto(region, parkingStartDateTime, parkingEndDateTime, null, null);
 
         List<Parking> byCond = parkingService.findByCond(parkingCondDto);
         List<ParkingResDto> collect = byCond.stream()

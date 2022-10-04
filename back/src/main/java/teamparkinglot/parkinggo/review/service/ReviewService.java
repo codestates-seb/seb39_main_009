@@ -21,6 +21,7 @@ import teamparkinglot.parkinggo.review.repository.ReviewRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
 
 @Service
 @RequiredArgsConstructor
@@ -82,5 +83,26 @@ public class ReviewService {
     private void checkExistReview(String email, Long parkingId) {
         Optional<Review> review = reviewRepository.findByMemberEmailAndParkingId(email, parkingId);
         if (review.isPresent()) throw new BusinessException(ExceptionCode.REVIEW_EXISTS);
+    }
+
+    public Double getAverageStar(long id) {
+
+        OptionalDouble average = reviewRepository.findByParkingId(id).stream()
+                .map(e -> e.getStar())
+                .mapToDouble(e -> Double.valueOf(e))
+                .average();
+
+        if (average.isEmpty()) {
+            return 0.0;
+        }
+
+        return average.getAsDouble();
+    }
+
+    public Review findReview(long reviewId) {
+
+        return reviewRepository.findByReviewId(reviewId).orElseThrow(
+                () -> new BusinessException(ExceptionCode.REVIEW_NOT_EXISTS)
+        );
     }
 }

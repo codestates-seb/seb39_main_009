@@ -29,6 +29,7 @@ import teamparkinglot.parkinggo.parking_place.ParkingPlace;
 import teamparkinglot.parkinggo.reservation.entity.Reservation;
 import teamparkinglot.parkinggo.reservation.service.ReservationService;
 import teamparkinglot.parkinggo.review.entity.Review;
+import teamparkinglot.parkinggo.review.service.ReviewService;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -55,6 +56,7 @@ class ParkingControllerTest {
     @MockBean HistoryService historyService;
     @MockBean ParkingRepository parkingRepository;
     @MockBean ReservationService reservationService;
+    @MockBean ReviewService reviewService;
 
     Member member1;
     Parking parking1;
