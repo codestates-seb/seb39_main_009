@@ -127,8 +127,8 @@ public class ParkingService {
                             .capacity(e.getPrkcmprt())
                             .weekdayOpen(e.getWeekdayOperOpenHhmm())
                             .weekdayClose(e.getWeekdayOperColseHhmm())
-                            .satClose(e.getSatOperOperOpenHhmm())
-                            .satOpen(e.getSatOperCloseHhmm())
+                            .satClose(e.getSatOperCloseHhmm())
+                            .satOpen(e.getSatOperOperOpenHhmm())
                             .sunOpen(e.getHolidayOperOpenHhmm())
                             .sunClose(e.getHolidayCloseOpenHhmm())
                             .basicTime(e.getBasicTime())
@@ -177,7 +177,8 @@ public class ParkingService {
                     }
 
                     Parking parking = findParking.get();
-                    parking.setParkingType(e.getPrkplceType());
+                    parking.setSatOpen(e.getSatOperOperOpenHhmm());
+                    parking.setSatClose(e.getSatOperCloseHhmm());
                 });
 
     }

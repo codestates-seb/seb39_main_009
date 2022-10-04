@@ -78,7 +78,11 @@ public class Parking {
         this.member = member;
     }
 
-    public void setParkingType(String parkingType) {
-        this.parkingType = parkingType;
+    public void setSatOpen(String satOpen) {
+        this.satOpen = satOpen;
+    }
+
+    public void setSatClose(String satClose) {
+        this.satClose = satClose;
     }
 }

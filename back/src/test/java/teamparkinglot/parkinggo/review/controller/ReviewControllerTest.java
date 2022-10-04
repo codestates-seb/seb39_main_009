@@ -7,6 +7,10 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -45,6 +49,8 @@ class ReviewControllerTest {
     Parking parking1;
     Review review1;
 
+    Page<ReviewResDto> reviewResDtoPage;
+
 
 
     @BeforeEach
@@ -58,6 +64,10 @@ class ReviewControllerTest {
                 "methodPay", 5000, 195.143, 153.153, "map", "phone", member1);
 
         review1 = new Review("body1", 1.0, member1, parking1);
+        Pageable pageable = PageRequest.of(0, 5);
+        ReviewResDto reviewResDto = new ReviewResDto(1L, 1L, review1.getMember().getNickname(), review1.getBody());
+
+        reviewResDtoPage = new PageImpl(List.of(reviewResDto), pageable, 1);
     }
 
 
@@ -65,15 +75,15 @@ class ReviewControllerTest {
     @WithMockCustomUser
     public void viewReviews() throws Exception {
 
-        ReviewResDto reviewResDto1 = new ReviewResDto(1L, 1L, "name1", "body1");
+        ReviewResDto reviewResDto1 = new ReviewResDto(1L, 1L, "nickname1", "body1");
 
-        given(reviewService.findReviewsByParkingOrderByCreatedDateDesc(Mockito.anyLong())).willReturn(List.of(review1));
+        given(reviewService.findReviewsByParkingOrderByCreatedDateDesc(Mockito.anyLong(), Mockito.anyInt())).willReturn(reviewResDtoPage);
         given(reviewMapper.reviewsToReviewsResDto(Mockito.any(Review.class))).willReturn(reviewResDto1);
 
         Long parkingId = 1L;
 
         ResultActions actions = mockMvc.perform(
-                get("/api/reviews/{parkingId}", parkingId)
+                get("/api/reviews/{parkingId}?page=1", parkingId)
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
         );
@@ -81,7 +91,7 @@ class ReviewControllerTest {
         actions
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.[0].reviewId").value(reviewResDto1.getReviewId()))
-                .andExpect(jsonPath("$.data.[0].writerId").value(reviewResDto1.getWriterId()))
+                .andExpect(jsonPath("$.data.[0].memberId").value(reviewResDto1.getMemberId()))
                 .andExpect(jsonPath("$.data.[0].nickName").value(reviewResDto1.getNickName()))
                 .andExpect(jsonPath("$.data.[0].body").value(reviewResDto1.getBody()));
 

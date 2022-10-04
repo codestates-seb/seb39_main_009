@@ -1,6 +1,10 @@
 package teamparkinglot.parkinggo.review.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.advice.exception.BusinessException;
@@ -11,6 +15,7 @@ import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.repository.ParkingRepository;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
 import teamparkinglot.parkinggo.review.dto.ReviewPostDto;
+import teamparkinglot.parkinggo.review.dto.ReviewResDto;
 import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.review.repository.ReviewRepository;
 
@@ -27,8 +32,9 @@ public class ReviewService {
     private final ParkingRepository parkingRepository;
     private final ReservationRepository reservationRepository;
 
-    public List<Review> findReviewsByParkingOrderByCreatedDateDesc(long parkingId) {
-        return reviewRepository.findReviewsByParkingOrderByCreatedDateDesc(parkingId);
+    public Page<ReviewResDto> findReviewsByParkingOrderByCreatedDateDesc(long parkingId, int page) {
+        Pageable pageable = PageRequest.of(page - 1, 5, Sort.by("id").descending());
+        return reviewRepository.findReviewsByParkingOrderByCreatedDateDesc(parkingId, pageable);
     }
 
     @Transactional

@@ -71,6 +71,7 @@ public class GlobalExceptionAdvice {
     public ErrorResponse handleAllException(Exception e) {
 
         final ErrorResponse response = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        log.error("500 에러 = {}", e);
 
         return response;
     }
