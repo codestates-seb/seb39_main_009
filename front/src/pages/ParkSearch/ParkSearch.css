@@ -1,15 +1,16 @@
 
-  /* .parksearch_main{
+  .parksearch,
+  .presentsearch{
     width: 100%;
-    height: 85vh;
+    height: 370px;
     overflow: auto;
     padding: 20px;
-    padding-top: 30px;
     border-top: 0.5px solid rgb(204, 204, 204);
     display: flex;
     flex-direction: column;
-    align-items: center;
-  } */
+    /* align-items: center; */
+  }
+
 
   .dropdown{
     position: absolute;
@@ -38,10 +39,6 @@
     /* transition: transform 250ms ease-out; */
   }
 
-
-  /* .dropdown:checked + label>.caretIcon {
-    transform: rotate(-180deg);
-  } */
 
   .searchpage{
     border: solid 1px black;

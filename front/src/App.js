@@ -23,8 +23,7 @@ import Parkinglot from "./pages/Parkinglot/Parkinglot";
 import ParkingMap from "./pages/Parkinglot/ParkingMap";
 import Review from "./pages/Review/Review";
 import ParkSearch from "./pages/ParkSearch/ParkSearch";
-
-import EditReview from "./pages/Review/EditReview";
+import EditReview from "./pages/Review/Editreview";
 import ParkReservation from "./pages/ParkReservation/ParkReservation";
 import WriteReview from "./pages/Review/WriteReview";
 

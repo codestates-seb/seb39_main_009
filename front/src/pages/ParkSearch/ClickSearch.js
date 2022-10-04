@@ -37,6 +37,7 @@ const ClickSearch = (props) =>{
           <select>
             <option value="인기순" selected="selected">인기순</option>
           </select>
+          <div className="parksearch">
           <h3>제휴 주차장</h3>
           <div>{truePartnership && truePartnership.map(data => (
                           <div>
@@ -68,6 +69,7 @@ const ClickSearch = (props) =>{
                           </div>
                           </div>
                       ))}
+           </div>
            </div>
         </div>
     )

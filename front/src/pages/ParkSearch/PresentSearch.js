@@ -2,6 +2,7 @@ import { useState } from "react";
 import Presentsearchlist from "./Presentsearchlist";
 import Loading from "../../component/Loading/Loading"
 import { useEffect } from "react";
+import "./ParkSearch.css"
 
 
 const PresentSearch =() =>{
@@ -36,14 +37,14 @@ const PresentSearch =() =>{
     }, [])
 
     return (
-        <>
+        <div className="presentsearch">
         {localStorage.getItem('authorization')?<h2>최근 검색 주차장</h2>:" "}
         {loading && <Loading />}
         <div>{data && data.map(data => (
                   <Presentsearchlist key={data.parkingId} data={data}/>
            ))}
       </div>
-        </>
+        </div>
     )
 }
 
