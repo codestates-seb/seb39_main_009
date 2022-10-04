@@ -11,7 +11,7 @@ public class ReviewMapper {
     public ReviewResDto reviewsToReviewsResDto(Review review) {
         return ReviewResDto.builder()
                 .reviewId(review.getId())
-                .writerId(review.getMember().getId())
+                .memberId(review.getMember().getId())
                 .nickName(review.getMember().getNickname())
                 .body(review.getBody())
                 .build();
