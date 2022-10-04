@@ -181,7 +181,7 @@ class ParkingControllerTest {
     @Test
     @WithMockCustomUser
     public void searchParking() throws Exception {
-        ParkingCondDto parkingCondDto = new ParkingCondDto("region", "2022-01-01 08:00:00", "2022-01-01 09:00:00",
+        ParkingCondDto parkingCondDto = new ParkingCondDto("region", "2022-01-01 08:00", "2022-01-01 09:00",
                                                             "sort", "crtLocation");
         List<Parking> parkingList = List.of(parking1);
         ParkingResDto parkingResDto = new ParkingResDto(1L, "name", "address", "weekdayOpen", "weekdayClose",
@@ -194,8 +194,8 @@ class ParkingControllerTest {
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("region", parkingCondDto.getRegion());
-        params.add("parkingStartDateTime", "2022-01-01 08:00:00");
-        params.add("parkingEndDateTime", "2022-01-01 09:00:00");
+        params.add("parkingStartDateTime", "2022-01-01 08:00");
+        params.add("parkingEndDateTime", "2022-01-01 09:00");
         params.add("sort", parkingCondDto.getSort());
         params.add("crtLocation", parkingCondDto.getCrtLocation());
 
