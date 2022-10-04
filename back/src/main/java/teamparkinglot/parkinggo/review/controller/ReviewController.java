@@ -33,10 +33,6 @@ public class ReviewController {
                                       @RequestParam("page") int page) {
 
         Page<ReviewResDto> reviewsPage = reviewService.findReviewsByParkingOrderByCreatedDateDesc(parkingId, page);
-//        List<Review> reviews = reviewsPage.getContent();
-//        List<ReviewResDto> collect = reviews.stream()
-//                .map(e -> mapper.reviewsToReviewsResDto(e))
-//                .collect(Collectors.toList());
 
         return new ResponseEntity<>(new MultiRes<>(reviewsPage.getContent(), reviewsPage), HttpStatus.OK);
     }
@@ -51,6 +47,16 @@ public class ReviewController {
         reviewService.createReview(parkingId, reviewPostDto, principal.getUsername());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/reviews/{parkingId}/{reviewId}")
+    public ResponseEntity viewReviewForPatch(@PathVariable("parkingId") long parkingId,
+                                             @PathVariable("reviewId") long reviewId) {
+
+        Review review = reviewService.findReview(reviewId);
+        ReviewResDto reviewResDto = mapper.reviewsToReviewsResDto(review);
+
+        return new ResponseEntity<>(reviewResDto, HttpStatus.OK);
     }
 
     @PatchMapping("/reviews/{parkingId}")
