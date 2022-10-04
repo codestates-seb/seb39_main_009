@@ -30,9 +30,9 @@ public class ReservationService {
 //    private final ReservationMapper mapper;
 
     @Transactional
-    public void finalPayment(Long id, String email) {
+    public void finalPayment(Long reservationId) {
 
-        Reservation reservation = reservationRepositoryCustom.findReservation(id);
+        Reservation reservation = reservationRepositoryCustom.findReservation(reservationId);
 
         Long currentPoint = reservation.getMember().getPoint();
         Long minusPoint = reservation.getPrice();
@@ -47,8 +47,8 @@ public class ReservationService {
     }
 
     @Transactional
-    public void cancelPayment(Long id) {
-        Reservation reservation = findVerifiedReservation(id);
+    public void cancelPayment(Long reservationId) {
+        Reservation reservation = findVerifiedReservation(reservationId);
         if (LocalDateTime.now().isBefore(reservation.getParkingStartDateTime().minusHours(1))) {
 
             if (reservation.getPayOrNot()) {
