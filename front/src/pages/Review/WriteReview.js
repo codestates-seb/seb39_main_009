@@ -5,23 +5,14 @@ import axios from "../../apis/axios";
 import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import useFetch from "./../../hooks/useFetch";
 import { AuthContext } from "../../context/AuthContext";
-import { UserIdContext } from "../../context/UserIdContext";
 import ReviewStar from "./ReviewStar";
-import Loading from "../../component/Loading/Loading";
 
-const EditReview = () => {
+const WriteReview = () => {
   const navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
   const reviewRef = useRef(null);
   const { pkId } = useParams();
-  const { auth } = useContext(AuthContext);
-  // const { userId } = useContext(UserIdContext);
-
-  const { data, loading } = useFetch(`/reviews/${pkId}`);
-
-  console.log(data);
-
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
 
@@ -45,13 +36,12 @@ const EditReview = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log("리뷰등록");
+        alert("리뷰가 등록되었습니다.");
         navigate(`/parking/${pkId}/review`);
-        console.log(res);
       })
       .catch((err) => {
-        console.log("등록실패");
-        console.log(err);
+        alert(err.response.data.message);
+        navigate(`/parking/${pkId}/review`);
       });
   };
 
@@ -61,7 +51,6 @@ const EditReview = () => {
 
   return (
     <>
-      {loading && <Loading />}
       <form onSubmit={onSubmit}>
         <div className="signup_header">
           <p>리뷰작성페이지</p>
@@ -88,4 +77,4 @@ const EditReview = () => {
   );
 };
 
-export default EditReview;
+export default WriteReview;
