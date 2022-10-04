@@ -2,17 +2,27 @@
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 
 import "./../../pages/Parkinglot/Parkinglot.css";
-import { axiosPrivate } from "../../apis/axios";
-import React from "react";
-import { useState } from "react";
+import axios from "../../apis/axios";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const ParkingBookmark = ({ pkId }) => {
+  const { auth } = useContext(AuthContext);
   const [bookmark, setBookmark] = useState(false);
 
   // 즐겨찾기 받아오기: onClick시 즐겨찾기 post요청 + 즐겨찾기 state true
   const handleGetBookmark = () => {
-    axiosPrivate
-      .get(`/bookmarkCheck/${pkId}`)
+    axios
+      .get(
+        `/bookmarkCheck/${pkId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: auth,
+          },
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         if (res.data.bookmark) {
           setBookmark(true);
@@ -27,8 +37,18 @@ const ParkingBookmark = ({ pkId }) => {
 
   // 즐겨찾기 활성화 : onClick시 즐겨찾기 post요청 + 즐겨찾기 state true
   const handleOnBookmark = () => {
-    axiosPrivate
-      .post(`/bookmark`, { id: pkId })
+    axios
+      .post(
+        `/bookmark`,
+        { id: pkId },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: auth,
+          },
+        },
+        { withCredentials: true }
+      )
       .then(() => setBookmark(true))
       .catch((err) => {
         console.log(err);
@@ -37,8 +57,17 @@ const ParkingBookmark = ({ pkId }) => {
 
   // 즐겨찾기 비활성화 : onClick시 즐겨찾기 post요청 + 즐겨찾기 state false
   const handleOffBookmark = () => {
-    axiosPrivate
-      .delete(`/bookmark/${pkId}`)
+    axios
+      .delete(
+        `/bookmark/${pkId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: auth,
+          },
+        },
+        { withCredentials: true }
+      )
       .then(() => setBookmark(false))
       .catch((err) => {
         console.log(err);

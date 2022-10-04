@@ -1,8 +1,10 @@
 import "./layout.css"; // 레이아웃 CSS 입니다. Don't touch !
 import "./App.css"; // 비어있으니 레이아웃 외 CSS 추가변경 원하시면 이곳에서 수정해주세요 !
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useRefreshToken from "./hooks/useRefreshToken";
+import { AuthContext } from "./context/AuthContext";
+import { UserIdContext } from "./context/UserIdContext";
 import Header from "./component/Header/Header";
 import HealthCheck from "./test/HealthCheck";
 import SignUp from "./pages/signup/Signup";
@@ -22,8 +24,12 @@ import Review from "./pages/Review/Review";
 import Editreview from "./pages/Review/Editreview";
 import ParkSearch from "./pages/ParkSearch/ParkSearch";
 import AreaparkModal from "./component/Modal/ParkSearchModal/AreaparkModal";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
+  const [auth, setAuth] = useLocalStorage("auth", "");
+  const [userId, setUserId] = useLocalStorage("userId", "");
+
   const onSilentRefresh = useRefreshToken();
   useEffect(() => {
     setInterval(onSilentRefresh, 360000);
@@ -33,64 +39,75 @@ function App() {
   const handlelogOut = () => {
     localStorage.removeItem("authorization");
     localStorage.removeItem("refreshtoken");
+    localStorage.removeItem("auth");
+    localStorage.removeItem("userId");
+    setAuth({});
+    setUserId({});
   };
 
   return (
-    <Router>
-      <div className="container">
-        <div className="side">프로젝트 소개 구역</div>
-        <div className="main_container">
-          <div className="header">
-            <Header handlelogOut={handlelogOut} />
-          </div>
-          <div className="main">
-            <div>
-              {/* ↓ 아래 main div 안에 페이지 추가해주시면 됩니다. */}
-              <Routes>
-                {/* 로딩컴포넌트 - 임시 메인 */}
-                <Route path="/" element={<HealthCheck />} />
-                {/* 로그인창 */}
-                <Route path="/login" element={<Login />} />
-                {/* 회원가입창 */}
-                <Route path="/join" element={<SignUp />} />
-                {/* 개인정보수정페이지 */}
-                <Route path="/mypage/:id/edit" element={<Editmypage />} />
-                {/* welcome창 */}
-                <Route path="/welcome" element={<Welcome />} />
-                {/* 마이페이지 */}
-                <Route path="/mypage/:id" element={<Mypage />} />
-                {/* 주차장 정보 조회*/}
-                <Route path="/parking/:pkId" element={<Parkinglot />} />
-                {/* 주차장 지도*/}
-                <Route path="/parking/:pkId/map" element={<ParkingMap />} />
-                {/* 나의 예약 목록*/}
-                <Route path="/reservation" element={<ReservationsList />} />
-                {/* 예약 상세 조회 */}
-                <Route path="/reservation/:id" element={<Reservation />} />
-                {/* 공지사항 */}
-                <Route path="/notice" element={<Notice />} />
-                {/* 즐겨찾기 */}
-                <Route path="/bookmark" element={<Bookmark />} />
-                {/* 제휴문의 */}
-                <Route path="/partnership" element={<Partnership />} />
-                {/* 1:1문의 */}
-                <Route path="/question" element={<Question />} />
-                {/* 리뷰페이지 */}
-                <Route path="/parking/:pkId/review" element={<Review />} />
-                {/* 리뷰작성페이지 */}
-                <Route path="/parking/:pkId/review/write" element={<Editreview />}/>
-                {/* 개인정보수정페이지 */}
-                <Route path="/mypage/:id/edit" element={<Editmypage />} />
-                {/* 주차장 조건검색 페이지 */}
-                <Route path="/find" element={<ParkSearch />} />
-                {/* 주차장 지역 조건검색페이지 */}
-                <Route path="/find/location" element={<AreaparkModal />} />
-              </Routes>
+    <AuthContext.Provider value={{ auth, setAuth }}>
+      <UserIdContext.Provider value={{ userId, setUserId }}>
+        <Router>
+          <div className="container">
+            <div className="side">프로젝트 소개 구역</div>
+            <div className="main_container">
+              <div className="header">
+                <Header handlelogOut={handlelogOut} />
+              </div>
+              <div className="main">
+                <div>
+                  {/* ↓ 아래 main div 안에 페이지 추가해주시면 됩니다. */}
+                  <Routes>
+                    {/* 로딩컴포넌트 - 임시 메인 */}
+                    <Route path="/" element={<HealthCheck />} />
+                    {/* 로그인창 */}
+                    <Route path="/login" element={<Login />} />
+                    {/* 회원가입창 */}
+                    <Route path="/join" element={<SignUp />} />
+                    {/* 개인정보수정페이지 */}
+                    <Route path="/mypage/:id/edit" element={<Editmypage />} />
+                    {/* welcome창 */}
+                    <Route path="/welcome" element={<Welcome />} />
+                    {/* 마이페이지 */}
+                    <Route path="/mypage/:id" element={<Mypage />} />
+                    {/* 주차장 정보 조회*/}
+                    <Route path="/parking/:pkId" element={<Parkinglot />} />
+                    {/* 주차장 지도*/}
+                    <Route path="/parking/:pkId/map" element={<ParkingMap />} />
+                    {/* 나의 예약 목록*/}
+                    <Route path="/reservation" element={<ReservationsList />} />
+                    {/* 예약 상세 조회 */}
+                    <Route path="/reservation/:id" element={<Reservation />} />
+                    {/* 공지사항 */}
+                    <Route path="/notice" element={<Notice />} />
+                    {/* 즐겨찾기 */}
+                    <Route path="/bookmark" element={<Bookmark />} />
+                    {/* 제휴문의 */}
+                    <Route path="/partnership" element={<Partnership />} />
+                    {/* 1:1문의 */}
+                    <Route path="/question" element={<Question />} />
+                    {/* 리뷰페이지 */}
+                    <Route path="/parking/:pkId/review" element={<Review />} />
+                    {/* 리뷰작성페이지 */}
+                    <Route
+                      path="/parking/:pkId/review/write"
+                      element={<Editreview />}
+                    />
+                    {/* 개인정보수정페이지 */}
+                    <Route path="/mypage/:id/edit" element={<Editmypage />} />
+                    {/* 주차장 조건검색 페이지 */}
+                    <Route path="/find" element={<ParkSearch />} />
+                    {/* 주차장 지역 조건검색페이지 */}
+                    <Route path="/find/location" element={<AreaparkModal />} />
+                  </Routes>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </Router>
+        </Router>
+      </UserIdContext.Provider>
+    </AuthContext.Provider>
   );
 }
 export default App;

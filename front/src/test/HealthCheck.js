@@ -63,7 +63,9 @@ function HealthCheck() {
           마이페이지
         </button>
         <button onClick={handlelogOut}>로그아웃</button>
-        <button onClick={() => navigate(`/parking/{pkId}/review`)}>리뷰페이지</button>
+        <button onClick={() => navigate(`/parking/{pkId}/review`)}>
+          리뷰페이지
+        </button>
         <button onClick={() => navigate(`/parking/{pkId}/review/write`)}>
           리뷰작성페이지
         </button>
@@ -72,7 +74,9 @@ function HealthCheck() {
           <button>개인정보수정/안나님 이거 안돼요ㅜ</button>
         </Link>
         <button onClick={() => navigate(`/find`)}>주차장조건검색페이지</button>
-        <button onClick={() => navigate(`/find/location`)}>주차장지역검색모달창</button>
+        <button onClick={() => navigate(`/find/location`)}>
+          주차장지역검색모달창
+        </button>
       </div>
       <br />
       <div>

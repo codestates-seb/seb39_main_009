@@ -6,6 +6,9 @@ import axios from "../../apis/axios";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useRefreshToken from "../../hooks/useRefreshToken";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { UserIdContext } from "../../context/UserIdContext";
 
 const LOGIN_URL = `/login`;
 
@@ -13,6 +16,8 @@ const Login = () => {
   const onSilentRefresh = useRefreshToken();
   const navigate = useNavigate();
 
+  const { setAuth } = useContext(AuthContext);
+  const { setUserId } = useContext(UserIdContext);
   const userRef = useRef();
   const errRef = useRef();
 
@@ -40,19 +45,22 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(response);
       const authorization = response?.headers?.authorization;
+      const auth = response?.headers?.authorization;
       const refreshtoken = response?.headers?.refreshtoken;
+      const memberId = response.data.memberId;
       localStorage.setItem("authorization", authorization);
       localStorage.setItem("refreshtoken", refreshtoken);
+      localStorage.setItem("userId", memberId);
+      setAuth(auth);
+      setUserId(memberId);
       setEmail("");
       setPassword("");
       setTimeout(onSilentRefresh, 360000); // 1시간
-      // navigate("/");
-      // window.location.reload();
-
+      navigate("/");
     } catch (err) {
-      setErrMsg(err?.response.data.message);
+      console.log("err: ", err);
+      setErrMsg(err.response.data.message);
       errRef.current.focus();
     }
   };

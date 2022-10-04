@@ -16,7 +16,7 @@ const FreeParkingIcon = ({ data }) => {
     };
 
     getFreeParking();
-  }, [data, setFreeParking]);
+  }, []);
 
   return (
     <>

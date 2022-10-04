@@ -14,7 +14,7 @@ const MultiChildIcon = ({ data, multiChild, setMultiChild }) => {
     };
 
     getMultiChild();
-  }, [data, setMultiChild]);
+  }, []);
 
   return (
     <div className="icon_container">

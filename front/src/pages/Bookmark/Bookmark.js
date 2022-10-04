@@ -3,14 +3,16 @@ import { GrClose } from "react-icons/gr";
 import { FaTrashAlt } from "react-icons/fa";
 
 import "./Bookmark.css";
-import { axiosPrivate } from "../../apis/axios";
-import React, { useState, useEffect } from "react";
+import axios from "../../apis/axios";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 import RandomImg from "../../assets/parkinglot/RandomImg";
 import Loading from "../../component/Loading/Loading";
 import Error from "../../component/Error/Error";
 
 const Bookmark = () => {
+  const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,8 +20,17 @@ const Bookmark = () => {
   const [del, setDel] = useState("");
 
   const getBookmark = () => {
-    axiosPrivate
-      .get(`/bookmark`)
+    axios
+      .get(
+        `/bookmark`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: auth,
+          },
+        },
+        { withCredentials: true }
+      )
       .then((res) => {
         setData(res.data);
         setLoading(false);
@@ -34,7 +45,7 @@ const Bookmark = () => {
   }, [del]);
 
   const handleOffBookmark = (pkId) => {
-    axiosPrivate
+    axios
       .delete(`/bookmark/${pkId}`)
       .then(() => setDel(pkId))
       .catch((err) => {

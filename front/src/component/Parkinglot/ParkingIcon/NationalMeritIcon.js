@@ -13,7 +13,7 @@ const NationalMeritIcon = ({ data, nationalMerit, setNationalMerit }) => {
       }
     };
     getNationalMerit();
-  }, [data, setNationalMerit]);
+  }, []);
 
   return (
     <div className="icon_container">

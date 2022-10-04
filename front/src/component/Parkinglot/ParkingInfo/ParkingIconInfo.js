@@ -1,8 +1,8 @@
 import React from "react";
-import ParkingSection from "./ParkingIcon/ParkingSection";
-import ParkingType from "./ParkingIcon/ParkingType";
-import CreditCardIcon from "./ParkingIcon/CreditCardIcon";
-import FreeParkingIcon from "./ParkingIcon/FreeParkingIcon";
+import ParkingSection from "./../ParkingIcon/ParkingSection";
+import ParkingType from "./../ParkingIcon/ParkingType";
+import CreditCardIcon from "./../ParkingIcon/CreditCardIcon";
+import FreeParkingIcon from "./../ParkingIcon/FreeParkingIcon";
 
 const ParkingIconInfo = ({ data }) => {
   return (

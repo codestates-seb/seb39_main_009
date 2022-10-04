@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import CompactCarIcon from "./ParkingIcon/CompactCarIcon";
-import DisabilityIcon from "./ParkingIcon/DisabilityIcon";
-import MultiChildIcon from "./ParkingIcon/MultiChildIcon";
-import NationalMeritIcon from "./ParkingIcon/NationalMeritIcon";
+import CompactCarIcon from "./../ParkingIcon/CompactCarIcon";
+import DisabilityIcon from "./../ParkingIcon/DisabilityIcon";
+import MultiChildIcon from "./../ParkingIcon/MultiChildIcon";
+import NationalMeritIcon from "./../ParkingIcon/NationalMeritIcon";
 
 const ParkingIconDC = ({ data }) => {
   const [compactCar, setCompactCar] = useState(false);
@@ -21,7 +21,7 @@ const ParkingIconDC = ({ data }) => {
       }
     };
     handleHide();
-  }, [hide, compactCar, disability, multiChild, nationalMerit]);
+  }, [hide]);
 
   return (
     <>
