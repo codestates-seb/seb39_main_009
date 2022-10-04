@@ -18,11 +18,13 @@ import teamparkinglot.parkinggo.member.mail.MailService;
 import teamparkinglot.parkinggo.member.mapper.MemberMapper;
 import teamparkinglot.parkinggo.member.service.MemberService;
 import teamparkinglot.parkinggo.member.uuid.UuidService;
+import teamparkinglot.parkinggo.mock_custom_user.WithMockCustomUser;
 import teamparkinglot.parkinggo.reservation.service.ReservationService;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -39,16 +41,17 @@ class MemberControllerTest {
     @MockBean private UuidService uuidService;
 
     @Test
+    @WithMockCustomUser
     public void joinUser() throws Exception {
 
-        MemberJoinDto memberJoinDto = new MemberJoinDto("email", "password", "phoneNum", "name", "carNumber",
-                                                    true, true, true);
+        MemberJoinDto memberJoinDto = new MemberJoinDto("email@email.com", "password1234!", "010-1010-0101", "name", "11가1111",
+                true, true, true);
 
         Member member = new Member("email1", "password1", "nickname1", MemberRole.USER, null, "carNumber1",
                 "phone1", 10000L, true, true, true, "provider", "providerId");
 
-        given(mapper.memberJoinDtoToMember(Mockito.any(MemberJoinDto.class))).willReturn(member);
-        doNothing().when(memberService).memberCreate(Mockito.any(Member.class));
+        given(mapper.memberJoinDtoToMember(memberJoinDto)).willReturn(member);
+        given(memberService.memberCreate(Mockito.any(Member.class))).willReturn(member);
 
         String content = gson.toJson(memberJoinDto);
 
@@ -56,10 +59,10 @@ class MemberControllerTest {
                 post("/api/join")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(content)
+                        .with(csrf())
         );
 
         actions.andExpect(status().isCreated());
-        //TODO 하는중
     }
 
 }
