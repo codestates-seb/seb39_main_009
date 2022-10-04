@@ -2,7 +2,7 @@
 import { GrClose } from "react-icons/gr";
 
 import axios from "../../apis/axios";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
@@ -11,22 +11,16 @@ import ReviewStar from "./ReviewStar";
 const WriteReview = () => {
   const navigate = useNavigate();
   const { auth } = useContext(AuthContext);
-  const reviewRef = useRef(null);
   const { pkId } = useParams();
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState("");
-
-  const reviewData = {
-    star: rating,
-    body: review,
-  };
+  const [star, setStar] = useState(null);
+  const [body, setBody] = useState("");
 
   const onSubmit = (e) => {
     e.preventDefault();
     axios
       .post(
         `/reviews/${pkId}`,
-        reviewData,
+        { star, body },
         {
           headers: {
             "Content-Type": "application/json",
@@ -45,10 +39,6 @@ const WriteReview = () => {
       });
   };
 
-  useEffect(() => {
-    reviewRef.current.focus();
-  }, []);
-
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -61,14 +51,13 @@ const WriteReview = () => {
           />
         </div>
         <h2>상품은 만족하셨나요?</h2>
-        <ReviewStar setRating={setRating} />
+        <ReviewStar setStar={setStar} star={star} />
         <h2>어떤 점이 좋았나요?</h2>
         <textarea
-          placeholder="최소 10자 이상은 입력해주세요."
+          placeholder="최소 10자 이상 입력해주세요."
           type="text"
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
-          ref={reviewRef}
+          value={body}
+          onChange={(e) => setBody(e.target.value)}
           required
         />
         <button>등록</button>

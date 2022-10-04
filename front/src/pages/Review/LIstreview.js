@@ -1,47 +1,33 @@
-import axios from "axios";
-import { useState, useContext } from "react";
+//react-icons
+import { FaStar } from "react-icons/fa";
+
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { UserIdContext } from "../../context/UserIdContext";
 import RandomImg2 from "../../assets/profileimg/RandomImg2";
-import { useNavigate, useParams } from "react-router-dom";
 
-const Listreview = (props) => {
+const Listreview = ({ pkId, reviews, handleDelReview }) => {
   const navigate = useNavigate();
-  const { pkId } = useParams();
   const { userId } = useContext(UserIdContext);
-
-  const [review, setReview] = useState(props.reviews);
-  // const navigate = useNavigate();
-
-  // 삭제버튼을 어떻게 할지 의문!
-  const del = () => {
-    if (window.confirm("삭제하시겠습니까?")) {
-      axios.delete(`/api/reviews/${props.pkId}/${review.id}`).then((res) => {
-        if (res.ok) {
-          setReview({
-            ...review,
-            id: 0,
-          });
-        }
-      });
-    }
-  };
-
-  if (review.reviewId === 0) {
-    return null;
-  }
 
   return (
     <div>
-      <div key={review.reviewId}>
+      <div key={reviews.reviewId}>
         <RandomImg2 size={"reviewImg_size"} />
-        <div>닉네임 : {review.nickName}</div>
-        <div>{review.body}</div>
-        {userId === review.memberId ? (
+        <div>닉네임 : {reviews.nickName}</div>
+        <FaStar size={15} />
+        <div>{reviews.star}</div>
+        <div>{reviews.body}</div>
+        {userId === reviews.memberId ? (
           <>
-            <button onClick={() => navigate(`/parking/${pkId}/review/edit`)}>
+            <button
+              onClick={() =>
+                navigate(`/parking/${pkId}/review/${reviews.reviewId}`)
+              }
+            >
               수정
             </button>
-            <button onClick={del}>삭제</button>
+            <button onClick={handleDelReview}>삭제</button>
           </>
         ) : null}
       </div>

@@ -7,35 +7,33 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import useFetch from "./../../hooks/useFetch";
 import { AuthContext } from "../../context/AuthContext";
-import { UserIdContext } from "../../context/UserIdContext";
 import ReviewStar from "./ReviewStar";
 import Loading from "../../component/Loading/Loading";
+import Error from "../../component/Error/Error";
 
 const EditReview = () => {
   const navigate = useNavigate();
-  const reviewRef = useRef(null);
-  const { pkId } = useParams();
   const { auth } = useContext(AuthContext);
-  // const { userId } = useContext(UserIdContext);
+  const { pkId, reviewId } = useParams();
+  const [star, setStar] = useState(null);
+  const [body, setBody] = useState("");
 
-  const { data, loading } = useFetch(`/reviews/${pkId}`);
-
+  const { data, loading, error } = useFetch(`/reviews/${pkId}/${reviewId}`);
   console.log(data);
 
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState("");
+  useEffect(() => {
+    setStar(data.star);
+    setBody(data.body);
+  }, [data]);
 
-  const reviewData = {
-    star: rating,
-    body: review,
-  };
+  const reviewEditData = { star, body };
 
   const onSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(
+      .patch(
         `/reviews/${pkId}`,
-        reviewData,
+        reviewEditData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -45,23 +43,19 @@ const EditReview = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log("리뷰등록");
+        alert("리뷰가 수정되었습니다.");
         navigate(`/parking/${pkId}/review`);
-        console.log(res);
       })
       .catch((err) => {
-        console.log("등록실패");
-        console.log(err);
+        alert(err.response.data.message);
+        navigate(`/parking/${pkId}/review`);
       });
   };
-
-  useEffect(() => {
-    reviewRef.current.focus();
-  }, []);
 
   return (
     <>
       {loading && <Loading />}
+      {error && <Error />}
       <form onSubmit={onSubmit}>
         <div className="signup_header">
           <p>리뷰작성페이지</p>
@@ -72,14 +66,13 @@ const EditReview = () => {
           />
         </div>
         <h2>상품은 만족하셨나요?</h2>
-        <ReviewStar setRating={setRating} />
+        <ReviewStar setStar={setStar} star={star} />
         <h2>어떤 점이 좋았나요?</h2>
         <textarea
           placeholder="최소 10자 이상은 입력해주세요."
           type="text"
-          value={review}
-          onChange={(e) => setReview(e.target.value)}
-          ref={reviewRef}
+          value={body === undefined ? "" : body}
+          onChange={(e) => setBody(e.target.value)}
           required
         />
         <button>등록</button>

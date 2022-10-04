@@ -1,44 +1,35 @@
 //react-icons
-import { ImStarFull } from "react-icons/im";
+import { FaStar } from "react-icons/fa";
 
 import "./../../pages/Review/Review.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-const ReviewStar = ({ setRating }) => {
-  const [clicked, setClicked] = useState([false, false, false, false, false]);
-  const arr = [0, 1, 2, 3, 4];
-
-  const handleStarClick = (index) => {
-    let clickStates = [...clicked];
-    for (let i = 0; i < 5; i++) {
-      clickStates[i] = i <= index ? true : false;
-    }
-    setClicked(clickStates);
-  };
-
-  const handleRating = () => {
-    setRating(clicked.filter(Boolean).length);
-  };
-
-  useEffect(() => {
-    handleRating();
-  }, [clicked]);
-
+const ReviewStar = ({ star, setStar }) => {
+  const [hover, setHover] = useState(null);
   return (
-    <>
-      <div className="ratingStar">
-        {arr.map((el, idx) => {
-          return (
-            <ImStarFull
-              key={idx}
-              size="50"
-              onClick={() => handleStarClick(el)}
-              className={clicked[el] && "yellowStar"}
+    <div className="ratingStar">
+      {[...Array(5)].map((el, i) => {
+        const ratingValue = i + 1;
+
+        return (
+          <label>
+            <input
+              type="radio"
+              nama="rating"
+              value={ratingValue}
+              onClick={() => setStar(ratingValue)}
             />
-          );
-        })}
-      </div>
-    </>
+            <FaStar
+              className="star"
+              color={ratingValue <= (hover || star) ? "#ffc107" : "#e4e5e9"}
+              size={42}
+              onMouseEnter={() => setHover(ratingValue)}
+              onMouseLeave={() => setHover(null)}
+            />
+          </label>
+        );
+      })}
+    </div>
   );
 };
 
