@@ -26,4 +26,12 @@ public class Notice extends Auditable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
+
+    public Notice(String title, String body, Boolean use, NoticeType type, Member member) {
+        this.title = title;
+        this.body = body;
+        this.use = use;
+        this.type = type;
+        this.member = member;
+    }
 }
