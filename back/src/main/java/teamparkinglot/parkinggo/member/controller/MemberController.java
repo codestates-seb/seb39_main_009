@@ -48,7 +48,7 @@ public class MemberController {
     }
 
     @PostMapping("/reset-password")
-    public ResponseEntity resetPwdSendEmail(@RequestBody @Valid ResetPwdDtoForEmail email) throws MessagingException {
+    public ResponseEntity resetPwdSendEmail(@RequestBody @Valid ResetPwdDtoForEmail email) {
 
         UUID uuid = UUID.randomUUID();
         Uuid saveUUID = uuidService.saveUUID(email.getEmail(), uuid);
