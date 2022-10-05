@@ -17,10 +17,9 @@ import teamparkinglot.parkinggo.advice.exception.BusinessException;
 import teamparkinglot.parkinggo.advice.ExceptionCode;
 import teamparkinglot.parkinggo.member.dto.MemberLoginDto;
 import teamparkinglot.parkinggo.member.dto.MemberLoginResponseDto;
-import teamparkinglot.parkinggo.member.dto.ResetPwdDtoForEmail;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
-import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.config.secret.SecretCode;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 import teamparkinglot.parkinggo.token.service.TokenService;
 

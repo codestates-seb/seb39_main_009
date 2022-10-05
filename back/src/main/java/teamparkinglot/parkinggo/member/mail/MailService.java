@@ -7,7 +7,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import teamparkinglot.parkinggo.member.dto.ResetPwdDtoForEmail;
-import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.config.secret.SecretCode;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

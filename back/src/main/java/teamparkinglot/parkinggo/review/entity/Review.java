@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.parking.entity.Parking;
-import teamparkinglot.parkinggo.advice.util.Auditable;
+import teamparkinglot.parkinggo.util.Auditable;
 
 import javax.persistence.*;
 

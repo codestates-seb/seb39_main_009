@@ -16,10 +16,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
-import teamparkinglot.parkinggo.member.service.MemberService;
-import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.config.secret.SecretCode;
 import teamparkinglot.parkinggo.security.entrypoint.CustomAccessDeniedHanler;
 import teamparkinglot.parkinggo.security.entrypoint.CustomAuthenticationEntrypoint;
 import teamparkinglot.parkinggo.security.filter.ExceptionHandlerFilter;

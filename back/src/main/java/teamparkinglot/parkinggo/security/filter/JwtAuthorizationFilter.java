@@ -12,7 +12,7 @@ import teamparkinglot.parkinggo.advice.exception.BusinessException;
 import teamparkinglot.parkinggo.advice.ExceptionCode;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
-import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.config.secret.SecretCode;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 
 import javax.servlet.FilterChain;

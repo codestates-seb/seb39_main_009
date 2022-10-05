@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.advice.exception.BusinessException;
 import teamparkinglot.parkinggo.advice.ExceptionCode;
-import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.config.secret.SecretCode;
 import teamparkinglot.parkinggo.token.dto.TokenDto;
 import teamparkinglot.parkinggo.token.entity.RefreshToken;
 import teamparkinglot.parkinggo.token.repository.TokenRepository;
