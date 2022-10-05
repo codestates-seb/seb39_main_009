@@ -1,0 +1,55 @@
+.middletitle{
+    display: flex;
+    margin-left : 34px;
+  align-items: center;
+  margin-top: 5px;
+
+}
+
+.middletitle > h1 {
+    color : #097855;
+    font-family: 'establishRetrosansOTF';
+    font-size: 35px;
+
+}
+
+.middletitle > h2 {
+    color :#06261c;
+    font-family: 'establishRetrosansOTF';
+    font-size: 30px;
+}
+
+.con div div{
+    font-weight: bold;
+    color :#06261c;
+}
+
+.con >div{
+    margin-left: 15px;
+}
+
+.con p {
+    color : rgb(83, 82, 82);
+}
+
+.con {
+    margin-left : 35px;
+    margin-top : 30px;
+    display: flex;
+  align-items: center;
+  font-family: 'GmarketSansMedium';
+  font-size: 16px;
+
+}
+
+.firsttitle{
+    /* text-align: center; */
+    margin-left : 35px;
+    color :#06261c;
+    font-size: 20px;
+    font-family: 'establishRetrosansOTF';
+}
+
+.firsttitle h2{
+    margin-top: 3px;
+}

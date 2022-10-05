@@ -12,12 +12,48 @@
   height: 100vh;
   width: 100vw;
   grid-template-areas: "side main_container";
-  background-color: lemonchiffon;
   overflow: hidden;
+  position: relative;
+  z-index: 1;
 }
+
+/* 바탕화면 */
+.container::after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+  width: 100vw;
+  grid-template-areas: "side main_container";
+  overflow: hidden;
+  content: "";
+  /* background-image: url('./assets/parkbackground/parkbackground.jpg'); */
+  background-image: url('./assets/parkbackground/car-gcda0f4201_1280.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0.4;
+  filter: blur(10px);
+}
+
+/* Outlayout css */
+
+.outlayout{
+  position: fixed;
+    -webkit-box-align: center;
+    left: calc(50vw - 420px);
+  width: 350px;
+  height: 500px;
+  top: 150px;
+}
+
+
 
 .side {
   grid-area: side;
+  
 }
 
 .main_container {
@@ -47,6 +83,8 @@
   overflow: auto;
 }
 
+
+
 @media only screen and (max-width: 768px) {
   .container {
     display: grid;
@@ -58,5 +96,19 @@
 
   .side {
     display: none;
+  }
+
+  .outlayout{
+    position: fixed;
+      -webkit-box-align: center;
+      align-items: center;
+      height: 100vh;
+      left: calc(50vw - 420px);
+    left: 5px;
+    width: 300px;
+    height: 300px;
+    top: 50px;
+    border: solid 1px black;
+    visibility: hidden;
   }
 }

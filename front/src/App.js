@@ -28,6 +28,7 @@ import ParkReservation from "./pages/ParkReservation/ParkReservation";
 import WriteReview from "./pages/Review/WriteReview";
 import Pay from "./pages/Pay/Pay";
 import AreaparkModal from "./component/Modal/ParkSearchModal/AreaparkModal";
+import Outlayout from "./Outlayout/Outlayout";
 
 function App() {
   const [auth, setAuth] = useLocalStorage("auth", "");
@@ -53,7 +54,7 @@ function App() {
       <UserIdContext.Provider value={{ userId, setUserId }}>
         <Router>
           <div className="container">
-            <div className="side">프로젝트 소개 구역</div>
+            <Outlayout/>
             <div className="main_container">
               <div className="header">
                 <Header handlelogOut={handlelogOut} />
