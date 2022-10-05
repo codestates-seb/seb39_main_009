@@ -26,14 +26,14 @@ const ClickSearch = (props) => {
         <div>
           {props.loading && <Loading />}
           <select>
-            <option value="인기순" selected="selected">인기순</option>
+            <option value="인기순">인기순</option>
           </select>
           <div className="parksearch">
           <h3>제휴 주차장</h3>
           <div>{truePartnership && truePartnership.map(data => (
-                          <div>
+                          <div key={data.parkingId} >
                             <br/>
-                              <div key={data.parkingId} 
+                              <div 
                                    onClick={()=>{
                                     navigate(`/parking/${data.parkingId}`)
                                    }}
@@ -49,9 +49,9 @@ const ClickSearch = (props) => {
            </div>
            <h3>일반 주차장</h3>
           <div>{falsePartnership && falsePartnership.map(data => (
-                          <div>
+                          <div key={data.parkingId} >
                             <br/>
-                              <div key={data.parkingId} 
+                              <div 
                                    onClick={()=>{
                                     navigate(`/parking/${data.parkingId}`)
                                    }}

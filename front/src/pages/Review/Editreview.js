@@ -2,7 +2,7 @@
 import { GrClose } from "react-icons/gr";
 
 import axios from "../../apis/axios";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect,  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import useFetch from "./../../hooks/useFetch";

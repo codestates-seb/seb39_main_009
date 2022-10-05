@@ -36,7 +36,7 @@ const mintime = minGetTime(tt, yy)
                  <div className="modal-content1">
                     <label>입차시간</label>
                     <br/>
-                    <input type="date"  onChange={props.onChangeTime} value={props.Timeday}></input>
+                    <input type="date" name="bday" required pattern="\d{4}-\d{2}-\d{2}" onChange={props.onChangeTime} value={props.Timeday}></input>
                     <br/>
                      <Select
                         onChange={(value)=> props.setTimeValue(value)}
@@ -47,7 +47,7 @@ const mintime = minGetTime(tt, yy)
                     <br/>
                     <label>출차시간</label>
                     <br/>
-                    <input type="date"  onChange={props.onChangeTime2} value={props.Timeday2}></input>
+                    <input type="date" name="startday" onChange={props.onChangeTime2} value={props.Timeday2}></input>
                     <br/>
                     <Select
                         onChange={(value) => props.setTimeValue2(value)}

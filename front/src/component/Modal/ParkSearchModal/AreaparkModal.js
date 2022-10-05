@@ -23,8 +23,20 @@ const AreaparkModal = (props) => {
                     <br/>
                     <select className="ul_style1" onChange={props.onChangeHanlder3} value={props.Content3}>
                         <option value="동" >동</option>
-                        <option value="역삼동" >역삼동</option>
+                        <option value="신사동" >신사동</option>
+                        <option value="압구정동">압구정동</option>
+                        <option value="청담동">청담동</option>
+                        <option value="삼성동">삼성동</option>
                         <option value="대치동">대치동</option>
+                        <option value="역삼동">역삼동</option>
+                        <option value="논현동">논현동</option>
+                        <option value="도곡동">도곡동</option>
+                        <option value="개포동">개포동</option>
+                        <option value="일원본동">일원본동</option>
+                        <option value="수서동">수서동</option>
+                        <option value="세곡동">세곡동</option>
+                        <option value="일원동">일원동</option>
+
                     </select>
                     <br/>
                         <input type="submit" value="submit" onClick={props.ParkSearchToggleModal}/>
