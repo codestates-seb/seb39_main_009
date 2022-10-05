@@ -14,9 +14,6 @@ import java.util.Optional;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-    @Query("select new teamparkinglot.parkinggo.review.dto.ReviewResDto(r.id, r.member.id, r.star, r.member.nickname, r.body) from Review r where r.parking.id = :parkingId")
-    Page<ReviewResDto> findReviewsByParkingOrderByCreatedDateDesc(@Param("parkingId") Long parkingId, Pageable pageable);
-
     @Query("select r from Review r where r.member.email = :email and r.parking.id = :parkingId")
     Optional<Review> findByMemberEmailAndParkingId(@Param("email") String email, @Param("parkingId") long parkingId);
     List<Review> findByParkingId(long id);

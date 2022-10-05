@@ -12,6 +12,7 @@ import teamparkinglot.parkinggo.bookmark.dto.BookmarkResDto;
 import teamparkinglot.parkinggo.bookmark.dto.BookmarkStatusDto;
 import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
 import teamparkinglot.parkinggo.bookmark.repository.BookmarkRepository;
+import teamparkinglot.parkinggo.bookmark.repository.BookmarkRepositoryQueryDsl;
 import teamparkinglot.parkinggo.member.controller.MemberController;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.entity.MemberRole;
@@ -38,6 +39,7 @@ class BookmarkServiceTest {
 
     @Autowired private BookmarkService bookmarkService;
     @Autowired private BookmarkRepository bookmarkRepository;
+    @Autowired private BookmarkRepositoryQueryDsl bookmarkRepositoryQueryDsl;
     @Autowired private MemberRepository memberRepository;
     @Autowired private ParkingRepository parkingRepository;
     Member member;
@@ -86,7 +88,7 @@ class BookmarkServiceTest {
         Bookmark bookmark = new Bookmark(member, parking);
         bookmarkRepository.save(bookmark);
         //when
-        List<BookmarkResDto> myBookmarkListByEmail = bookmarkRepository.findMyBookmarkListByEmail(member.getEmail());
+        List<BookmarkResDto> myBookmarkListByEmail = bookmarkRepositoryQueryDsl.findMyBookmarkListByEmail(member.getEmail());
         //then
         assertEquals(myBookmarkListByEmail.get(0).getName(), bookmark.getParking().getParkingName());
     }
