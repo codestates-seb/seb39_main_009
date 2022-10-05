@@ -23,8 +23,8 @@ public class NoticeController {
     @GetMapping("/notice")
     public ResponseEntity getNoticeList() {
 
-        Page<NoticeResDto> noticeList = noticeService.viewNotices();
+        List<NoticeResDto> noticeList = noticeService.viewNotices();
 
-        return new ResponseEntity<>(noticeList.getContent(), HttpStatus.OK);
+        return new ResponseEntity<>(noticeList, HttpStatus.OK);
     }
 }

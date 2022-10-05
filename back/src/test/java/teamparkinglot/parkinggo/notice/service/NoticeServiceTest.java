@@ -3,6 +3,10 @@ package teamparkinglot.parkinggo.notice.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.member.entity.Member;
@@ -35,10 +39,11 @@ class NoticeServiceTest {
         memberRepository.save(member);
         Notice notice = new Notice("title", "body", false, NoticeType.NORMAL, member);
         noticeRepository.save(notice);
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("id").descending());
         //when
-        List<NoticeResDto> noticeAll = noticeRepository.findNoticeAll();
+        Page<NoticeResDto> noticeAll = noticeRepository.findNoticeAll(pageable);
         //then
-        assertEquals(noticeAll.get(0).getTitle(), notice.getTitle());
+        assertEquals(noticeAll.getContent().get(0).getTitle(), notice.getTitle());
     }
 
 }
