@@ -19,7 +19,7 @@ public class Notice extends Auditable {
 
     private String body;
 
-    private Boolean use;
+    private Boolean inUse;
 
     @Enumerated(EnumType.STRING)
     private NoticeType type;
@@ -27,10 +27,10 @@ public class Notice extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    public Notice(String title, String body, Boolean use, NoticeType type, Member member) {
+    public Notice(String title, String body, Boolean inUse, NoticeType type, Member member) {
         this.title = title;
         this.body = body;
-        this.use = use;
+        this.inUse = inUse;
         this.type = type;
         this.member = member;
     }
