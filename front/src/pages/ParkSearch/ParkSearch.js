@@ -82,7 +82,8 @@ const ParkSearch = () =>{
             sort:"",
             crtLocation:""
           }
-        },{
+        },
+        {
           headers: {
             authorization: localStorage.getItem("authorization"),
           },
