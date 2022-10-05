@@ -4,26 +4,17 @@ import Loading from "../../component/Loading/Loading";
 import "./ParkSearch.css"
 import RandomImg from "../../assets/parkinglot/RandomImg";
 import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 const ClickSearch = (props) =>{
   const navigate = useNavigate();
-  const { pkId } = useParams();
-
-  
-  const clickpage = ()=>{
-    navigate(`/parking/${pkId}`)
-  }
-
-
 
 
   const truePartnership =props.lala.data.filter((el)=>el.partnership===true)
   const falsePartnership =props.lala.data.filter((el)=>el.partnership===false)
 
   useEffect(()=>{
-    console.log(props.lala.data[0].partnership)
+    console.log(props.lala.data[0].parkingId)
     console.log(truePartnership)
     console.log(falsePartnership)
 
@@ -43,7 +34,9 @@ const ClickSearch = (props) =>{
                           <div>
                             <br/>
                               <div key={data.parkingId} 
-                                   onClick={clickpage}
+                                   onClick={()=>{
+                                    navigate(`/parking/${data.parkingId}`)
+                                   }}
                                   className="searchpage">
                                    <RandomImg size={"reviewImg_size"} />
                             <div>
@@ -59,7 +52,9 @@ const ClickSearch = (props) =>{
                           <div>
                             <br/>
                               <div key={data.parkingId} 
-                                   onClick={clickpage}
+                                   onClick={()=>{
+                                    navigate(`/parking/${data.parkingId}`)
+                                   }}
                                   className="searchpage">
                                    <RandomImg size={"reviewImg_size"} />
                             <div>

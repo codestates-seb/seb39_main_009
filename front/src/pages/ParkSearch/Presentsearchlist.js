@@ -1,14 +1,14 @@
 import "./ParkSearch.css"
 import RandomImg from "../../assets/parkinglot/RandomImg";
 import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 const Presentsearchlist =(props) => {
     const navigate = useNavigate();
-    const { pkId } = useParams();
+    // const { pkId } = useParams();
     const data = props.data;
     const clickpage = ()=>{
-        navigate(`/parking/${pkId}`)
+        navigate(`/parking/${data.parkingId}`)
       }
 
      return(
