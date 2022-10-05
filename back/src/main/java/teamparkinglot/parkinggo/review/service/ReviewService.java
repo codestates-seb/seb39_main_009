@@ -19,7 +19,6 @@ import teamparkinglot.parkinggo.review.dto.ReviewResDto;
 import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.review.repository.ReviewRepository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
 

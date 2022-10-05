@@ -67,6 +67,16 @@ public class ParkingController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
+    @GetMapping("/parking/{id}/calculation")
+    public ResponseEntity calculationParkingPriceAndTime(@PathVariable long id,
+                                                         @RequestParam("parkingStartDateTime") String parkingStartDateTime,
+                                                         @RequestParam("parkingEndDateTime") String parkingEndDateTime,
+                                                         @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        ParkingCalculateDto parkingCalculateDto = parkingService.calculateParkingPriceAndTime(id, parkingStartDateTime, parkingEndDateTime, principalDetails.getUsername());
+        return new ResponseEntity<>(parkingCalculateDto, HttpStatus.OK);
+    }
+
     // 아직 사용 안하는 친구
     @GetMapping("/parking/{id}/reservation/{number}")
     public ResponseEntity checkTime(@PathVariable long id, @PathVariable int number) {

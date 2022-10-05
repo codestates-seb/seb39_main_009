@@ -1,4 +1,4 @@
-package teamparkinglot.parkinggo.secret;
+package teamparkinglot.parkinggo.config.secret;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;

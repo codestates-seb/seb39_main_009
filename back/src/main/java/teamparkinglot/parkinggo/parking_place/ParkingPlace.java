@@ -19,4 +19,10 @@ public class ParkingPlace {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Parking parking;
+
+    //테스트용
+    public ParkingPlace(Integer number, Parking parking) {
+        this.number = number;
+        this.parking = parking;
+    }
 }

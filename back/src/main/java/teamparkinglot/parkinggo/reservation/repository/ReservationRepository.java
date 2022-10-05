@@ -8,10 +8,7 @@ import teamparkinglot.parkinggo.reservation.entity.Reservation;
 import java.util.List;
 import java.util.Optional;
 
-public interface ReservationRepository extends JpaRepository<Reservation, Long> {
-
-    @Query("select r from Reservation r join fetch r.parkingPlace where r.parkingPlace.parking.id = :parkingId")
-    List<Reservation> findByParkingId(@Param("parkingId") long parkingId);
+public interface ReservationRepository extends JpaRepository<Reservation, Long>, ReservationRepositoryQueryDsl {
 
     @Query("select r from Reservation r where r.parkingPlace.parking.id = :parkingId and r.member.id = :memberId")
     List<Reservation> findByParkingAndMember(@Param("parkingId") long parkingId, @Param("memberId") long memberId);

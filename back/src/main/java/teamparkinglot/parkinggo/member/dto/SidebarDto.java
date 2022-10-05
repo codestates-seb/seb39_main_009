@@ -12,7 +12,7 @@ public class SidebarDto {
     private String name;
     private Long memberId;
     private String email;
-    private int NumOfReserv;
+    private long NumOfReserv;
     private Long point;
     private String phoneNum;
     private String carNumber;

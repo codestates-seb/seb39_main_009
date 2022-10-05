@@ -12,6 +12,5 @@ public interface ReservationRepositoryQueryDsl {
 
     Reservation findReservation(Long id);
     List<ReservationListDto> findReservationList(String email);
-
     ReservationResponseDto findByReservId(Long id);
 }

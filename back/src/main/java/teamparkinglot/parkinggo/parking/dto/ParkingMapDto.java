@@ -12,6 +12,7 @@ import java.util.List;
 public class ParkingMapDto {
 
     private String imageURL;
+    private String parkingName;
     private List<ValidNum> validNum;
 
 }

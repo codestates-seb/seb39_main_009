@@ -23,7 +23,7 @@ public class SelectTimeDto {
     private LocalDateTime parkingEndTime;
 
     public SelectTimeDto(String parkingStartTime, String parkingEndTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         this.parkingStartTime = LocalDateTime.parse(parkingStartTime, formatter);
         this.parkingEndTime = LocalDateTime.parse(parkingEndTime, formatter);

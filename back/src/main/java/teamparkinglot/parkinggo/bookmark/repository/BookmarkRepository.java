@@ -9,7 +9,7 @@ import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
 import java.util.List;
 import java.util.Optional;
 
-public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
+public interface BookmarkRepository extends JpaRepository<Bookmark, Long>, BookmarkRepositoryQueryDsl {
 
 
     @Query("select b from Bookmark b where b.member.email = :email and b.parking.id = :parkingId")
@@ -18,6 +18,4 @@ public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
     @Query("select b from Bookmark b where b.member.email = :email")
     List<Bookmark> findByEmail(@Param("email") String email);
 
-    @Query("select new teamparkinglot.parkinggo.bookmark.dto.BookmarkResDto(b.parking.id, b.parking.parkingName, b.parking.address.parcel) from Bookmark b where b.member.email = :email")
-    List<BookmarkResDto> findMyBookmarkListByEmail(@Param("email") String email);
 }

@@ -12,7 +12,7 @@ import teamparkinglot.parkinggo.advice.exception.BusinessException;
 import teamparkinglot.parkinggo.advice.ExceptionCode;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
-import teamparkinglot.parkinggo.secret.SecretCode;
+import teamparkinglot.parkinggo.config.secret.SecretCode;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 
 import javax.servlet.FilterChain;
@@ -62,7 +62,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String email = JWT.require(Algorithm.HMAC512(secretCode.getTokenSecurityKey())).build().verify(token).getClaim("email").asString();
 
         if (email != null) {
-            System.out.println("email = " + email);
             Member member = findVerifyMember(email);
             PrincipalDetails principalDetails = new PrincipalDetails(member);
             Authentication authentication = new UsernamePasswordAuthenticationToken(principalDetails, null, principalDetails.getAuthorities());

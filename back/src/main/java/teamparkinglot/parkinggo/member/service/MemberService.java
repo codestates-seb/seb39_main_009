@@ -12,6 +12,7 @@ import teamparkinglot.parkinggo.member.dto.ReservationListDto;
 import teamparkinglot.parkinggo.member.dto.SidebarDto;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
+import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepositoryQueryDsl;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final ReservationRepositoryQueryDsl reservationRepositoryQueryDsl;
+    private final ReservationRepository reservationRepository;
 
     @Transactional
     public Member memberCreate(Member member) {
@@ -62,7 +63,6 @@ public class MemberService {
 
         if (password != null) {
             findMember.setPassword(bCryptPasswordEncoder.encode(password));
-            System.out.println("carNumber = " + password);
         }
 
         if (phoneNum != null) {
@@ -81,6 +81,14 @@ public class MemberService {
 
     public List<ReservationListDto> viewReservations(String email) {
 
-        return reservationRepositoryQueryDsl.findReservationList(email);
+        return reservationRepository.findReservationList(email);
+    }
+
+    @Transactional
+    public void changeCarNumber(String email, String carNumber) {
+
+        Member member = findVerifiedMember(email);
+        member.setCarNumber(carNumber);
+
     }
 }

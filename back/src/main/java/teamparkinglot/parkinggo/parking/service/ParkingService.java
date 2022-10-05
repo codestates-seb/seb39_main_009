@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.advice.exception.BusinessException;
 import teamparkinglot.parkinggo.advice.ExceptionCode;
-import teamparkinglot.parkinggo.history.repository.HistoryRepositoryQueryDsl;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.member.service.MemberService;
@@ -13,13 +12,11 @@ import teamparkinglot.parkinggo.parking.dto.*;
 import teamparkinglot.parkinggo.parking.entity.Address;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.mapper.ParkingMapper;
-import teamparkinglot.parkinggo.parking.repository.ParkingQueryDsl;
 import teamparkinglot.parkinggo.parking.repository.ParkingRepository;
 import teamparkinglot.parkinggo.parking_place.ParkingPlace;
 import teamparkinglot.parkinggo.parking_place.ParkingPlaceRepository;
 import teamparkinglot.parkinggo.reservation.entity.Reservation;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
-import teamparkinglot.parkinggo.reservation.service.ReservationService;
 import teamparkinglot.parkinggo.health_check.DbDto;
 import teamparkinglot.parkinggo.health_check.Items;
 
@@ -35,22 +32,18 @@ import java.util.stream.Collectors;
 public class ParkingService {
 
     private final ParkingRepository parkingRepository;
-    private final ParkingQueryDsl parkingQueryDsl;
-    private final ReservationService reservationService;
     private final MemberService memberService;
-    private final HistoryRepositoryQueryDsl historyRepositoryQueryDsl;
     private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
     private final ParkingPlaceRepository parkingPlaceRepository;
-
     private final ParkingMapper parkingMapper;
 
     public List<Parking> findByCond(ParkingCondDto parkingCondDto) {
 
-        List<Parking> parkings = parkingQueryDsl.findParkingOnRegionAndReservationTime(parkingCondDto.getRegion(), parkingCondDto.getParkingStartTime(), parkingCondDto.getParkingEndTime());
+        List<Parking> parkings = parkingRepository.findParkingOnRegionAndReservationTime(parkingCondDto.getRegion(), parkingCondDto.getParkingStartTime(), parkingCondDto.getParkingEndTime());
 
         if (parkings.size() < 10) {
-            List<Parking> parkingButNotPartnerShip = parkingQueryDsl.findParkingOnRegionButPartnerShipIsNot(parkingCondDto.getRegion());
+            List<Parking> parkingButNotPartnerShip = parkingRepository.findParkingOnRegionButPartnerShipIsNot(parkingCondDto.getRegion());
             parkings.addAll(parkingButNotPartnerShip);
         }
 
@@ -73,7 +66,7 @@ public class ParkingService {
                 .map(e -> new ValidNum(e.getNumber()))
                 .collect(Collectors.toList());
 
-        return new ParkingMapDto(parking.getParkingMap(), validNums);
+        return new ParkingMapDto(parking.getParkingMap(), parking.getParkingName(), validNums);
     }
 
     @Transactional
@@ -87,8 +80,7 @@ public class ParkingService {
         ParkingPlace parkingPlace = parkingPlaceRepository.findParkingPlace(id, parkingDateTimeDto.getNumber());
 
         long time = ChronoUnit.MINUTES.between(parkingDateTimeDto.getParkingStartDateTime(), parkingDateTimeDto.getParkingEndDateTime());
-
-        long price = parking.getBasicCharge() + ((time - parking.getBasicTime()) / parking.getAddUnitTime()) * parking.getAddUnitCharge();
+        long price = getParkingPrice(parking, time);
 
         if(price >= parking.getDayMaxPrice()) price = parking.getDayMaxPrice();
 
@@ -181,5 +173,31 @@ public class ParkingService {
                     parking.setSatClose(e.getSatOperCloseHhmm());
                 });
 
+    }
+
+    public ParkingCalculateDto calculateParkingPriceAndTime(long parkingId, String parkingStartDateTime, String parkingEndDateTime, String email) {
+
+        Parking parking = findVerifiedParking(parkingId);
+        Member member = memberService.findVerifiedMember(email);
+
+        SelectTimeDto selectTimeDto = new SelectTimeDto(parkingStartDateTime, parkingEndDateTime);
+
+        long parkingTime = ChronoUnit.MINUTES.between(selectTimeDto.getParkingStartTime(), selectTimeDto.getParkingEndTime());
+        long parkingPrice = getParkingPrice(parking, parkingTime);
+        String totalTime = timeToString(parkingTime);
+
+        return new ParkingCalculateDto(totalTime,selectTimeDto.getParkingStartTime(), selectTimeDto.getParkingEndTime(), member.getCarNumber(), parkingPrice);
+    }
+
+    private static String timeToString(long parkingTime) {
+        String hour = String.valueOf(parkingTime / 60);
+        String minutes = String.valueOf(parkingTime % 60);
+        String totalTime = hour + "시간 " + minutes + "분";
+        return totalTime;
+    }
+
+    private static long getParkingPrice(Parking parking, long time) {
+        long price = parking.getBasicCharge() + ((time - parking.getBasicTime()) / parking.getAddUnitTime()) * parking.getAddUnitCharge();
+        return price;
     }
 }
