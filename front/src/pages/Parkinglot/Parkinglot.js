@@ -52,9 +52,11 @@ const Parkinglot = () => {
       <div className="parkinglot_main">
         <ParkingTabs data={data} />
       </div>
-      <div className="parkinglot_footer">
-        <button>예약하기</button>
-      </div>
+      {data.partnership ? (
+        <div className="parkinglot_footer">
+          <button>예약하기</button>
+        </div>
+      ) : null}
     </div>
   );
 };

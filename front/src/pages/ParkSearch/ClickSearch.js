@@ -1,12 +1,12 @@
 // import { useEffect } from "react";
 // import { useState } from "react";
 import Loading from "../../component/Loading/Loading";
-import "./ParkSearch.css"
+import "./ParkSearch.css";
 import RandomImg from "../../assets/parkinglot/RandomImg";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-const ClickSearch = (props) =>{
+const ClickSearch = (props) => {
   const navigate = useNavigate();
 
 

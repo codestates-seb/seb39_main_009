@@ -16,7 +16,6 @@ const Reservation = () => {
   const { id } = useParams();
 
   const { data, loading, error } = useFetch(`/member/reservation/${id}`);
-  console.log(data);
 
   if (loading) {
     return <Loading />;

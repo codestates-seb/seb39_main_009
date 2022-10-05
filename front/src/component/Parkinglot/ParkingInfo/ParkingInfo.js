@@ -9,11 +9,11 @@ import RandomImg from "../../../assets/parkinglot/RandomImg";
 const ParkingInfo = ({ data }) => {
   return (
     <div className="parkingInfo_container">
-      <RandomImg size={"pakinglot_size"} />
       <Parkingschedule data={data} />
       <ParkingFee data={data} />
       <ParkingIconInfo data={data} />
       <ParkingIconDC data={data} />
+      <RandomImg size={"pakinglot_size"} />
     </div>
   );
 };

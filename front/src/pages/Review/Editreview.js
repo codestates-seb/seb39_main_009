@@ -19,7 +19,6 @@ const EditReview = () => {
   const [body, setBody] = useState("");
 
   const { data, loading, error } = useFetch(`/reviews/${pkId}/${reviewId}`);
-  console.log(data);
 
   useEffect(() => {
     setStar(data.star);
