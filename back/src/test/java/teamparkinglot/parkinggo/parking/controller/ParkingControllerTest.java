@@ -124,8 +124,8 @@ class ParkingControllerTest {
     @WithMockCustomUser
     public void parkingMap() throws Exception {
         long parkingId = 1L;
-        String parkingStartDateTime = "2022-01-01 08:00:00";
-        String parkingEndDateTime = "2022-01-01 09:00:00";
+        String parkingStartDateTime = "2022-01-01 08:00";
+        String parkingEndDateTime = "2022-01-01 09:00";
         SelectTimeDto selectTimeDto = new SelectTimeDto(parkingStartDateTime, parkingEndDateTime);
         ParkingMapDto map = new ParkingMapDto();
         map.setImageURL("url");
@@ -213,8 +213,6 @@ class ParkingControllerTest {
                 .andExpect(jsonPath("$.[0].parkingId").value(parkingResDto.getParkingId()))
                 .andExpect(jsonPath("$.[0].weekdayOpen").value(parkingResDto.getWeekdayOpen()))
                 .andExpect(jsonPath("$.[0].dayMaxPrice").value(parkingResDto.getDayMaxPrice()));
-
-
     }
 
 }

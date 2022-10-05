@@ -44,7 +44,8 @@ public class ReservationRepositoryQueryDslImpl implements ReservationRepositoryQ
                                 reservation.parkingPlace.parking.parkingName.as("name"), reservation.parkingPlace.number, reservation.id.as("reservNum"),
                                 reservation.parkingStartDateTime.as("parkingStartTime"), reservation.parkingEndDateTime.as("parkingEndTime")))
                 .from(reservation)
-                .where(reservation.member.email.eq(email))
+                .where(reservation.member.email.eq(email).and(reservation.payOrNot.isTrue()))
+                .orderBy(reservation.id.desc())
                 .fetch();
     }
 

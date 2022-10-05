@@ -73,7 +73,7 @@ public class ParkingService {
                 .map(e -> new ValidNum(e.getNumber()))
                 .collect(Collectors.toList());
 
-        return new ParkingMapDto(parking.getParkingMap(), validNums);
+        return new ParkingMapDto(parking.getParkingMap(), parking.getParkingName(), validNums);
     }
 
     @Transactional
@@ -87,8 +87,7 @@ public class ParkingService {
         ParkingPlace parkingPlace = parkingPlaceRepository.findParkingPlace(id, parkingDateTimeDto.getNumber());
 
         long time = ChronoUnit.MINUTES.between(parkingDateTimeDto.getParkingStartDateTime(), parkingDateTimeDto.getParkingEndDateTime());
-
-        long price = parking.getBasicCharge() + ((time - parking.getBasicTime()) / parking.getAddUnitTime()) * parking.getAddUnitCharge();
+        long price = getParkingPrice(parking, time);
 
         if(price >= parking.getDayMaxPrice()) price = parking.getDayMaxPrice();
 
@@ -181,5 +180,31 @@ public class ParkingService {
                     parking.setSatClose(e.getSatOperCloseHhmm());
                 });
 
+    }
+
+    public ParkingCalculateDto calculateParkingPriceAndTime(long parkingId, String parkingStartDateTime, String parkingEndDateTime, String email) {
+
+        Parking parking = findVerifiedParking(parkingId);
+        Member member = memberService.findVerifiedMember(email);
+
+        SelectTimeDto selectTimeDto = new SelectTimeDto(parkingStartDateTime, parkingEndDateTime);
+
+        long parkingTime = ChronoUnit.MINUTES.between(selectTimeDto.getParkingStartTime(), selectTimeDto.getParkingEndTime());
+        long parkingPrice = getParkingPrice(parking, parkingTime);
+        String totalTime = timeToString(parkingTime);
+
+        return new ParkingCalculateDto(totalTime,selectTimeDto.getParkingStartTime(), selectTimeDto.getParkingEndTime(), member.getCarNumber(), parkingPrice);
+    }
+
+    private static String timeToString(long parkingTime) {
+        String hour = String.valueOf(parkingTime / 60);
+        String minutes = String.valueOf(parkingTime % 60);
+        String totalTime = hour + "시간 " + minutes + "분";
+        return totalTime;
+    }
+
+    private static long getParkingPrice(Parking parking, long time) {
+        long price = parking.getBasicCharge() + ((time - parking.getBasicTime()) / parking.getAddUnitTime()) * parking.getAddUnitCharge();
+        return price;
     }
 }

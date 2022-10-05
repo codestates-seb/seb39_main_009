@@ -60,7 +60,7 @@ class ParkingServiceTest {
     @Test
     public void findByCond() throws Exception {
         //given
-        ParkingCondDto parkingCondDto = new ParkingCondDto("pa", "2022-10-11 09:00:00", "2022-10-11 09:30:00", null, null);
+        ParkingCondDto parkingCondDto = new ParkingCondDto("pa", "2022-10-11 09:00", "2022-10-11 09:30", null, null);
         //when
         List<Parking> parkingList = parkingService.findByCond(parkingCondDto);
 
@@ -72,7 +72,7 @@ class ParkingServiceTest {
     @Test
     public void findMap() throws Exception {
         //given
-        SelectTimeDto selectTimeDto = new SelectTimeDto("2022-10-11 09:00:00", "2022-10-11 09:30:00");
+        SelectTimeDto selectTimeDto = new SelectTimeDto("2022-10-11 09:00", "2022-10-11 09:30");
         //when
         ParkingMapDto mapDto = parkingService.findMap(parking2.getId(), selectTimeDto);
         //then

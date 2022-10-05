@@ -62,7 +62,6 @@ public class MemberService {
 
         if (password != null) {
             findMember.setPassword(bCryptPasswordEncoder.encode(password));
-            System.out.println("carNumber = " + password);
         }
 
         if (phoneNum != null) {
@@ -82,5 +81,13 @@ public class MemberService {
     public List<ReservationListDto> viewReservations(String email) {
 
         return reservationRepositoryQueryDsl.findReservationList(email);
+    }
+
+    @Transactional
+    public void changeCarNumber(String email, String carNumber) {
+
+        Member member = findVerifiedMember(email);
+        member.setCarNumber(carNumber);
+
     }
 }

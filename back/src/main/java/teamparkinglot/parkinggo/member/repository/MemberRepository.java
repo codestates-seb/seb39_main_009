@@ -14,9 +14,6 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByEmail(String email);
 
-    @Query("select m from Member m")
-    List<Long> findRecentParkingByEmail(String email);
-
     @Query("select new teamparkinglot.parkinggo.member.dto.MyPageResDto(m.id, m.email, m.phone, m.carNumber) from Member m where m.email = :email")
     MyPageResDto findMyPage(@Param("email") String email);
 
