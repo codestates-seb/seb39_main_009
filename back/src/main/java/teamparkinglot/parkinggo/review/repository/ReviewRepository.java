@@ -12,7 +12,7 @@ import teamparkinglot.parkinggo.review.entity.Review;
 import java.util.List;
 import java.util.Optional;
 
-public interface ReviewRepository extends JpaRepository<Review, Long> {
+public interface ReviewRepository extends JpaRepository<Review, Long>, ReviewRepositoryQueryDsl {
 
     @Query("select r from Review r where r.member.email = :email and r.parking.id = :parkingId")
     Optional<Review> findByMemberEmailAndParkingId(@Param("email") String email, @Param("parkingId") long parkingId);

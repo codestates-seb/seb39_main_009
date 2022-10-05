@@ -8,7 +8,7 @@ import teamparkinglot.parkinggo.history.entity.History;
 import java.util.List;
 import java.util.Optional;
 
-public interface HistoryRepository extends JpaRepository<History, Long> {
+public interface HistoryRepository extends JpaRepository<History, Long>, HistoryRepositoryQueryDsl {
 
     @Query("select h from History h join fetch h.parking where h.member.email = :email")
     List<History> findByMemberEmail(@Param("email") String email);

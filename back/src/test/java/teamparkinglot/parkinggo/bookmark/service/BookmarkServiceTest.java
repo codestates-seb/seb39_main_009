@@ -4,30 +4,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
-import teamparkinglot.parkinggo.bookmark.controller.BookmarkController;
 import teamparkinglot.parkinggo.bookmark.dto.BookmarkResDto;
 import teamparkinglot.parkinggo.bookmark.dto.BookmarkStatusDto;
 import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
 import teamparkinglot.parkinggo.bookmark.repository.BookmarkRepository;
-import teamparkinglot.parkinggo.bookmark.repository.BookmarkRepositoryQueryDsl;
-import teamparkinglot.parkinggo.member.controller.MemberController;
+import teamparkinglot.parkinggo.bookmark.repository.BookmarkRepositoryQueryDslImpl;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.entity.MemberRole;
-import teamparkinglot.parkinggo.member.mail.MailService;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
-import teamparkinglot.parkinggo.member.service.MemberService;
-import teamparkinglot.parkinggo.mock_custom_user.WithMockCustomUser;
 import teamparkinglot.parkinggo.parking.entity.Address;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.repository.ParkingRepository;
-import teamparkinglot.parkinggo.parking.service.ParkingService;
-import teamparkinglot.parkinggo.secret.SecretCode;
-import teamparkinglot.parkinggo.security.SecurityConfig;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +28,7 @@ class BookmarkServiceTest {
 
     @Autowired private BookmarkService bookmarkService;
     @Autowired private BookmarkRepository bookmarkRepository;
-    @Autowired private BookmarkRepositoryQueryDsl bookmarkRepositoryQueryDsl;
+    @Autowired private BookmarkRepositoryQueryDslImpl bookmarkRepositoryQueryDsl;
     @Autowired private MemberRepository memberRepository;
     @Autowired private ParkingRepository parkingRepository;
     Member member;

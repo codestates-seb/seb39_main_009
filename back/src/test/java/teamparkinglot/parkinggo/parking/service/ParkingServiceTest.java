@@ -11,7 +11,7 @@ import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.parking.dto.*;
 import teamparkinglot.parkinggo.parking.entity.Address;
 import teamparkinglot.parkinggo.parking.entity.Parking;
-import teamparkinglot.parkinggo.parking.repository.ParkingQueryDsl;
+import teamparkinglot.parkinggo.parking.repository.ParkingRepositoryQueryDslImpl;
 import teamparkinglot.parkinggo.parking.repository.ParkingRepository;
 import teamparkinglot.parkinggo.parking_place.ParkingPlace;
 import teamparkinglot.parkinggo.parking_place.ParkingPlaceRepository;
@@ -27,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ParkingServiceTest {
     @Autowired private ParkingRepository parkingRepository;
     @Autowired private ParkingService parkingService;
-    @Autowired private ParkingQueryDsl parkingQueryDsl;
+    @Autowired private ParkingRepositoryQueryDslImpl parkingQueryDsl;
     @Autowired private MemberRepository memberRepository;
     @Autowired private ParkingPlaceRepository parkingPlaceRepository;
     @Autowired private ReservationRepository reservationRepository;

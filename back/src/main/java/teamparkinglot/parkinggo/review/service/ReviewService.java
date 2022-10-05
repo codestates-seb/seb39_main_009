@@ -18,9 +18,7 @@ import teamparkinglot.parkinggo.review.dto.ReviewPostDto;
 import teamparkinglot.parkinggo.review.dto.ReviewResDto;
 import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.review.repository.ReviewRepository;
-import teamparkinglot.parkinggo.review.repository.ReviewRepositoryQueryDsl;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
 
@@ -30,14 +28,13 @@ import java.util.OptionalDouble;
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
-    private final ReviewRepositoryQueryDsl reviewRepositoryQueryDsl;
     private final MemberRepository memberRepository;
     private final ParkingRepository parkingRepository;
     private final ReservationRepository reservationRepository;
 
     public Page<ReviewResDto> findReviewsByParkingOrderByCreatedDateDesc(long parkingId, int page) {
         Pageable pageable = PageRequest.of(page - 1, 5, Sort.by("id").descending());
-        return reviewRepositoryQueryDsl.findReviewsByParkingOrderByCreatedDateDesc(parkingId, pageable);
+        return reviewRepository.findReviewsByParkingOrderByCreatedDateDesc(parkingId, pageable);
     }
 
     @Transactional

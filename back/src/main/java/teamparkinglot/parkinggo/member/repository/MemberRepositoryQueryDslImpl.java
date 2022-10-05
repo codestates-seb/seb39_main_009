@@ -20,7 +20,6 @@ import static teamparkinglot.parkinggo.reservation.entity.QReservation.*;
 public class MemberRepositoryQueryDslImpl implements MemberRepositoryQueryDsl {
 
     private final JPAQueryFactory query;
-
     public MemberRepositoryQueryDslImpl(JPAQueryFactory jpaQueryFactory) {
         this.query = jpaQueryFactory;
     }

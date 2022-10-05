@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.history.entity.History;
 import teamparkinglot.parkinggo.history.repository.HistoryRepository;
-import teamparkinglot.parkinggo.history.repository.HistoryRepositoryQueryDsl;
+import teamparkinglot.parkinggo.history.repository.HistoryRepositoryQueryDslImpl;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.entity.MemberRole;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class HistoryServiceTest {
 
     @Autowired private HistoryRepository historyRepository;
-    @Autowired private HistoryRepositoryQueryDsl historyRepositoryQueryDsl;
+    @Autowired private HistoryRepositoryQueryDslImpl historyRepositoryQueryDsl;
     @Autowired private MemberRepository memberRepository;
     @Autowired private ParkingRepository parkingRepository;
 

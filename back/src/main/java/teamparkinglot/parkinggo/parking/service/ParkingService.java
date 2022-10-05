@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.advice.exception.BusinessException;
 import teamparkinglot.parkinggo.advice.ExceptionCode;
-import teamparkinglot.parkinggo.history.repository.HistoryRepositoryQueryDsl;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.member.service.MemberService;
@@ -13,13 +12,11 @@ import teamparkinglot.parkinggo.parking.dto.*;
 import teamparkinglot.parkinggo.parking.entity.Address;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.mapper.ParkingMapper;
-import teamparkinglot.parkinggo.parking.repository.ParkingQueryDsl;
 import teamparkinglot.parkinggo.parking.repository.ParkingRepository;
 import teamparkinglot.parkinggo.parking_place.ParkingPlace;
 import teamparkinglot.parkinggo.parking_place.ParkingPlaceRepository;
 import teamparkinglot.parkinggo.reservation.entity.Reservation;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
-import teamparkinglot.parkinggo.reservation.service.ReservationService;
 import teamparkinglot.parkinggo.health_check.DbDto;
 import teamparkinglot.parkinggo.health_check.Items;
 
@@ -35,22 +32,18 @@ import java.util.stream.Collectors;
 public class ParkingService {
 
     private final ParkingRepository parkingRepository;
-    private final ParkingQueryDsl parkingQueryDsl;
-    private final ReservationService reservationService;
     private final MemberService memberService;
-    private final HistoryRepositoryQueryDsl historyRepositoryQueryDsl;
     private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
     private final ParkingPlaceRepository parkingPlaceRepository;
-
     private final ParkingMapper parkingMapper;
 
     public List<Parking> findByCond(ParkingCondDto parkingCondDto) {
 
-        List<Parking> parkings = parkingQueryDsl.findParkingOnRegionAndReservationTime(parkingCondDto.getRegion(), parkingCondDto.getParkingStartTime(), parkingCondDto.getParkingEndTime());
+        List<Parking> parkings = parkingRepository.findParkingOnRegionAndReservationTime(parkingCondDto.getRegion(), parkingCondDto.getParkingStartTime(), parkingCondDto.getParkingEndTime());
 
         if (parkings.size() < 10) {
-            List<Parking> parkingButNotPartnerShip = parkingQueryDsl.findParkingOnRegionButPartnerShipIsNot(parkingCondDto.getRegion());
+            List<Parking> parkingButNotPartnerShip = parkingRepository.findParkingOnRegionButPartnerShipIsNot(parkingCondDto.getRegion());
             parkings.addAll(parkingButNotPartnerShip);
         }
 

@@ -4,11 +4,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
-import teamparkinglot.parkinggo.parking.dto.ParkingCondDto;
 import teamparkinglot.parkinggo.parking.entity.Parking;
-import teamparkinglot.parkinggo.parking.entity.QParking;
-import teamparkinglot.parkinggo.parking_place.QParkingPlace;
-import teamparkinglot.parkinggo.reservation.entity.QReservation;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
@@ -19,14 +15,15 @@ import static teamparkinglot.parkinggo.parking_place.QParkingPlace.*;
 import static teamparkinglot.parkinggo.reservation.entity.QReservation.*;
 
 @Repository
-public class ParkingQueryDsl {
+public class ParkingRepositoryQueryDslImpl implements ParkingRepositoryQueryDsl {
 
     private final JPAQueryFactory query;
 
-    public ParkingQueryDsl(EntityManager em) {
+    public ParkingRepositoryQueryDslImpl(EntityManager em) {
         this.query = new JPAQueryFactory(em);
     }
 
+    @Override
     public List<Parking> findParkingOnRegionAndReservationTime(String region, LocalDateTime parkingStartTime, LocalDateTime parkingEndTime) {
 
         BooleanBuilder builder = new BooleanBuilder();
@@ -48,6 +45,7 @@ public class ParkingQueryDsl {
                 .fetch();
     }
 
+    @Override
     public List<Parking> findParkingOnRegionButPartnerShipIsNot(String region) {
 
         BooleanBuilder builder = new BooleanBuilder();

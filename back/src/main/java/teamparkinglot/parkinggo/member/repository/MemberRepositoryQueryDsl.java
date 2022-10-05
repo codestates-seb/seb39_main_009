@@ -7,7 +7,6 @@ import teamparkinglot.parkinggo.member.dto.SidebarDto;
 
 public interface MemberRepositoryQueryDsl {
 
-    MyPageResDto findMyPage(@Param("email") String email);
-
-    SidebarDto findSidebar(@Param("email") String email);
+    MyPageResDto findMyPage(String email);
+    SidebarDto findSidebar(String email);
 }

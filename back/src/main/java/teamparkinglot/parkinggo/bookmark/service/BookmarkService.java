@@ -9,7 +9,7 @@ import teamparkinglot.parkinggo.bookmark.entity.Bookmark;
 import teamparkinglot.parkinggo.bookmark.repository.BookmarkRepository;
 import teamparkinglot.parkinggo.advice.exception.BusinessException;
 import teamparkinglot.parkinggo.advice.ExceptionCode;
-import teamparkinglot.parkinggo.bookmark.repository.BookmarkRepositoryQueryDsl;
+import teamparkinglot.parkinggo.bookmark.repository.BookmarkRepositoryQueryDslImpl;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.service.MemberService;
 import teamparkinglot.parkinggo.parking.entity.Parking;
@@ -24,7 +24,6 @@ import java.util.Optional;
 public class BookmarkService {
 
     private final BookmarkRepository bookmarkRepository;
-    private final BookmarkRepositoryQueryDsl bookmarkRepositoryQueryDsl;
     private final MemberService memberService;
     private final ParkingService parkingService;
 
@@ -61,7 +60,7 @@ public class BookmarkService {
 
     public List<BookmarkResDto> getBookmarkList(String email) {
 
-        return bookmarkRepositoryQueryDsl.findMyBookmarkListByEmail(email);
+        return bookmarkRepository.findMyBookmarkListByEmail(email);
     }
 
     public BookmarkStatusDto checkBookmarkStatus(String email, long parkingId) {

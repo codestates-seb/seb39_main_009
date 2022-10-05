@@ -6,15 +6,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.advice.exception.BusinessException;
 import teamparkinglot.parkinggo.advice.ExceptionCode;
-import teamparkinglot.parkinggo.member.repository.MemberRepository;
 import teamparkinglot.parkinggo.reservation.dto.ReservationResponseDto;
 import teamparkinglot.parkinggo.reservation.entity.Reservation;
-//import teamparkinglot.parkinggo.reservation.mapper.ReservationMapper;
 import teamparkinglot.parkinggo.reservation.repository.ReservationRepository;
-import teamparkinglot.parkinggo.reservation.repository.ReservationRepositoryQueryDsl;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,16 +19,12 @@ import java.util.TimerTask;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class ReservationService {
-    private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
-    private final ReservationRepositoryQueryDsl reservationRepositoryCustom;
-
-//    private final ReservationMapper mapper;
 
     @Transactional
     public void finalPayment(Long reservationId) {
 
-        Reservation reservation = reservationRepositoryCustom.findReservation(reservationId);
+        Reservation reservation = reservationRepository.findReservation(reservationId);
 
         Long currentPoint = reservation.getMember().getPoint();
         Long minusPoint = reservation.getPrice();
@@ -70,14 +62,9 @@ public class ReservationService {
         return findReservation;
     }
 
-    public List<Reservation> findByParkingId(long parkingId) {
-
-        return reservationRepository.findByParkingId(parkingId);
-    }
-
     public ReservationResponseDto findByIdForReservationDto(Long id) {
 
-        return reservationRepositoryCustom.findByReservId(id);
+        return reservationRepository.findByReservId(id);
     }
 
     @Async
