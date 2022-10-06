@@ -46,9 +46,9 @@ public class MemberRepositoryQueryDslImpl implements MemberRepositoryQueryDsl {
         return query.select(Projections.fields(SidebarDto.class,
                         member.nickname.as("name"), member.id.as("memberId"), member.email,
                         ExpressionUtils.as(
-                                JPAExpressions.select(reservation.count()).from(member)
-                                .leftJoin(member.reservation, reservation)
-                                .where(reservation.payOrNot.isFalse()), "NumOfReserv"),
+                                JPAExpressions.select(reservation.count()).from(reservation)
+                                .leftJoin(reservation.member)
+                                .where(reservation.payOrNot.isTrue().and(reservation.member.email.like(email))), "NumOfReserv"),
                         member.point, member.phone.as("phoneNum"), member.carNumber))
                 .from(member)
                 .where(builder)

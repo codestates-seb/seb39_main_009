@@ -12,6 +12,6 @@ import java.util.List;
 
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
 
-    @Query("select new teamparkinglot.parkinggo.notice.dto.NoticeResDto(n.type, n.title, n.body, n.createdDate, n.modifiedDate) from Notice n")
+    @Query("select new teamparkinglot.parkinggo.notice.dto.NoticeResDto(n.type, n.title, n.body, n.createdDate, n.modifiedDate) from Notice n where n.inUse = true")
     Page<NoticeResDto> findNoticeAll(Pageable pageable);
 }

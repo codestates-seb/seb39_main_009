@@ -37,7 +37,7 @@ class NoticeServiceTest {
         Member member = new Member("email1", "password1", "nickname1", MemberRole.ADMIN, null, "carNumber1",
                 "phone1", 10000L, true, true, true, "provider", "providerId");
         memberRepository.save(member);
-        Notice notice = new Notice("title", "body", false, NoticeType.NORMAL, member);
+        Notice notice = new Notice("title", "body", true, NoticeType.NORMAL, member);
         noticeRepository.save(notice);
         Pageable pageable = PageRequest.of(0, 10, Sort.by("id").descending());
         //when
