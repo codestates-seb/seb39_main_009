@@ -31,6 +31,7 @@ public class MemberService {
     public Member memberCreate(Member member) {
 
         verifyMember(member);
+        member.setPoint(100000L);
 
         return memberRepository.save(member);
     }

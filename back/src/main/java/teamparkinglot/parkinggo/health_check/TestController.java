@@ -1,6 +1,7 @@
 package teamparkinglot.parkinggo.health_check;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import teamparkinglot.parkinggo.parking.service.ParkingService;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class TestController {
 
     private final ParkingService parkingService;
@@ -16,8 +18,8 @@ public class TestController {
     public ResponseEntity test(@RequestBody Test test) {
 
         test.setTest(test.getTest() + "!!!!!");
-        System.out.println("테스트 성공");
-        System.out.println("test.getTest() = " + test.getTest());
+        log.info("테스트 성공");
+        log.info("test = {}", test.getTest());
 
         return new ResponseEntity(test, HttpStatus.OK);
     }
