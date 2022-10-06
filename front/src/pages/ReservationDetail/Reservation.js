@@ -41,7 +41,7 @@ const Reservation = () => {
         <AiOutlineLeft
           size={24}
           onClick={() => {
-            navigate(-1);
+            navigate(`/reservation`);
           }}
         />
         <h2>나의 예약 내역</h2>
@@ -53,7 +53,9 @@ const Reservation = () => {
       </div>
       <div className="reservation_main">
         <ReservationInner data={data} reservId={reservId} />
-        <ReservationCaution />
+        <div className="reservCaution">
+          <ReservationCaution />
+        </div>
       </div>
       <div className="reservation_footer">
         <button onClick={handleCancel}>예약 취소</button>

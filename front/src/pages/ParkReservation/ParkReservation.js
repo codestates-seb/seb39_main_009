@@ -14,7 +14,7 @@ const ParkReservation = () => {
   const navigate = useNavigate();
   const { pkId } = useParams();
   const { reserv, setReserv } = useContext(ReservContext);
-  const [validSpot, setValidSpot] = useState(0);
+  const [validSpot, setValidSpot] = useState("");
 
   const { data, loading, error } = useFetch(
     `/parking/${pkId}/reservation?parkingStartDateTime=${reserv.parkingStartDateTime}&parkingEndDateTime=${reserv.parkingEndDateTime}`
@@ -31,16 +31,21 @@ const ParkReservation = () => {
   };
 
   const handleReserv = () => {
-    axiosPrivate
-      .post(`/parking/${pkId}/reservation`, reservData)
-      .then((res) => {
-        navigate(`/pay/${pkId}/${res.data.reservNum}`);
-      })
-      .then()
-      .catch((err) => {
-        console.log(err);
-        navigate(`/`);
-      });
+    if (validSpot === "") {
+      alert(`자리를 선택해주세요.`);
+      return false;
+    } else {
+      axiosPrivate
+        .post(`/parking/${pkId}/reservation`, reservData)
+        .then((res) => {
+          navigate(`/pay/${pkId}/${res.data.reservNum}`);
+        })
+        .then()
+        .catch((err) => {
+          console.log(err);
+          navigate(`/`);
+        });
+    }
   };
 
   const handleCancel = () => {
@@ -56,23 +61,33 @@ const ParkReservation = () => {
       {error && <Error />}
       <div className="preserv_container">
         <div className="preserv_header">
-          <h2>결 제</h2>
+          <h2>주차 자리 선택</h2>
           <GrClose className="closebtn" size={22} onClick={handleCancel} />
         </div>
         <div className="preserv_main">
           <img alt="주차장배치도" src={data.imageURL} width={"400px"} />
           <select onChange={handleSelect}>
             <option value="" selected>
-              자리를 선택해주세요.
+              {data.validNum === undefined
+                ? "예약 가능한 자리가 없습니다."
+                : "자리를 선택해주세요."}
             </option>
             {data.validNum &&
               data.validNum.map((item, i) => (
                 <option key={i} value={item.number}>
-                  {item.number}
+                  {item.number}번
                 </option>
               ))}
           </select>
-          <button onClick={handleReserv}>다음 →</button>
+          {data.validNum === undefined ? (
+            <>
+              <button onClick={() => navigate(`/find`)}>← 뒤로</button>
+            </>
+          ) : (
+            <>
+              <button onClick={handleReserv}>다음 →</button>
+            </>
+          )}
         </div>
       </div>
     </>

@@ -22,20 +22,28 @@ const Pay = () => {
   const dateFormat = useDateFormat();
   const getTime = useGetTime();
   const [modal, setModal] = useState(false);
+  const [check, setCheck] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
   };
 
   const handleReserv = () => {
-    axiosPrivate
-      .post(`/pay/${reservId}`)
-      .then(navigate(`/reservation/${reservId}`))
-      .catch((err) => {
-        console.log(err);
-      });
-    localStorage.removeItem("reserv");
-    setReserv({});
+    if (check === false) {
+      alert(
+        `주의사항에 동의하지 않으시면, 예약이 불가합니다. \n 확인 후 체크 해주세요.`
+      );
+      return false;
+    } else {
+      axiosPrivate
+        .post(`/pay/${reservId}`)
+        .then(navigate(`/reservation/${reservId}`))
+        .catch((err) => {
+          console.log(err);
+        });
+      localStorage.removeItem("reserv");
+      setReserv({});
+    }
   };
 
   const handleCancel = () => {
@@ -88,7 +96,11 @@ const Pay = () => {
             <ReservationCaution />
           </div>
           <div className="payTerm">
-            <input type="checkbox" name="term_check" required />
+            <input
+              type="checkbox"
+              name="term_check"
+              onClick={() => setCheck(!check)}
+            />
             <p>모두 동의합니다.</p>
           </div>
           <button onClick={handleReserv}>결제하기</button>

@@ -43,7 +43,7 @@
 .reservation_inner > div {
   display: flex;
   flex-direction: column;
-  margin: 10px 5px 30px 5px;
+  margin: 10px 5px 25px 5px;
 }
 
 .reservation_inner p {
@@ -81,19 +81,35 @@
 
 .reservation_footer {
   width: 100%;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  height: 5vh;
+  margin-bottom: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .reservation_footer > button {
-  width: 60%;
-  height: 50px;
-  font-size: 18px;
+  margin: 15px;
+  width: 80%;
+  height: 40px;
+  font-size: 17px;
+  background-color: #097855;
+  color: white;
+  border-radius: 5px;
+  border-color: #097855;
+  font-weight: 500;
 }
 
 .parkinglink:hover {
   cursor: pointer;
+}
+
+.reservCaution {
+  border: 0.5px solid rgb(188, 188, 188, 0.5);
+  border-radius: 10px;
+  height: 30vh;
+  overflow: auto;
+  margin-top: 10px;
+  padding: 15px;
+  font-size: 16px;
 }
