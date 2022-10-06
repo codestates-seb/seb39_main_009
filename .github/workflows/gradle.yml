@@ -31,10 +31,6 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-        
-    - run: mkdir ./back/src/main/resources
-    - run: touch ./back/src/main/resources/application.yml
-    - run: echo "${{env.application}}" > ./back/src/main/resources/application.yml
     
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
