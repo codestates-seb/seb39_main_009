@@ -14,7 +14,7 @@ spring:
             enable: true
 
 jwt:
-  tokenSecurityKey: Q0dHs1rnox7S4aHv19Ne03LwZ3aZ/robuFyo6lviT5k1yK/OWjjMug==
+  tokenSecurityKey: ENC(Q0dHs1rnox7S4aHv19Ne03LwZ3aZ/robuFyo6lviT5k1yK/OWjjMug==)
   accessTokenExpireTime: 6000000
   refreshTokenExpireTime: 60000000
 
