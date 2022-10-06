@@ -1,34 +1,100 @@
 // react-icons
 import { GrClose } from "react-icons/gr";
+import { BsFillPencilFill } from "react-icons/bs";
 
 import "./Pay.css";
 import { axiosPrivate } from "../../apis/axios";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
+import { ReservContext } from "../../context/ReservContext";
+import Loading from "../../component/Loading/Loading";
+import Error from "../../component/Error/Error";
+import useDateFormat from "../../hooks/useDateFormat";
+import useGetTime from "../../hooks/useGetTime";
+import ReservationCaution from "../../component/Reservation/ReservationCaution";
+import CarNumChange from "../../component/Modal/CarNumChange";
 
 const Pay = () => {
   const navigate = useNavigate();
-  const { reservId } = useParams();
+  const { pkId, reservId } = useParams();
+  const { reserv, setReserv } = useContext(ReservContext);
+  const dateFormat = useDateFormat();
+  const getTime = useGetTime();
+  const [modal, setModal] = useState(false);
+
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
+  const handleReserv = () => {
+    axiosPrivate
+      .post(`/pay/${reservId}`)
+      .then(navigate(`/reservation/${reservId}`))
+      .catch((err) => {
+        console.log(err);
+      });
+    localStorage.removeItem("reserv");
+    setReserv({});
+  };
 
   const handleCancel = () => {
     alert(`결제를 취소하시겠습니까?`);
     axiosPrivate
       .delete(`/pay/${reservId}`)
-      .then((res) => res.json())
       .then(navigate(`/`))
       .catch((err) => {
         console.log(err);
       });
   };
 
+  const { data, loading, error } = useFetch(
+    `parking/${pkId}/calculation?parkingStartDateTime=${reserv.parkingStartDateTime}&parkingEndDateTime=${reserv.parkingEndDateTime}`
+  );
+
   return (
-    <div className="pay_container">
-      <div className="pay_header">
-        <h2>결 제</h2>
-        <GrClose className="closebtn" size={22} onClick={handleCancel} />
+    <>
+      {loading && <Loading />}
+      {error && <Error />}
+      <div className="pay_container">
+        <div className="pay_header">
+          <h2>결 제</h2>
+          <GrClose className="closebtn" size={22} onClick={handleCancel} />
+        </div>
+        <div className="pay_main">
+          <div className="pay_info">
+            <p>
+              {getTime(data.parkingStartDateTime, data.parkingEndDateTime)} 예약
+            </p>
+            <div>
+              <p>예약시간</p>
+              <div>
+                <p>{dateFormat(data.parkingStartDateTime)}</p>
+                <p>~ {dateFormat(data.parkingEndDateTime)}</p>
+              </div>
+            </div>
+            <div>
+              <p>차량번호</p>
+              <p>{data.carNumber}</p>
+              <BsFillPencilFill className="penIcon" onClick={toggleModal} />
+              <CarNumChange modal={modal} toggleModal={toggleModal} />
+            </div>
+          </div>
+          <div className="payCount">
+            <p>결제금액</p>
+            <p>{data.price} P</p>
+          </div>
+          <div className="payCaution">
+            <ReservationCaution />
+          </div>
+          <div className="payTerm">
+            <input type="checkbox" name="term_check" required />
+            <p>모두 동의합니다.</p>
+          </div>
+          <button onClick={handleReserv}>결제하기</button>
+        </div>
       </div>
-      <div className="pay_main"></div>
-    </div>
+    </>
   );
 };
 

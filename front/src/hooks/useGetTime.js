@@ -5,11 +5,11 @@ const useGetTime = () => {
 
     if (setMinutes % 60 === 0) {
       let hours = setMinutes / 60;
-      return `(${hours}시간)`;
+      return `${hours}시간`;
     } else {
       let hours = Math.floor(setMinutes / 60);
       let minutes = setMinutes % 60;
-      return `(${hours}시간 ${minutes}분)`;
+      return `${hours}시간 ${minutes}분`;
     }
   };
   return getTime;

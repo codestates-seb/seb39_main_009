@@ -4,7 +4,7 @@ import useGetTime from "../../hooks/useGetTime";
 import useDateFormat from "../../hooks/useDateFormat";
 import { useNavigate } from "react-router-dom";
 
-const ReservationInner = ({ data }) => {
+const ReservationInner = ({ data, reservId }) => {
   const navigate = useNavigate();
   const dateFormat = useDateFormat();
   const getTime = useGetTime();
@@ -26,7 +26,7 @@ const ReservationInner = ({ data }) => {
         <p>예약 내용</p>
         <div>
           <p>예약번호</p>
-          <p>{data.reservationNumber}</p>
+          <p>{reservId}</p>
         </div>
         <div>
           <p>주차장</p>
@@ -53,8 +53,8 @@ const ReservationInner = ({ data }) => {
         <p>결제 금액</p>
         <div>
           <p>
-            예약 요금{" "}
-            {getTime(data.parkingStartDateTime, data.parkingEndDateTime)}
+            예약 요금 (
+            {getTime(data.parkingStartDateTime, data.parkingEndDateTime)})
           </p>
           <p>{data.price} 포인트</p>
         </div>

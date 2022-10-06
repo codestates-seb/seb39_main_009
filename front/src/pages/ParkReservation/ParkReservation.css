@@ -1,0 +1,42 @@
+.preserv_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.preserv_header {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 20px;
+}
+
+.preserv_header p {
+  margin-left: 20px;
+  font-size: 20px;
+}
+
+.preserv_header > .closebtn {
+  margin-left: 30%;
+}
+
+.preserv_header > .closebtn:hover {
+  cursor: pointer;
+}
+
+.preserv_main {
+  width: 100%;
+  height: 85vh;
+  overflow: auto;
+  padding: 20px;
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 18px;
+}

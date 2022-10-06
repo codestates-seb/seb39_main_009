@@ -5,7 +5,7 @@ const ReservationCaution = () => {
   return (
     <div className="reservation_inner">
       <div>
-        <p>입출차 주의사항</p>
+        <p>주의사항</p>
         <div>
           <ul>
             <li>- 예약 유효 시간 외 연박 주차 불가</li>

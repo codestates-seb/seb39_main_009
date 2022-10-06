@@ -9,7 +9,7 @@ const useDateFormat = () => {
     };
 
     let year = String(new Date(fulldate).getFullYear());
-    let month = putZero(String(new Date(fulldate).getMonth()));
+    let month = putZero(String(new Date(fulldate).getMonth() + 1));
     let date = putZero(String(new Date(fulldate).getDate()));
     let hours = putZero(String(new Date(fulldate).getHours()));
     let minutes = putZero(String(new Date(fulldate).getMinutes()));

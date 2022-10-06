@@ -3,6 +3,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .pay_header {
@@ -37,4 +38,107 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-size: 18px;
+}
+
+.pay_info {
+  border: 1px solid;
+  width: 100%;
+  padding: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(20, 91, 69, 0.2);
+}
+
+.pay_info > p:nth-child(1) {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgb(20, 91, 69);
+}
+
+.pay_info > div {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.pay_info > div > p:nth-child(1) {
+  width: 100px;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.payCount {
+  border: 1px solid;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  margin-top: 25px;
+  padding-left: 40px;
+  border: 0.5px solid rgb(188, 188, 188, 0.2);
+  border-radius: 10px;
+  background-color: rgb(188, 188, 188, 0.2);
+}
+
+.payCount > p:nth-child(1) {
+  width: 100px;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.payCaution {
+  border: 0.5px solid rgb(188, 188, 188, 0.5);
+  border-radius: 10px;
+  height: 30vh;
+  overflow: auto;
+  margin-top: 25px;
+  margin-bottom: 20px;
+  padding: 15px;
+  font-size: 16px;
+}
+
+.payTerm {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 25px;
+  margin: 5px;
+  font-size: 17px;
+}
+
+.payTerm input {
+  width: 20px;
+  height: 18px;
+  position: absolute;
+  left: 30%;
+}
+
+.payTerm p {
+  position: absolute;
+  left: 38%;
+}
+
+.pay_container button {
+  margin: 15px;
+  width: 80%;
+  height: 40px;
+  font-size: 17px;
+  background-color: #097855;
+  color: white;
+  border-radius: 5px;
+  border-color: #097855;
+  font-weight: 500;
+}
+
+.penIcon {
+  margin-left: 20px;
 }
