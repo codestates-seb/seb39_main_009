@@ -25,12 +25,10 @@ const Mypage = () => {
       })
       .then((res) => {
         setData(res);
-        console.log("리스트 불러오기 성공");
-        console.log(res);
+        // console.log("리스트 불러오기 성공");
       })
       .catch((err) => {
-        console.log(err);
-        console.log("리스트 불러오기 실패");
+        // console.log("리스트 불러오기 실패");
       })
       .finally(() => {
         setLoading(false);

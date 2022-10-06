@@ -35,11 +35,12 @@ const clickInfo = ()=>{
     })
   })
     .then((json) => {
-    console.log('수정됨')
-    console.log(json)})
+    // console.log('수정됨')
+    // console.log(json)
+  })
     .catch((err)=> {
-      console.log(err)
-      console.log('수정안됨')
+      // console.log(err)
+      // console.log('수정안됨')
     })
 }
 
