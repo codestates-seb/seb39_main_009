@@ -24,7 +24,7 @@ fi
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포"    >> /home/ubuntu/action/deploy.log
-ENCRYPT_KEY=$(cat encrypto_key.txt)
+ENCRYPT_KEY=$(cat /home/encrypto_key.txt)
 sudo nohup java -Djasypt.encryptor.password=$ENCRYPT_KEY -jar $DEPLOY_JAR >> /home/ubuntu/deployBe.log 2>/home/ubuntu/action/deploy_err.log &
 
 BUILD_FRONT=/home/ubuntu/action/front/build/
