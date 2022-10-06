@@ -24,7 +24,7 @@ fi
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포"    >> /home/ubuntu/action/deploy.log
-sudo nohup java -jar $DEPLOY_JAR >> /home/ubuntu/deployBe.log 2>/home/ubuntu/action/deploy_err.log &
+sudo nohup java -Djasypt.encryptor.password=$ENCRYPT_KEY -jar $DEPLOY_JAR >> /home/ubuntu/deployBe.log 2>/home/ubuntu/action/deploy_err.log &
 
 BUILD_FRONT=/home/ubuntu/action/front/build/
 echo "> 현재 실행중인 리액트 pid 확인" >> /home/ubuntu/action/deploy.log
