@@ -1,10 +1,11 @@
 package teamparkinglot.parkinggo.review.repository;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 import teamparkinglot.parkinggo.review.dto.ReviewResDto;
 
@@ -33,11 +34,11 @@ public class ReviewRepositoryQueryDslImpl implements ReviewRepositoryQueryDsl {
                 .fetch();
 
 
-        int size = query
-                .selectFrom(review)
-                .where(review.parking.id.eq(parkingId))
-                .fetch().size();
+        JPAQuery<Long> countQuery = query
+                .select(review.count())
+                .from(review)
+                .where(review.parking.id.eq(parkingId));
 
-        return new PageImpl<>(content, pageable, size);
+        return PageableExecutionUtils.getPage(content, pageable, countQuery::fetchOne);
     }
 }
