@@ -63,6 +63,9 @@ dependencies {
 
 	//메일
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	// yml 암호화
+	implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.3'
 }
 
 tasks.named('test') {
