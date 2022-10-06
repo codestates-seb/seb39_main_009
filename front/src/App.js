@@ -1,6 +1,6 @@
 import "./layout.css"; // 레이아웃 CSS 입니다. Don't touch !
 import "./App.css"; // 비어있으니 레이아웃 외 CSS 추가변경 원하시면 이곳에서 수정해주세요 !
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import { useEffect } from "react";
 import useRefreshToken from "./hooks/useRefreshToken";
 import useLocalStorage from "./hooks/useLocalStorage";
@@ -8,7 +8,6 @@ import { AuthContext } from "./context/AuthContext";
 import { UserIdContext } from "./context/UserIdContext";
 import { ReservContext } from "./context/ReservContext";
 import Header from "./component/Header/Header";
-import HealthCheck from "./test/HealthCheck";
 import SignUp from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
 import Welcome from "./pages/signup/Welcome";
@@ -30,8 +29,12 @@ import WriteReview from "./pages/Review/WriteReview";
 import Pay from "./pages/Pay/Pay";
 import AreaparkModal from "./component/Modal/ParkSearchModal/AreaparkModal";
 import Outlayout from "./Outlayout/Outlayout";
+// import Firstpage from "./Firstpage/Firstpage";
+import HealthCheck from "./test/HealthCheck";
+
 
 function App() {
+
   const [auth, setAuth] = useLocalStorage("auth", "");
   const [userId, setUserId] = useLocalStorage("userId", "");
   const [reserv, setReserv] = useLocalStorage("reserv", {});
@@ -52,6 +55,7 @@ function App() {
     localStorage.removeItem("reserv");
     setReserv({});
   };
+
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>

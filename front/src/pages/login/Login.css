@@ -1,0 +1,91 @@
+.stacklogo {
+    top: 23%;
+    margin-left: 25%;
+    width: 200px;
+    height: 200px;
+}
+
+.Login>p {
+    margin-left: 27%;  
+    margin-top:-5%; 
+    color:rgb(62, 61, 61);
+   }   
+
+/* 로그인창 */
+.Login {
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+    padding-top:1%;
+    padding-bottom: 6%;
+    border-radius: 10px;
+    background: white;
+
+}
+
+.Login input {
+    width: 100%; 
+    padding: .8em .5em ;
+    margin-top: 10%;
+    outline-style: none; 
+    border-top : none; 
+    border-left : none;
+    border-right : none;
+    border-bottom : 1px solid rgb(214, 214, 214);
+    font-family: 'GmarketSansMedium';
+    }
+
+.Login input::placeholder {
+        color: rgb(127, 127, 127);
+        font-size : 1.1rem;
+      }
+
+.Login input:focus {
+    background-color: white;
+
+}
+
+.buttonlogin,.buttonlogin2
+{
+    cursor: pointer;
+    border: none;
+
+    font-size: 18px;
+    font-weight:bold; 
+     background-color:#06a774;
+    color: white;
+}
+
+.buttonlogin{
+    margin-top: 40px;
+    border-radius: 5px;
+    margin-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 170px;
+    padding-right: 170px;
+}
+
+.buttonlogin2{    
+    margin-top: 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 161px;
+    padding-right: 161px;
+}
+
+.buttonlogin:focus,
+.buttonlogin:hover {
+  background-color:#68a391;
+
+}
+
+.buttonlogin2:focus,
+.buttonlogin2:hover {
+  background-color:#68a391;
+
+}

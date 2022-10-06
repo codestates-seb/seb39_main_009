@@ -75,8 +75,8 @@ const onChangeName = (e) => {
   const onChangephonenumber = (e) => {
     const regex = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
     if (regex.test(phonenumber)) {
-      setIsPhonenumber(true);
       setPhonenumberMessage("올바른 전화번호입니다.");
+      setIsPhonenumber(isphonenumber);
     } else setPhonenumberMessage("올바른 전화번호 형식이 아닙니다.");
     setIsPhonenumber(false);
   };
@@ -98,6 +98,7 @@ const onChangeName = (e) => {
       setIsCarnumber(true);
     }
   };
+
 
   return (
     <div className="signup_container">
@@ -124,7 +125,7 @@ const onChangeName = (e) => {
             required
           />
           {usernameinput.length > 0 && (
-            <span className={`message ${isName ? "success" : "error"}`}>
+            <span className={`message${isName ? "success" : "error"}`}>
               {nameMessage}
             </span>
           )}
@@ -161,7 +162,7 @@ const onChangeName = (e) => {
             required
           />
           {passwordinput.length > 0 && (
-            <span className={`message ${isPassword ? "success" : "error"}`}>
+            <span className={`message${isPassword ? "success" : "error"}`}>
               {passwordMessage}
             </span>
           )}
@@ -184,7 +185,7 @@ const onChangeName = (e) => {
           />
           {checkpassword.length > 0 && (
             <span
-              className={`message ${isPasswordConfirm ? "success" : "error"}`}
+              className={`message${isPasswordConfirm ? "success" : "error"}`}
             >
               {passwordConfirmMessage}
             </span>
@@ -193,7 +194,7 @@ const onChangeName = (e) => {
         <div className="signup_input">
           <div className="signup_label">
             <p>휴대폰</p>
-            <p>*</p>
+            <p>*</p>  
           </div>
           <input
             type="text"
@@ -207,7 +208,7 @@ const onChangeName = (e) => {
             required
           />
           {phonenumber.length > 0 && (
-            <span className={`message ${isphonenumber ? "success" : "error"}`}>
+            <span className={`message${phonenumberMessage=== "올바른 전화번호입니다."? "success" : "error"}`}>
               {phonenumberMessage}
             </span>
           )}
@@ -225,7 +226,7 @@ const onChangeName = (e) => {
             }}
           />
           {carnumber.length > 0 && (
-            <span className={`message ${iscarnumber ? "success" : "error"}`}>
+            <span className={`message${iscarnumber ? "success" : "error"}`}>
               {carnumberMessage}
             </span>
           )}

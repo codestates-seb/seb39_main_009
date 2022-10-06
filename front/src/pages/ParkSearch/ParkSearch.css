@@ -14,7 +14,7 @@
 .dropdown {
   position: absolute;
   top: 200px;
-  width: 25%;
+  /* width: 25%; */
   /* border : solid 1px black; */
 }
 

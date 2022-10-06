@@ -42,7 +42,6 @@ function JoinPresenter(props) {
   const isPassword = props.isPassword;
   const isPasswordConfirm = props.isPasswordConfirm;
 
-  const [massage, setMassage] = useState("");
 
   const registeraxios = (event) => {
     event.preventDefault();
@@ -68,10 +67,11 @@ function JoinPresenter(props) {
         }
       })
       .catch((err) => {
-        console.log(err);
-        setMassage(err.response.data.massage);
+        alert(err.response.data.message)
       });
   };
+
+
 
   const allBtnEvent = () => {
     if (allCheck === false) {
@@ -189,10 +189,9 @@ function JoinPresenter(props) {
               eventToggleModal={eventToggleModal}
             />
           </div>
-          <p>{massage}</p>
           <button
             className={
-              !(ageCheck && useCheck) ? "submit_bt btgrey" : "submit_bt"
+              !(ageCheck && useCheck) ? "submit_btbtgrey" : "submit_bt"
             }
             onClick={registeraxios}
             disabled={
