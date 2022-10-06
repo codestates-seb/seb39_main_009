@@ -4,6 +4,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'GmarketSansMedium';
+  font-weight: 100;
 }
 
 .container {
@@ -26,7 +28,6 @@
   grid-template-areas: "side main_container";
   overflow: hidden;
   content: "";
-  /* background-image: url('./assets/parkbackground/parkbackground.jpg'); */
   background-image: url('./assets/parkbackground/car-gcda0f4201_1280.jpg');
   background-repeat: no-repeat;
   background-size: 100% 100%;

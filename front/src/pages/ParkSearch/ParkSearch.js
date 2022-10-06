@@ -96,13 +96,10 @@ const ParkSearch = () => {
       )
       .then((res) => {
         setLala(res);
-        // console.log(res.status)
-        console.log("리스트 불러오기 성공2");
-        console.log(res);
+        // console.log("리스트 불러오기 성공2");
       })
       .catch((err) => {
-        console.log(err);
-        console.log("리스트 불러오기 실패2");
+        // console.log("리스트 불러오기 실패2");
       })
       .finally(() => {
         setLoading(false);
