@@ -64,7 +64,6 @@ function App() {
           <Router>
             <div className="container">
               <Outlayout />
-              <div className="side">프로젝트 소개 구역</div>
               <div className="main_container">
                 <div className="header">
                   <Header handlelogOut={handlelogOut} />

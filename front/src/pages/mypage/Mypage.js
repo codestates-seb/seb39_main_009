@@ -23,8 +23,8 @@ const Mypage = () => {
       })
       .then((res) => {
         setData(res);
-        console.log(res)
-        console.log("리스트 불러오기 성공");
+        // console.log(res)
+        // console.log("리스트 불러오기 성공");
       })
       .catch((err) => {
         // console.log("리스트 불러오기 실패");
@@ -61,22 +61,24 @@ const Mypage = () => {
               <RandomImg2 size={"reviewImg_size"} />
               <div>{data.name}</div>
             </div>
-          <div>
-            <label>이메일 주소</label>
-            <div>{data.email}</div>
-          </div>
-          <div>
-            <label>휴대폰 번호</label>
-            <p>{data.phoneNum}</p>
-          </div>
-          <div>
-            <label>차량번호</label>
-            <p>{data.carNumber}</p>
-          </div>
-          <Link to={`/mypage/${id}/edit`} state={{ data: data }}>
+            <div className="profil_Info">
+              <div>
+                <label>이메일 주소</label>
+                <p>{data.email}</p>
+              </div>
+              <div>
+                <label>휴대폰 번호</label>
+                <p>{data.phoneNum}</p>
+              </div>
+              <div>
+                <label>차량번호</label>
+                <p>{data.carNumber}</p>
+              </div>
+          <button><Link to={`/mypage/${id}/edit`} state={{ data: data }}>
             개인정보수정
-          </Link>
+          </Link></button>
           <button onClick={handlelogOut}>로그아웃</button>
+        </div>
         </div>
         </div>
       )}
