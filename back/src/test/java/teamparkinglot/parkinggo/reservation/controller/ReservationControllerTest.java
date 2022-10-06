@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import teamparkinglot.parkinggo.mock_custom_user.WithMockCustomUser;
@@ -20,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(ReservationController.class)
 @MockBean(JpaMetamodelMappingContext.class)
+@ActiveProfiles("test")
 class ReservationControllerTest {
     @Autowired private MockMvc mockMvc;
     @MockBean private ReservationService reservationService;

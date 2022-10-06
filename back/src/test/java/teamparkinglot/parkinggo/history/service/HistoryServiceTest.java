@@ -3,6 +3,7 @@ package teamparkinglot.parkinggo.history.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import teamparkinglot.parkinggo.history.entity.History;
 import teamparkinglot.parkinggo.history.repository.HistoryRepository;
@@ -22,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
+@ActiveProfiles("test")
 class HistoryServiceTest {
 
     @Autowired private HistoryRepository historyRepository;
