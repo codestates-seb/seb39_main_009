@@ -52,17 +52,11 @@ public class ParkingService {
 
 
 
-    public Parking findVerifiedParking(long id) {
-        return parkingRepository.findById(id).orElseThrow(
-                () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
-        );
-    }
-
     public ParkingMapDto findMap(long id, SelectTimeDto selectTimeDto) {
 
         Parking parking = findVerifiedParking(id);
 
-        List<ValidNum> validNums = parkingPlaceRepository.findByParkingId(parking.getId(), selectTimeDto.getParkingStartTime(), selectTimeDto.getParkingEndTime()).stream()
+        List<ValidNum> validNums = parkingPlaceRepository.findByParkingIdForMapAndValidNumber(parking.getId(), selectTimeDto.getParkingStartTime(), selectTimeDto.getParkingEndTime()).stream()
                 .map(e -> new ValidNum(e.getNumber()))
                 .collect(Collectors.toList());
 
@@ -71,9 +65,7 @@ public class ParkingService {
 
     @Transactional
     public CreateReservDto createReservation(Long id, ParkingDateTimeDto parkingDateTimeDto, String email) {
-        Parking parking = parkingRepository.findById(id).orElseThrow(
-                () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
-        );
+        Parking parking = findVerifiedParking(id);
         Member member = memberRepository.findByEmail(email).orElseThrow(
                 () -> new BusinessException(ExceptionCode.MEMBER_NOT_EXISTS)
         );
@@ -87,7 +79,7 @@ public class ParkingService {
         Reservation reservation = Reservation.builder()
                 .reservationDate(LocalDateTime.now())
                 .parkingStartDateTime(parkingDateTimeDto.getParkingStartDateTime())
-                .parkingEndDateTime(parkingDateTimeDto.getParkingEndDateTime())
+                .parkingEndDateTime(parkingDateTimeDto.getParkingEndDateTime().minusSeconds(1))
                 .member(member)
                 .parkingPlace(parkingPlace)
                 .payOrNot(false)
@@ -199,5 +191,11 @@ public class ParkingService {
     private static long getParkingPrice(Parking parking, long time) {
         long price = parking.getBasicCharge() + ((time - parking.getBasicTime()) / parking.getAddUnitTime()) * parking.getAddUnitCharge();
         return price;
+    }
+
+    public Parking findVerifiedParking(long id) {
+        return parkingRepository.findById(id).orElseThrow(
+                () -> new BusinessException(ExceptionCode.PARKING_NOT_EXISTS)
+        );
     }
 }

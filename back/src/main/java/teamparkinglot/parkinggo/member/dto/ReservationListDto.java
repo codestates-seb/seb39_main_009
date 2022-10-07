@@ -1,15 +1,12 @@
 package teamparkinglot.parkinggo.member.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
+@Data
 public class ReservationListDto {
 
     private String name;

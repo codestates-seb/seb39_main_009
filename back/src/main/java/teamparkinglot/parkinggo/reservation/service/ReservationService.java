@@ -64,7 +64,15 @@ public class ReservationService {
 
     public ReservationResponseDto findByIdForReservationDto(Long id) {
 
-        return reservationRepository.findByReservId(id);
+        ReservationResponseDto reservationResponseDto = reservationRepository.findByReservId(id);
+        reservationResponseDto.setParkingEndDateTime(reservationResponseDto.getParkingEndDateTime().plusSeconds(1));
+        return reservationResponseDto;
+    }
+
+    @Transactional
+    public void checkPayment(Long id)  {
+        Reservation reservation = findVerifiedReservation(id);
+        if(!reservation.getPayOrNot()) reservationRepository.delete(reservation);
     }
 
     @Async
@@ -79,11 +87,5 @@ public class ReservationService {
             }
         };
         timer.schedule(timerTask, 600000, 1000);
-    }
-
-    @Transactional
-    public void checkPayment(Long id)  {
-        Reservation reservation = findVerifiedReservation(id);
-        if(!reservation.getPayOrNot()) reservationRepository.delete(reservation);
     }
 }

@@ -39,4 +39,5 @@ public class Review extends Auditable {
         this.member = member;
         this.parking = parking;
     }
+
 }

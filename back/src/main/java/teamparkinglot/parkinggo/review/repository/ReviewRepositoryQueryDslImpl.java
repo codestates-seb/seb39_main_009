@@ -26,9 +26,11 @@ public class ReviewRepositoryQueryDslImpl implements ReviewRepositoryQueryDsl {
     public Page<ReviewResDto> findReviewsByParkingOrderByCreatedDateDesc(Long parkingId, Pageable pageable) {
         List<ReviewResDto> content = query
                 .select(Projections.fields(ReviewResDto.class,
-                        review.id.as("reviewId"), review.member.id.as("memberId"), review.star, review.member.nickname.as("nickName"), review.body))
+                        review.id.as("reviewId"), review.member.id.as("memberId"), review.star, review.member.nickname.as("nickName"), review.body,
+                        review.createdDate, review.modifiedDate))
                 .from(review)
                 .where(review.parking.id.eq(parkingId))
+                .orderBy(review.id.desc())
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
