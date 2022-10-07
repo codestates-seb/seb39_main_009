@@ -41,7 +41,7 @@ const SideBarAfter = ({ show, setShow, handleSideClose, handlelogOut }) => {
       .finally(() => {
         setLoading(false);
       }, 1000);
-  }, [show]);
+  }, [show, auth]);
 
   const sideLogout = () => {
     handlelogOut();

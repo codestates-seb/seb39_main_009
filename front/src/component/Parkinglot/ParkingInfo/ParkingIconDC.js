@@ -21,7 +21,7 @@ const ParkingIconDC = ({ data }) => {
       }
     };
     handleHide();
-  }, [hide]);
+  }, [hide, compactCar, disability, multiChild, nationalMerit]);
 
   return (
     <>

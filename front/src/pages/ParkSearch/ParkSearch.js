@@ -1,13 +1,10 @@
-
 //react-icons
 import { FaRegCalendarCheck } from "react-icons/fa";
-import { GrClose } from "react-icons/gr";
-import { BsGeoAlt,BsChevronDown } from "react-icons/bs";
+import { BsGeoAlt, BsChevronDown } from "react-icons/bs";
 
 import "./ParkSearch.css";
 import axios from "axios";
 import { useContext, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { ReservContext } from "../../context/ReservContext";
 import useDateFormat2 from "../../hooks/useDateFormat2";
 import AreaparkModal from "../../component/Modal/ParkSearchModal/AreaparkModal";
@@ -16,7 +13,6 @@ import PresentSearch from "./PresentSearch";
 import ClickSearch from "./ClickSearch";
 
 const ParkSearch = () => {
-  const navigate = useNavigate();
   const { setReserv } = useContext(ReservContext);
 
   // 모달창
@@ -62,7 +58,6 @@ const ParkSearch = () => {
   const formatday2 = dateFormat2(Timeday2);
   const sendTime = `${formatday} ${timeValue.value}`;
   const sendTime2 = `${formatday2} ${timeValue2.value}`;
-
 
   const onChangeTime = (e) => {
     setTimeday(e.currentTarget.value);
@@ -136,15 +131,20 @@ const ParkSearch = () => {
         </div> */}
         <div className="parksearch_main">
           <div className="h2dic">
-          <h2>어떤 </h2>
-          <h2>지역 주차장</h2>
-          <h2>을 찾으시나요?</h2>
+            <h2>어떤 </h2>
+            <h2>지역 주차장</h2>
+            <h2>을 찾으시나요?</h2>
           </div>
           <div className="dropdown">
             <div className="dropdownLabel" onClick={ParkSearchToggleModal}>
-              <BsGeoAlt size={15} color='rgb(111, 111, 111)'/>
-              <input className="areainput" placeholder="지역선택" value={totalContent} readOnly />
-              <BsChevronDown color='rgb(111, 111, 111)'/>
+              <BsGeoAlt size={15} color="rgb(111, 111, 111)" />
+              <input
+                className="areainput"
+                placeholder="지역선택"
+                value={totalContent}
+                readOnly
+              />
+              <BsChevronDown color="rgb(111, 111, 111)" />
             </div>
             <AreaparkModal
               Content={Content}
@@ -158,28 +158,25 @@ const ParkSearch = () => {
             />
             <br />
             <br />
-            <div
-              className="dropdownLabel"
-              onClick={TimeParkSearchToggleModal}
-            >
-            <FaRegCalendarCheck size={15} color='rgb(111, 111, 111)'/>
+            <div className="dropdownLabel" onClick={TimeParkSearchToggleModal}>
+              <FaRegCalendarCheck size={15} color="rgb(111, 111, 111)" />
               <div className="timeinput2">
-              <input
-                placeholder="입차시간"
-                value={inputtime}
-                required
-                readOnly
-                className="entranceinput"
-              />
-              <input
-                placeholder="출차시간"
-                value={inputtime2}
-                required
-                readOnly
-                className="exitinput"
-              />
+                <input
+                  placeholder="입차시간"
+                  value={inputtime}
+                  required
+                  readOnly
+                  className="entranceinput"
+                />
+                <input
+                  placeholder="출차시간"
+                  value={inputtime2}
+                  required
+                  readOnly
+                  className="exitinput"
+                />
               </div>
-              <BsChevronDown color='rgb(111, 111, 111)'/>
+              <BsChevronDown color="rgb(111, 111, 111)" />
             </div>
             <TimeparkModal
               Timeday={Timeday}
@@ -202,8 +199,10 @@ const ParkSearch = () => {
               검색하기
             </button>
 
-            <div classname ="
-            ">
+            <div
+              className="
+            "
+            >
               {viewcon ? (
                 <PresentSearch />
               ) : lala.status === 200 ? (

@@ -14,7 +14,7 @@ const CompactCarIcon = ({ data, compactCar, setCompactCar }) => {
     };
 
     getCompactCar();
-  }, []);
+  }, [data, setCompactCar]);
 
   return (
     <div className="icon_container">
