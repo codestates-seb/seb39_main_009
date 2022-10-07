@@ -49,7 +49,7 @@ jobs:
       run: touch ./front/.env
       
     - name: write env
-      run: echo REACT_APP_BASE_URL = http://localhost:8080 > ./front/.env
+      run: echo REACT_APP_BASE_URL = ${{ ENV_SECRET_KEY }} > ./front/.env
         
     - name: npm install
       run: npm install
