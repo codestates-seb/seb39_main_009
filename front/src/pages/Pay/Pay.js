@@ -14,11 +14,13 @@ import useDateFormat from "../../hooks/useDateFormat";
 import useGetTime from "../../hooks/useGetTime";
 import ReservationCaution from "../../component/Reservation/ReservationCaution";
 import CarNumChange from "../../component/Modal/CarNumChange";
+import { CarNumContext } from "../../context/CarNumContext";
 
 const Pay = () => {
   const navigate = useNavigate();
   const { pkId, reservId } = useParams();
   const { reserv, setReserv } = useContext(ReservContext);
+  const { newCarNum, setNewCarNum } = useContext(CarNumContext);
   const dateFormat = useDateFormat();
   const getTime = useGetTime();
   const [modal, setModal] = useState(false);
@@ -44,6 +46,7 @@ const Pay = () => {
         });
       localStorage.removeItem("reserv");
       setReserv({});
+      setNewCarNum("");
     }
   };
 
@@ -51,7 +54,11 @@ const Pay = () => {
     if (window.confirm(`결제을 취소하시겠습니까?`)) {
       axiosPrivate
         .delete(`/pay/${reservId}`)
-        .then(navigate(`/`))
+        .then((res) => {
+          navigate(`/find`);
+          setReserv({});
+          setNewCarNum("");
+        })
         .catch((err) => {
           console.log(err);
         });
@@ -85,9 +92,13 @@ const Pay = () => {
             </div>
             <div>
               <p>차량번호</p>
-              <p>{data.carNumber}</p>
+              <p>{newCarNum === "" ? data.carNumber : newCarNum}</p>
               <BsFillPencilFill className="penIcon" onClick={toggleModal} />
-              <CarNumChange modal={modal} toggleModal={toggleModal} />
+              <CarNumChange
+                modal={modal}
+                setModal={setModal}
+                toggleModal={toggleModal}
+              />
             </div>
           </div>
           <div className="payCount">
@@ -105,7 +116,9 @@ const Pay = () => {
             />
             <p>모두 동의합니다.</p>
           </div>
-          <button onClick={handleReserv}>결제하기</button>
+          <button className="paybtn" onClick={handleReserv}>
+            결제하기
+          </button>
         </div>
       </div>
     </>

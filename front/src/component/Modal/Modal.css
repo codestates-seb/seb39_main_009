@@ -70,3 +70,39 @@
   right: 10px;
   padding: 5px 7px;
 }
+
+.carnum_update_box p {
+  font-size: 20px;
+}
+
+.carnum_update_box input {
+  margin-left: 10px;
+  height: 30px;
+  padding: 10px;
+}
+
+.carnum_update_box > .messagesuccess {
+  margin-left: 5px;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #01cc34;
+}
+
+.carnum_update_box > .messageerror {
+  margin-left: 5px;
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.carnum_update_box button {
+  width: 90%;
+  margin: 15px;
+  height: 35px;
+  font-size: 17px;
+  background-color: #5b5b5b2f;
+  color: rgb(64, 64, 64);
+  border-radius: 5px;
+  border: 1px solid #5b5b5b2f;
+  font-weight: 500;
+}
