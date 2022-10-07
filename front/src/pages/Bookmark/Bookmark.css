@@ -59,7 +59,7 @@
 }
 
 .bookmark > div > p:nth-child(1):hover {
-  color: rgb(255, 57, 57);
+  color: #097855;
 }
 
 .bookmark > div > p:nth-child(2) {
@@ -78,5 +78,5 @@
 
 .delbtn:hover {
   cursor: pointer;
-  color: rgb(255, 158, 158);
+  color: #097855;
 }

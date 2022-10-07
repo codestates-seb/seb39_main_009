@@ -1,6 +1,6 @@
 import "./layout.css"; // 레이아웃 CSS 입니다. Don't touch !
 import "./App.css"; // 비어있으니 레이아웃 외 CSS 추가변경 원하시면 이곳에서 수정해주세요 !
-import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import useRefreshToken from "./hooks/useRefreshToken";
 import useLocalStorage from "./hooks/useLocalStorage";
@@ -31,10 +31,9 @@ import AreaparkModal from "./component/Modal/ParkSearchModal/AreaparkModal";
 import Outlayout from "./Outlayout/Outlayout";
 // import Firstpage from "./Firstpage/Firstpage";
 import HealthCheck from "./test/HealthCheck";
-
+import ParkinglotBk from "./pages/Parkinglot/ParkinglotBk";
 
 function App() {
-
   const [auth, setAuth] = useLocalStorage("auth", "");
   const [userId, setUserId] = useLocalStorage("userId", "");
   const [reserv, setReserv] = useLocalStorage("reserv", {});
@@ -55,7 +54,6 @@ function App() {
     localStorage.removeItem("reserv");
     setReserv({});
   };
-
 
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
@@ -86,6 +84,11 @@ function App() {
                       <Route path="/mypage/:id" element={<Mypage />} />
                       {/* 주차장 정보 조회*/}
                       <Route path="/parking/:pkId" element={<Parkinglot />} />
+                      {/* 주차장 정보 조회_즐겨찾기*/}
+                      <Route
+                        path="/parking/bk/:pkId/"
+                        element={<ParkinglotBk />}
+                      />
                       {/* 주차장 지도*/}
                       <Route
                         path="/parking/:pkId/map"
@@ -109,11 +112,6 @@ function App() {
                       <Route path="/partnership" element={<Partnership />} />
                       {/* 1:1문의 */}
                       <Route path="/question" element={<Question />} />
-                      {/* 리뷰페이지 */}
-                      <Route
-                        path="/parking/:pkId/review"
-                        element={<Review />}
-                      />
                       {/* 리뷰작성페이지 */}
                       <Route
                         path="/parking/:pkId/review/write"

@@ -16,10 +16,6 @@
   padding: 20px 20px 35px 20px;
 }
 
-.rezlist_header h2 {
-  border: 1px solid;
-}
-
 .closebtn {
   margin-left: 30%;
 }
@@ -67,6 +63,7 @@
 .single_rez_header > p {
   font-size: 17px;
   font-weight: 700;
+  color: #097855;
 }
 
 .single_rez_header > div {
@@ -109,9 +106,8 @@
   justify-content: space-around;
   align-items: center;
   padding: 5px;
-  /* border: 1px solid; */
   border-radius: 10px;
-  background-color: rgb(235, 235, 235);
+  background-color: rgb(9, 120, 85, 0.1);
   width: 90%;
 }
 

@@ -28,13 +28,44 @@
 
 .parkinglot_title {
   width: 100%;
-  height: 100px;
-  overflow: auto;
+  height: 150px;
   padding: 20px;
   border-top: 0.5px solid rgb(204, 204, 204);
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.parkinglot_title > div > div {
+  display: flex;
+  flex-direction: row;
   align-items: center;
+  margin-bottom: 5px;
+}
+.parkinglot_title > div > div > p:nth-child(1) {
+  margin-left: 10px;
+  width: 75px;
+  color: #097855;
+  font-weight: 500;
+}
+
+.parkinglot_title button {
+  margin: 10px auto;
+  width: 150px;
+  height: 40px;
+}
+
+.pk_title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.pk_title > p {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .parkinglot_main {
@@ -47,8 +78,7 @@
 }
 
 .starIcon {
-  width: 90%;
-  margin: 10px;
+  margin-right: 5px;
   text-align: left;
 }
 
@@ -59,14 +89,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* position: absolute;
-  bottom: 0; */
 }
 
 .parkinglot_footer > button {
-  width: 60%;
+  margin: 15px;
+  width: 80%;
   height: 40px;
-  font-size: 18px;
+  font-size: 17px;
+  background-color: #097855;
+  color: white;
+  border-radius: 5px;
+  border-color: #097855;
+  font-weight: 500;
 }
 
 .parkingmap_main {
@@ -106,11 +140,12 @@
 
 .pkIconInfo_container {
   border-top: 0.5px solid;
-  width: 320px;
+  width: 360px;
   padding: 5px;
   display: flex;
   flex-direction: row;
   justify-content: baseline;
+  margin-bottom: 15px;
 }
 
 .pkIconInfo_container > div {
@@ -125,7 +160,7 @@
 
 .pkIconDc_container {
   border-top: 0.5px solid;
-  width: 320px;
+  width: 360px;
   padding: 5px;
   display: flex;
   flex-direction: row;

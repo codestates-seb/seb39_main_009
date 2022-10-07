@@ -43,11 +43,11 @@ const EditReview = () => {
       )
       .then((res) => {
         alert("리뷰가 수정되었습니다.");
-        navigate(`/parking/${pkId}/review`);
+        navigate(`/parking/${pkId}`);
       })
       .catch((err) => {
         alert(err.response.data.message);
-        navigate(`/parking/${pkId}/review`);
+        navigate(`/parking/${pkId}`);
       });
   };
 
@@ -55,8 +55,8 @@ const EditReview = () => {
     <>
       {loading && <Loading />}
       {error && <Error />}
-      <form onSubmit={onSubmit}>
-        <div className="signup_header">
+      <div className="dvwr_container">
+        <div className="dvwr_header">
           <p>리뷰작성페이지</p>
           <GrClose
             className="closebtn"
@@ -64,18 +64,22 @@ const EditReview = () => {
             onClick={() => navigate(-1)}
           />
         </div>
-        <h2>상품은 만족하셨나요?</h2>
-        <ReviewStar setStar={setStar} star={star} />
-        <h2>어떤 점이 좋았나요?</h2>
-        <textarea
-          placeholder="최소 10자 이상은 입력해주세요."
-          type="text"
-          value={body === undefined ? "" : body}
-          onChange={(e) => setBody(e.target.value)}
-          required
-        />
-        <button>등록</button>
-      </form>
+        <div className="dvwr_main">
+          <form onSubmit={onSubmit}>
+            <h2>상품은 만족하셨나요?</h2>
+            <ReviewStar setStar={setStar} star={star} />
+            <h2>어떤 점이 좋았나요?</h2>
+            <textarea
+              placeholder="최소 10자 이상은 입력해주세요."
+              type="text"
+              value={body === undefined ? "" : body}
+              onChange={(e) => setBody(e.target.value)}
+              required
+            />
+            <button>등록</button>
+          </form>
+        </div>
+      </div>
     </>
   );
 };

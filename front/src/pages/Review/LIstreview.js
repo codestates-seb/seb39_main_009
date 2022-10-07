@@ -11,15 +11,24 @@ const Listreview = ({ pkId, reviews, handleDelReview }) => {
   const { userId } = useContext(UserIdContext);
 
   return (
-    <div>
-      <div key={reviews.reviewId}>
-        <RandomImg2 size={"reviewImg_size"} />
-        <div>닉네임 : {reviews.nickName}</div>
-        <FaStar size={15} />
-        <div>{reviews.star}</div>
-        <div>{reviews.body}</div>
+    <div className="rvlist_container">
+      <div className="single_rv" key={reviews.reviewId}>
+        <div className="rvlist_user">
+          <RandomImg2 size={"reviewer_size"} />
+          <div>
+            <p>{reviews.nickName}</p>
+            <div>
+              <FaStar size={15} />
+              <p>{reviews.star}</p>
+            </div>
+          </div>
+        </div>
+        <div className="rvlist_text">
+          <p>{reviews.body}</p>
+        </div>
+
         {userId === reviews.memberId ? (
-          <>
+          <div className="rvlist_btns">
             <button
               onClick={() =>
                 navigate(`/parking/${pkId}/review/${reviews.reviewId}`)
@@ -28,7 +37,7 @@ const Listreview = ({ pkId, reviews, handleDelReview }) => {
               수정
             </button>
             <button onClick={handleDelReview}>삭제</button>
-          </>
+          </div>
         ) : null}
       </div>
     </div>

@@ -66,9 +66,6 @@ const Review = () => {
     <>
       {loading && <Loading />}
       <div>
-        <Link to={`/parking/${pkId}/review/write`}>
-          <button>리뷰작성</button>
-        </Link>
         <br />
         {reviews.length === 0 ? (
           <div>
@@ -76,9 +73,15 @@ const Review = () => {
           </div>
         ) : (
           <>
-            <div>
-              <FaStar size={35} />
-              <p>주차장 평점 {data.star}</p>
+            <div className="total_star">
+              <FaStar size={40} color={"rgb(6, 167, 116)"} />
+              <div>
+                <p>주차장 평점</p>
+                <p>{data.star}</p>
+              </div>
+              <Link to={`/parking/${pkId}/review/write`}>
+                <button>리뷰작성</button>
+              </Link>
             </div>
             <div>
               {reviews.map((reviews, i) => (
@@ -95,8 +98,8 @@ const Review = () => {
               itemsCountPerPage={pageInfo.size}
               totalItemsCount={pageInfo.totalElements}
               pageRangeDisplayed={pageInfo.totalPages}
-              prevPageText={"‹"}
-              nextPageText={"›"}
+              prevPageText={"<"}
+              nextPageText={">"}
               onChange={handlePageChange}
             />
             <br />

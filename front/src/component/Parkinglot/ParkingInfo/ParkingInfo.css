@@ -7,7 +7,7 @@
 }
 
 .parkingInfo_title {
-  width: 320px;
+  width: 100%;
   border-bottom: 0.5px solid;
   margin-top: 5px;
 }
@@ -54,6 +54,7 @@
 
 .daily > div > p:nth-child(1) {
   font-weight: 700;
+  margin-bottom: 3px;
 }
 
 .daily > div > p:nth-child(2) {
@@ -71,15 +72,15 @@
 }
 
 .sat > p:nth-child(1) {
-  color: blue;
+  color: rgb(0, 72, 255);
   margin-right: 7px;
-  width: 140px;
+  width: 150px;
 }
 
 .sun > p:nth-child(1) {
-  color: red;
+  color: rgb(255, 75, 75);
   margin-right: 7px;
-  width: 140px;
+  width: 150px;
 }
 
 .parkingfee_container {
@@ -110,15 +111,16 @@
   align-content: center;
   justify-content: center;
 }
+
 .basicfee > div > p:nth-child(1) {
-  width: 60px;
+  width: 140px;
   color: gray;
   font-weight: 500;
   margin-left: 10px;
 }
 
 .basicfee > div > p:nth-child(2) {
-  width: 90px;
+  width: 100%;
   text-align: center;
 }
 

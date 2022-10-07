@@ -10,7 +10,7 @@ import Error from "../../component/Error/Error";
 import ParkingBookmark from "../../component/Parkinglot/ParkingBookmark";
 import ParkingTabs from "../../component/Parkinglot/ParkingTabs/ParkingTabs";
 
-const Parkinglot = () => {
+const ParkinglotBk = () => {
   const { pkId } = useParams();
   const navigate = useNavigate();
 
@@ -60,17 +60,8 @@ const Parkinglot = () => {
       <div className="parkinglot_main">
         <ParkingTabs data={data} />
       </div>
-      {data.partnership ? (
-        <div className="parkinglot_footer">
-          <>
-            <button onClick={() => navigate(`/parking/${pkId}/sector`)}>
-              예약하기
-            </button>
-          </>
-        </div>
-      ) : null}
     </div>
   );
 };
 
-export default Parkinglot;
+export default ParkinglotBk;

@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 100%;
+  width: 95%;
   height: 100%;
   word-break: break-all;
-  padding: 20px;
+  padding: 10px;
   overflow: auto;
 }
 
@@ -31,10 +31,6 @@
 
 .tabs-menu > .active-tabs {
   background: white;
-  /* border: 1px solid rgba(0, 0, 0, 0.274);
-  border-bottom: none;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px; */
   font-weight: 700;
   color: black;
 }
@@ -48,7 +44,7 @@
   transform: translateX(-50%);
   width: calc(100% + 2px);
   height: 3px;
-  background: rgb(88, 147, 241);
+  background: rgb(6, 167, 116);
 }
 
 .tabs-menu button {

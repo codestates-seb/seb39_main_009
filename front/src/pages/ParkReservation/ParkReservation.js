@@ -65,12 +65,13 @@ const ParkReservation = () => {
           <GrClose className="closebtn" size={22} onClick={handleCancel} />
         </div>
         <div className="preserv_main">
+          <h4>배치도</h4>
           <img alt="주차장배치도" src={data.imageURL} width={"400px"} />
           <select onChange={handleSelect}>
             <option value="" selected>
-              {data.validNum === undefined
-                ? "예약 가능한 자리가 없습니다."
-                : "자리를 선택해주세요."}
+              {data.validNum && data.validNum.length !== 0
+                ? "자리를 선택해주세요."
+                : "현재 예약 가능한 자리가 없습니다."}
             </option>
             {data.validNum &&
               data.validNum.map((item, i) => (
@@ -79,13 +80,13 @@ const ParkReservation = () => {
                 </option>
               ))}
           </select>
-          {data.validNum === undefined ? (
+          {data.validNum && data.validNum.length !== 0 ? (
             <>
-              <button onClick={() => navigate(`/find`)}>← 뒤로</button>
+              <button onClick={handleReserv}>다음 →</button>
             </>
           ) : (
             <>
-              <button onClick={handleReserv}>다음 →</button>
+              <button onClick={() => navigate(`/find`)}>← 뒤로</button>
             </>
           )}
         </div>

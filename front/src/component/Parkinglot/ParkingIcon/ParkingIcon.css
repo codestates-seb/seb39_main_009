@@ -12,8 +12,8 @@
   font-size: 14px;
   font-weight: 700;
   position: absolute;
-  top: 11px;
-  left: 8px;
+  top: 12px;
+  left: 7px;
 }
 
 #circle {
@@ -42,8 +42,8 @@
   font-size: 14px;
   font-weight: 800;
   position: absolute;
-  top: 15px;
-  left: 12px;
+  top: 16px;
+  left: 10px;
 }
 
 .icon_container {
@@ -67,7 +67,7 @@
 #free_icontext {
   position: absolute;
   top: 25px;
-  left: 21px;
+  left: 20px;
   color: rgb(164, 164, 164, 0.5);
   font-size: 12px;
   font-weight: 700;

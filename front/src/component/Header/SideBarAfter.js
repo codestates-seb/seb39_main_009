@@ -5,26 +5,53 @@ import { BsFillBookmarkStarFill } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 
 import "./SideBar.css";
-import React, { useRef } from "react";
+import axios from "../../apis/axios";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
-import Loading from "../Loading/Loading";
+import { AuthContext } from "../../context/AuthContext";
 import Error from "../Error/Error";
 
 const SideBarAfter = ({ show, setShow, handleSideClose, handlelogOut }) => {
   const sidebarBackRef = useRef();
   const navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(
+        `/member`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: auth,
+          },
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((err) => {
+        setError(err);
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      }, 1000);
+  }, [show]);
 
   const sideLogout = () => {
     handlelogOut();
     navigate(`/`);
   };
 
-  const { data, loading, error } = useFetch(`/member`);
-
   return (
     <>
-      {loading && <Loading />}
+      {loading && ""}
       {error && <Error />}
       {show ? (
         <>
@@ -77,7 +104,13 @@ const SideBarAfter = ({ show, setShow, handleSideClose, handlelogOut }) => {
               <div className="check_point">
                 <p>충전금</p>
                 <div>
-                  <p>{data.point === null ? 0 : data.point}</p>
+                  <p>
+                    {data.point === null
+                      ? 0
+                      : data.point
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  </p>
                   <p>원</p>
                 </div>
               </div>

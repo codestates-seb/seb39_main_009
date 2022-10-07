@@ -31,12 +31,13 @@ const Pay = () => {
   const handleReserv = () => {
     if (check === false) {
       alert(
-        `주의사항에 동의하지 않으시면, 예약이 불가합니다. \n 확인 후 체크 해주세요.`
+        `주의사항에 동의하지 않으시면, 예약이 불가합니다.\n확인 후 체크 해주세요.`
       );
       return false;
     } else {
       axiosPrivate
         .post(`/pay/${reservId}`)
+        .then(alert(`감사합니다.\n예약, 결제가 완료되었습니다!`))
         .then(navigate(`/reservation/${reservId}`))
         .catch((err) => {
           console.log(err);

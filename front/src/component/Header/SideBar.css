@@ -65,9 +65,9 @@
 }
 
 .userInfo p:nth-child(1) {
-  color: rgba(1, 69, 203, 0.696);
+  color: #097855;
   font-size: 24px;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .userInfo p:nth-child(1):hover {
@@ -117,8 +117,8 @@
 }
 
 .mainMenu div > div > p:nth-child(1) {
-  color: rgba(1, 69, 203, 0.696);
-  font-weight: bold;
+  color: #097855;
+  font-weight: 600;
 }
 
 .icon-href:hover {

@@ -79,9 +79,17 @@ const ParkingBookmark = ({ pkId }) => {
   return (
     <div className="starIcon">
       {bookmark ? (
-        <AiFillStar size={24} onClick={handleOffBookmark} />
+        <AiFillStar
+          size={24}
+          color={"rgb(6, 167, 116)"}
+          onClick={handleOffBookmark}
+        />
       ) : (
-        <AiOutlineStar size={24} onClick={handleOnBookmark} />
+        <AiOutlineStar
+          size={24}
+          color={"rgb(6, 167, 116)"}
+          onClick={handleOnBookmark}
+        />
       )}
     </div>
   );

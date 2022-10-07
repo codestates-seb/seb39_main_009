@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'GmarketSansMedium';
+  font-family: "GmarketSansMedium";
   font-weight: 100;
   
 }
@@ -29,7 +29,7 @@
   grid-template-areas: "side main_container";
   overflow: hidden;
   content: "";
-  background-image: url('./assets/parkbackground/car-gcda0f4201_1280.jpg');
+  background-image: url("./assets/parkbackground/car-gcda0f4201_1280.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   position: absolute;
@@ -42,20 +42,17 @@
 
 /* Outlayout css */
 
-.outlayout{
+.outlayout {
   position: fixed;
-    -webkit-box-align: center;
-    left: calc(50vw - 420px);
+  -webkit-box-align: center;
+  left: calc(50vw - 420px);
   width: 350px;
   height: 500px;
   top: 150px;
 }
 
-
-
 .side {
   grid-area: side;
-  
 }
 
 .main_container {
@@ -85,8 +82,6 @@
   overflow: auto;
 }
 
-
-
 @media only screen and (max-width: 768px) {
   .container {
     display: grid;
@@ -100,12 +95,12 @@
     display: none;
   }
 
-  .outlayout{
+  .outlayout {
     position: fixed;
-      -webkit-box-align: center;
-      align-items: center;
-      height: 100vh;
-      left: calc(50vw - 420px);
+    -webkit-box-align: center;
+    align-items: center;
+    height: 100vh;
+    left: calc(50vw - 420px);
     left: 5px;
     width: 300px;
     height: 300px;
