@@ -1,0 +1,45 @@
+spring:
+  profiles:
+    active: test
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dummy
+    password: dummy
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+jwt:
+  tokenSecurityKey: Q0dHs1rnox7S4aHv19Ne03LwZ3aZ/robuFyo6lviT5k1yK/OWjjMug==
+  accessTokenExpireTime: 6000000
+  refreshTokenExpireTime: 60000000
+
+client:
+  url: https://juchago.com
+
+jasypt:
+  encryptor:
+    password: dummy
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MySQL;
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true

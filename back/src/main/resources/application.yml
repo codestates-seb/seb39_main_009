@@ -1,0 +1,56 @@
+spring:
+  profiles:
+    active: dev
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dummy
+    password: dummy
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+jwt:
+  tokenSecurityKey: ENC(Q0dHs1rnox7S4aHv19Ne03LwZ3aZ/robuFyo6lviT5k1yK/OWjjMug==)
+  accessTokenExpireTime: 6000000
+  refreshTokenExpireTime: 60000000
+
+client:
+  url: https://juchago.com
+
+jasypt:
+  encryptor:
+    bean: jasyptStringEncryptor
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ENC(h9ZJ1Po9veLmbsxpwEcRsYdnEqI7X9xkD7tAjA/1Cvc=)
+    password: ENC(9bujLpNxe97GTCXVWvnQ+2ESnn9cJnZWREUIPMTOou4=)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  datasource:
+    url: ENC(stRoGAMIskd+2bDQp+eyXdA2vqXqAC5T2XJs1ltUWHpDwMcbLPrMbWt9JnbEWwsa+WReFxJiG5mD0m9IuccoELioLnmuDPe8c2cJ0xk8RqXD3C7Oc/+4QRwauDZq5EPk)
+    username: ENC(KdWc5o6eL1Z9GvzKQ61bWA==)
+    password: ENC(K0eg5J1mTc326+S1PMcX6IbZ/ESpBqLclX8Y835tLsg=)
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
