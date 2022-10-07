@@ -35,6 +35,8 @@ const TimeparkModal = (props) => {
             onClick={props.TimeParkSearchToggleModal}
           ></div>
           <div className="modal-content1">
+          <div className="modal-content2">
+
             <label>입차시간</label>
             <br />
             <input
@@ -70,17 +72,19 @@ const TimeparkModal = (props) => {
               options={arr}
             />
             <br />
-            <div>
-              <label>총이용시간</label>
-              <div>{totaltime}</div>
+            <div className="totaltime">
+              <div>총이용시간</div>
+              {totaltime==="NaN시간 NaN분"?"":<div>{totaltime}</div>}
+              
             </div>
 
             <br />
-            <input
-              type="submit"
-              value="submit"
+            <button
+              // type="submit"
+              // value="submit"
               onClick={props.TimeParkSearchToggleModal}
-            />
+            >submit</button>
+            </div>
             <GrClose
               size={25}
               className="close-modal1"

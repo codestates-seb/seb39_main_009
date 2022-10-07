@@ -81,7 +81,7 @@ const onChangeName = (e) => {
     setIsPhonenumber(false);
   };
 
-
+// 차번호
   const onChangecarnumber =(e)=>{
     const pattern1 = /\d{2,3}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g; // 12저1234
     const pattern2 = /[가-힣ㄱ-ㅎㅏ-ㅣ\x20]{2}\d{2}[가-힣ㄱ-ㅎㅏ-ㅣ\x20]\d{4}/g; // 서울12치1233

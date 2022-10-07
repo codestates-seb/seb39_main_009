@@ -19,6 +19,7 @@
   z-index: 1;
 }
 
+
 /* 바탕화면 */
 .container::after {
   display: grid;
@@ -113,14 +114,14 @@
 
 .backheader {
   width: 100%;
-  height: 50px;
+  height: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 
   border-bottom: 0.5px solid rgb(204, 204, 204);
-  padding: 20px 20px 35px 20px;
+  padding: 10px 0px 30px 35px;
   margin-bottom: 10px;
 }
 
@@ -133,28 +134,18 @@
   cursor: pointer;
 }
 
-/* 틀 */
-/* <div className="backheader">
-<AiOutlineLeft
-  size={35}
-  onClick={() => {
-    navigate(-1);
-  }}
-/>
-<h2>환영페이지</h2>
-</div> */
 
 /* 페이지 삭제 */
 
 .signup_header {
   width: 100%;
-  height: 50px;
+  height: 5px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
   border-bottom: 0.5px solid rgb(204, 204, 204);
-  padding: 20px 20px 35px 20px;
+  padding: 10px 0px 30px 35px;
 }
 .signup_header p {
   margin-left: 20px;
@@ -169,8 +160,3 @@
   cursor: pointer;
 }
 
-/* 틀 */
-/* <div className="signup_header">
-<h2>회원가입</h2>
-<GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
-</div> */

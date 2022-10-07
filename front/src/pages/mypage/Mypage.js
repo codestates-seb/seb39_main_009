@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import Loading from "../../component/Loading/Loading";
 import './Mypage.css'
 import { AiOutlineLeft } from "react-icons/ai";
+import { BiLogOut } from "react-icons/bi";
+
 
 const Mypage = () => {
   const navigate = useNavigate();
@@ -23,7 +25,7 @@ const Mypage = () => {
       })
       .then((res) => {
         setData(res);
-        // console.log(res)
+        console.log(res)
         // console.log("리스트 불러오기 성공");
       })
       .catch((err) => {
@@ -74,11 +76,15 @@ const Mypage = () => {
                 <label>차량번호</label>
                 <p>{data.carNumber}</p>
               </div>
-          <button><Link to={`/mypage/${id}/edit`} state={{ data: data }}>
+        </div>
+
+          <button><Link to={`/mypage/${id}/edit`} className="link" state={{ data: data }}>
             개인정보수정
           </Link></button>
-          <button onClick={handlelogOut}>로그아웃</button>
-        </div>
+          <div className="mypage_logout" onClick={handlelogOut}>
+                <BiLogOut className="mypage_icons" size={22} />
+                <p>로그아웃</p>
+              </div>
         </div>
         </div>
       )}

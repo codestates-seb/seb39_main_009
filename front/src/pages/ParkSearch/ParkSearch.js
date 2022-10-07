@@ -1,6 +1,8 @@
+
 //react-icons
-import { FaAngleDown } from "react-icons/fa";
+import { FaRegCalendarCheck } from "react-icons/fa";
 import { GrClose } from "react-icons/gr";
+import { BsGeoAlt,BsChevronDown } from "react-icons/bs";
 
 import "./ParkSearch.css";
 import axios from "axios";
@@ -50,16 +52,17 @@ const ParkSearch = () => {
   //시간선택 모달창에서 선택한 값 전달
   const dateFormat2 = useDateFormat2();
 
-  const [Timeday, setTimeday] = useState("시간선택");
-  const [Timeday2, setTimeday2] = useState("시간선택");
+  const [Timeday, setTimeday] = useState("입차시간");
+  const [Timeday2, setTimeday2] = useState("출차시간");
   const [timeValue, setTimeValue] = useState("");
   const [timeValue2, setTimeValue2] = useState("");
   const inputtime = `${Timeday} ${timeValue.value || ""}`;
-  const inputtime2 = `${Timeday2} ${timeValue2.value || ""}`;
+  const inputtime2 = `- ${Timeday2} ${timeValue2.value || ""}`;
   const formatday = dateFormat2(Timeday);
   const formatday2 = dateFormat2(Timeday2);
   const sendTime = `${formatday} ${timeValue.value}`;
   const sendTime2 = `${formatday2} ${timeValue2.value}`;
+
 
   const onChangeTime = (e) => {
     setTimeday(e.currentTarget.value);
@@ -122,24 +125,27 @@ const ParkSearch = () => {
 
   return (
     <>
-      <div>
-        <div className="signup_header">
-          <p>주차장 조건 검색 페이지</p>
+      <div className="parksearch_container">
+        {/* <div className="signup_header">
+          <p>주차장 조건 검색</p>
           <GrClose
             className="closebtn"
             size={22}
-            onClick={() => navigate(`/`)}
+            onClick={() => navigate(`/find`)}
           />
-        </div>
+        </div> */}
         <div className="parksearch_main">
-          <h2>어느 지역 주차장을 찾으시나요?</h2>
+          <div className="h2dic">
+          <h2>어떤 </h2>
+          <h2>지역 주차장</h2>
+          <h2>을 찾으시나요?</h2>
+          </div>
           <div className="dropdown">
-            <label>지역선택</label>
-            <label className="dropdownLabel" onClick={ParkSearchToggleModal}>
-              <input placeholder="지역선택" value={totalContent} readOnly />
-
-              <FaAngleDown />
-            </label>
+            <div className="dropdownLabel" onClick={ParkSearchToggleModal}>
+              <BsGeoAlt size={15} color='rgb(111, 111, 111)'/>
+              <input className="areainput" placeholder="지역선택" value={totalContent} readOnly />
+              <BsChevronDown color='rgb(111, 111, 111)'/>
+            </div>
             <AreaparkModal
               Content={Content}
               Content2={Content2}
@@ -152,31 +158,29 @@ const ParkSearch = () => {
             />
             <br />
             <br />
-            <div>
-              <label>시간선택</label>
-              <br />
-              <label className="labeltext">입차시간</label>
-              <label>출차시간</label>
-            </div>
-            <label
+            <div
               className="dropdownLabel"
               onClick={TimeParkSearchToggleModal}
             >
+            <FaRegCalendarCheck size={15} color='rgb(111, 111, 111)'/>
+              <div className="timeinput2">
               <input
-                placeholder="시간선택"
+                placeholder="입차시간"
                 value={inputtime}
                 required
                 readOnly
+                className="entranceinput"
               />
-              <div>-</div>
               <input
-                placeholder="시간선택"
+                placeholder="출차시간"
                 value={inputtime2}
                 required
                 readOnly
+                className="exitinput"
               />
-              <FaAngleDown className="caretIcon" />
-            </label>
+              </div>
+              <BsChevronDown color='rgb(111, 111, 111)'/>
+            </div>
             <TimeparkModal
               Timeday={Timeday}
               Timeday2={Timeday2}
@@ -189,8 +193,6 @@ const ParkSearch = () => {
               timeparkSearchModal={timeparkSearchModal}
               TimeParkSearchToggleModal={TimeParkSearchToggleModal}
             />
-            <br />
-            <br />
             <button
               onClick={() => {
                 hide();
@@ -200,7 +202,8 @@ const ParkSearch = () => {
               검색하기
             </button>
 
-            <div>
+            <div classname ="
+            ">
               {viewcon ? (
                 <PresentSearch />
               ) : lala.status === 200 ? (

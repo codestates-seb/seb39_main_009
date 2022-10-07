@@ -1,5 +1,5 @@
 // react-icons
-import { GrClose } from "react-icons/gr";
+// import { GrClose } from "react-icons/gr";
 // import { AiOutlineLeft } from "react-icons/ai";
 
 import axios from "../../apis/axios";
@@ -58,7 +58,7 @@ const Login = () => {
       setEmail("");
       setPassword("");
       setTimeout(onSilentRefresh, 360000); // 1시간
-      navigate("/");
+      navigate("/find");
     } catch (err) {
       setErrMsg(err.response.data.message);
       errRef.current.focus();
@@ -69,14 +69,14 @@ const Login = () => {
   return (
     <div>
       <div>
-        <div className="signup_header">
+        {/* <div className="signup_header">
           <h2>로그인</h2>
           <GrClose
             className="closebtn"
             size={22}
             onClick={() => navigate(`/find`)}
           />
-        </div>
+        </div> */}
         <div className="Login">
           {/* <AiOutlineLeft
             size={24}
