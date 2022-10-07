@@ -107,13 +107,7 @@ const SideBarAfter = ({ show, setShow, handleSideClose, handlelogOut }) => {
               <div className="check_point">
                 <p>충전금</p>
                 <div>
-                  <p>
-                    {data.point === null
-                      ? 0
-                      : data.point
-                          .toString()
-                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                  </p>
+                  <p>{data.point === null ? 0 : data.point}</p>
                   <p>원</p>
                 </div>
               </div>
