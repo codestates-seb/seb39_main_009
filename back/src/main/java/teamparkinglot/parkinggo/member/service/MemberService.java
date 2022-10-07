@@ -17,6 +17,7 @@ import teamparkinglot.parkinggo.reservation.repository.ReservationRepositoryQuer
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,19 +35,6 @@ public class MemberService {
         member.setPoint(100000L);
 
         return memberRepository.save(member);
-    }
-
-    private void verifyMember(Member member) {
-        Optional<Member> find = memberRepository.findByEmail(member.getEmail());
-        if (find.isPresent()) {
-            throw new BusinessException(ExceptionCode.MEMBER_EXISTS);
-        }
-    }
-
-    public Member findVerifiedMember(String email) {
-        return memberRepository.findByEmail(email).orElseThrow(
-                () -> new BusinessException(ExceptionCode.MEMBER_NOT_EXISTS)
-        );
     }
 
     public MyPageResDto findMyPage(String email) {
@@ -82,7 +70,13 @@ public class MemberService {
 
     public List<ReservationListDto> viewReservations(String email) {
 
-        return reservationRepository.findReservationList(email);
+        List<ReservationListDto> reservationList = reservationRepository.findReservationList(email);
+        reservationList = reservationList.stream()
+                .map(e -> {
+                    e.setParkingEndTime(e.getParkingEndTime().plusSeconds(1));
+                    return e;
+                }).collect(Collectors.toList());
+        return reservationList;
     }
 
     @Transactional
@@ -91,5 +85,18 @@ public class MemberService {
         Member member = findVerifiedMember(email);
         member.setCarNumber(carNumber);
 
+    }
+
+    private void verifyMember(Member member) {
+        Optional<Member> find = memberRepository.findByEmail(member.getEmail());
+        if (find.isPresent()) {
+            throw new BusinessException(ExceptionCode.MEMBER_EXISTS);
+        }
+    }
+
+    public Member findVerifiedMember(String email) {
+        return memberRepository.findByEmail(email).orElseThrow(
+                () -> new BusinessException(ExceptionCode.MEMBER_NOT_EXISTS)
+        );
     }
 }

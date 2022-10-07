@@ -19,6 +19,7 @@ import teamparkinglot.parkinggo.review.dto.ReviewResDto;
 import teamparkinglot.parkinggo.review.entity.Review;
 import teamparkinglot.parkinggo.review.repository.ReviewRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.OptionalDouble;
 
@@ -58,6 +59,8 @@ public class ReviewService {
                     .member(member)
                     .parking(parking)
                     .build();
+
+            review.setDateTime(LocalDateTime.now(), LocalDateTime.now());
 
             reviewRepository.save(review);
         } else throw new BusinessException(ExceptionCode.RESERVATION_NOT_EXISTS);
