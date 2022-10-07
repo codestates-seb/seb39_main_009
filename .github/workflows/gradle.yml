@@ -45,11 +45,11 @@ jobs:
       with:
         node-version: '16.17.0'
         
-    - name: create .env
-      run: touch ./front/.env
+#     - name: create .env
+#       run: touch ./front/.env
       
-    - name: write env
-      run: echo REACT_APP_BASE_URL = ${{ secrets.ENV_SECRET_KEY }} > ./front/.env
+#     - name: write env
+#       run: echo REACT_APP_BASE_URL = ${{ secrets.ENV_SECRET_KEY }} > ./front/.env
         
     - name: npm install
       run: npm install
