@@ -38,7 +38,13 @@ const Pay = () => {
       return false;
     } else {
       axiosPrivate
-        .post(`/pay/${reservId}`)
+        .post(`/pay/${reservId}`,
+            {}
+            ,
+            { headers: {
+                authorization: localStorage.getItem("authorization"),
+              }
+            })
         .then(alert(`감사합니다.\n예약, 결제가 완료되었습니다!`))
         .then(navigate(`/reservation/${reservId}`))
         .catch((err) => {
@@ -53,7 +59,13 @@ const Pay = () => {
   const handleCancel = () => {
     if (window.confirm(`결제을 취소하시겠습니까?`)) {
       axiosPrivate
-        .delete(`/pay/${reservId}`)
+        .delete(`/pay/${reservId}`,
+            {},
+            {
+              headers: {
+                authorization: localStorage.getItem("authorization"),
+              }
+            })
         .then((res) => {
           navigate(`/find`);
           setReserv({});
