@@ -12,6 +12,7 @@ import Error from "../../component/Error/Error";
 const ParkingMap = () => {
   const navigate = useNavigate();
   const { pkId } = useParams();
+
   const { data, loading, error } = useFetch(`/parking/${pkId}`);
 
   if (loading) {
@@ -38,10 +39,10 @@ const ParkingMap = () => {
           <p>{data.address}</p>
         </div>
         <Map
-          center={{ lat: data.lat, lng: data.lng }}
+          center={{ lat: data.latitude, lng: data.longitude }}
           style={{ width: "100%", height: "50%" }}
         >
-          <MapMarker position={{ lat: data.lat, lng: data.lng }} />
+          <MapMarker position={{ lat: data.latitude, lng: data.longitude }} />
         </Map>
       </div>
     </div>
