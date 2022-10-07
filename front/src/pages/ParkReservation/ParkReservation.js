@@ -36,7 +36,11 @@ const ParkReservation = () => {
       return false;
     } else {
       axiosPrivate
-        .post(`/parking/${pkId}/reservation`, reservData)
+        .post(`/parking/${pkId}/reservation`, reservData, {
+          headers: {
+            authorization: localStorage.getItem("authorization"),
+          }
+        })
         .then((res) => {
           navigate(`/pay/${pkId}/${res.data.reservNum}`);
         })
