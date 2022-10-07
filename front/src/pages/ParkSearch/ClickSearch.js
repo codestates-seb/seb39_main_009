@@ -15,41 +15,41 @@ const ClickSearch = (props) => {
     return (
         <div>
           {props.loading && <Loading />}
-          <select>
+          <select className="searchselect">
             <option value="인기순">인기순</option>
           </select>
-          <div className="parksearch">
-          <h3>제휴 주차장</h3>
+          <div className="parksearch2">
+          <h2>검색 결과</h2>
+          
+          {truePartnership.length===0?"": <h3>제휴 주차장</h3>}
           <div>{truePartnership && truePartnership.map(data => (
-                          <div key={data.parkingId} >
-                            <br/>
+                          <div className="gopakring" key={data.parkingId} >
                               <div 
                                    onClick={()=>{
                                     navigate(`/parking/${data.parkingId}`)
                                    }}
                                   className="searchpage">
-                                   <RandomImg size={"reviewImg_size"} />
-                            <div>
-                             <div>주차장이름 : {data.name}</div>
-                             <div>주차장 주소 : {data.address}</div>
+                                   <RandomImg size={"pakinglot2_size"} />
+                            <div  className="parking_data">
+                             <div>{data.name}</div>
+                             <div>{data.address}</div>
                            </div>
                           </div>
                           </div>
                   ))}
            </div>
            <h3>일반 주차장</h3>
-          <div>{falsePartnership && falsePartnership.map(data => (
-                          <div key={data.parkingId} >
-                            <br/>
+          <div className="gopakring">{falsePartnership && falsePartnership.map(data => (
+                          <div className="gopakring" key={data.parkingId} >
                               <div 
                                    onClick={()=>{
                                     navigate(`/parking/${data.parkingId}`)
                                    }}
                                   className="searchpage">
-                                   <RandomImg size={"reviewImg_size"} />
-                            <div>
-                             <div>주차장이름 : {data.name}</div>
-                             <div>주차장 주소 : {data.address}</div>
+                                   <RandomImg size={"pakinglot2_size"} />
+                            <div className="parking_data">
+                             <div>{data.name}</div>
+                             <div>{data.address}</div>
                            </div>
                           </div>
                           </div>

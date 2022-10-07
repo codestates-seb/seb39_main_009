@@ -3,7 +3,8 @@
   height: 100px;
 }
 
-.reviewer_size {
-  width: 40px;
-  height: 40px;
+.pakinglot2_size {
+  width: 105px;
+  height: 100px;
+  border-radius: 8px 0px 0px 8px;
 }

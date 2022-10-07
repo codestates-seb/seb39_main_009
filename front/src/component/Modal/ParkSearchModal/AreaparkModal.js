@@ -11,6 +11,7 @@ const AreaparkModal = (props) => {
             <div className="modal1">
                 <div className="overlay1" onClick={props.ParkSearchToggleModal}></div>
                  <div className="modal-content1">
+                   <div className="modal-content2">
                     <select className="ul_style1" onChange={props.onChangeHanlder} value={props.Content}>
                         <option value="시/도" >시/도</option>
                         <option value="서울특별시" >서울특별시</option>
@@ -36,10 +37,11 @@ const AreaparkModal = (props) => {
                         <option value="수서동">수서동</option>
                         <option value="세곡동">세곡동</option>
                         <option value="일원동">일원동</option>
-
                     </select>
                     <br/>
-                        <input type="submit" value="submit" onClick={props.ParkSearchToggleModal}/>
+                        <button 
+                        onClick={props.ParkSearchToggleModal}>submit</button>
+                    </div>
                     <GrClose size={25} className="close-modal1" onClick={props.ParkSearchToggleModal} />
                 </div>
               </div>

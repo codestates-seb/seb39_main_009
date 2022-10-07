@@ -28,8 +28,7 @@ import WriteReview from "./pages/Review/WriteReview";
 import Pay from "./pages/Pay/Pay";
 import AreaparkModal from "./component/Modal/ParkSearchModal/AreaparkModal";
 import Outlayout from "./Outlayout/Outlayout";
-// import Firstpage from "./Firstpage/Firstpage";
-import HealthCheck from "./test/HealthCheck";
+// import HealthCheck from "./test/HealthCheck";
 import ParkinglotBk from "./pages/Parkinglot/ParkinglotBk";
 import { CarNumContext } from "./context/CarNumContext";
 
@@ -73,7 +72,7 @@ function App() {
                       {/* ↓ 아래 main div 안에 페이지 추가해주시면 됩니다. */}
                       <Routes>
                         {/* 로딩컴포넌트 - 임시 메인 */}
-                        <Route path="/" element={<HealthCheck />} />
+                        <Route path="/" element={<Login />} />
                         {/* 로그인창 */}
                         <Route path="/login" element={<Login />} />
                         {/* 회원가입창 */}

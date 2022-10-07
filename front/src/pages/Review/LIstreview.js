@@ -17,7 +17,7 @@ const Listreview = ({ pkId, reviews, handleDelReview }) => {
     <div className="rvlist_container">
       <div className="single_rv" key={reviews.reviewId}>
         <div className="rvlist_user">
-          <RandomImg2 size={"reviewer_size"} />
+          <RandomImg2 size={"pakinglot2_size"} />
           <div>
             <div>
               <p>{reviews.nickName}</p>

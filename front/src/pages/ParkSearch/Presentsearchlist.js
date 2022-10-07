@@ -10,13 +10,12 @@ const Presentsearchlist =(props) => {
       }
 
   return (
-    <div>
-      <br />
+    <div className="gopakring" >
       <div key={data.parkingId} onClick={clickpage} className="searchpage">
-        <RandomImg size={"reviewImg_size"} />
-        <div>
-          <div>주차장이름 : {data.parkingName}</div>
-          <div>주차장 주소 : {data.address}</div>
+        <RandomImg size={"pakinglot2_size"} />
+        <div className="parking_data">
+          <div>{data.parkingName}</div>
+          <div>{data.address}</div>
         </div>
       </div>
     </div>

@@ -5,23 +5,23 @@
   flex-direction: row;
   align-items: center;
   position: relative;
-  background-color: rgb(6, 167, 116, 0.1);
+  background-color: rgba(0, 6, 4, 0.1);
 }
 
 .logo {
-  margin-left: 30px;
+  margin-left: 80px;
   font-size: 20px;
   display: flex;
   flex-direction: row;
 }
 
+
 .logo p {
   font-size: 25px;
-  margin-top: 6px;
+  margin-top: 8px;
   margin-left: 8px;
-  color: rgb(6, 167, 116);
+  color: rgb(6, 137, 95);
   font-weight: bold;
-  text-shadow: 1px 1px 1px rgba(6, 167, 116, 0.403);
 }
 
 .logo:hover {
