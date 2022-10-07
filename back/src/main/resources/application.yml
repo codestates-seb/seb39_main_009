@@ -32,7 +32,7 @@ server:
     key-store-password: ENC(ujPpDPnF7tSpNyUOcixUGA==)
     protocol: TLS
     enabled-protocols: TLSv1.2
-    key-store: spring_key.p12
+    key-store: /home/ubuntu/action/spring_key.p12
 
 ---
 
