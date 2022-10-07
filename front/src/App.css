@@ -1,0 +1,26 @@
+/* 폰트 */
+
+@font-face {
+  font-family: "establishRetrosansOTF";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 기본 폰트 */
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "OTWelcomeBA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2110@1.0/OTWelcomeBA.woff2")
+    format("woff2");
+  font-weight: 100 300;
+  font-style: normal;
+}

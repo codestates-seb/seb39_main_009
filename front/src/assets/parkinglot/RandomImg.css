@@ -1,0 +1,17 @@
+.bookmark_size {
+  width: 65px;
+  height: 65px;
+}
+
+.pakinglot_size {
+  margin: 30px;
+  width: 85%;
+  height: 185px;
+}
+
+/* @media only screen and (max-height: 850px) {
+  .pakinglot_size {
+    width: 80%;
+    height: 180px;
+  }
+} */
