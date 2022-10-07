@@ -35,7 +35,11 @@ const Notice = () => {
     <div className="notice_container">
       <div className="notice_header">
         <h2>공지사항</h2>
-        <GrClose className="closebtn" size={22} onClick={() => navigate(`/`)} />
+        <GrClose
+          className="closebtn"
+          size={22}
+          onClick={() => navigate(`/find`)}
+        />
       </div>
       <div className="notice_main">
         {data &&

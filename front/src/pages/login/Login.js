@@ -9,9 +9,9 @@ import useRefreshToken from "../../hooks/useRefreshToken";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { UserIdContext } from "../../context/UserIdContext";
-import "./Login.css"
+import "./Login.css";
 
-const LOGIN_URL = '/login';
+const LOGIN_URL = "/login";
 
 const Login = () => {
   const onSilentRefresh = useRefreshToken();
@@ -62,7 +62,7 @@ const Login = () => {
     } catch (err) {
       setErrMsg(err.response.data.message);
       errRef.current.focus();
-      alert(err.response.data.message)
+      alert(err.response.data.message);
     }
   };
 
@@ -74,7 +74,7 @@ const Login = () => {
           <GrClose
             className="closebtn"
             size={22}
-            onClick={() => navigate(`/`)}
+            onClick={() => navigate(`/find`)}
           />
         </div>
         <div className="Login">
@@ -84,11 +84,13 @@ const Login = () => {
               navigate(-1);
             }}
           /> */}
-          <img className="stacklogo" alt="logo" src={process.env.PUBLIC_URL + "/juagologo.png"} />
-            <p>로그인 후 이용 가능합니다</p>
+          <img
+            className="stacklogo"
+            alt="logo"
+            src={process.env.PUBLIC_URL + "/juagologo.png"}
+          />
+          <p>로그인 후 이용 가능합니다</p>
           <form onSubmit={handleSubmit}>
-
-
             <input
               type="type"
               id="email"
@@ -109,15 +111,15 @@ const Login = () => {
               required
               autocomplete="off"
             />
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-           >
-          </p>
+            <p
+              ref={errRef}
+              className={errMsg ? "errmsg" : "offscreen"}
+              aria-live="assertive"
+            ></p>
             <button className="buttonlogin">로그인</button>
-        <button className="buttonlogin2" onClick={() => navigate("/join")}>회원가입</button>
-
+            <button className="buttonlogin2" onClick={() => navigate("/join")}>
+              회원가입
+            </button>
           </form>
         </div>
       </div>

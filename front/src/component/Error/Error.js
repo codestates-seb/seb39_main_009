@@ -16,7 +16,7 @@ const Error = () => {
         <h1>We're sorry ;(</h1>
         <div>
           <span>If you want to start over, </span>
-          <span className="gobacklink" onClick={() => navigate(`/`)}>
+          <span className="gobacklink" onClick={() => navigate(`/find`)}>
             Back To Home
           </span>
           <span>.</span>

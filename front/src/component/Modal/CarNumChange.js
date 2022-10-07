@@ -1,6 +1,6 @@
 import "./Modal.css";
-import React, { useContext, useState } from "react";
 import axios from "../../apis/axios";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { CarNumContext } from "../../context/CarNumContext";
 
@@ -46,12 +46,10 @@ const CarNumChange = ({ toggleModal, modal, setModal }) => {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log(res);
         alert("차량번호가 수정되었습니다.");
         setModal(!modal);
       })
       .catch((err) => {
-        console.log(err);
         alert(err.response.data.message);
       });
   };

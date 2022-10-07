@@ -13,7 +13,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  padding: 20px;
+  padding-top: 15px;
+  padding-bottom: 30px;
+  padding-left: 60px;
+  border-bottom: 0.5px solid gray;
 }
 
 .preserv_header p {

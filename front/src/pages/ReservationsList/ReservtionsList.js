@@ -33,7 +33,7 @@ const ReservationsList = () => {
           <GrClose
             className="closebtn"
             size={22}
-            onClick={() => navigate(`/`)}
+            onClick={() => navigate(`/find`)}
           />
         </div>
         <div className="rezlist_main">

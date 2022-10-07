@@ -14,6 +14,8 @@
   align-items: center;
   justify-content: flex-end;
   padding: 20px;
+  padding-bottom: 30px;
+  border-bottom: 0.5px solid gray;
 }
 
 .pay_header p {

@@ -22,10 +22,21 @@ const Header = ({ handlelogOut }) => {
 
   return (
     <div className="header_container">
-      <FiMenu className="openbtn" size={22} onClick={handleSideOpen} />
-      <p className="logo" onClick={() => navigate(`/`)}>
-        This is Header(Home)
-      </p>
+      <FiMenu
+        className="openbtn"
+        size={30}
+        onClick={handleSideOpen}
+        color={"rgb(6, 167, 116)"}
+      />
+      <div className="logo" onClick={() => navigate(`/find`)}>
+        <img
+          alt="logo"
+          src={process.env.PUBLIC_URL + "/juchagoh.png"}
+          width={"35px"}
+          height={"35px"}
+        />
+        <p>JUCHAGO</p>
+      </div>
       <div className={show ? "side_active" : "side_hide"}>
         {localStorage.authorization ? (
           <SideBarAfter

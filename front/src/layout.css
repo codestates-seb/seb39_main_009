@@ -6,7 +6,6 @@
   box-sizing: border-box;
   font-family: "GmarketSansMedium";
   font-weight: 100;
-  
 }
 
 .container {
@@ -70,7 +69,7 @@
   grid-area: header;
   width: 100%;
   background-color: #fff;
-  border-bottom: 0.5px solid grey;
+  /* border-bottom: 0.5px solid grey; */
 }
 
 .main {
@@ -110,7 +109,6 @@
   }
 }
 
-
 /* 뒤로가기 */
 
 .backheader {
@@ -146,10 +144,9 @@
 <h2>환영페이지</h2>
 </div> */
 
-
 /* 페이지 삭제 */
 
-.signup_header { 
+.signup_header {
   width: 100%;
   height: 50px;
   display: flex;
@@ -171,7 +168,6 @@
 .closebtn:hover {
   cursor: pointer;
 }
-
 
 /* 틀 */
 /* <div className="signup_header">

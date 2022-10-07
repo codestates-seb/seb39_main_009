@@ -72,7 +72,7 @@ const Bookmark = () => {
           <GrClose
             className="closebtn"
             size={22}
-            onClick={() => navigate(`/`)}
+            onClick={() => navigate(`/find`)}
           />
         </div>
         <div className="bookmark_main">

@@ -1,5 +1,4 @@
 // react-icons
-import { GrClose } from "react-icons/gr";
 import { AiOutlineRight } from "react-icons/ai";
 import { BsFillBookmarkStarFill } from "react-icons/bs";
 
@@ -26,12 +25,17 @@ const SideBarBefore = ({ show, setShow, handleSideClose }) => {
           />
           <div className="sidebar">
             <div className="sidebar_header">
-              <p>주 차 G O</p>
-              <GrClose
+              <img
+                alt="logo"
+                src={process.env.PUBLIC_URL + "/juagologo.png"}
+                width={"100px"}
+              />
+
+              {/* <GrClose
                 className="closebtn"
                 size={22}
                 onClick={handleSideClose}
-              />
+              /> */}
             </div>
             <div className="userInfo">
               <p

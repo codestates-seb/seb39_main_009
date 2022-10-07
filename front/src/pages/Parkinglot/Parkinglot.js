@@ -32,6 +32,7 @@ const Parkinglot = () => {
             navigate(-1);
           }}
         />
+        <p></p>
         <h2>주차장 정보</h2>
       </div>
       <div className="parkinglot_title">
