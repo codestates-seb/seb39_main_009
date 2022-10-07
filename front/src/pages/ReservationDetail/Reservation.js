@@ -26,13 +26,14 @@ const Reservation = () => {
   }
 
   const handleCancel = () => {
-    alert(`예약을 취소하시겠습니까?`);
-    axiosPrivate
-      .delete(`/pay/${data.reservationId}`)
-      .then(navigate(`/reservation`))
-      .catch((err) => {
-        console.log(err);
-      });
+    if (window.confirm(`예약을 취소하시겠습니까?`)) {
+      axiosPrivate
+        .delete(`/pay/${reservId}`)
+        .then(navigate(`/`))
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   return (

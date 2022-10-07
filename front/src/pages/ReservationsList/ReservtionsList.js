@@ -3,7 +3,7 @@ import { GrClose } from "react-icons/gr";
 import { AiOutlineRight } from "react-icons/ai";
 
 import "./ReservationsList.css";
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import useDateFormat from "../../hooks/useDateFormat";
 import useFetch from "../../hooks/useFetch";

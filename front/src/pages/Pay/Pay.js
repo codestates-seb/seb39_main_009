@@ -48,13 +48,14 @@ const Pay = () => {
   };
 
   const handleCancel = () => {
-    alert(`결제를 취소하시겠습니까?`);
-    axiosPrivate
-      .delete(`/pay/${reservId}`)
-      .then(navigate(`/`))
-      .catch((err) => {
-        console.log(err);
-      });
+    if (window.confirm(`결제을 취소하시겠습니까?`)) {
+      axiosPrivate
+        .delete(`/pay/${reservId}`)
+        .then(navigate(`/`))
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   const { data, loading, error } = useFetch(

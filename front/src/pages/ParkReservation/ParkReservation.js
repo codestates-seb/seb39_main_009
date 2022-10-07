@@ -49,10 +49,17 @@ const ParkReservation = () => {
   };
 
   const handleCancel = () => {
-    alert(`예약을 취소하시겠습니까?`);
+    if (window.confirm(`예약을 취소하시겠습니까?`)) {
+      localStorage.removeItem("reserv");
+      setReserv({});
+      navigate(`/`);
+    }
+  };
+
+  const goBack = () => {
     localStorage.removeItem("reserv");
     setReserv({});
-    navigate(`/`);
+    navigate(`/find`);
   };
 
   return (
@@ -65,8 +72,13 @@ const ParkReservation = () => {
           <GrClose className="closebtn" size={22} onClick={handleCancel} />
         </div>
         <div className="preserv_main">
-          <h4>배치도</h4>
-          <img alt="주차장배치도" src={data.imageURL} width={"400px"} />
+          <div className="preserv_main_t">
+            <h4>[ 배치도 ]</h4>
+            <p>{data.parkingName}</p>
+          </div>
+          <div className="img_box">
+            <img alt="주차장배치도" src={data.imageURL} width={"365px"} />
+          </div>
           <select onChange={handleSelect}>
             <option value="" selected>
               {data.validNum && data.validNum.length !== 0
@@ -75,7 +87,7 @@ const ParkReservation = () => {
             </option>
             {data.validNum &&
               data.validNum.map((item, i) => (
-                <option key={i} value={item.number}>
+                <option key={i} defaultValue={item.number} value={item.number}>
                   {item.number}번
                 </option>
               ))}
@@ -86,7 +98,7 @@ const ParkReservation = () => {
             </>
           ) : (
             <>
-              <button onClick={() => navigate(`/find`)}>← 뒤로</button>
+              <button onClick={goBack}>← 뒤로</button>
             </>
           )}
         </div>

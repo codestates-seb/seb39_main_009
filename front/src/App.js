@@ -21,7 +21,6 @@ import Partnership from "./pages/Partnership/Partnership";
 import Question from "./pages/Question/Question";
 import Parkinglot from "./pages/Parkinglot/Parkinglot";
 import ParkingMap from "./pages/Parkinglot/ParkingMap";
-import Review from "./pages/Review/Review";
 import ParkSearch from "./pages/ParkSearch/ParkSearch";
 import EditReview from "./pages/Review/Editreview";
 import ParkReservation from "./pages/ParkReservation/ParkReservation";

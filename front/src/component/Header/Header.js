@@ -4,13 +4,11 @@ import { FiMenu } from "react-icons/fi";
 import "./Header.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useRefreshToken from "../../hooks/useRefreshToken";
 import SideBarAfter from "./SideBarAfter";
 import SideBarBefore from "./SideBarBefore";
 
 const Header = ({ handlelogOut }) => {
   const navigate = useNavigate();
-  const onSilentRefresh = useRefreshToken();
 
   const [show, setShow] = useState(false);
 
@@ -44,7 +42,6 @@ const Header = ({ handlelogOut }) => {
           />
         )}
       </div>
-      <button onClick={() => onSilentRefresh()}>리프레시토큰</button>
     </div>
   );
 };
