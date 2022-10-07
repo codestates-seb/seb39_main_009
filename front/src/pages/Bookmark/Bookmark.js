@@ -19,7 +19,7 @@ const Bookmark = () => {
   const [error, setError] = useState(null);
   const [del, setDel] = useState("");
 
-  const getBookmark = () => {
+  useEffect(() => {
     axios
       .get(
         `/bookmark`,
@@ -38,11 +38,7 @@ const Bookmark = () => {
       .catch((err) => {
         setError(err);
       });
-  };
-
-  useEffect(() => {
-    getBookmark();
-  }, [del]);
+  }, [auth, del]);
 
   const handleOffBookmark = (pkId) => {
     axios

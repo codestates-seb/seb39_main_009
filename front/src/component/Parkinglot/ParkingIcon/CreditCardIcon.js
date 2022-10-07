@@ -15,7 +15,7 @@ const CreditCardIcon = ({ data }) => {
       }
     };
     getCreditCard();
-  }, []);
+  }, [data]);
 
   return (
     <>

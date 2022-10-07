@@ -13,7 +13,7 @@ const DisabilityIcon = ({ data, disability, setDisability }) => {
       }
     };
     getDisability();
-  }, []);
+  }, [data, setDisability]);
 
   return (
     <div className="icon_container_wheel">

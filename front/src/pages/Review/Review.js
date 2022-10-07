@@ -24,7 +24,18 @@ const Review = () => {
 
   const { data } = useFetch(`/parking/${pkId}/star`);
 
-  const getReviewData = () => {
+  const handleDelReview = () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      axiosPrivate
+        .delete(`/reviews/${pkId}`)
+        .then(() => setDel(pkId))
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  useEffect(() => {
     fetch(
       `${process.env.REACT_APP_BASE_URL}/api/reviews/${pkId}/?page=${page}`,
       {
@@ -45,22 +56,7 @@ const Review = () => {
         setLoading(false);
         // fetch 이후 로딩 해제
       }, 1000);
-  };
-
-  const handleDelReview = () => {
-    if (window.confirm("삭제하시겠습니까?")) {
-      axiosPrivate
-        .delete(`/reviews/${pkId}`)
-        .then(() => setDel(pkId))
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
-
-  useEffect(() => {
-    getReviewData();
-  }, [page, del]);
+  }, [page, del, pkId]);
 
   return (
     <>
