@@ -5,21 +5,41 @@
   flex-direction: row;
   align-items: center;
   position: relative;
+  background-color: rgba(0, 6, 4, 0.1);
 }
 
-p {
-  margin-left: 20px;
-  font-size: larger;
+.logo {
+  margin-left: 80px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
 }
 
-.active {
+
+.logo p {
+  font-size: 25px;
+  margin-top: 8px;
+  margin-left: 8px;
+  color: rgb(6, 137, 95);
+  font-weight: bold;
+}
+
+.logo:hover {
+  cursor: pointer;
+}
+
+.side_active {
   visibility: visible;
 }
 
-.hide {
+.side_hide {
   display: none;
 }
 
+.openbtn {
+  margin-left: 10px;
+  margin-top: 4px;
+}
 .openbtn:hover {
   cursor: pointer;
 }
