@@ -95,12 +95,11 @@ const Login = () => {
               type="type"
               id="email"
               ref={userRef}
-              autoComplete="off"
               placeholder="이메일"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               required
-              autocomplete="new-password"
+              autoComplete="new-password"
             />
             <input
               type="password"
@@ -109,7 +108,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               required
-              autocomplete="off"
+              autoComplete="off"
             />
             <p
               ref={errRef}

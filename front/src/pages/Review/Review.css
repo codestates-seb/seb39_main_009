@@ -233,3 +233,7 @@ ul.pagination li a.active {
   border-color: #097855;
   font-weight: 500;
 }
+
+.rv_date {
+  font-size: 12px;
+}

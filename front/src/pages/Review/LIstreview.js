@@ -1,14 +1,17 @@
 //react-icons
 import { FaStar } from "react-icons/fa";
 
+import "./Review.css";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserIdContext } from "../../context/UserIdContext";
 import RandomImg2 from "../../assets/profileimg/RandomImg2";
+import useDateFormat from "../../hooks/useDateFormat";
 
 const Listreview = ({ pkId, reviews, handleDelReview }) => {
   const navigate = useNavigate();
   const { userId } = useContext(UserIdContext);
+  const dateFormat = useDateFormat();
 
   return (
     <div className="rvlist_container">
@@ -16,7 +19,10 @@ const Listreview = ({ pkId, reviews, handleDelReview }) => {
         <div className="rvlist_user">
           <RandomImg2 size={"reviewer_size"} />
           <div>
-            <p>{reviews.nickName}</p>
+            <div>
+              <p>{reviews.nickName}</p>
+              <p className="rv_date">{dateFormat(reviews.createdDate)}</p>
+            </div>
             <div>
               <FaStar size={15} />
               <p>{reviews.star}</p>
