@@ -3,7 +3,6 @@ import { GrClose } from "react-icons/gr";
 import { BsFillPencilFill } from "react-icons/bs";
 
 import "./Pay.css";
-import { axiosPrivate } from "../../apis/axios";
 import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
@@ -37,7 +36,7 @@ const Pay = () => {
       );
       return false;
     } else {
-      axiosPrivate
+      axios
         .post(`/pay/${reservId}`,
             {}
             ,
@@ -58,7 +57,7 @@ const Pay = () => {
 
   const handleCancel = () => {
     if (window.confirm(`결제을 취소하시겠습니까?`)) {
-      axiosPrivate
+      axios
         .delete(`/pay/${reservId}`,
             {},
             {
