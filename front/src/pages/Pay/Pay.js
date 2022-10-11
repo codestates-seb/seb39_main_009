@@ -3,6 +3,7 @@ import { GrClose } from "react-icons/gr";
 import { BsFillPencilFill } from "react-icons/bs";
 
 import "./Pay.css";
+import axios from "../../apis/axios";
 import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
@@ -14,9 +15,11 @@ import useGetTime from "../../hooks/useGetTime";
 import ReservationCaution from "../../component/Reservation/ReservationCaution";
 import CarNumChange from "../../component/Modal/CarNumChange";
 import { CarNumContext } from "../../context/CarNumContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const Pay = () => {
   const navigate = useNavigate();
+  const { auth } = useContext(AuthContext);
   const { pkId, reservId } = useParams();
   const { reserv, setReserv } = useContext(ReservContext);
   const { newCarNum, setNewCarNum } = useContext(CarNumContext);
@@ -37,13 +40,16 @@ const Pay = () => {
       return false;
     } else {
       axios
-        .post(`/pay/${reservId}`,
-            {}
-            ,
-            { headers: {
-                authorization: localStorage.getItem("authorization"),
-              }
-            })
+        .post(
+          `/pay/${reservId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: auth,
+            },
+          },
+          { withCredentials: true }
+        )
         .then(alert(`감사합니다.\n예약, 결제가 완료되었습니다!`))
         .then(navigate(`/reservation/${reservId}`))
         .catch((err) => {
@@ -58,13 +64,16 @@ const Pay = () => {
   const handleCancel = () => {
     if (window.confirm(`결제을 취소하시겠습니까?`)) {
       axios
-        .delete(`/pay/${reservId}`,
-            {},
-            {
-              headers: {
-                authorization: localStorage.getItem("authorization"),
-              }
-            })
+        .delete(
+          `/pay/${reservId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: auth,
+            },
+          },
+          { withCredentials: true }
+        )
         .then((res) => {
           navigate(`/find`);
           setReserv({});

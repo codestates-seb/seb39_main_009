@@ -8,7 +8,6 @@ import axios from "../../apis/axios";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import Error from "../Error/Error";
 
 const SideBarAfter = ({ show, setShow, handleSideClose, handlelogOut }) => {
   const sidebarBackRef = useRef();
@@ -51,7 +50,7 @@ const SideBarAfter = ({ show, setShow, handleSideClose, handlelogOut }) => {
   return (
     <>
       {loading && ""}
-      {error && <Error />}
+      {error && ""}
       {show ? (
         <>
           <div

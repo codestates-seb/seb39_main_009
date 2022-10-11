@@ -2,16 +2,19 @@
 import { GrClose } from "react-icons/gr";
 
 import "./ParkReservation.css";
+import axios from "../../apis/axios";
 import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { ReservContext } from "../../context/ReservContext";
 import Error from "../../component/Error/Error";
 import Loading from "../../component/Loading/Loading";
+import { AuthContext } from "../../context/AuthContext";
 
 const ParkReservation = () => {
   const navigate = useNavigate();
   const { pkId } = useParams();
+  const { auth } = useContext(AuthContext);
   const { reserv, setReserv } = useContext(ReservContext);
   const [validSpot, setValidSpot] = useState("");
 
@@ -35,13 +38,17 @@ const ParkReservation = () => {
       return false;
     } else {
       axios
-        .post(`/parking/${pkId}/reservation`, reservData,{
-          headers: {
-            "Content-Type": "application/json",
-            authorization: auth,
+        .post(
+          `/parking/${pkId}/reservation`,
+          reservData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: auth,
+            },
           },
-        },
-        { withCredentials: true })
+          { withCredentials: true }
+        )
         .then((res) => {
           navigate(`/pay/${pkId}/${res.data.reservNum}`);
         })
