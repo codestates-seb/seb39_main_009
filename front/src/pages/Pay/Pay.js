@@ -51,7 +51,6 @@ const Pay = () => {
               authorization: localStorage.getItem("authorization"),
             },
           },
-          { withCredentials: true }
         )
         .then((res) => {
           console.log(res);
@@ -72,13 +71,13 @@ const Pay = () => {
       axios
         .delete(
           `/pay/${reservId}`,
+            {},
           {
             headers: {
               "Content-Type": "application/json",
               authorization: auth,
             },
-          },
-          { withCredentials: true }
+          }
         )
         .then((res) => {
           navigate(`/find`);
