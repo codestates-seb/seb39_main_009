@@ -69,8 +69,8 @@ class ReservationServiceTest {
 
         reservation = new Reservation(
                 LocalDateTime.of(2022, 10, 11, 7, 0, 0),
-                LocalDateTime.of(2022, 10, 11, 8, 0, 0),
-                LocalDateTime.of(2022, 10, 1, 8, 30, 0),
+                LocalDateTime.of(2022, 12, 11, 8, 0, 0),
+                LocalDateTime.of(2022, 12, 1, 8, 30, 0),
                 true, 1000L, false, member, parkingPlace);
         reservation2 = new Reservation(
                 LocalDateTime.of(2022, 1, 1, 10, 0, 0),

@@ -153,48 +153,7 @@ class MemberControllerTest {
                 .andExpect(jsonPath("$.point").value(sidebarDto.getPoint()));
     }
 
-    @Test
-    @WithMockCustomUser
-    public void reservationList() throws Exception {
-        ReservationListDto reservationListDto = new ReservationListDto("name", 1, 1L,
-                LocalDateTime.of(2022, 11, 11, 10, 10, 0),
-                LocalDateTime.of(2022, 11, 11, 11, 10, 0));
-        List<ReservationListDto> reservationListDtoList = List.of(reservationListDto);
 
-        given(memberService.viewReservations(Mockito.anyString())).willReturn(reservationListDtoList);
-
-        ResultActions actions = mockMvc.perform(
-                get("/api/member/reservation")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .with(csrf())
-        );
-
-        actions.andExpect(status().isOk())
-                .andExpect(jsonPath("$.[0].name").value(reservationListDto.getName()));
-    }
-
-    @Test
-    @WithMockCustomUser
-    public void viewReservation() throws Exception {
-        long parkingId = 1L;
-        ReservationResponseDto reservationResponseDto = new ReservationResponseDto(
-                "email", "phone", 1L, "parkingName", 1,
-                LocalDateTime.of(2022, 11, 11, 10, 10, 0),
-                LocalDateTime.of(2022, 11, 11, 11, 10, 0), 1000L, parkingId);
-
-        given(reservationService.findByIdForReservationDto(Mockito.anyLong())).willReturn(reservationResponseDto);
-
-        ResultActions actions = mockMvc.perform(
-                get("/api/member/reservation/{id}", parkingId)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .with(csrf())
-        );
-
-        actions.andExpect(status().isOk())
-                .andExpect(jsonPath("$.email").value(reservationResponseDto.getEmail()))
-                .andExpect(jsonPath("$.reservationId").value(reservationResponseDto.getReservationId()))
-                .andExpect(jsonPath("$.price").value(reservationResponseDto.getPrice()));
-    }
 
     //TODO valid 에러남
     @Test
