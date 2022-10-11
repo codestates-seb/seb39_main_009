@@ -3,18 +3,20 @@ import { AiOutlineLeft } from "react-icons/ai";
 import { GrClose } from "react-icons/gr";
 
 import "./Reservation.css";
-import { axiosPrivate } from "../../apis/axios";
-import React from "react";
+import axios from "../../apis/axios";
+import React, { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import ReservationInner from "../../component/Reservation/ReservationInner";
 import ReservationCaution from "../../component/Reservation/ReservationCaution";
 import Loading from "../../component/Loading/Loading";
 import Error from "../../component/Error/Error";
+import { AuthContext } from "../../context/AuthContext";
 
 const Reservation = () => {
   const navigate = useNavigate();
   const { reservId } = useParams();
+  const { auth } = useContext(AuthContext);
 
   const { data, loading, error } = useFetch(`/member/reservation/${reservId}`);
 
@@ -27,8 +29,17 @@ const Reservation = () => {
 
   const handleCancel = () => {
     if (window.confirm(`예약을 취소하시겠습니까?`)) {
-      axiosPrivate
-        .delete(`/pay/${reservId}`)
+      axios
+        .delete(
+          `/pay/${reservId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: auth,
+            },
+          },
+          { withCredentials: true }
+        )
         .then(navigate(`/`))
         .catch((err) => {
           console.log(err);

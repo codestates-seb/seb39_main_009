@@ -2,16 +2,18 @@
 import { FaStar } from "react-icons/fa";
 
 import "./../../pages/Review/Review.css";
-import { axiosPrivate } from "../../apis/axios";
-import { useEffect, useState } from "react";
+import axios from "../../apis/axios";
+import { useContext, useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { Link, useParams } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Listreview from "./LIstreview";
 import Loading from "../../component/Loading/Loading";
+import { AuthContext } from "../../context/AuthContext";
 
 const Review = () => {
   const { pkId } = useParams();
+  const { auth } = useContext(AuthContext);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -26,8 +28,17 @@ const Review = () => {
 
   const handleDelReview = () => {
     if (window.confirm("삭제하시겠습니까?")) {
-      axiosPrivate
-        .delete(`/reviews/${pkId}`)
+      axios
+        .delete(
+          `/reviews/${pkId}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: auth,
+            },
+          },
+          { withCredentials: true }
+        )
         .then(() => setDel(pkId))
         .catch((err) => {
           console.log(err);

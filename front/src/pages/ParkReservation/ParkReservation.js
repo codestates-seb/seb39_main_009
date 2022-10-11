@@ -2,17 +2,19 @@
 import { GrClose } from "react-icons/gr";
 
 import "./ParkReservation.css";
-import { axiosPrivate } from "../../apis/axios";
+import axios from "../../apis/axios";
 import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { ReservContext } from "../../context/ReservContext";
 import Error from "../../component/Error/Error";
 import Loading from "../../component/Loading/Loading";
+import { AuthContext } from "../../context/AuthContext";
 
 const ParkReservation = () => {
   const navigate = useNavigate();
   const { pkId } = useParams();
+  const { auth } = useContext(AuthContext);
   const { reserv, setReserv } = useContext(ReservContext);
   const [validSpot, setValidSpot] = useState("");
 
@@ -35,12 +37,18 @@ const ParkReservation = () => {
       alert(`자리를 선택해주세요.`);
       return false;
     } else {
-      axiosPrivate
-        .post(`/parking/${pkId}/reservation`, reservData, {
-          headers: {
-            authorization: localStorage.getItem("authorization"),
-          }
-        })
+      axios
+        .post(
+          `/parking/${pkId}/reservation`,
+          reservData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              authorization: auth,
+            },
+          },
+          { withCredentials: true }
+        )
         .then((res) => {
           navigate(`/pay/${pkId}/${res.data.reservNum}`);
         })
@@ -72,7 +80,7 @@ const ParkReservation = () => {
       {error && <Error />}
       <div className="preserv_container">
         <div className="preserv_header">
-          <h2>주차 자리 선택</h2>
+          <h2>주차면 선택</h2>
           <GrClose className="closebtn" size={22} onClick={handleCancel} />
         </div>
         <div className="preserv_main">
