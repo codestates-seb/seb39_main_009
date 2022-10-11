@@ -22,7 +22,7 @@ import java.util.Date;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @Slf4j
-public class RefreshTokenController {
+public class TokenController {
 
     private final SecretCode secretCode;
     private final TokenRepository tokenRepository;

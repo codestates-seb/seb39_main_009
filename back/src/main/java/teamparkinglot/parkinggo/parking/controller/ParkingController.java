@@ -55,18 +55,6 @@ public class ParkingController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @GetMapping("/parking/{id}/reservation")
-    public ResponseEntity parkingMap(@PathVariable long id,
-                                     @RequestParam("parkingStartDateTime") String parkingStartDateTime,
-                                     @RequestParam("parkingEndDateTime") String parkingEndDateTime){
-
-        SelectTimeDto selectTimeDto = new SelectTimeDto(parkingStartDateTime, parkingEndDateTime);
-
-        ParkingMapDto map = parkingService.findMap(id, selectTimeDto);
-
-        return new ResponseEntity<>(map, HttpStatus.OK);
-    }
-
     @GetMapping("/parking/{id}/calculation")
     public ResponseEntity calculationParkingPriceAndTime(@PathVariable long id,
                                                          @RequestParam("parkingStartDateTime") String parkingStartDateTime,
@@ -75,27 +63,6 @@ public class ParkingController {
 
         ParkingCalculateDto parkingCalculateDto = parkingService.calculateParkingPriceAndTime(id, parkingStartDateTime, parkingEndDateTime, principalDetails.getUsername());
         return new ResponseEntity<>(parkingCalculateDto, HttpStatus.OK);
-    }
-
-    // 아직 사용 안하는 친구
-    @GetMapping("/parking/{id}/reservation/{number}")
-    public ResponseEntity checkTime(@PathVariable long id, @PathVariable int number) {
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PostMapping("/parking/{id}/reservation")
-    public ResponseEntity payButton(@PathVariable long id, @RequestBody ParkingDateTimeDto parkingDateTimeDto,
-                                    Authentication authentication) {
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        String email = principalDetails.getUsername();
-
-        CreateReservDto reservation = parkingService.createReservation(id, parkingDateTimeDto, email);
-
-        // 일정시간 후 checkPayment 1번만 실행, 비동기
-        reservationService.reservationPaymentCheck(id);
-
-        return new ResponseEntity<>(reservation, HttpStatus.CREATED);
     }
 
     @GetMapping("/parking")

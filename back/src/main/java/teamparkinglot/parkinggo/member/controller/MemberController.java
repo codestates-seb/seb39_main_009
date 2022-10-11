@@ -66,7 +66,8 @@ public class MemberController {
     }
 
     @PatchMapping("/reset-password/{uuid}")
-    public ResponseEntity putResetPwd(@PathVariable String uuid, @RequestBody @Valid ResetPwdDto resetPwdDto) {
+    public ResponseEntity putResetPwd(@PathVariable String uuid,
+                                      @RequestBody @Valid ResetPwdDto resetPwdDto) {
 
         uuidService.putPwd(uuid, resetPwdDto.getPassword());
 
@@ -74,38 +75,19 @@ public class MemberController {
     }
 
     @GetMapping("/member")
-    public ResponseEntity getSidebar(Authentication authentication) {
+    public ResponseEntity getSidebar(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        String email = getEmail(authentication);
+        String email = principalDetails.getUsername();
 
         SidebarDto sidebarDto = memberService.viewSidebar(email);
 
         return new ResponseEntity<>(sidebarDto, HttpStatus.OK);
     }
 
-    @GetMapping("/member/reservation")
-    public ResponseEntity reservationList(Authentication authentication) {
-
-        String email = getEmail(authentication);
-
-        List<ReservationListDto> reservationListDto = memberService.viewReservations(email);
-
-        return new ResponseEntity<>(reservationListDto, HttpStatus.OK);
-    }
-
-    @GetMapping("/member/reservation/{id}")
-    public ResponseEntity viewReservation(@PathVariable Long id) {
-
-        ReservationResponseDto reservationResponseDto = reservationService.findByIdForReservationDto(id);
-
-        return new ResponseEntity<>(reservationResponseDto, HttpStatus.OK);
-    }
-
     @PatchMapping("/member")
     public ResponseEntity edit(@RequestBody @Valid MyPagePutDto myPagePutDto,
-                               Authentication authentication) {
+                               @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         String email = principalDetails.getUsername();
 
         memberService.myPageModify(myPagePutDto, email);

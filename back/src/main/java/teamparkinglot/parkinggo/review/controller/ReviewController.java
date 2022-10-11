@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.review.dto.ReviewPostDto;
 import teamparkinglot.parkinggo.review.dto.ReviewResDto;
@@ -40,11 +41,9 @@ public class ReviewController {
     @PostMapping("/reviews/{parkingId}")
     public ResponseEntity postReview(@PathVariable long parkingId,
                                      @RequestBody ReviewPostDto reviewPostDto,
-                                     Authentication authentication) {
+                                     @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-
-        reviewService.createReview(parkingId, reviewPostDto, principal.getUsername());
+        reviewService.createReview(parkingId, reviewPostDto, principalDetails.getUsername());
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -62,19 +61,17 @@ public class ReviewController {
     @PatchMapping("/reviews/{parkingId}")
     public ResponseEntity patchReview(@PathVariable long parkingId,
                                       @RequestBody @Valid ReviewPostDto reviewPostDto,
-                                      Authentication authentication) {
+                                      @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-        reviewService.editReview(principal.getUsername(), parkingId, reviewPostDto.getStar(), reviewPostDto.getBody());
+        reviewService.editReview(principalDetails.getUsername(), parkingId, reviewPostDto.getStar(), reviewPostDto.getBody());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/reviews/{parkingId}")
     public ResponseEntity deleteReview(@PathVariable long parkingId,
-                                       Authentication authentication) {
+                                       @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-        reviewService.deleteReview(principal.getUsername(), parkingId);
+        reviewService.deleteReview(principalDetails.getUsername(), parkingId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

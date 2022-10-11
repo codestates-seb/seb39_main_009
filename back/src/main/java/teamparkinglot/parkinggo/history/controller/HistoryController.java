@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,12 +23,11 @@ public class HistoryController {
 
 
     @GetMapping("/history")
-    public ResponseEntity searchHistory(Authentication authentication) {
+    public ResponseEntity searchHistory(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         String email = null;
 
-        if (authentication != null) {
-            PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        if (principalDetails != null) {
             email = principalDetails.getUsername();
         }
 
