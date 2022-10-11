@@ -7,8 +7,8 @@
 
 name: Java CI with Gradle
 
-on:
-  pull_request:
+on:    
+  push:
     branches: [ "main" ]
 
 permissions:
@@ -44,6 +44,12 @@ jobs:
       uses: actions/setup-node@v3.4.1
       with:
         node-version: '16.17.0'
+        
+#     - name: create .env
+#       run: touch ./front/.env
+      
+#     - name: write env
+#       run: echo REACT_APP_BASE_URL = ${{ secrets.ENV_SECRET_KEY }} > ./front/.env
         
     - name: npm install
       run: npm install

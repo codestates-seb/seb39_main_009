@@ -25,6 +25,15 @@ jasypt:
   encryptor:
     bean: jasyptStringEncryptor
 
+#server:
+#  ssl:
+#    enabled: true
+#    key-store-type: PKCS12
+#    key-store-password: ENC(ujPpDPnF7tSpNyUOcixUGA==)
+#    protocol: TLS
+#    enabled-protocols: TLSv1.2
+#    key-store: /home/ubuntu/action/spring_key.p12
+
 ---
 
 spring:
