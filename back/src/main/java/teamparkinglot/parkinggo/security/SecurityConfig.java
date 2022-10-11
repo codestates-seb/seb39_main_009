@@ -62,7 +62,14 @@ public class SecurityConfig {
 
         http
                 .authorizeRequests()
-                .antMatchers("/api/member", "/api/member/*", "/api/bookmark", "/api/bookmark/*", "/api/pay/*").authenticated()
+                .antMatchers(
+                        "/api/member",
+                        "/api/member/*",
+                        "/api/bookmark",
+                        "/api/bookmark/*",
+                        "/api/pay/*",
+                        "/api/{parkingId}/reservation",
+                        "/api/parking").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/reviews/{parkingId}").permitAll()
                 .antMatchers("/api/reviews/{parkingId}").authenticated()
                 .anyRequest().permitAll();
@@ -78,7 +85,7 @@ public class SecurityConfig {
     private CorsConfigurationSource corsConfig() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.addAllowedOriginPattern("*");
+        configuration.addAllowedOriginPattern("https://juchago.com");
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);

@@ -15,7 +15,7 @@ public class ExceptionController {
 
     @GetMapping("/entrypoint")
     public ResponseEntity AuthenticationException() {
-        throw new CustomAuthenticationEntrypointException();
+        throw new CustomAuthenticationEntrypointException("인증 문제 발생!");
     }
 
     @GetMapping("/accessDenied")

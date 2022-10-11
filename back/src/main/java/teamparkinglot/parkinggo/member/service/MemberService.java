@@ -37,10 +37,6 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public MyPageResDto findMyPage(String email) {
-        return memberRepository.findMyPage(email);
-    }
-
     @Transactional
     public void myPageModify(MyPagePutDto myPagePutDto, String email) {
 

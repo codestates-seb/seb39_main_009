@@ -69,13 +69,8 @@ public class ReservationService {
         return reservationResponseDto;
     }
 
-    @Transactional
-    public void checkPayment(Long id)  {
-        Reservation reservation = findVerifiedReservation(id);
-        if(!reservation.getPayOrNot()) reservationRepository.delete(reservation);
-    }
-
     @Async
+    @Transactional
     public void reservationPaymentCheck(long id) {
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -87,5 +82,11 @@ public class ReservationService {
             }
         };
         timer.schedule(timerTask, 600000, 1000);
+    }
+
+    @Transactional
+    public void checkPayment(Long id)  {
+        Reservation reservation = findVerifiedReservation(id);
+        if(!reservation.getPayOrNot()) reservationRepository.delete(reservation);
     }
 }
