@@ -35,12 +35,14 @@ const ParkReservation = () => {
       alert(`자리를 선택해주세요.`);
       return false;
     } else {
-      axiosPrivate
-        .post(`/parking/${pkId}/reservation`, reservData, {
+      axios
+        .post(`/parking/${pkId}/reservation`, reservData,{
           headers: {
-            authorization: localStorage.getItem("authorization"),
-          }
-        })
+            "Content-Type": "application/json",
+            authorization: auth,
+          },
+        },
+        { withCredentials: true })
         .then((res) => {
           navigate(`/pay/${pkId}/${res.data.reservNum}`);
         })
@@ -72,7 +74,7 @@ const ParkReservation = () => {
       {error && <Error />}
       <div className="preserv_container">
         <div className="preserv_header">
-          <h2>주차 자리 선택</h2>
+          <h2>주차면 선택</h2>
           <GrClose className="closebtn" size={22} onClick={handleCancel} />
         </div>
         <div className="preserv_main">
