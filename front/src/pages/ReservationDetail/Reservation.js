@@ -40,8 +40,13 @@ const Reservation = () => {
           },
           { withCredentials: true }
         )
-        .then(navigate(`/`))
+        .then((res) => {
+          console.log(res);
+          alert(`예약이 정상적으로 취소되었습니다!`);
+          navigate(`/find`);
+        })
         .catch((err) => {
+          alert(err.response.data.message);
           console.log(err);
         });
     }

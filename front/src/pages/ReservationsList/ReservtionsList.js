@@ -3,25 +3,45 @@ import { GrClose } from "react-icons/gr";
 import { AiOutlineRight } from "react-icons/ai";
 
 import "./ReservationsList.css";
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useDateFormat from "../../hooks/useDateFormat";
-import useFetch from "../../hooks/useFetch";
 import Loading from "../../component/Loading/Loading";
 import Error from "../../component/Error/Error";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "../../apis/axios";
 
 const ReservationsList = () => {
   const navigate = useNavigate();
   const dateFormat = useDateFormat();
 
-  const { data, loading, error } = useFetch(`/member/reservation`);
+  // const { data, loading, error } = useFetch(`/member/reservation`);
 
-  if (loading) {
-    return <Loading />;
-  }
-  if (error) {
-    return <Error />;
-  }
+  const { auth } = useContext(AuthContext);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(
+        `/member/reservation`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            authorization: auth,
+          },
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err);
+      });
+  }, [auth]);
 
   return (
     <>

@@ -32,6 +32,8 @@ const Pay = () => {
     setModal(!modal);
   };
 
+  console.log(auth);
+
   const handleReserv = () => {
     if (check === false) {
       alert(
@@ -45,19 +47,22 @@ const Pay = () => {
           {
             headers: {
               "Content-Type": "application/json",
-              authorization: auth,
+              authorization: localStorage.getItem("authorization"),
             },
           },
           { withCredentials: true }
         )
-        .then(alert(`감사합니다.\n예약, 결제가 완료되었습니다!`))
-        .then(navigate(`/reservation/${reservId}`))
+        .then((res) => {
+          console.log(res);
+          alert(`감사합니다.\n예약, 결제가 완료되었습니다!`);
+          navigate(`/reservation/${reservId}`);
+          localStorage.removeItem("reserv");
+          setReserv({});
+          setNewCarNum("");
+        })
         .catch((err) => {
           console.log(err);
         });
-      localStorage.removeItem("reserv");
-      setReserv({});
-      setNewCarNum("");
     }
   };
 
