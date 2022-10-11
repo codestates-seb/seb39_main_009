@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,6 @@ import teamparkinglot.parkinggo.member.dto.*;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.mapper.MemberMapper;
 import teamparkinglot.parkinggo.member.service.MemberService;
-import teamparkinglot.parkinggo.reservation.dto.ReservationResponseDto;
-import teamparkinglot.parkinggo.reservation.service.ReservationService;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 import teamparkinglot.parkinggo.member.uuid.UuidService;
 import teamparkinglot.parkinggo.member.uuid.Uuid;
@@ -35,7 +32,6 @@ public class MemberController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MailService mailService;
     private final UuidService uuidService;
-    private final ReservationService reservationService;
 
     @PostMapping("/join")
     public ResponseEntity joinUser(@Valid @RequestBody MemberJoinDto memberJoinDto) {
@@ -103,10 +99,4 @@ public class MemberController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    private static String getEmail(Authentication authentication) {
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        return principalDetails.getUsername();
-    }
-
 }

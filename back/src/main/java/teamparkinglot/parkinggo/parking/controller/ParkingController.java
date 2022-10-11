@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import teamparkinglot.parkinggo.history.service.HistoryService;
@@ -12,7 +11,6 @@ import teamparkinglot.parkinggo.parking.dto.*;
 import teamparkinglot.parkinggo.parking.entity.Parking;
 import teamparkinglot.parkinggo.parking.mapper.ParkingMapper;
 import teamparkinglot.parkinggo.parking.service.ParkingService;
-import teamparkinglot.parkinggo.reservation.service.ReservationService;
 import teamparkinglot.parkinggo.review.service.ReviewService;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 
@@ -28,19 +26,17 @@ public class ParkingController {
     private final ParkingService parkingService;
     private final ParkingMapper mapper;
     private final HistoryService historyService;
-    private final ReservationService reservationService;
     private final ReviewService reviewService;
 
     @GetMapping("/parking/{id}")
     public ResponseEntity viewParking(@PathVariable long id,
-                                      Authentication authentication) {
+                                      @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         Parking parking = parkingService.findVerifiedParking(id);
         ParkingResDto parkingResDto = mapper.parkingToParkingResDto(parking);
 
-        if (authentication != null) {
-            PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
-            historyService.saveHistory(id, principal.getUsername());
+        if (principalDetails != null) {
+            historyService.saveHistory(id, principalDetails.getUsername());
         }
 
         return new ResponseEntity<>(parkingResDto, HttpStatus.OK);
