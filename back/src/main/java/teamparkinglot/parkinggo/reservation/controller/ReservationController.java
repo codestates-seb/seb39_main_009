@@ -34,7 +34,7 @@ public class ReservationController {
                                    @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         String email = principalDetails.getUsername();
-        log.info("예약 활성화! 요청 email = {}", email);
+        log.info("예약 최종 결제! 요청 email = {}", email);
 
         reservationService.finalPayment(reservationId);
 
