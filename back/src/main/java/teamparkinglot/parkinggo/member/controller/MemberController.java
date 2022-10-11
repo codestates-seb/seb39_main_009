@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,6 @@ import teamparkinglot.parkinggo.member.dto.*;
 import teamparkinglot.parkinggo.member.entity.Member;
 import teamparkinglot.parkinggo.member.mapper.MemberMapper;
 import teamparkinglot.parkinggo.member.service.MemberService;
-import teamparkinglot.parkinggo.reservation.dto.ReservationResponseDto;
-import teamparkinglot.parkinggo.reservation.service.ReservationService;
 import teamparkinglot.parkinggo.security.principal.PrincipalDetails;
 import teamparkinglot.parkinggo.member.uuid.UuidService;
 import teamparkinglot.parkinggo.member.uuid.Uuid;
@@ -35,7 +32,6 @@ public class MemberController {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MailService mailService;
     private final UuidService uuidService;
-    private final ReservationService reservationService;
 
     @PostMapping("/join")
     public ResponseEntity joinUser(@Valid @RequestBody MemberJoinDto memberJoinDto) {
@@ -66,7 +62,8 @@ public class MemberController {
     }
 
     @PatchMapping("/reset-password/{uuid}")
-    public ResponseEntity putResetPwd(@PathVariable String uuid, @RequestBody @Valid ResetPwdDto resetPwdDto) {
+    public ResponseEntity putResetPwd(@PathVariable String uuid,
+                                      @RequestBody @Valid ResetPwdDto resetPwdDto) {
 
         uuidService.putPwd(uuid, resetPwdDto.getPassword());
 
@@ -74,38 +71,19 @@ public class MemberController {
     }
 
     @GetMapping("/member")
-    public ResponseEntity getSidebar(Authentication authentication) {
+    public ResponseEntity getSidebar(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        String email = getEmail(authentication);
+        String email = principalDetails.getUsername();
 
         SidebarDto sidebarDto = memberService.viewSidebar(email);
 
         return new ResponseEntity<>(sidebarDto, HttpStatus.OK);
     }
 
-    @GetMapping("/member/reservation")
-    public ResponseEntity reservationList(Authentication authentication) {
-
-        String email = getEmail(authentication);
-
-        List<ReservationListDto> reservationListDto = memberService.viewReservations(email);
-
-        return new ResponseEntity<>(reservationListDto, HttpStatus.OK);
-    }
-
-    @GetMapping("/member/reservation/{id}")
-    public ResponseEntity viewReservation(@PathVariable Long id) {
-
-        ReservationResponseDto reservationResponseDto = reservationService.findByIdForReservationDto(id);
-
-        return new ResponseEntity<>(reservationResponseDto, HttpStatus.OK);
-    }
-
     @PatchMapping("/member")
     public ResponseEntity edit(@RequestBody @Valid MyPagePutDto myPagePutDto,
-                               Authentication authentication) {
+                               @AuthenticationPrincipal PrincipalDetails principalDetails) {
 
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
         String email = principalDetails.getUsername();
 
         memberService.myPageModify(myPagePutDto, email);
@@ -121,10 +99,4 @@ public class MemberController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
-    private static String getEmail(Authentication authentication) {
-        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        return principalDetails.getUsername();
-    }
-
 }
