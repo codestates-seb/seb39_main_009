@@ -122,34 +122,7 @@ class ParkingControllerTest {
                 .andExpect(jsonPath("$.parkingMap").value(parkingResDto.getParkingMap()));
     }
 
-    @Test
-    @WithMockCustomUser
-    public void parkingMap() throws Exception {
-        long parkingId = 1L;
-        String parkingStartDateTime = "2022-01-01 08:00";
-        String parkingEndDateTime = "2022-01-01 09:00";
-        SelectTimeDto selectTimeDto = new SelectTimeDto(parkingStartDateTime, parkingEndDateTime);
-        ParkingMapDto map = new ParkingMapDto();
-        map.setImageURL("url");
-        map.setValidNum(List.of(new ValidNum(1)));
-        given(parkingService.findMap(parkingId, selectTimeDto)).willReturn(map);
 
-        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
-        multiValueMap.add("parkingStartDateTime", parkingStartDateTime);
-        multiValueMap.add("parkingEndDateTime", parkingEndDateTime);
-
-        ResultActions actions = mockMvc.perform(
-                get("/api/parking/{parkingId}/reservation", parkingId)
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .params(multiValueMap)
-        );
-
-        actions
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.imageURL").value(map.getImageURL()))
-                .andExpect(jsonPath("$.validNum[0].number").value(map.getValidNum().get(0).getNumber()));
-    }
 
     //TODO 흐음.....
 //    @Test
