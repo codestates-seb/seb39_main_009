@@ -44,6 +44,7 @@ const Pay = () => {
       axios
         .post(
           `/pay/${reservId}`,
+          {},
           {
             headers: {
               "Content-Type": "application/json",
