@@ -28,9 +28,17 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
+    "extends": ["react-app"],
+    "rules": {
+      "no-unused-vars": "warn"
+    },
+    "overrides": [
+      {
+        "files": ["**/*.js"],
+        "rules": {
+          "max-len": "off"
+        }
+      }
     ]
   },
   "browserslist": {
