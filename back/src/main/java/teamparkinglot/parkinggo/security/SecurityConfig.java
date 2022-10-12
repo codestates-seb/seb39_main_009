@@ -68,8 +68,7 @@ public class SecurityConfig {
                         "/api/bookmark",
                         "/api/bookmark/*",
                         "/api/pay/*",
-                        "/api/{parkingId}/reservation",
-                        "/api/parking").authenticated()
+                        "/api/{parkingId}/reservation").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/reviews/{parkingId}").permitAll()
                 .antMatchers("/api/reviews/{parkingId}").authenticated()
                 .anyRequest().permitAll();
